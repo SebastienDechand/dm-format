@@ -1,6 +1,86 @@
-@if (program) {
-  <div>
-    <h1>{{ program.title }}</h1>
-    <p>{{ program.description }}</p>
+<section *ngIf="program; else noProgram" class="program-detail">
+  <!-- Bannière -->
+  <div class="banner" [ngStyle]="{ 'background-image': getBackgroundImage() }">
+    <div class="banner-overlay">
+      <h1>{{ program.title }}</h1>
+    </div>
   </div>
-}
+
+  <!-- Détails du programme -->
+  <div class="program-container">
+    <div class="program-info">
+      <h2>À propos de cette formation</h2>
+      <p>{{ program.description }}</p>
+
+      <div class="details">
+        <div class="detail-item">
+          <i class="fa-solid fa-clock"></i>
+          <span><strong>Durée :</strong> {{ program.duration }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-people-group"></i>
+          <span><strong>Public cible :</strong> {{ program.audience }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-check"></i>
+          <span><strong>Pré-requis :</strong> {{ program.prerequisite }}</span>
+        </div>
+      </div>
+
+      <a class="cta-button" href="mailto:contact@votre-entreprise.com">
+        📩 S'inscrire à cette formation
+      </a>
+    </div>
+
+    <!-- Images -->
+    <div class="program-images">
+      <img
+        *ngFor="let image of program.images"
+        [src]="image"
+        [alt]="program.title"
+      />
+    </div>
+
+    <!-- Contenu -->
+    <div class="program-content">
+      <h2>Contenu de la formation</h2>
+      <p>{{ program.summary }}</p>
+
+      <div class="content-list">
+        <p>{{ program.content }}</p>
+        <ul class="content-details">
+          <li *ngFor="let item of program.details">{{ item }}</li>
+        </ul>
+      </div>
+
+      <h2>Méthodologie</h2>
+      <ul>
+        <li *ngFor="let method of program.methodology">{{ method }}</li>
+      </ul>
+    </div>
+
+    <!-- Témoignages -->
+    <div class="testimonials">
+      <h2>💬 Témoignages d'anciens participants</h2>
+      <div *ngIf="program.testimonials.length > 0; else noTestimonials">
+        <div
+          *ngFor="let testimonial of program.testimonials"
+          class="testimonial"
+        >
+          <p>"{{ testimonial.feedback }}"</p>
+          <span>- {{ testimonial.name }}, {{ testimonial.role }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Message si le programme n'existe pas -->
+<ng-template #noProgram>
+  <p>Le programme demandé n'existe pas.</p>
+</ng-template>
+
+<!-- Message si aucun témoignage n'est disponible -->
+<ng-template #noTestimonials>
+  <p>Aucun témoignage n'est disponible pour le moment.</p>
+</ng-template>

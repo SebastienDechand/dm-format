@@ -1,0 +1,24 @@
+.hero {
+  text-align: center;
+  margin: 2rem 0;
+}
+.programs-overview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.program-card {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+.btn {
+  color: white;
+  background: #007bff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 1rem;
+}
