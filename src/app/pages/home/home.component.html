@@ -1,1 +1,16 @@
-<p>home works!</p>
+<section class="hero">
+  <h1>Bienvenue chez DM - FORMAT</h1>
+  <p>Découvrez nos formations en Sauvetage et Secourisme du Travail.</p>
+</section>
+
+<section class="programs-overview">
+  <h2>Nos formations</h2>
+  @for (program of programs; track $index) {
+    <div class="program-card">
+      <img src="{{ program.image }}" alt="{{ program.title }}">
+      <h3>{{ program.title }}</h3>
+      <p>{{ program.description }}</p>
+      <a [routerLink]="['/program', program.id]" class="btn">En savoir plus</a>
+    </div>
+  }
+</section>
