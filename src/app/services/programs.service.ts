@@ -122,8 +122,7 @@ export class ProgramsService {
     {
       id: 4,
       title: 'Aide pédagogique et administrative',
-      description:
-        'Support continu pour formateurs SST sur les aspects pédagogiques et administratifs.',
+      description: 'Support continu pour formateurs SST.',
       duration: 'Flexible',
       audience: 'Formateurs en secourisme.',
       prerequisite: 'Aucun',

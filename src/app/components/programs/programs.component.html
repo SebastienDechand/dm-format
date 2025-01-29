@@ -1,0 +1,15 @@
+<section class="programs-overview">
+  <h2>Notre catalogue de <span>formations</span></h2>
+  <div class="programs">
+    <div *ngFor="let program of programs">
+      <div class="program-card">
+        <img src="{{ program.banner }}" alt="{{ program.title }}" />
+        <h3>{{ program.title }}</h3>
+        <p>{{ program.description }}</p>
+        <a [routerLink]="['/program', program.id]" class="btn"
+          >En savoir plus</a
+        >
+      </div>
+    </div>
+  </div>
+</section>
