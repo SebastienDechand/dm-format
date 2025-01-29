@@ -1,6 +1,12 @@
-<section *ngIf="program; else noProgram" class="program-detail">
+<section
+  *ngIf="program$ | async as program; else noProgram"
+  class="program-detail"
+>
   <!-- Bannière -->
-  <div class="banner" [ngStyle]="{ 'background-image': getBackgroundImage() }">
+  <div
+    class="banner"
+    [ngStyle]="{ 'background-image': getBackgroundImage(program) }"
+  >
     <div class="banner-overlay">
       <h1>{{ program.title }}</h1>
     </div>

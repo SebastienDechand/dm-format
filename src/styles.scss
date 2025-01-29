@@ -3,7 +3,7 @@
   --secondary-color: #696969;
   --border-color: #e0e0e0;
   --success-color: #28a745;
-  --info-color: #007bff;
+  --info-color: #8a222d;
   --warning-color: #ffc107;
   --danger-color: #dc3545;
   --light-color: white;
@@ -48,6 +48,10 @@ a {
   &:hover {
     color: var(--primary-color);
   }
+}
+
+p {
+  font-size: 20px;
 }
 
 html,
