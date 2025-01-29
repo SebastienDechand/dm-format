@@ -1,9 +1,33 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { ProgramDetailComponent } from './pages/program-detail/program-detail.component';
 
 export const routes: Routes = [
-  {path: '', component: HomeComponent},
-  { path: 'program/:id', component: ProgramDetailComponent },
-  {path: '**', redirectTo: ''}
+  { path: '', component: HomeComponent },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./pages/about/about.component').then((m) => m.AboutComponent),
+  },
+  {
+    path: 'organisation',
+    loadComponent: () =>
+      import('./pages/organisation/organisation.component').then(
+        (m) => m.OrganisationComponent
+      ),
+  },
+  {
+    path: 'program/:id',
+    loadComponent: () =>
+      import('./pages/program-detail/program-detail.component').then(
+        (m) => m.ProgramDetailComponent
+      ),
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./pages/contact/contact.component').then(
+        (m) => m.ContactComponent
+      ),
+  },
+  { path: '**', redirectTo: '' },
 ];

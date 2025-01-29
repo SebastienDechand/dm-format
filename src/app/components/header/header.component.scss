@@ -1,0 +1,45 @@
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: var(--dark-color);
+  z-index: 1000;
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 70px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--background-color);
+
+  .logo-btn {
+    color: var(--primary-color);
+    font-size: 24px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button {
+    color: var(--dark-color);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px 25px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 10px;
+    .contact {
+      color: var(--light-color);
+      background-color: var(--primary-color);
+      transition: all 0.3s;
+
+      &:hover {
+        background-color: var(--info-color);
+      }
+    }
+  }
+}

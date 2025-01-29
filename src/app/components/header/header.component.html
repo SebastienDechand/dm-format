@@ -1,7 +1,28 @@
 <nav>
-  <a [routerLink]="['/']">Home</a>
-  <a [routerLink]="['/program', 1]">Programme 1</a>
-  <a [routerLink]="['/program', 2]">Programme 2</a>
-  <a [routerLink]="['/program', 3]">Programme 3</a>
-  <a [routerLink]="['/program', 4]">Programme 4</a>
+  <p mat-button [routerLink]="['/']" class="logo-btn">DM FORMAT</p>
+  <div class="nav-links">
+    <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="['/program', 1]">
+        Acteurs Sauveteur Secouriste du Travail
+      </button>
+      <button mat-menu-item [routerLink]="['/program', 2]">
+        Formateurs Sauveteur Secouriste du Travail
+      </button>
+      <button mat-menu-item [routerLink]="['/program', 3]">
+        Initiations aux premiers secours
+      </button>
+      <button mat-menu-item [routerLink]="['/program', 4]">
+        Aide pédagogique et administrative
+      </button>
+    </mat-menu>
+
+    <button mat-button [routerLink]="['/about']">Qui sommes-nous</button>
+    <button mat-button [routerLink]="['/organisation']">
+      Conditions d'organisation
+    </button>
+    <button mat-button [routerLink]="['/contact']" class="contact">
+      Contactez-nous !
+    </button>
+  </div>
 </nav>
