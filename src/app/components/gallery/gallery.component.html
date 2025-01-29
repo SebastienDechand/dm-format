@@ -1,0 +1,45 @@
+<section class="gallery">
+  <h2>Galerie de Nos <span>Formations</span></h2>
+  <p class="gallery-description">
+    Découvrez quelques moments de nos formations en action.
+  </p>
+
+  <div class="gallery-grid">
+    <div
+      class="gallery-item"
+      *ngFor="let image of images; let i = index"
+      (click)="openLightbox(image, i)"
+    >
+      <img [src]="image.src" [alt]="image.title" />
+      <div class="gallery-caption">
+        <h3>{{ image.title }}</h3>
+        <p>{{ image.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" *ngIf="selectedImage">
+    <span class="close-btn" (click)="closeLightbox()">✖</span>
+    <button
+      class="prev"
+      (click)="previousImage()"
+      *ngIf="currentImageIndex > 0"
+    >
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <div class="lightbox-content">
+      <img [src]="selectedImage.src" [alt]="selectedImage.title" />
+      <div class="lightbox-caption">
+        <h3>{{ selectedImage.title }}</h3>
+        <p>{{ selectedImage.description }}</p>
+      </div>
+    </div>
+    <button
+      class="next"
+      (click)="nextImage()"
+      *ngIf="currentImageIndex < images.length - 1"
+    >
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+</section>
