@@ -9,6 +9,7 @@
   --light-color: white;
   --dark-color: #3d4145;
   --background-color: #f9f9f9;
+  --background-color-dark: #f4f4f4;
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
@@ -38,6 +39,15 @@ h4 {
 ul {
   list-style: none;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  &:hover {
+    color: var(--primary-color);
+  }
 }
 
 html,

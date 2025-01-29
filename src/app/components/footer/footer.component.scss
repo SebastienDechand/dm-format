@@ -1,0 +1,66 @@
+/* 📌 Footer */
+.footer {
+  background: var(--background-color-dark);
+  color: var(--dark-color);
+  padding: 2rem 0 0;
+  font-family: 'Arial', sans-serif;
+  border-top: 1px solid var(--border-color);
+}
+
+/* 📌 Conteneur principal */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  padding: 1rem;
+}
+
+/* 📍 Section individuelle */
+.footer-section {
+  flex: 1;
+  min-width: 220px;
+  margin-bottom: 1.5rem;
+}
+
+.footer-section h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+/* 🎨 Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+/* 📜 Liens */
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+  color: var(--dark-color);
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  background: var(--dark-color);
+  color: var(--light-color);
+  padding: 1rem 0;
+  font-size: 0.9rem;
+}
