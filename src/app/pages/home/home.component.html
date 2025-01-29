@@ -1,16 +1,17 @@
-<section class="hero">
-  <h1>Bienvenue chez DM - FORMAT</h1>
-  <p>Découvrez nos formations en Sauvetage et Secourisme du Travail.</p>
-</section>
+<app-banner></app-banner>
 
 <section class="programs-overview">
-  <h2>Nos formations</h2>
-  @for (program of programs; track $index) {
-    <div class="program-card">
-      <img src="{{ program.image }}" alt="{{ program.title }}">
-      <h3>{{ program.title }}</h3>
-      <p>{{ program.description }}</p>
-      <a [routerLink]="['/program', program.id]" class="btn">En savoir plus</a>
+  <h2>Notre catalogue de <span>formations</span></h2>
+  <div class="programs">
+    <div *ngFor="let program of programs">
+      <div class="program-card">
+        <img src="{{ program.banner }}" alt="{{ program.title }}" />
+        <h3>{{ program.title }}</h3>
+        <p>{{ program.description }}</p>
+        <a [routerLink]="['/program', program.id]" class="btn"
+          >En savoir plus</a
+        >
+      </div>
     </div>
-  }
+  </div>
 </section>

@@ -151,6 +151,10 @@ export class ProgramsService {
     },
   ];
 
+  getPrograms() {
+    return this.programs;
+  }
+
   getProgramById(id: number) {
     return this.programs.find((program) => program.id === id);
   }
