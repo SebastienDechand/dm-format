@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Program } from '../../models/programs.models';
 import { ProgramsService } from '../../services/programs.service';
 import { RouterLink } from '@angular/router';
@@ -11,10 +11,14 @@ import { CommonModule } from '@angular/common';
   styleUrl: './programs.component.scss',
   standalone: true,
 })
-export class ProgramsComponent {
+export class ProgramsComponent implements OnInit {
   programs: Program[] = [];
 
-  constructor(private programsService: ProgramsService) {
-    this.programs = this.programsService.getPrograms();
+  constructor(private programsService: ProgramsService) {}
+
+  ngOnInit() {
+    this.programsService.getPrograms().subscribe((data) => {
+      this.programs = data;
+    });
   }
 }

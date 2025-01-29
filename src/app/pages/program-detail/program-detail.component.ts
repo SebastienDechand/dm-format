@@ -1,8 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProgramsService } from '../../services/programs.service';
 import { Program } from '../../models/programs.models';
 import { CommonModule } from '@angular/common';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-program-detail',
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class ProgramDetailComponent implements OnInit {
-  program: Program | undefined;
+  program$!: Observable<Program | undefined>;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,13 +21,15 @@ export class ProgramDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.route.paramMap.subscribe((paramMap) => {
-      const id = Number(paramMap.get('id'));
-      this.program = this.programsService.getProgramById(id);
-    });
+    this.program$ = this.route.paramMap.pipe(
+      switchMap((paramMap) => {
+        const id = Number(paramMap.get('id'));
+        return this.programsService.getProgramById(id);
+      })
+    );
   }
 
-  getBackgroundImage(): string {
-    return this.program ? `url(${this.program.banner})` : '';
+  getBackgroundImage(program: Program | undefined): string {
+    return program ? `url(${program.banner})` : '';
   }
 }
