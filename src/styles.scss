@@ -1,4 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --primary-color: #dc3545;
+  --secondary-color: #696969;
+  --border-color: #e0e0e0;
+  --success-color: #28a745;
+  --info-color: #007bff;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --light-color: white;
+  --dark-color: #3d4145;
+  --background-color: #f9f9f9;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+}
 
 * {
   box-sizing: border-box;
@@ -7,12 +22,29 @@
 body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
-  padding: 0;
-  background: #f9f9f9;
+  padding: 70px 0 0 0;
+  background: var(--background-color);
   line-height: 1.6;
+  color: var(--secondary-color);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--dark-color);
 }
 
 ul {
   list-style: none;
   padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
