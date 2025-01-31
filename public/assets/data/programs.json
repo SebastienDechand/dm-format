@@ -7,17 +7,41 @@
     "audience": "Tous salariés et professionnels souhaitant acquérir des compétences en secourisme.",
     "prerequisite": "Aucun",
     "banner": "assets/images/formateur-pls.jpg",
-    "summary": "Le Sauveteur Secouriste du Travail (SST) est un acteur clé de la prévention des risques en entreprise. Cette formation permet d’acquérir des réflexes essentiels pour porter secours à une victime en attendant l’arrivée des secours.",
+    "summary": "Le Sauveteur Secouriste du Travail (SST) est un acteur clé de la prévention des risques en entreprise. Cette formation vise à développer les compétences essentielles pour porter secours à une victime en attendant l’arrivée des secours professionnels et à prévenir les risques professionnels.",
     "content": "Les participants apprendront notamment à :",
     "details": [
-      "Évaluer une situation d’urgence et alerter les secours compétents.",
-      "Réaliser des gestes de premiers secours : position latérale de sécurité (PLS), massage cardiaque, utilisation d’un défibrillateur.",
-      "Identifier les principaux risques professionnels et les prévenir dans leur environnement de travail."
+      "Savoir réagir face à une situation d’urgence et appliquer les premiers secours.",
+      "Apprendre à analyser les risques professionnels et mettre en place des mesures préventives.",
+      "Maîtriser les gestes de premiers secours pour éviter l’aggravation d’un accident.",
+      "Connaître le rôle du SST dans l’organisation de la prévention en entreprise.",
+      "Alerter efficacement les secours pour optimiser la prise en charge de la victime."
     ],
     "methodology": [
-      "✔ Formation 100% pratique, avec exercices de mise en situation sur mannequins.",
-      "✔ Jeux de rôles et études de cas concrets pour réagir efficacement en cas d’accident.",
-      "✔ Livret pédagogique remis à chaque participant."
+      "Formation 100% pratique, avec exercices de mise en situation sur mannequins.",
+      "Jeux de rôles et études de cas concrets pour réagir efficacement en cas d’accident.",
+      "Livret pédagogique remis à chaque participant."
+    ],
+    "modules": [
+      {
+        "title": "Introduction au Secourisme",
+        "description": "Présentation du rôle du SST, cadre légal et importance de la prévention en entreprise."
+      },
+      {
+        "title": "Évaluation d’une Situation d’Urgence",
+        "description": "Analyse des dangers, sécurisation des lieux et identification des signes vitaux de la victime."
+      },
+      {
+        "title": "Les Gestes de Premiers Secours",
+        "description": "Pratique des gestes de secours : massage cardiaque, PLS, arrêt des hémorragies, gestion des brûlures et des traumatismes."
+      },
+      {
+        "title": "Prévention des Risques Professionnels",
+        "description": "Identification des risques en entreprise et mise en place d’actions préventives."
+      },
+      {
+        "title": "Mise en Pratique",
+        "description": "Cas concrets et simulations de situations réelles avec évaluation des compétences."
+      }
     ],
     "images": [
       "assets/images/Designer.jpeg",
@@ -53,9 +77,27 @@
       "L’évaluation des stagiaires et la validation des compétences."
     ],
     "methodology": [
-      "✔ Simulations et mises en situation réelle.",
-      "✔ Apprentissage des techniques pédagogiques pour capter l’attention d’un groupe.",
-      "✔ Accompagnement par un expert SST avec retours personnalisés."
+      "Simulations et mises en situation réelle.",
+      "Apprentissage des techniques pédagogiques pour capter l’attention d’un groupe.",
+      "Accompagnement par un expert SST avec retours personnalisés."
+    ],
+    "modules": [
+      {
+        "title": "Techniques Pédagogiques en Secourisme",
+        "description": "Méthodes d'enseignement adaptées aux formations SST."
+      },
+      {
+        "title": "Animation et Communication",
+        "description": "Stratégies pour capter l’attention des stagiaires et assurer une transmission efficace des connaissances."
+      },
+      {
+        "title": "Gestion des Groupes et Scénarios",
+        "description": "Mises en situation pour tester l’apprentissage et renforcer la compréhension des gestes."
+      },
+      {
+        "title": "Évaluation des Compétences",
+        "description": "Mise en place des tests et validation des acquis des stagiaires."
+      }
     ],
     "images": [
       "assets/images/Designer (3).jpeg",
@@ -86,9 +128,23 @@
       "La prévention des accidents domestiques et professionnels."
     ],
     "methodology": [
-      "✔ Formation interactive avec démonstrations et exercices pratiques.",
-      "✔ Apprentissage ludique pour une mémorisation efficace.",
-      "✔ Remise d’un guide des premiers secours pour réviser après la formation."
+      "Formation interactive avec démonstrations et exercices pratiques.",
+      "Apprentissage ludique pour une mémorisation efficace.",
+      "Remise d’un guide des premiers secours pour réviser après la formation."
+    ],
+    "modules": [
+      {
+        "title": "Les Réflexes de Base",
+        "description": "Comprendre comment réagir immédiatement face à une urgence."
+      },
+      {
+        "title": "Gestes de Premiers Secours",
+        "description": "Réalisation des gestes essentiels : PLS, massage cardiaque, gestion des étouffements et des hémorragies."
+      },
+      {
+        "title": "Alerte et Prévention",
+        "description": "Comment prévenir les accidents et donner l’alerte efficacement."
+      }
     ],
     "images": [
       "assets/images/Designer (6).jpeg",
@@ -119,9 +175,27 @@
       "Un accompagnement numérique : modèles de documents, guides et support en ligne."
     ],
     "methodology": [
-      "✔ Un coaching personnalisé pour optimiser vos sessions de formation.",
-      "✔ Un accès à une bibliothèque de ressources pédagogiques clé en main.",
-      "✔ Un support sur les exigences réglementaires et les certifications."
+      "Un coaching personnalisé pour optimiser vos sessions de formation.",
+      "Un accès à une bibliothèque de ressources pédagogiques clé en main.",
+      "Un support sur les exigences réglementaires et les certifications."
+    ],
+    "modules": [
+      {
+        "title": "Préparation Pédagogique",
+        "description": "Conseils pour structurer et organiser des sessions de formation efficaces."
+      },
+      {
+        "title": "Gestion Administrative",
+        "description": "Aide à la gestion des dossiers de formation, conformité aux certifications (INRS, QUALIOPI)."
+      },
+      {
+        "title": "Utilisation des Ressources Numériques",
+        "description": "Accès à des modèles de documents, supports pédagogiques et guides pratiques."
+      },
+      {
+        "title": "Mise en Conformité Réglementaire",
+        "description": "Suivi des évolutions légales et conseils sur les démarches administratives obligatoires."
+      }
     ],
     "images": [
       "assets/images/Designer (9).jpeg",

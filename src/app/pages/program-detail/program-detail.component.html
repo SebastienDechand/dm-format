@@ -2,21 +2,23 @@
   *ngIf="program$ | async as program; else noProgram"
   class="program-detail"
 >
-  <!-- Bannière -->
-  <div
-    class="banner"
-    [ngStyle]="{ 'background-image': getBackgroundImage(program) }"
-  >
-    <div class="banner-overlay">
-      <h1>{{ program.title }}</h1>
+  <div class="banner-container">
+    <div class="banner-summary">
+      <h2>{{ program.title }}</h2>
+      <ul>
+        <li *ngFor="let method of program.methodology">{{ method }}</li>
+      </ul>
     </div>
+
+    <div
+      class="banner"
+      [ngStyle]="{ 'background-image': getBackgroundImage(program) }"
+    ></div>
   </div>
 
-  <!-- Détails du programme -->
   <div class="program-container">
     <div class="program-info">
-      <h2>À propos de cette formation</h2>
-      <p>{{ program.description }}</p>
+      <h2><span>À propos</span> de cette formation</h2>
 
       <div class="details">
         <div class="detail-item">
@@ -24,12 +26,12 @@
           <span><strong>Durée :</strong> {{ program.duration }}</span>
         </div>
         <div class="detail-item">
-          <i class="fa-solid fa-people-group"></i>
-          <span><strong>Public cible :</strong> {{ program.audience }}</span>
-        </div>
-        <div class="detail-item">
           <i class="fa-solid fa-check"></i>
           <span><strong>Pré-requis :</strong> {{ program.prerequisite }}</span>
+        </div>
+        <div class="detail-item">
+          <i class="fa-solid fa-people-group"></i>
+          <span><strong>Public cible :</strong> {{ program.audience }}</span>
         </div>
       </div>
 
@@ -38,18 +40,8 @@
       </a>
     </div>
 
-    <!-- Images -->
-    <div class="program-images">
-      <img
-        *ngFor="let image of program.images"
-        [src]="image"
-        [alt]="program.title"
-      />
-    </div>
-
-    <!-- Contenu -->
     <div class="program-content">
-      <h2>Contenu de la formation</h2>
+      <h2><span>Contenu</span> de la formation</h2>
       <p>{{ program.summary }}</p>
 
       <div class="content-list">
@@ -59,15 +51,27 @@
         </ul>
       </div>
 
-      <h2>Méthodologie</h2>
-      <ul>
-        <li *ngFor="let method of program.methodology">{{ method }}</li>
+      <h3><span>Modules</span> de la formation</h3>
+      <ul class="modules">
+        <li *ngFor="let module of program.modules; let i = index">
+          <h4>
+            <span>{{ i + 1 }}.</span> {{ module.title }}
+          </h4>
+          <p>{{ module.description }}</p>
+        </li>
       </ul>
     </div>
 
-    <!-- Témoignages -->
+    <div class="program-images">
+      <img
+        *ngFor="let image of program.images"
+        [src]="image"
+        [alt]="program.title"
+      />
+    </div>
+
     <div class="testimonials">
-      <h2>💬 Témoignages d'anciens participants</h2>
+      <h2>💬 <span>Témoignages</span> d'anciens participants</h2>
       <div *ngIf="program.testimonials.length > 0; else noTestimonials">
         <div
           *ngFor="let testimonial of program.testimonials"
@@ -81,12 +85,10 @@
   </div>
 </section>
 
-<!-- Message si le programme n'existe pas -->
 <ng-template #noProgram>
   <p>Le programme demandé n'existe pas.</p>
 </ng-template>
 
-<!-- Message si aucun témoignage n'est disponible -->
 <ng-template #noTestimonials>
   <p>Aucun témoignage n'est disponible pour le moment.</p>
 </ng-template>

@@ -7,6 +7,10 @@ export type Program = {
   prerequisite: string;
   banner: string;
   summary: string;
+  modules: {
+    title: string;
+    description: string;
+  }[];
   images: string[];
   content: string;
   details: string[];
