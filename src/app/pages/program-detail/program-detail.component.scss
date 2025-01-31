@@ -1,67 +1,145 @@
 .program-detail {
   font-family: 'Arial', sans-serif;
-  color: #333;
+  color: var(--dark-color);
 }
 
 /* Bannière */
-.banner {
-  position: relative;
-  width: 100%;
-  height: 700px;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+.banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-.banner-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-}
+  .banner {
+    position: relative;
+    width: 50%;
+    height: 70vh;
+    overflow: hidden;
+    margin-left: auto;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .banner-summary {
+    width: 50%;
+    h2 {
+      font-size: 2.5rem;
+      font-size: 50px;
+      padding: 16px 32px;
+      margin: 0;
+      line-height: 1.5;
+      width: 100%;
+      text-align: center;
 
-h1 {
-  font-size: 2.5rem;
-  text-align: center;
+      span {
+        color: var(--primary-color);
+      }
+    }
+
+    ul {
+      padding: 16px 32px;
+      margin: 0 0 0 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-size: 24px;
+      line-height: 1.5;
+
+      li::marker {
+        content: '✅';
+      }
+    }
+  }
 }
 
 /* Conteneur principal */
 .program-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  max-width: 1000px;
-  margin: 2rem auto;
-  padding: 1rem;
+  gap: 50px;
+  margin: 0 auto;
 }
 
 /* Description du programme */
 .program-content {
-  background: #f9f9f9;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: var(--background-color);
+  padding: 32px 32px 0;
+  width: 80%;
+  margin: 0 auto;
 
-  .content-details {
-    list-style: circle;
-    padding-left: 18px;
+  p {
+    line-height: 1.6;
+    margin-bottom: 25px;
+  }
+
+  h2 {
+    font-size: 36px;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    text-align: center;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  .content-list {
+    .content-details {
+      font-size: 20px;
+      padding-left: 18px;
+      line-height: 1.6;
+      margin-bottom: 50px;
+
+      li {
+        padding-left: 8px;
+        &::marker {
+          content: '🗝️';
+        }
+      }
+    }
+  }
+
+  h3 {
+    font-size: 24px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  .modules {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+    gap: 50px;
+    li {
+      h4 {
+        font-size: 20px;
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        font-weight: bold;
+        span {
+          color: var(--primary-color);
+        }
+      }
+    }
   }
 }
 
 /* Images du programme */
 .program-images {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 25px;
+  margin: 0 auto;
+  width: 80%;
+  height: 350px;
 
   img {
     width: 100%;
-    height: 300px;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -70,46 +148,73 @@ h1 {
 
 /* Informations du programme */
 .program-info {
-  background: #f9f9f9;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-}
-
-/* Détails du programme avec icônes */
-.details {
+  background: var(--danger-color);
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.detail-item {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 0.8rem;
-  font-size: 1.1rem;
-}
+  gap: 25px;
+  padding: 25px;
 
-.detail-item img {
-  width: 24px;
-  height: 24px;
+  h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  .details {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+
+    i {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 1.1rem;
+    }
+  }
 }
 
 /* Témoignages */
 .testimonials {
-  background: #fff5e5;
-  padding: 1.5rem;
-  border-radius: 10px;
-}
+  background: var(--danger-color);
+  padding: 32px;
 
-.testimonial {
-  font-style: italic;
-  margin-bottom: 1rem;
+  h2 {
+    font-size: 28px;
+    text-transform: uppercase;
+    font-weight: bold;
+    width: 80%;
+    margin: 0 auto 25px;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  .testimonial {
+    font-style: italic;
+    margin-bottom: 1rem;
+    width: 80%;
+    margin: 0 auto 25px;
+
+    span {
+      font-size: 16px;
+      font-weight: 200;
+    }
+  }
 }
 
 /* Bouton d'inscription */
@@ -117,13 +222,12 @@ h2 {
   display: inline-block;
   margin-top: 1rem;
   padding: 0.8rem 1.5rem;
-  background-color: #007bff;
+  background-color: var(--button-color);
   color: white;
   text-decoration: none;
   border-radius: 5px;
   text-align: center;
-}
-
-.cta-button:hover {
-  background-color: #0056b3;
+  &:hover {
+    background-color: var(--button-color-hover);
+  }
 }

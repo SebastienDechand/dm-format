@@ -3,11 +3,9 @@
   <div class="nav-links">
     <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/program', 1]">
-        Acteurs Sauveteur Secouriste du Travail
-      </button>
+      <button mat-menu-item [routerLink]="['/program', 1]">Acteurs SST</button>
       <button mat-menu-item [routerLink]="['/program', 2]">
-        Formateurs Sauveteur Secouriste du Travail
+        Formateurs SST
       </button>
       <button mat-menu-item [routerLink]="['/program', 3]">
         Initiations aux premiers secours
