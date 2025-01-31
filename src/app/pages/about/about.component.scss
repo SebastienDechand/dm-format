@@ -1,0 +1,165 @@
+.about {
+  width: 80%;
+  margin: auto;
+  padding: 3rem 1rem;
+
+  h2 {
+    font-size: 50px;
+    margin-bottom: 50px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  .intro {
+    font-size: 20px;
+    margin-bottom: 50px;
+    line-height: 1.5;
+  }
+
+  .who-we-are {
+    margin-bottom: 50px;
+    h3 {
+      font-size: 28px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+  }
+
+  /* 📌 Concept */
+  .concept {
+    h3 {
+      font-size: 28px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .concept-steps {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      margin: 2rem 0;
+
+      .step {
+        text-align: center;
+        max-width: 250px;
+
+        i {
+          font-size: 36px;
+          color: var(--primary-color);
+          margin-bottom: 15px;
+        }
+
+        strong {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+
+  /* 🎓 Formations */
+  .trainings {
+    margin-bottom: 50px;
+    h3 {
+      font-size: 28px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+    }
+    .training-list {
+      list-style: none;
+      padding: 0;
+      margin: 25px;
+
+      li {
+        font-size: 20px;
+        padding-left: 8px;
+        line-height: 1.5;
+
+        &::marker {
+          content: '✅';
+        }
+      }
+    }
+  }
+
+  /* 🏅 Certifications */
+  .certifications {
+    border-radius: 8px;
+
+    h3 {
+      font-size: 28px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+      margin-bottom: 50px;
+    }
+
+    .certification-logos {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 50px;
+
+      img {
+        width: 250px;
+      }
+    }
+  }
+
+  /* ⚠️ Prévention */
+  .prevention {
+    h3 {
+      font-size: 28px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    p {
+      font-size: 20px;
+      line-height: 1.5;
+      margin-bottom: 50px;
+    }
+  }
+  .risk-prevention {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+    .risk {
+      width: 250px;
+      text-align: center;
+      i {
+        font-size: 36px;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
+      p {
+        font-size: 20px;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        strong {
+          color: var(--primary-color);
+        }
+      }
+    }
+  }
+}
