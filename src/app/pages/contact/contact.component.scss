@@ -1,0 +1,124 @@
+.contact {
+  max-width: 1100px;
+  margin: auto;
+  padding: 3rem 1rem;
+  text-align: center;
+
+  h2 {
+    font-size: 50px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  .intro {
+    font-size: 28px;
+    line-height: 1.5;
+    margin-bottom: 50px;
+    color: var(--secondary-color);
+  }
+
+  .contact-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* 📌 Formulaire */
+  form {
+    flex: 1;
+    max-width: 500px;
+    background: #f9f9f9;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 500;
+
+    i {
+      font-size: 20px;
+      color: var(--primary-color);
+      margin-right: 8px;
+    }
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+
+  .invalid {
+    border-color: var(--primary-color);
+  }
+
+  .error-message {
+    color: var(--primary-color);
+    font-size: 0.9rem;
+    margin-top: 5px;
+  }
+
+  button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: var(--button-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    &:disabled {
+      background: var(--secondary-color);
+      cursor: not-allowed;
+    }
+  }
+
+  /* 📌 Informations de contact */
+  .contact-info {
+    flex: 1;
+    max-width: 500px;
+    text-align: left;
+
+    h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+
+    p {
+      line-height: 1.5;
+
+      i {
+        font-size: 20px;
+        color: var(--primary-color);
+        margin-right: 4px;
+      }
+    }
+  }
+
+  .map-container {
+    margin-top: 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
