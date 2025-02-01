@@ -3,15 +3,18 @@
   margin: auto;
   padding: 3rem 1rem;
 
-  h2 {
-    font-size: 50px;
-    margin-bottom: 50px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-align: center;
+  .about-header {
+    display: flex;
+    align-items: center;
+    h2 {
+      font-size: 50px;
+      margin-bottom: 50px;
+      font-weight: 700;
+      text-transform: uppercase;
 
-    span {
-      color: var(--primary-color);
+      span {
+        color: var(--primary-color);
+      }
     }
   }
 
@@ -29,9 +32,21 @@
       font-weight: 700;
       text-transform: uppercase;
     }
-    p {
-      font-size: 20px;
-      line-height: 1.5;
+    .who-we-are-content {
+      display: flex;
+      align-items: center;
+      gap: 50px;
+      i {
+        font-size: 180px;
+        color: var(--primary-color);
+        margin-right: 15px;
+      }
+      .who-we-are-text {
+        p {
+          font-size: 20px;
+          line-height: 1.5;
+        }
+      }
     }
   }
 
