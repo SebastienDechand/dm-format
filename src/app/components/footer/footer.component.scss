@@ -56,6 +56,11 @@
   text-decoration: none;
   transition: all 0.3s ease;
 
+  i {
+    color: var(--primary-color);
+    margin-right: 4px;
+  }
+
   &:hover {
     color: var(--primary-color);
   }
