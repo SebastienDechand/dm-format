@@ -64,3 +64,15 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+
+simple-snack-bar {
+  background-color: var(--success-color) !important;
+  color: var(--light-color) !important;
+  font-size: 1.1rem;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.mat-mdc-snackbar-surface {
+  background-color: var(--success-color) !important;
+}
