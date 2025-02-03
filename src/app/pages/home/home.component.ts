@@ -4,6 +4,7 @@ import { BannerComponent } from '../../components/banner/banner.component';
 import { CertificationComponent } from '../../components/certification/certification.component';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 import { ProgramsComponent } from '../../components/programs/programs.component';
+import { PartnerComponent } from '../../components/partner/partner.component';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { ProgramsComponent } from '../../components/programs/programs.component'
     BannerComponent,
     CertificationComponent,
     ProgramsComponent,
+    PartnerComponent,
     GalleryComponent,
   ],
   templateUrl: './home.component.html',
