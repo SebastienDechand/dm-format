@@ -1,10 +1,10 @@
 [
   {
     "id": 1,
-    "title": "Acteurs Sauveteur Secouriste du Travail",
+    "title": "Acteurs Sauveteur Secouriste du Travail (niveau 1)",
     "description": "Formation essentielle pour intervenir rapidement en cas d'urgence.",
     "duration": "2 jours",
-    "audience": "Tous salariés et professionnels souhaitant acquérir des compétences en secourisme.",
+    "audience": "Accessible à tous, adultes de 16 ans et plus.",
     "prerequisite": "Aucun",
     "banner": "assets/images/formateur-pls.jpg",
     "summary": "Le Sauveteur Secouriste du Travail (SST) est un acteur clé de la prévention des risques en entreprise. Cette formation vise à développer les compétences essentielles pour porter secours à une victime en attendant l’arrivée des secours professionnels et à prévenir les risques professionnels.",
@@ -19,7 +19,7 @@
     "methodology": [
       "Formation 100% pratique, avec exercices de mise en situation sur mannequins.",
       "Jeux de rôles et études de cas concrets pour réagir efficacement en cas d’accident.",
-      "Livret pédagogique remis à chaque participant."
+      "Aide mémoire remis à chaque participant."
     ],
     "modules": [
       {
@@ -63,9 +63,9 @@
   },
   {
     "id": 2,
-    "title": "Formateurs Sauveteur Secouriste du Travail",
+    "title": "Formateurs Sauveteur Secouriste du Travail (niveau 2)",
     "description": "Devenez un formateur SST certifié et transmettez vos compétences.",
-    "duration": "5 jours",
+    "duration": "9 jours (non consécutifs)",
     "audience": "Professionnels souhaitant former des Sauveteurs Secouristes du Travail.",
     "prerequisite": "Être titulaire du SST valide.",
     "banner": "assets/images/formation.jpg",
@@ -116,7 +116,7 @@
     "id": 3,
     "title": "Initiations aux premiers secours",
     "description": "Apprenez les gestes de premiers secours pour sauver des vies.",
-    "duration": "1 jour",
+    "duration": "2 heures",
     "audience": "Grand public, écoles, associations, entreprises.",
     "prerequisite": "Aucun",
     "banner": "assets/images/mannequin1.jpg",
@@ -130,7 +130,7 @@
     "methodology": [
       "Formation interactive avec démonstrations et exercices pratiques.",
       "Apprentissage ludique pour une mémorisation efficace.",
-      "Remise d’un guide des premiers secours pour réviser après la formation."
+      "Mises en situation réelles pour mieux appréhender les gestes de secours."
     ],
     "modules": [
       {
@@ -163,16 +163,16 @@
     "id": 4,
     "title": "Aide pédagogique et administrative",
     "description": "Support continu pour formateurs SST.",
-    "duration": "Flexible",
-    "audience": "Formateurs en secourisme.",
-    "prerequisite": "Aucun",
+    "duration": "Flexible (sur demande)",
+    "audience": "Formateurs en secourisme et entreprises.",
+    "prerequisite": "Engagement de 3 ans",
     "banner": "assets/images/aide-document.jpg",
     "summary": "Devenir formateur, c’est aussi gérer toute la partie administrative et pédagogique.",
     "content": "Ce service vise à faciliter leur quotidien en leur fournissant :",
     "details": [
       "Une assistance pédagogique : conseils sur la préparation des contenus et techniques d’animation.",
-      "Une aide administrative : gestion des dossiers, conformité aux certifications (INRS, QUALIOPI).",
-      "Un accompagnement numérique : modèles de documents, guides et support en ligne."
+      "Une aide administrative : gestion des dossiers, conformité aux certifications (INRS, QUALIOPI : engendre des frais supplémentaires).",
+      "Un accompagnement numérique : guides et support en ligne."
     ],
     "methodology": [
       "Un coaching personnalisé pour optimiser vos sessions de formation.",

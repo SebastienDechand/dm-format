@@ -10,6 +10,25 @@
     <div class="contact-wrapper">
       <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
         <div class="form-group">
+          <label for="company"
+            ><i class="fa-solid fa-building"></i> Raison sociale *</label
+          >
+          <input
+            type="text"
+            id="company"
+            name="company"
+            [(ngModel)]="contactData.company"
+            required
+            #company="ngModel"
+            [class.invalid]="company.invalid && company.touched"
+            placeholder="ex: DM FORMAT"
+          />
+          <div class="error-message" *ngIf="company.invalid && company.touched">
+            Veuillez entrer la raison sociale de votre entreprise.
+          </div>
+        </div>
+
+        <div class="form-group">
           <label for="name"
             ><i class="fa-solid fa-user"></i> Nom et Prénom *</label
           >
@@ -87,6 +106,11 @@
         <button type="submit" [disabled]="contactForm.invalid">
           <i class="fa-solid fa-paper-plane"></i> Envoyer
         </button>
+
+        <p class="required-fields">
+          * Tous les champs marqués d’un astérisque sont requis pour l’envoi du
+          formulaire.
+        </p>
       </form>
 
       <div class="contact-info">
