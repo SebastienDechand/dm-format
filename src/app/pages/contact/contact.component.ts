@@ -12,6 +12,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class ContactComponent {
   contactData = {
+    company: '',
     name: '',
     email: '',
     phone: '',
@@ -35,7 +36,13 @@ export class ContactComponent {
         panelClass: ['success-snackbar'],
       });
 
-      this.contactData = { name: '', email: '', phone: '', message: '' };
+      this.contactData = {
+        company: '',
+        name: '',
+        email: '',
+        phone: '',
+        message: '',
+      };
     }
   }
 }

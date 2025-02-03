@@ -3,9 +3,11 @@
   <div class="nav-links">
     <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/program', 1]">Acteurs SST</button>
+      <button mat-menu-item [routerLink]="['/program', 1]">
+        Acteurs SST (niveau 1)
+      </button>
       <button mat-menu-item [routerLink]="['/program', 2]">
-        Formateurs SST
+        Formateurs SST (niveau 2)
       </button>
       <button mat-menu-item [routerLink]="['/program', 3]">
         Initiations aux premiers secours
