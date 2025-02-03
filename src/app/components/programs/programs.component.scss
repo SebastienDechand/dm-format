@@ -5,16 +5,16 @@
   background-color: var(--primary-color);
   h2 {
     color: var(--light-color);
-    font-size: 36px;
+    font-size: var(--h2-size-desktop);
     text-transform: uppercase;
-    margin-bottom: 50px;
+    margin-bottom: var(--margin-big);
   }
   .programs {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     .program-card {
-      padding: 0 0 16px;
+      padding: 0 0 var(--padding-medium);
       border-radius: 8px;
       text-align: center;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -29,25 +29,24 @@
       }
       h3,
       p {
-        padding: 0 16px;
+        padding: 0 var(--padding-medium);
       }
       h3 {
-        font-size: 16px;
+        font-size: var(--small-text-size-desktop);
         color: var(--primary-color);
         min-height: 56px;
       }
       p {
         min-height: 75px;
-        font-size: 18px;
       }
       .btn {
         color: var(--light-color);
         background: var(--primary-color);
-        padding: 0.5rem 1rem;
+        padding: var(--padding-small) var(--padding-medium);
         text-decoration: none;
         border-radius: 4px;
         display: inline-block;
-        margin-top: 1rem;
+        margin-top: var(--margin-medium);
         transition: all 0.3s;
         &:hover {
           background: var(--info-color);

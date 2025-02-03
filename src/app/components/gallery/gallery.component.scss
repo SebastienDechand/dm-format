@@ -4,8 +4,8 @@
   padding: 120px;
 
   h2 {
-    font-size: 36px;
-    margin-bottom: 1rem;
+    font-size: var(--subtitle-size-desktop);
+    margin-bottom: var(--margin-medium);
     text-transform: uppercase;
 
     span {
@@ -14,9 +14,9 @@
   }
 
   .gallery-description {
-    font-size: 1.2rem;
+    font-size: var(--text-size-desktop);
     color: var(--dark-color);
-    margin-bottom: 50px;
+    margin-bottom: var(--margin-big);
   }
 }
 
@@ -45,7 +45,7 @@
       background: rgba(0, 0, 0, 0.7);
       color: var(--light-color);
       text-align: center;
-      padding: 1rem;
+      padding: var(--padding-medium);
       position: absolute;
       bottom: 0;
       width: 100%;
@@ -84,12 +84,12 @@
   .next {
     position: absolute;
     top: 50%;
-    font-size: 2rem;
+    font-size: var(--h2-size-desktop);
     background: transparent;
     border: none;
     color: var(--light-color);
     cursor: pointer;
-    padding: 8px 16px;
+    padding: var(--padding-small) var(--padding-medium);
     transition: all 0.2s;
     border-radius: 50%;
 
@@ -110,7 +110,7 @@
     position: absolute;
     top: 20px;
     right: 20px;
-    font-size: 2rem;
+    font-size: var(--h2-size-desktop);
     color: var(--light-color);
     cursor: pointer;
 
@@ -132,9 +132,9 @@
     }
 
     .lightbox-caption {
-      margin-top: 1rem;
+      margin-top: var(--margin-medium);
       color: var(--light-color);
-      font-size: 1.2rem;
+      font-size: var(--text-size-desktop);
 
       h3,
       p {

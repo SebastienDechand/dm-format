@@ -5,7 +5,7 @@ nav {
   width: 100%;
   color: var(--dark-color);
   z-index: 1000;
-  padding: 10px 25px;
+  padding: var(--padding-small) var(--padding-big);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,7 +15,7 @@ nav {
 
   .logo-btn {
     color: var(--primary-color);
-    font-size: 24px;
+    font-size: var(--h3-size-desktop);
     text-decoration: none;
     font-weight: bold;
     cursor: pointer;
@@ -26,8 +26,8 @@ nav {
     color: var(--dark-color);
     border: none;
     cursor: pointer;
-    font-size: 16px;
-    padding: 10px 25px;
+    font-size: var(--small-text-size-desktop);
+    padding: var(--padding-small) var(--padding-big);
   }
 
   .nav-links {

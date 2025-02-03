@@ -1,16 +1,18 @@
 .about {
   width: 80%;
   margin: auto;
-  padding: 3rem 1rem;
+  padding: var(--padding-big);
 
   .about-header {
     display: flex;
     align-items: center;
+    margin-bottom: var(--margin-big);
     h2 {
-      font-size: 50px;
-      margin-bottom: 50px;
+      font-size: var(--title-size-desktop);
+      margin-bottom: var(--margin-big);
       font-weight: 700;
       text-transform: uppercase;
+      line-height: 1.2;
 
       span {
         color: var(--primary-color);
@@ -19,16 +21,15 @@
   }
 
   .intro {
-    font-size: 20px;
-    margin-bottom: 50px;
+    margin-bottom: var(--margin-big);
     line-height: 1.5;
   }
 
   .who-we-are {
-    margin-bottom: 50px;
+    margin-bottom: var(--margin-big);
     h3 {
-      font-size: 28px;
-      margin-bottom: 50px;
+      font-size: var(--h3-size-desktop);
+      margin-bottom: var(--margin-big);
       font-weight: 700;
       text-transform: uppercase;
     }
@@ -36,14 +37,14 @@
       display: flex;
       align-items: center;
       gap: 50px;
+
       i {
         font-size: 180px;
         color: var(--primary-color);
-        margin-right: 15px;
+        margin-right: var(--margin-medium);
       }
       .who-we-are-text {
         p {
-          font-size: 20px;
           line-height: 1.5;
         }
       }
@@ -52,9 +53,10 @@
 
   /* 📌 Concept */
   .concept {
+    margin-bottom: var(--margin-big);
     h3 {
-      font-size: 28px;
-      margin-bottom: 50px;
+      font-size: var(--h3-size-desktop);
+      margin-bottom: var(--margin-big);
       font-weight: 700;
       text-transform: uppercase;
     }
@@ -62,7 +64,7 @@
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
-      margin: 2rem 0;
+      margin: var(--margin-medium) 0;
 
       .step {
         text-align: center;
@@ -71,7 +73,7 @@
         i {
           font-size: 36px;
           color: var(--primary-color);
-          margin-bottom: 15px;
+          margin-bottom: var(--margin-small);
         }
 
         strong {
@@ -85,23 +87,22 @@
   .trainings {
     margin-bottom: 50px;
     h3 {
-      font-size: 28px;
-      margin-bottom: 50px;
+      font-size: var(--h3-size-desktop);
+      margin-bottom: var(--margin-big);
       font-weight: 700;
       text-transform: uppercase;
     }
     p {
-      font-size: 20px;
       line-height: 1.5;
     }
     .training-list {
       list-style: none;
       padding: 0;
-      margin: 25px;
+      margin: var(--margin-medium);
 
       li {
-        font-size: 20px;
-        padding-left: 8px;
+        font-size: var(--text-size-desktop);
+        padding-left: var(--padding-small);
         line-height: 1.5;
 
         &::marker {
@@ -116,22 +117,21 @@
     border-radius: 8px;
 
     h3 {
-      font-size: 28px;
-      margin-bottom: 50px;
+      font-size: var(--h3-size-desktop);
+      margin-bottom: var(--margin-big);
       font-weight: 700;
       text-transform: uppercase;
     }
 
     p {
-      font-size: 20px;
       line-height: 1.5;
-      margin-bottom: 50px;
+      margin-bottom: var(--margin-big);
     }
 
     .certification-logos {
       display: flex;
       justify-content: space-around;
-      margin-bottom: 50px;
+      margin-bottom: var(--margin-big);
 
       img {
         width: 250px;
@@ -142,35 +142,33 @@
   /* ⚠️ Prévention */
   .prevention {
     h3 {
-      font-size: 28px;
-      margin-bottom: 50px;
+      font-size: var(--h3-size-desktop);
+      margin-bottom: var(--margin-big);
       font-weight: 700;
       text-transform: uppercase;
     }
 
     p {
-      font-size: 20px;
       line-height: 1.5;
-      margin-bottom: 50px;
+      margin-bottom: var(--margin-big);
     }
   }
   .risk-prevention {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: var(--margin-big);
     .risk {
       width: 250px;
       text-align: center;
       i {
         font-size: 36px;
         color: var(--primary-color);
-        margin-bottom: 15px;
+        margin-bottom: var(--margin-small);
       }
       p {
-        font-size: 20px;
         line-height: 1.5;
-        margin-bottom: 15px;
+        margin-bottom: var(--margin-medium);
         strong {
           color: var(--primary-color);
         }

@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   margin: auto;
-  gap: 50px;
+  gap: var(--title-size-desktop);
   padding: 0 120px;
 }
 
@@ -28,9 +28,9 @@
   text-align: left;
 
   h1 {
-    font-size: 2.8rem;
+    font-size: var(--subtitle-size-desktop);
     font-weight: bold;
-    margin-bottom: 1rem;
+    margin-bottom: var(--margin-medium);
     text-transform: uppercase;
     line-height: 1.2;
 
@@ -40,15 +40,15 @@
   }
 
   .subtitle {
-    font-size: 1.4rem;
-    margin-bottom: 1rem;
+    font-size: var(--text-size-desktop);
+    margin-bottom: var(--margin-medium);
     line-height: 1.4;
   }
 
   .details {
-    font-size: 1.1rem;
+    font-size: var(--text-size-desktop);
     line-height: 1.5;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--margin-medium);
   }
 }
 
@@ -56,11 +56,11 @@
 .highlights {
   list-style: none;
   padding: 0;
-  margin-bottom: 2rem;
+  margin-bottom: var(--margin-big);
 
   li {
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
+    font-size: var(--text-size-desktop);
+    margin-bottom: var(--margin-small);
   }
 }
 

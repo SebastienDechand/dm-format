@@ -26,8 +26,8 @@
       z-index: 1000;
 
       h2 {
-        font-size: 50px;
-        margin: 100px 0 50px;
+        font-size: var(--title-size-desktop);
+        margin: 100px 0 var(--title-size-desktop);
         font-weight: 700;
         text-transform: uppercase;
         line-height: 1.5;
@@ -38,7 +38,7 @@
       }
 
       p {
-        font-size: 28px;
+        font-size: var(--h3-size-desktop);
         font-weight: 500;
         line-height: 1.5;
         margin-bottom: 100px;
@@ -53,16 +53,15 @@
   .obligations,
   .finances {
     h3 {
-      font-size: 28px;
+      font-size: var(--h3-size-desktop);
       font-weight: 700;
-      margin-bottom: 50px;
+      margin-bottom: var(--margin-big);
       text-transform: uppercase;
     }
 
     p {
-      font-size: 20px;
       line-height: 1.5;
-      margin-bottom: 50px;
+      margin-bottom: var(--margin-big);
 
       strong {
         color: var(--primary-color);
@@ -70,7 +69,7 @@
     }
 
     p.note {
-      font-size: 18px;
+      font-size: var(--small-text-size-desktop);
       font-weight: 500;
       color: var(--primary-color);
       display: flex;
@@ -91,16 +90,16 @@
     .obligation-item,
     .finance-item {
       width: 300px;
-      margin-bottom: 50px;
+      margin-bottom: var(--margin-big);
 
       i {
         font-size: 36px;
         color: var(--primary-color);
-        margin-bottom: 15px;
+        margin-bottom: var(--margin-small);
       }
 
       p {
-        margin-bottom: 15px;
+        margin-bottom: var(--margin-small);
 
         strong {
           color: var(--primary-color);
@@ -110,7 +109,7 @@
   }
 
   .finances {
-    margin-top: 50px;
+    margin-top: var(--margin-big);
 
     .finance-opco {
       display: flex;
@@ -120,9 +119,9 @@
       padding: 8px;
       margin: auto;
       i {
-        font-size: 2rem;
+        font-size: var(--h2-size-desktop);
         color: var(--primary-color);
-        margin-right: 1rem;
+        margin-right: 8px;
       }
     }
 
@@ -131,8 +130,8 @@
     }
 
     h4 {
-      font-size: 1.5rem;
-      margin-bottom: 50px;
+      font-size: var(--h4-size-desktop);
+      margin-bottom: var(--margin-big);
       color: var(--primary-color);
     }
 
@@ -143,12 +142,12 @@
       gap: 25px;
       li {
         font-size: 20px;
-        margin-bottom: 50px;
+        margin-bottom: var(--margin-big);
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        gap: 15px;
+        gap: var(--margin-small);
         i {
           font-size: 36px;
           color: var(--primary-color);

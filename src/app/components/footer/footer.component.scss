@@ -2,7 +2,7 @@
 .footer {
   background: var(--background-color-dark);
   color: var(--dark-color);
-  padding: 2rem 0 0;
+  padding: var(--padding-big) 0 0;
   font-family: 'Arial', sans-serif;
   border-top: 1px solid var(--border-color);
 }
@@ -14,55 +14,48 @@
   justify-content: space-between;
   max-width: 1200px;
   margin: auto;
-  padding: 1rem;
+  padding: var(--padding-medium);
 }
 
 /* 📍 Section individuelle */
-.footer-section {
-  flex: 1;
-  min-width: 220px;
-  margin-bottom: 1.5rem;
-}
-
-.footer-section h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.8rem;
-}
-
-/* 🎨 Logo */
 .logo {
   display: flex;
   align-items: center;
 
   p {
-    font-size: 36px;
+    font-size: var(--h2-size-desktop);
     font-weight: 700;
     color: var(--primary-color);
   }
 }
-
-/* 📜 Liens */
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-section li {
-  margin-bottom: 0.5rem;
-}
-
-.footer-section a {
-  color: var(--dark-color);
-  text-decoration: none;
-  transition: all 0.3s ease;
-
-  i {
-    color: var(--primary-color);
-    margin-right: 4px;
+.footer-section {
+  flex: 1;
+  min-width: 220px;
+  margin-bottom: var(--margin-medium);
+  h3 {
+    font-size: var(--h3-size-desktop);
+    margin-bottom: var(--margin-medium);
   }
+  ul {
+    list-style: none;
+    padding: 0;
+    li {
+      margin-bottom: var(--margin-small);
+      a {
+        color: var(--dark-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
 
-  &:hover {
-    color: var(--primary-color);
+        i {
+          color: var(--primary-color);
+          margin-right: 4px;
+        }
+
+        &:hover {
+          color: var(--primary-color);
+        }
+      }
+    }
   }
 }
 
@@ -70,8 +63,8 @@
   text-align: center;
   background: var(--dark-color);
   color: var(--light-color);
-  padding: 1rem 0;
-  font-size: 0.9rem;
+  padding: var(--padding-medium) 0;
+  font-size: var(--text-size-desktop);
   p {
     margin: 0;
   }

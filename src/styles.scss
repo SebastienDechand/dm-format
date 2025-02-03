@@ -1,4 +1,5 @@
 :root {
+  /* Colors */
   --primary-color: #316095;
   --secondary-color: #696969;
   --border-color: #e0e0e0;
@@ -13,6 +14,27 @@
   --button-color: #007bff;
   --button-color-hover: #0056b3;
   --icon-color: #dc3545;
+
+  /* Sizes */
+  --title-size-desktop: 50px;
+  --subtitle-size-desktop: 40px;
+  --h2-size-desktop: 36px;
+  --h3-size-desktop: 28px;
+  --h4-size-desktop: 24px;
+  --text-size-desktop: 20px;
+  --small-text-size-desktop: 16px;
+
+  /* Margins */
+  --margin-big: 50px;
+  --margin-medium: 25px;
+  --margin-small: 15px;
+
+  /* Paddings */
+  --padding-big: 32px;
+  --padding-medium: 16px;
+  --padding-small: 8px;
+
+  /* Breakpoints */
   --breakpoint-sm: 576px;
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;

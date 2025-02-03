@@ -1,12 +1,12 @@
 .contact {
   max-width: 1100px;
   margin: auto;
-  padding: 3rem 1rem;
+  padding: var(--padding-big);
   text-align: center;
 
   h2 {
-    font-size: 50px;
-    margin-bottom: 50px;
+    font-size: var(--title-size-desktop);
+    margin-bottom: var(--margin-big);
     text-transform: uppercase;
 
     span {
@@ -15,9 +15,8 @@
   }
 
   .intro {
-    font-size: 28px;
     line-height: 1.5;
-    margin-bottom: 50px;
+    margin-bottom: var(--margin-big);
     color: var(--secondary-color);
   }
 
@@ -25,7 +24,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 50px;
   }
 
   /* 📌 Formulaire */
@@ -33,13 +32,13 @@
     flex: 1;
     max-width: 500px;
     background: #f9f9f9;
-    padding: 1.5rem;
+    padding: var(--padding-big);
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   }
 
   .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: var(--margin-small);
     text-align: left;
   }
 
@@ -66,25 +65,25 @@
   }
 
   .invalid {
-    border-color: var(--primary-color);
+    border-color: var(--icon-color);
   }
 
   .error-message {
-    color: var(--primary-color);
-    font-size: 0.9rem;
+    color: var(--icon-color);
+    font-size: var(--small-text-size-desktop);
     margin-top: 5px;
   }
 
   button {
     display: block;
     width: 100%;
-    padding: 10px;
+    padding: var(--padding-medium);
     background: var(--button-color);
     color: var(--light-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: var(--small-text-size-desktop);
 
     &:disabled {
       background: var(--secondary-color);
@@ -92,8 +91,8 @@
     }
   }
   .required-fields {
-    margin-top: 25px;
-    font-size: 16px;
+    margin-top: var(--margin-medium);
+    font-size: var(--small-text-size-desktop);
   }
 
   /* 📌 Informations de contact */
@@ -103,8 +102,8 @@
     text-align: left;
 
     h3 {
-      font-size: 24px;
-      margin-bottom: 20px;
+      font-size: var(--h4-size-desktop);
+      margin-bottom: var(--margin-medium);
       color: var(--primary-color);
       font-weight: 700;
     }
@@ -121,7 +120,7 @@
   }
 
   .map-container {
-    margin-top: 1rem;
+    margin-top: var(--margin-medium);
     border-radius: 8px;
     overflow: hidden;
   }
