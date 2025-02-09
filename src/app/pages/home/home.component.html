@@ -1,5 +1,14 @@
-<app-banner></app-banner>
-<app-certification></app-certification>
+<app-banner
+  *ngIf="homeData?.banner"
+  [bannerData]="homeData.banner"
+></app-banner>
+<app-certification
+  *ngIf="homeData?.certification"
+  [certificationData]="homeData.certification"
+></app-certification>
 <app-programs></app-programs>
-<app-partner></app-partner>
+<app-partner
+  *ngIf="homeData?.partner"
+  [partnerData]="homeData.partner"
+></app-partner>
 <app-gallery></app-gallery>

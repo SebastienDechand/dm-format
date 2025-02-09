@@ -18,31 +18,6 @@
     "certificateLink": "assets/documents/certificat-qualiopi.pdf",
     "certificateImage": "assets/images/qualiopi.png"
   },
-  "programs": {
-    "title": "Notre catalogue de formations",
-    "list": [
-      {
-        "title": "Sauveteur Secouriste du Travail (SST)",
-        "description": "Formation complète pour apprendre les gestes de premiers secours et obtenir la certification SST.",
-        "image": "assets/images/Designer (8).jpg"
-      },
-      {
-        "title": "Formation Formateurs SST",
-        "description": "Devenez formateur agréé en secourisme et transmettez vos compétences à votre équipe.",
-        "image": "assets/images/Designer (11).jpeg"
-      },
-      {
-        "title": "Initiation aux Premiers Secours",
-        "description": "Formation accessible à tous pour apprendre les gestes de secours de base.",
-        "image": "assets/images/Designer (6).jpeg"
-      },
-      {
-        "title": "Accompagnement pédagogique et administratif",
-        "description": "Aide à la gestion et à la certification des formateurs pour garantir la qualité des formations.",
-        "image": "assets/images/Designer (4).jpeg"
-      }
-    ]
-  },
   "partner": {
     "title": "Notre Partenaire de Confiance",
     "description": "Chez DM FORMAT, nous collaborons avec des experts engagés pour offrir des formations de qualité. Nous sommes fiers de travailler avec FORMAPREV, un organisme reconnu dans la formation en prévention et secourisme.",
@@ -55,59 +30,5 @@
     },
     "image": "assets/images/nathalie.jpg",
     "closingNote": "Grâce à ce partenariat, nous assurons des formations encore plus adaptées et efficaces pour vous et vos équipes."
-  },
-  "gallery": {
-    "title": "Galerie de Nos Formations",
-    "description": "Découvrez quelques moments de nos formations en action.",
-    "images": [
-      {
-        "id": 1,
-        "title": "Formation RCP",
-        "description": "Apprentissage des gestes de premiers secours.",
-        "src": "assets/images/Designer (8).jpg"
-      },
-      {
-        "id": 2,
-        "title": "Utilisation du Défibrillateur",
-        "description": "Démonstration sur l'usage du DAE.",
-        "src": "assets/images/defibrilateur.jpg"
-      },
-      {
-        "id": 3,
-        "title": "Formation en Entreprise",
-        "description": "Simulation d'urgence en milieu professionnel.",
-        "src": "assets/images/Designer (4).jpeg"
-      },
-      {
-        "id": 4,
-        "title": "Pratique du Massage Cardiaque",
-        "description": "Formation sur la réanimation cardio-pulmonaire avec mannequin et défibrillateur.",
-        "src": "assets/images/mannequin2.jpg"
-      },
-      {
-        "id": 5,
-        "title": "Formation à la Position Latérale de Sécurité (PLS)",
-        "description": "Apprentissage des gestes essentiels pour mettre une victime en sécurité en attendant les secours.",
-        "src": "assets/images/formateur-pls.jpg"
-      },
-      {
-        "id": 6,
-        "title": "Simulation d'Accident de Travail",
-        "description": "Mise en situation réelle d'un accident en entreprise avec intervention des stagiaires.",
-        "src": "assets/images/Designer (7).jpeg"
-      },
-      {
-        "id": 8,
-        "title": "Initiation aux Premiers Secours pour Enfants",
-        "description": "Formation dédiée aux gestes de secours spécifiques pour les enfants et nourrissons.",
-        "src": "assets/images/Designer (6).jpeg"
-      },
-      {
-        "id": 9,
-        "title": "Formation Sauveteur Secouriste du Travail (SST)",
-        "description": "Accompagnement des professionnels pour obtenir leur certification SST.",
-        "src": "assets/images/Designer (11).jpeg"
-      }
-    ]
   }
 }

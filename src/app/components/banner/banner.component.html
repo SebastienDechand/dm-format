@@ -1,34 +1,13 @@
 <section class="hero">
   <div class="hero-content">
-    <h1>Soyez prêts à sauver des vies avec <span>DM FORMAT</span></h1>
-    <p class="subtitle">
-      La sécurité de vos équipes commence ici ! Nos formations certifiées
-      <strong>INRS</strong> et <strong>QUALIOPI</strong>
-      vous préparent à intervenir efficacement en cas d’urgence.
-    </p>
-
-    <p class="details">
-      Que vous soyez une entreprise, un particulier ou un organisme, nous
-      proposons des formations adaptées à vos besoins. Apprenez les gestes de
-      premiers secours, la réanimation, la gestion des situations d’urgence, et
-      obtenez une certification reconnue nationalement.
-    </p>
-
+    <h1 [innerHTML]="safeTitle"></h1>
+    <h2 class="subtitle">{{ bannerData?.subtitle }}</h2>
+    <p class="details">{{ bannerData?.details }}</p>
     <ul class="highlights">
-      <li>✅ Formations 100% certifiées et reconnues</li>
-      <li>✅ Modules adaptés aux professionnels et particuliers</li>
-      <li>
-        ✅ Interventions sur toute la région
-        <strong>Bourgogne-Franche-Comté</strong>
-      </li>
-      <li>✅ Formateurs expérimentés avec plus de 20 ans d’expertise</li>
+      <li *ngFor="let highlight of bannerData?.highlights">{{ highlight }}</li>
     </ul>
   </div>
-
   <div class="hero-image">
-    <img
-      src="assets/images/massage1.webp"
-      alt="Exercice de massage cardiaque"
-    />
+    <img [src]="bannerData?.image" alt="Exercice de massage cardiaque" />
   </div>
 </section>

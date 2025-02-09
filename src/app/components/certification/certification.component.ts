@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-certification',
@@ -8,4 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './certification.component.scss',
   standalone: true,
 })
-export class CertificationComponent {}
+export class CertificationComponent {
+  @Input() certificationData: any;
+}

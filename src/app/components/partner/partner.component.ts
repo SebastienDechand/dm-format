@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-partner',
@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './partner.component.html',
   styleUrl: './partner.component.scss',
 })
-export class PartnerComponent {}
+export class PartnerComponent {
+  @Input() partnerData: any;
+}
