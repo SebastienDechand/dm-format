@@ -1,0 +1,78 @@
+{
+  "title": "Contactez DM FORMAT",
+  "highlight": "DM FORMAT",
+  "description": "Vous souhaitez obtenir des informations sur nos formations ou un devis personnalisé ? Remplissez le formulaire ci-dessous, et nous reviendrons vers vous rapidement.",
+  "form": {
+    "fields": [
+      {
+        "label": "Raison sociale",
+        "icon": "fa-building",
+        "type": "text",
+        "id": "company",
+        "placeholder": "ex: DM FORMAT",
+        "required": true
+      },
+      {
+        "label": "Nom et Prénom",
+        "icon": "fa-user",
+        "type": "text",
+        "id": "name",
+        "placeholder": "ex: Jean Dupont",
+        "required": true
+      },
+      {
+        "label": "Email",
+        "icon": "fa-envelope",
+        "type": "email",
+        "id": "email",
+        "placeholder": "ex: contact@dm-format.fr",
+        "required": true
+      },
+      {
+        "label": "Téléphone",
+        "icon": "fa-phone",
+        "type": "tel",
+        "id": "phone",
+        "placeholder": "ex: 06 12 34 56 78",
+        "required": false
+      },
+      {
+        "label": "Message",
+        "icon": "fa-message",
+        "type": "textarea",
+        "id": "message",
+        "placeholder": "Votre message...",
+        "required": true
+      }
+    ],
+    "submit_button": { "icon": "fa-paper-plane", "text": "Envoyer" },
+    "required_note": "* Tous les champs marqués d’un astérisque sont requis pour l’envoi du formulaire."
+  },
+  "contact_info": {
+    "title": "Nos coordonnées",
+    "address": {
+      "label": "Adresse",
+      "icon": "fa-house",
+      "value": "32 Avenue de Marnay la ville, 70150 Marnay, Bourgogne-Franche-Comté, France"
+    },
+    "phone": {
+      "label": "Téléphone",
+      "icon": "fa-phone",
+      "value": "06 12 34 56 78"
+    },
+    "email": {
+      "label": "Email",
+      "icon": "fa-envelope",
+      "value": "contact@dm-format.fr"
+    },
+    "hours": {
+      "label": "Horaires",
+      "icon": "fa-clock",
+      "value": "Lundi - Vendredi : 9h - 18h"
+    }
+  },
+  "location": {
+    "title": "Localisation",
+    "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2706.308908944498!2d5.761845076038842!3d47.288762609872286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478d58b99df4f21d%3A0xd790f80d32ec47b7!2s32%20Av.%20de%20Marnay%20la%20ville%2C%2070150%20Marnay!5e0!3m2!1sfr!2sfr!4v1738424891884!5m2!1sfr!2sfr"
+  }
+}

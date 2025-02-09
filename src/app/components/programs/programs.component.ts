@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Program } from '../../models/programs.models';
-import { ProgramsService } from '../../services/programs.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-programs',
@@ -14,10 +14,10 @@ import { CommonModule } from '@angular/common';
 export class ProgramsComponent implements OnInit {
   programs: Program[] = [];
 
-  constructor(private programsService: ProgramsService) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.programsService.getPrograms().subscribe((data) => {
+    this.apiService.getPrograms().subscribe((data) => {
       this.programs = data;
     });
   }

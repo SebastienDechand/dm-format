@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ProgramsService } from '../../services/programs.service';
 import { Program } from '../../models/programs.models';
 import { CommonModule } from '@angular/common';
 import { Observable, switchMap } from 'rxjs';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-program-detail',
@@ -17,14 +17,14 @@ export class ProgramDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private programsService: ProgramsService
+    private apiService: ApiService
   ) {}
 
   ngOnInit() {
     this.program$ = this.route.paramMap.pipe(
       switchMap((paramMap) => {
-        const id = Number(paramMap.get('id'));
-        return this.programsService.getProgramById(id);
+        const _id = Number(paramMap.get('_id'));
+        return this.apiService.getProgramById(_id);
       })
     );
   }
