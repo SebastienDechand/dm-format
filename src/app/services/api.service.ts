@@ -39,12 +39,7 @@ export class ApiService {
     return this.http.get<Program[]>(`${this.apiUrl}/trainings`);
   }
 
-  getProgramById(_id: number): Observable<Program | undefined> {
-    return new Observable((observer) => {
-      this.getPrograms().subscribe((programs) => {
-        observer.next(programs.find((program) => program._id === _id));
-        observer.complete();
-      });
-    });
+  getProgramById(id: string): Observable<Program> {
+    return this.http.get<Program>(`${this.apiUrl}/trainings/${id}`);
   }
 }

@@ -1,0 +1,213 @@
+[{
+  "_id": {
+    "$oid": "67a31a845bb9d08e806b50b3"
+  },
+  "title": "Acteurs Sauveteur Secouriste du Travail (niveau 1)",
+  "description": "Formation essentielle pour intervenir rapidement en cas d'urgence.",
+  "duration": "2 jours",
+  "audience": "Accessible à tous, adultes de 16 ans et plus.",
+  "prerequisite": "Aucun",
+  "banner": "assets/images/formateur-pls.jpg",
+  "summary": "Le Sauveteur Secouriste du Travail (SST) est un acteur clé de la prévention des risques en entreprise. Cette formation vise à développer les compétences essentielles pour porter secours à une victime en attendant l’arrivée des secours professionnels et à prévenir les risques professionnels.",
+  "content": "Les participants apprendront notamment à :",
+  "details": [
+    "Savoir réagir face à une situation d’urgence et appliquer les premiers secours.",
+    "Apprendre à analyser les risques professionnels et mettre en place des mesures préventives.",
+    "Maîtriser les gestes de premiers secours pour éviter l’aggravation d’un accident.",
+    "Connaître le rôle du SST dans l’organisation de la prévention en entreprise.",
+    "Alerter efficacement les secours pour optimiser la prise en charge de la victime."
+  ],
+  "methodology": [
+    "Formation 100% pratique, avec exercices de mise en situation sur mannequins.",
+    "Jeux de rôles et études de cas concrets pour réagir efficacement en cas d’accident.",
+    "Aide mémoire remis à chaque participant."
+  ],
+  "modules": [
+    {
+      "title": "Introduction au Secourisme",
+      "description": "Présentation du rôle du SST, cadre légal et importance de la prévention en entreprise."
+    },
+    {
+      "title": "Évaluation d’une Situation d’Urgence",
+      "description": "Analyse des dangers, sécurisation des lieux et identification des signes vitaux de la victime."
+    },
+    {
+      "title": "Les Gestes de Premiers Secours",
+      "description": "Pratique des gestes de secours : massage cardiaque, PLS, arrêt des hémorragies, gestion des brûlures et des traumatismes."
+    },
+    {
+      "title": "Prévention des Risques Professionnels",
+      "description": "Identification des risques en entreprise et mise en place d’actions préventives."
+    },
+    {
+      "title": "Mise en Pratique",
+      "description": "Cas concrets et simulations de situations réelles avec évaluation des compétences."
+    }
+  ],
+  "images": [
+    "assets/images/Designer.jpeg",
+    "assets/images/Designer (1).jpeg",
+    "assets/images/Designer (2).jpeg"
+  ],
+  "testimonials": [
+    {
+      "name": "Alice Dupont",
+      "role": "RH",
+      "feedback": "Formation très complète, je me sens prête à agir en cas d'urgence !"
+    },
+    {
+      "name": "Jean Lemoine",
+      "role": "Manager",
+      "feedback": "Les mises en situation étaient très réalistes."
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67a31a845bb9d08e806b50b4"
+  },
+  "title": "Formateurs Sauveteur Secouriste du Travail (niveau 2)",
+  "description": "Devenez un formateur SST certifié et transmettez vos compétences.",
+  "duration": "9 jours (non consécutifs)",
+  "audience": "Professionnels souhaitant former des Sauveteurs Secouristes du Travail.",
+  "prerequisite": "Être titulaire du SST valide.",
+  "banner": "assets/images/formation.jpg",
+  "summary": "Le rôle du formateur SST est crucial : il doit enseigner aux futurs secouristes les gestes qui sauvent des vies en entreprise. Cette formation approfondie aborde :",
+  "content": "Cette formation approfondie aborde :",
+  "details": [
+    "Les méthodes pédagogiques adaptées à la formation en secourisme.",
+    "La gestion des groupes et l’animation des sessions pratiques.",
+    "L’évaluation des stagiaires et la validation des compétences."
+  ],
+  "methodology": [
+    "Simulations et mises en situation réelle.",
+    "Apprentissage des techniques pédagogiques pour capter l’attention d’un groupe.",
+    "Accompagnement par un expert SST avec retours personnalisés."
+  ],
+  "modules": [
+    {
+      "title": "Techniques Pédagogiques en Secourisme",
+      "description": "Méthodes d'enseignement adaptées aux formations SST."
+    },
+    {
+      "title": "Animation et Communication",
+      "description": "Stratégies pour capter l’attention des stagiaires et assurer une transmission efficace des connaissances."
+    },
+    {
+      "title": "Gestion des Groupes et Scénarios",
+      "description": "Mises en situation pour tester l’apprentissage et renforcer la compréhension des gestes."
+    },
+    {
+      "title": "Évaluation des Compétences",
+      "description": "Mise en place des tests et validation des acquis des stagiaires."
+    }
+  ],
+  "images": [
+    "assets/images/Designer (3).jpeg",
+    "assets/images/Designer (4).jpeg",
+    "assets/images/Designer (5).jpeg"
+  ],
+  "testimonials": [
+    {
+      "name": "Marie Curie",
+      "role": "Formatrice SST",
+      "feedback": "Un apprentissage concret et structuré !"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67a31a845bb9d08e806b50b5"
+  },
+  "title": "Initiations aux premiers secours",
+  "description": "Apprenez les gestes de premiers secours pour sauver des vies.",
+  "duration": "2 heures",
+  "audience": "Grand public, écoles, associations, entreprises.",
+  "prerequisite": "Aucun",
+  "banner": "assets/images/mannequin1.jpg",
+  "summary": "Face à une situation d’urgence, chaque minute compte ! Cette initiation permet d’acquérir les premiers réflexes pour protéger une victime et appeler les secours.",
+  "content": "Les participants apprendront :",
+  "details": [
+    "Les gestes essentiels : compression des plaies, massage cardiaque, gestion des étouffements.",
+    "L’alerte aux services de secours : comment donner des informations claires et précises au SAMU ou aux pompiers.",
+    "La prévention des accidents domestiques et professionnels."
+  ],
+  "methodology": [
+    "Formation interactive avec démonstrations et exercices pratiques.",
+    "Apprentissage ludique pour une mémorisation efficace.",
+    "Mises en situation réelles pour mieux appréhender les gestes de secours."
+  ],
+  "modules": [
+    {
+      "title": "Les Réflexes de Base",
+      "description": "Comprendre comment réagir immédiatement face à une urgence."
+    },
+    {
+      "title": "Gestes de Premiers Secours",
+      "description": "Réalisation des gestes essentiels : PLS, massage cardiaque, gestion des étouffements et des hémorragies."
+    },
+    {
+      "title": "Alerte et Prévention",
+      "description": "Comment prévenir les accidents et donner l’alerte efficacement."
+    }
+  ],
+  "images": [
+    "assets/images/Designer (6).jpeg",
+    "assets/images/Designer (7).jpeg",
+    "assets/images/Designer (8).jpg"
+  ],
+  "testimonials": [
+    {
+      "name": "Thomas Martin",
+      "role": "Étudiant",
+      "feedback": "C’est indispensable, je recommande !"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67a31a845bb9d08e806b50b6"
+  },
+  "title": "Aide pédagogique et administrative",
+  "description": "Support continu pour formateurs SST.",
+  "duration": "Flexible (sur demande)",
+  "audience": "Formateurs en secourisme et entreprises.",
+  "prerequisite": "Engagement de 3 ans",
+  "banner": "assets/images/aide-document.jpg",
+  "summary": "Devenir formateur, c’est aussi gérer toute la partie administrative et pédagogique.",
+  "content": "Ce service vise à faciliter leur quotidien en leur fournissant :",
+  "details": [
+    "Une assistance pédagogique : conseils sur la préparation des contenus et techniques d’animation.",
+    "Une aide administrative : gestion des dossiers, conformité aux certifications (INRS, QUALIOPI : engendre des frais supplémentaires).",
+    "Un accompagnement numérique : guides et support en ligne."
+  ],
+  "methodology": [
+    "Un coaching personnalisé pour optimiser vos sessions de formation.",
+    "Un accès à une bibliothèque de ressources pédagogiques clé en main.",
+    "Un support sur les exigences réglementaires et les certifications."
+  ],
+  "modules": [
+    {
+      "title": "Préparation Pédagogique",
+      "description": "Conseils pour structurer et organiser des sessions de formation efficaces."
+    },
+    {
+      "title": "Gestion Administrative",
+      "description": "Aide à la gestion des dossiers de formation, conformité aux certifications (INRS, QUALIOPI)."
+    },
+    {
+      "title": "Utilisation des Ressources Numériques",
+      "description": "Accès à des modèles de documents, supports pédagogiques et guides pratiques."
+    },
+    {
+      "title": "Mise en Conformité Réglementaire",
+      "description": "Suivi des évolutions légales et conseils sur les démarches administratives obligatoires."
+    }
+  ],
+  "images": [
+    "assets/images/Designer (9).jpeg",
+    "assets/images/Designer (10).jpeg",
+    "assets/images/Designer (11).jpeg"
+  ],
+  "testimonials": []
+}]

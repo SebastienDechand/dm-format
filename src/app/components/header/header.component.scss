@@ -42,5 +42,14 @@ nav {
         background-color: var(--info-color);
       }
     }
+    .menu {
+      .menu-item {
+        color: var(--primary-color);
+      }
+    }
   }
+}
+
+.mat-mdc-menu-panel.menu {
+  background-color: red;
 }

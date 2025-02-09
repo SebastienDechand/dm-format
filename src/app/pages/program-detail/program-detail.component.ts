@@ -23,8 +23,8 @@ export class ProgramDetailComponent implements OnInit {
   ngOnInit() {
     this.program$ = this.route.paramMap.pipe(
       switchMap((paramMap) => {
-        const _id = Number(paramMap.get('_id'));
-        return this.apiService.getProgramById(_id);
+        const id = paramMap.get('id');
+        return id ? this.apiService.getProgramById(id) : [];
       })
     );
   }

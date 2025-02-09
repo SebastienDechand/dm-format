@@ -1,12 +1,12 @@
 <section class="programs-overview">
   <h2>Notre catalogue de <span>formations</span></h2>
   <div class="programs">
-    <div *ngFor="let program of programs">
+    <div *ngFor="let training of trainings">
       <div class="program-card">
-        <img src="{{ program.banner }}" alt="{{ program.title }}" />
-        <h3>{{ program.title }}</h3>
-        <p>{{ program.description }}</p>
-        <a [routerLink]="['/program', program._id]" class="btn"
+        <img src="{{ training.banner }}" alt="{{ training.title }}" />
+        <h3>{{ training.title }}</h3>
+        <p>{{ training.description }}</p>
+        <a [routerLink]="['/trainings', training._id]" class="btn"
           >En savoir plus</a
         >
       </div>

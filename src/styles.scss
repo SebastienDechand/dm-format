@@ -1,3 +1,16 @@
+@use '@angular/material' as mat;
+
+@include mat.menu-overrides(
+  (
+    item-spacing: 50px,
+    item-icon-color: var(--primary-color),
+  )
+);
+
+.menu .menu-item {
+  padding: 12px 0; /* Ajustez cette valeur selon vos préférences */
+}
+
 :root {
   /* Colors */
   --primary-color: #316095;

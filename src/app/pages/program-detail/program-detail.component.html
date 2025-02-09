@@ -19,7 +19,6 @@
   <div class="program-container">
     <div class="program-info">
       <h2><span>À propos</span> de cette formation</h2>
-
       <div class="details">
         <div class="detail-item">
           <i class="fa-solid fa-clock"></i>
@@ -34,18 +33,12 @@
           <span><strong>Public cible :</strong> {{ program.audience }}</span>
         </div>
       </div>
-
-      <a class="cta-button" href="mailto:contact@votre-entreprise.com">
-        📩 S'inscrire à cette formation
-      </a>
     </div>
 
     <div class="program-content">
       <h2><span>Contenu</span> de la formation</h2>
       <p>{{ program.summary }}</p>
-
       <div class="content-list">
-        <p>{{ program.content }}</p>
         <ul class="content-details">
           <li *ngFor="let item of program.details">{{ item }}</li>
         </ul>

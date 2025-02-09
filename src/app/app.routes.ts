@@ -16,7 +16,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'program/:id',
+    path: 'trainings/:id',
     loadComponent: () =>
       import('./pages/program-detail/program-detail.component').then(
         (m) => m.ProgramDetailComponent

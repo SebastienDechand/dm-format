@@ -12,13 +12,13 @@ import { ApiService } from '../../services/api.service';
   standalone: true,
 })
 export class ProgramsComponent implements OnInit {
-  programs: Program[] = [];
+  trainings: Program[] = [];
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
     this.apiService.getPrograms().subscribe((data) => {
-      this.programs = data;
+      this.trainings = data;
     });
   }
 }
