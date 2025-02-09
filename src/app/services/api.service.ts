@@ -6,6 +6,7 @@ import { About } from '../models/about.models';
 import { ConditionsData } from '../models/organisation.models';
 import { ContactData } from '../models/contact.models';
 import { Program } from '../models/programs.models';
+import { GalleryImage } from '../models/gallery.models';
 
 @Injectable({
   providedIn: 'root',
@@ -31,8 +32,8 @@ export class ApiService {
     return this.http.get<ConditionsData>(`${this.apiUrl}/pages/organisation`);
   }
 
-  getProgram(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/pages/program`);
+  getGallery(): Observable<GalleryImage[]> {
+    return this.http.get<GalleryImage[]>(`${this.apiUrl}/gallery`);
   }
 
   getPrograms(): Observable<Program[]> {
