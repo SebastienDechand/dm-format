@@ -1,3 +1,16 @@
+@use '@angular/material' as mat;
+
+@include mat.menu-overrides(
+  (
+    item-spacing: 50px,
+    item-icon-color: var(--primary-color),
+  )
+);
+
+.menu .menu-item {
+  padding: 12px 0;
+}
+
 :root {
   /* Colors */
   --primary-color: #316095;
@@ -70,9 +83,6 @@ a {
   text-decoration: none;
   color: var(--secondary-color);
   cursor: pointer;
-  &:hover {
-    color: var(--primary-color);
-  }
 }
 
 p {
@@ -89,13 +99,18 @@ body {
 }
 
 simple-snack-bar {
-  background-color: var(--success-color) !important;
-  color: var(--light-color) !important;
   font-size: 1.1rem;
   text-align: center;
   border-radius: 5px;
-}
-
-.mat-mdc-snackbar-surface {
-  background-color: var(--success-color) !important;
+  color: white;
+  div {
+    button {
+      span {
+        color: white;
+      }
+    }
+  }
+  .mdc-button__panel {
+    color: white;
+  }
 }

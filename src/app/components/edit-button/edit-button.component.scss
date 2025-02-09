@@ -1,0 +1,16 @@
+.edit-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #007bff;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #0056b3;
+  }
+
+  i {
+    pointer-events: none;
+  }
+}

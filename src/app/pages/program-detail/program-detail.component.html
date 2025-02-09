@@ -1,12 +1,33 @@
-<section
-  *ngIf="program$ | async as program; else noProgram"
-  class="program-detail"
->
+<section *ngIf="program; else noProgram" class="program-detail">
   <div class="banner-container">
     <div class="banner-summary">
-      <h2>{{ program.title }}</h2>
+      <h2>
+        <span *ngIf="!editMode['title']">{{ program.title }}</span>
+        <input
+          *ngIf="editMode['title']"
+          [(ngModel)]="program.title"
+          class="edit-input"
+          (blur)="toggleEditMode('title')"
+        />
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('title')"
+        ></app-edit-button>
+      </h2>
       <ul>
-        <li *ngFor="let method of program.methodology">{{ method }}</li>
+        <li *ngFor="let method of program.methodology; let i = index">
+          <span *ngIf="!editMode['methodology.' + i]">{{ method }}</span>
+          <input
+            *ngIf="editMode['methodology.' + i]"
+            [(ngModel)]="program.methodology[i]"
+            class="edit-input"
+            (blur)="toggleEditMode('methodology.' + i)"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('methodology.' + i)"
+          ></app-edit-button>
+        </li>
       </ul>
     </div>
 
@@ -19,35 +40,94 @@
   <div class="program-container">
     <div class="program-info">
       <h2><span>À propos</span> de cette formation</h2>
-
       <div class="details">
         <div class="detail-item">
           <i class="fa-solid fa-clock"></i>
-          <span><strong>Durée :</strong> {{ program.duration }}</span>
+          <span>
+            <strong>Durée :</strong>
+            <span *ngIf="!editMode['duration']">{{ program.duration }}</span>
+            <input
+              *ngIf="editMode['duration']"
+              [(ngModel)]="program.duration"
+              class="edit-input"
+              (blur)="toggleEditMode('duration')"
+            />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('duration')"
+            ></app-edit-button>
+          </span>
         </div>
         <div class="detail-item">
           <i class="fa-solid fa-check"></i>
-          <span><strong>Pré-requis :</strong> {{ program.prerequisite }}</span>
+          <span>
+            <strong>Pré-requis :</strong>
+            <span *ngIf="!editMode['prerequisite']">{{
+              program.prerequisite
+            }}</span>
+            <input
+              *ngIf="editMode['prerequisite']"
+              [(ngModel)]="program.prerequisite"
+              class="edit-input"
+              (blur)="toggleEditMode('prerequisite')"
+            />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('prerequisite')"
+            ></app-edit-button>
+          </span>
         </div>
         <div class="detail-item">
           <i class="fa-solid fa-people-group"></i>
-          <span><strong>Public cible :</strong> {{ program.audience }}</span>
+          <span>
+            <strong>Public cible :</strong>
+            <span *ngIf="!editMode['audience']">{{ program.audience }}</span>
+            <input
+              *ngIf="editMode['audience']"
+              [(ngModel)]="program.audience"
+              class="edit-input"
+              (blur)="toggleEditMode('audience')"
+            />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('audience')"
+            ></app-edit-button>
+          </span>
         </div>
       </div>
-
-      <a class="cta-button" href="mailto:contact@votre-entreprise.com">
-        📩 S'inscrire à cette formation
-      </a>
     </div>
 
     <div class="program-content">
       <h2><span>Contenu</span> de la formation</h2>
-      <p>{{ program.summary }}</p>
+      <p>
+        <span *ngIf="!editMode['summary']">{{ program.summary }}</span>
+        <textarea
+          *ngIf="editMode['summary']"
+          [(ngModel)]="program.summary"
+          class="edit-textarea"
+          (blur)="toggleEditMode('summary')"
+        ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('summary')"
+        ></app-edit-button>
+      </p>
 
       <div class="content-list">
-        <p>{{ program.content }}</p>
         <ul class="content-details">
-          <li *ngFor="let item of program.details">{{ item }}</li>
+          <li *ngFor="let item of program.details; let i = index">
+            <span *ngIf="!editMode['details.' + i]">{{ item }}</span>
+            <input
+              *ngIf="editMode['details.' + i]"
+              [(ngModel)]="program.details[i]"
+              class="edit-input"
+              (blur)="toggleEditMode('details.' + i)"
+            />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('details.' + i)"
+            ></app-edit-button>
+          </li>
         </ul>
       </div>
 
@@ -55,33 +135,92 @@
       <ul class="modules">
         <li *ngFor="let module of program.modules; let i = index">
           <h4>
-            <span>{{ i + 1 }}.</span> {{ module.title }}
+            <span>{{ i + 1 }}.</span>
+            <span *ngIf="!editMode['modules.' + i + '.title']">{{
+              module.title
+            }}</span>
+            <input
+              *ngIf="editMode['modules.' + i + '.title']"
+              [(ngModel)]="module.title"
+              class="edit-input"
+              (blur)="toggleEditMode('modules.' + i + '.title')"
+            />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('modules.' + i + '.title')"
+            ></app-edit-button>
           </h4>
-          <p>{{ module.description }}</p>
+          <p>
+            <span *ngIf="!editMode['modules.' + i + '.description']">{{
+              module.description
+            }}</span>
+            <textarea
+              *ngIf="editMode['modules.' + i + '.description']"
+              [(ngModel)]="module.description"
+              class="edit-textarea"
+              (blur)="toggleEditMode('modules.' + i + '.description')"
+            ></textarea>
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('modules.' + i + '.description')"
+            ></app-edit-button>
+          </p>
         </li>
       </ul>
     </div>
 
     <div class="program-images">
-      <img
-        *ngFor="let image of program.images"
-        [src]="image"
-        [alt]="program.title"
-      />
+      <div
+        *ngFor="let image of program.images; let i = index"
+        class="image-container"
+      >
+        <img [src]="image" [alt]="program.title" />
+        <div class="image-edit" *ngIf="isAdmin$ | async">
+          <input
+            *ngIf="editMode['images.' + i]"
+            [(ngModel)]="program.images[i]"
+            class="edit-input"
+            (blur)="toggleEditMode('images.' + i)"
+            placeholder="URL de l'image"
+          />
+          <app-edit-button
+            (editClicked)="toggleEditMode('images.' + i)"
+          ></app-edit-button>
+        </div>
+      </div>
     </div>
 
+    <!-- Testimonials section -->
     <div class="testimonials">
       <h2>💬 <span>Avis</span> des participants</h2>
       <div *ngIf="program.testimonials.length > 0; else noTestimonials">
         <div
-          *ngFor="let testimonial of program.testimonials"
+          *ngFor="let testimonial of program.testimonials; let i = index"
           class="testimonial"
         >
-          <p>"{{ testimonial.feedback }}"</p>
-          <span>- {{ testimonial.name }}, {{ testimonial.role }}</span>
+          <p>
+            "<span *ngIf="!editMode['testimonials.' + i + '.feedback']">{{
+              testimonial.feedback
+            }}</span>
+          </p>
+          <span>
+            -
+            <span *ngIf="!editMode['testimonials.' + i + '.name']">{{
+              testimonial.name
+            }}</span>
+            ,
+            <span *ngIf="!editMode['testimonials.' + i + '.role']">{{
+              testimonial.role
+            }}</span>
+          </span>
         </div>
       </div>
     </div>
+
+    <!-- Save button -->
+    <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
+      Sauvegarder les modifications
+    </button>
   </div>
 </section>
 

@@ -1,0 +1,43 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <h2>Connexion Administrateur</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" required />
+          <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+            L'email est requis
+          </mat-error>
+          <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
+            Email invalide
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" formControlName="password" required />
+          <mat-error
+            *ngIf="loginForm.controls['password'].hasError('required')"
+          >
+            Le mot de passe est requis
+          </mat-error>
+          <mat-error
+            *ngIf="loginForm.controls['password'].hasError('minlength')"
+          >
+            Minimum 6 caractères
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="full-width"
+      >
+        Se connecter
+      </button>
+    </form>
+  </mat-card>
+</div>

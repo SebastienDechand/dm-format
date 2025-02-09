@@ -1,19 +1,25 @@
 <nav>
   <p mat-button [routerLink]="['/']" class="logo-btn">DM FORMAT</p>
+  <button mat-button [routerLink]="['/login']" *ngIf="!(isLoggedIn$ | async)">
+    Se connecter
+  </button>
+  <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
+    Se déconnecter
+  </button>
+  <button (click)="toggleAdminMode()" *ngIf="isLoggedIn$ | async">
+    {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+  </button>
   <div class="nav-links">
     <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="['/program', 1]">
-        Acteurs SST (niveau 1)
-      </button>
-      <button mat-menu-item [routerLink]="['/program', 2]">
-        Formateurs SST (niveau 2)
-      </button>
-      <button mat-menu-item [routerLink]="['/program', 3]">
-        Initiations aux premiers secours
-      </button>
-      <button mat-menu-item [routerLink]="['/program', 4]">
-        Aide pédagogique et administrative
+    <mat-menu #menu="matMenu" class="menu">
+      <button
+        mat-menu-item
+        *ngFor="let training of trainings"
+        [routerLink]="['/trainings', training._id]"
+        class="menu-item"
+      >
+        <mat-icon class="icon">{{ getIconForTraining(training) }}</mat-icon>
+        {{ training.title }}
       </button>
     </mat-menu>
 

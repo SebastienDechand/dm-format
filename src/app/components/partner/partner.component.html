@@ -1,45 +1,158 @@
-<section class="partner-highlight">
-  <div class="container">
-    <h2><span>Notre Partenaire de Confiance</span></h2>
+<section class="partner">
+  <div class="partner-highlight">
+    <!-- Title -->
+    <h2>
+      <span *ngIf="!editMode['partnerTitle']">{{ partnerData?.title }}</span>
+      <input
+        *ngIf="editMode['partnerTitle']"
+        [(ngModel)]="partnerData.title"
+        (blur)="toggleEditMode('partnerTitle')"
+        class="edit-input"
+      />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('partnerTitle')"
+        class="edit-btn"
+      ></app-edit-button>
+    </h2>
+
+    <!-- Description -->
     <p class="intro">
-      Chez <strong>DM FORMAT</strong>, nous collaborons avec des experts engagés
-      pour offrir des formations de qualité. Nous sommes fiers de travailler
-      avec <strong>FORMAPREV</strong>, un organisme reconnu dans la formation en
-      prévention et secourisme.
+      <span *ngIf="!editMode['partnerDescription']">{{
+        partnerData?.description
+      }}</span>
+      <textarea
+        *ngIf="editMode['partnerDescription']"
+        [(ngModel)]="partnerData.description"
+        (blur)="toggleEditMode('partnerDescription')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('partnerDescription')"
+        class="edit-btn"
+      ></app-edit-button>
     </p>
 
     <div class="partner-profile">
       <div class="partner-info">
-        <h3>FORMAPREV - Formation Prévention & Secours</h3>
+        <!-- Partner Name -->
+        <h3>
+          <span *ngIf="!editMode['partnerName']">{{
+            partnerData?.profile?.name
+          }}</span>
+          <textarea
+            *ngIf="editMode['partnerName']"
+            [(ngModel)]="partnerData.profile.name"
+            (blur)="toggleEditMode('partnerName')"
+            class="edit-textarea"
+          ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerName')"
+            class="edit-btn"
+          ></app-edit-button>
+        </h3>
+
+        <!-- Contact Person -->
         <p>
-          <i class="fa-solid fa-user"></i> <strong>Nathalie Nicolas</strong>
+          <span *ngIf="!editMode['partnerContactPerson']">{{
+            partnerData?.profile?.contact?.person
+          }}</span>
+          <input
+            *ngIf="editMode['partnerContactPerson']"
+            [(ngModel)]="partnerData.profile.contact.person"
+            (blur)="toggleEditMode('partnerContactPerson')"
+            class="edit-input"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerContactPerson')"
+            class="edit-btn"
+          ></app-edit-button>
         </p>
+
+        <!-- Address -->
         <p>
-          <i class="fa-solid fa-map-marker-alt"></i> 2 rue de la petite plaine,
-          21130 Auxonne
+          <span *ngIf="!editMode['partnerAddress']">{{
+            partnerData?.profile?.contact?.address
+          }}</span>
+          <textarea
+            *ngIf="editMode['partnerAddress']"
+            [(ngModel)]="partnerData.profile.contact.address"
+            (blur)="toggleEditMode('partnerAddress')"
+            class="edit-textarea"
+          ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerAddress')"
+            class="edit-btn"
+          ></app-edit-button>
         </p>
+
+        <!-- Email -->
         <p>
-          <i class="fa-solid fa-envelope"></i>
-          <a href="mailto:formaprev21&#64;gmail.com"
-            >formaprev21&#64;gmail.com</a
+          <a
+            *ngIf="!editMode['partnerEmail']"
+            [href]="'mailto:' + partnerData?.profile?.contact?.email"
           >
+            {{ partnerData?.profile?.contact?.email }}
+          </a>
+          <input
+            *ngIf="editMode['partnerEmail']"
+            [(ngModel)]="partnerData.profile.contact.email"
+            (blur)="toggleEditMode('partnerEmail')"
+            class="edit-input"
+            type="email"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerEmail')"
+            class="edit-btn"
+          ></app-edit-button>
         </p>
+
+        <!-- Phone -->
         <p>
-          <i class="fa-solid fa-phone"></i>
-          <a href="tel:+33620496687">06 20 49 66 87</a>
+          <span *ngIf="!editMode['partnerPhone']">{{
+            partnerData?.profile?.contact?.phone
+          }}</span>
+          <input
+            *ngIf="editMode['partnerPhone']"
+            [(ngModel)]="partnerData.profile.contact.phone"
+            (blur)="toggleEditMode('partnerPhone')"
+            class="edit-input"
+            type="tel"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerPhone')"
+            class="edit-btn"
+          ></app-edit-button>
         </p>
       </div>
+
       <div class="partner-image">
-        <img
-          src="assets/images/nathalie.jpg"
-          alt="FORMAPREV - Nathalie Nicolas"
-        />
+        <img [src]="partnerData?.profile?.image" alt="Partner Image" />
       </div>
     </div>
 
+    <!-- Closing Note -->
     <p class="closing">
-      Grâce à ce partenariat, nous assurons des formations encore plus adaptées
-      et efficaces pour vous et vos équipes.
+      <span *ngIf="!editMode['partnerClosingNote']">{{
+        partnerData?.closingNote
+      }}</span>
+      <textarea
+        *ngIf="editMode['partnerClosingNote']"
+        [(ngModel)]="partnerData.closingNote"
+        (blur)="toggleEditMode('partnerClosingNote')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('partnerClosingNote')"
+        class="edit-btn"
+      ></app-edit-button>
     </p>
   </div>
 </section>

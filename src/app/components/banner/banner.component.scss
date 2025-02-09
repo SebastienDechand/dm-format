@@ -9,65 +9,83 @@
   margin: auto;
   gap: var(--title-size-desktop);
   padding: 0 120px;
-}
 
-/* 🎯 Conteneur principal */
-.hero-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-}
+  /* 📝 Contenu texte */
+  .hero-content {
+    max-width: 50%;
+    color: var(--secondary-color);
+    text-align: left;
 
-/* 📝 Texte */
-.hero-content {
-  max-width: 50%;
-  color: var(--secondary-color);
-  text-align: left;
+    h1 {
+      font-size: var(--subtitle-size-desktop);
+      font-weight: bold;
+      margin-bottom: var(--margin-medium);
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
 
-  h1 {
-    font-size: var(--subtitle-size-desktop);
-    font-weight: bold;
-    margin-bottom: var(--margin-medium);
-    text-transform: uppercase;
-    line-height: 1.2;
+    .subtitle {
+      font-size: var(--text-size-desktop);
+      margin-bottom: var(--margin-medium);
+      line-height: 1.4;
+    }
 
-    span {
-      color: var(--primary-color);
+    .details {
+      font-size: var(--text-size-desktop);
+      line-height: 1.5;
+      margin-bottom: var(--margin-medium);
     }
   }
 
-  .subtitle {
-    font-size: var(--text-size-desktop);
-    margin-bottom: var(--margin-medium);
-    line-height: 1.4;
+  /* ✅ Liste des avantages */
+  .highlights {
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--margin-big);
+
+    li {
+      font-size: var(--text-size-desktop);
+      margin: 0 0 var(--margin-small) var(--margin-medium);
+
+      &::marker {
+        content: '✅';
+      }
+    }
   }
 
-  .details {
-    font-size: var(--text-size-desktop);
-    line-height: 1.5;
-    margin-bottom: var(--margin-medium);
+  /* 📸 Image */
+  .hero-image {
+    max-width: 50%;
+    flex: 1;
+    display: flex;
+    justify-content: center;
   }
-}
 
-/* ✅ Liste des avantages */
-.highlights {
-  list-style: none;
-  padding: 0;
-  margin-bottom: var(--margin-big);
-
-  li {
+  /* 🎛️ Mode édition */
+  .edit-input,
+  .edit-textarea {
+    border: 2px solid var(--primary-color);
+    padding: 5px;
     font-size: var(--text-size-desktop);
-    margin-bottom: var(--margin-small);
+    border-radius: 5px;
   }
-}
 
-/* 📸 Image */
-.hero-image {
-  max-width: 50%;
-  flex: 1;
-  display: flex;
-  justify-content: center;
+  .edit-textarea {
+    min-width: 100%;
+    min-height: 100px;
+  }
+
+  .edit-input {
+    min-width: 90%;
+  }
+
+  /* ✏️ Bouton d'édition */
+  .edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+    color: var(--primary-color);
+  }
 }
