@@ -1,9 +1,18 @@
-<div class="certification">
-  <h2>{{ certificationData?.title }}</h2>
-  <p>{{ certificationData?.description }}</p>
-  <p>{{ certificationData?.additionalInfo }}</p>
-  <a [href]="certificationData?.certificateLink" target="_blank"
-    >Voir le certificat</a
-  >
-  <img [src]="certificationData?.certificateImage" alt="Certification Image" />
-</div>
+<section class="certification">
+  <div class="certification-container">
+    <div class="certification-content">
+      <h2>{{ certificationData?.title }}</h2>
+      <p>{{ certificationData?.description }}</p>
+      <p>{{ certificationData?.additionalInfo }}</p>
+      <a
+        [href]="certificationData?.certificateLink"
+        target="_blank"
+        class="certification-button"
+        >Voir le certificat</a
+      >
+    </div>
+    <div class="certification-logo">
+      <img [src]="certificationData?.certificateImage" alt="Qualiopi" />
+    </div>
+  </div>
+</section>
