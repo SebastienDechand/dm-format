@@ -15,6 +15,7 @@
   mat-tab-group {
     width: 100%;
     background: var(--light-color);
+    border-radius: 20px;
 
     mat-tab-header {
       display: flex;
@@ -37,23 +38,37 @@
 
   .programs-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
-  }
 
-  .program-card {
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: var(--light-color);
-    border-radius: 8px;
+    &.certifying-grid {
+      display: flex;
+      width: 50%;
+      margin: auto;
+      justify-content: center;
+      align-items: center;
+    }
 
-    img {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-top-left-radius: 8px;
-      border-top-right-radius: 8px;
+    &.non-certifying-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .program-card {
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      background: var(--light-color);
+      border-radius: 8px;
+
+      img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        &.certifying-img {
+          object-position: center 30%;
+        }
+      }
     }
 
     mat-card-title {
@@ -86,7 +101,7 @@
     }
 
     mat-card-content {
-      height: 50px;
+      height: 100px;
     }
 
     button {

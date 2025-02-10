@@ -31,8 +31,8 @@ export class ProgramsComponent implements OnInit {
     this.apiService.getPrograms().subscribe((data) => {
       this.trainings = data;
 
-      this.certifyingTrainings = data.slice(0, 3);
-      this.nonCertifyingTrainings = data.slice(3, 6);
+      this.certifyingTrainings = data.slice(0, 2);
+      this.nonCertifyingTrainings = data.slice(2, 6);
     });
   }
 }

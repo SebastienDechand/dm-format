@@ -8,12 +8,17 @@
         <span>Avec Certification</span>
       </ng-template>
 
-      <div class="programs-grid">
+      <div class="programs-grid certifying-grid">
         <mat-card
           *ngFor="let training of certifyingTrainings"
           class="program-card"
         >
-          <img mat-card-image [src]="training.banner" [alt]="training.title" />
+          <img
+            mat-card-image
+            [src]="training.banner"
+            [alt]="training.title"
+            class="certifying-img"
+          />
           <mat-card-title>{{ training.title }}</mat-card-title>
           <mat-card-content>
             <p>{{ training.description }}</p>
@@ -33,7 +38,7 @@
         <span>Sans Certification</span>
       </ng-template>
 
-      <div class="programs-grid">
+      <div class="programs-grid non-certifying-grid">
         <mat-card
           *ngFor="let training of nonCertifyingTrainings"
           class="program-card"

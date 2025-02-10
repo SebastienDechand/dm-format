@@ -75,7 +75,7 @@
     <!-- 💰 Financement par les OPCO -->
     <div class="finances">
       <h3>{{ organisationData.financing.title }}</h3>
-      <p [innerHTML]="organisationData.financing.description"></p>
+      <p [innerHTML]="organisationData.financing.description | safeHtml"></p>
 
       <div class="finance-opco">
         <h4>{{ organisationData.financing.opco.title }}</h4>
