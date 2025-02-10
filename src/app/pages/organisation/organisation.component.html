@@ -3,7 +3,7 @@
     <!-- 🌟 En-tête de la page -->
     <div class="header-banner">
       <div class="banner-content">
-        <h2>{{ organisationData.header.title }}</h2>
+        <h2 [innerHTML]="organisationData.header.title | safeHtml"></h2>
         <p>{{ organisationData.header.description }}</p>
       </div>
       <div class="banner-image">
