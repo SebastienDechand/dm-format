@@ -1,25 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, SafeHtmlPipe],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })
-export class BannerComponent implements OnInit {
+export class BannerComponent {
   @Input() bannerData: any;
-  safeTitle: SafeHtml | undefined;
-
-  constructor(private sanitizer: DomSanitizer) {}
-
-  ngOnInit() {
-    if (this.bannerData?.title) {
-      this.safeTitle = this.sanitizer.bypassSecurityTrustHtml(
-        this.bannerData.title
-      );
-    }
-  }
 }

@@ -1,6 +1,6 @@
 <section class="hero">
   <div class="hero-content">
-    <h1 [innerHTML]="safeTitle"></h1>
+    <h1 [innerHTML]="bannerData?.title | safeHtml"></h1>
     <h2 class="subtitle">{{ bannerData?.subtitle }}</h2>
     <p class="details">{{ bannerData?.details }}</p>
     <ul class="highlights">

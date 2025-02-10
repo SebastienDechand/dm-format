@@ -1,7 +1,7 @@
 <section class="certification">
   <div class="certification-container">
     <div class="certification-content">
-      <h2>{{ certificationData?.title }}</h2>
+      <h2 [innerHTML]="certificationData?.title | safeHtml"></h2>
       <p>{{ certificationData?.description }}</p>
       <p>{{ certificationData?.additionalInfo }}</p>
       <a

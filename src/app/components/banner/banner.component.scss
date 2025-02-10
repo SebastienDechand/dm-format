@@ -50,7 +50,11 @@
 
   li {
     font-size: var(--text-size-desktop);
-    margin-bottom: var(--margin-small);
+    margin: 0 0 var(--margin-small) var(--margin-medium);
+
+    &::marker {
+      content: '✅';
+    }
   }
 }
 
