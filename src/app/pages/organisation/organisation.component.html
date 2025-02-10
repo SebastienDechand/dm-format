@@ -45,7 +45,7 @@
       <ul>
         <li
           *ngFor="let detail of organisationData.certification.details"
-          [innerHTML]="detail"
+          [innerHTML]="detail | safeHtml"
         ></li>
       </ul>
       <p class="note">{{ organisationData.certification.note }}</p>

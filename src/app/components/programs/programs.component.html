@@ -1,15 +1,55 @@
 <section class="programs-overview">
-  <h2>Notre catalogue de <span>formations</span></h2>
-  <div class="programs">
-    <div *ngFor="let training of trainings">
-      <div class="program-card">
-        <img src="{{ training.banner }}" alt="{{ training.title }}" />
-        <h3>{{ training.title }}</h3>
-        <p>{{ training.description }}</p>
-        <a [routerLink]="['/trainings', training._id]" class="btn"
-          >En savoir plus</a
+  <h2>Notre catalogue de formations</h2>
+
+  <mat-tab-group animationDuration="500ms">
+    <!-- Onglet des formations avec certification -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span>Avec Certification</span>
+      </ng-template>
+
+      <div class="programs-grid">
+        <mat-card
+          *ngFor="let training of certifyingTrainings"
+          class="program-card"
         >
+          <img mat-card-image [src]="training.banner" [alt]="training.title" />
+          <mat-card-title>{{ training.title }}</mat-card-title>
+          <mat-card-content>
+            <p>{{ training.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <a [routerLink]="['/trainings', training._id]">
+              <button mat-button color="primary">En savoir plus</button>
+            </a>
+          </mat-card-actions>
+        </mat-card>
       </div>
-    </div>
-  </div>
+    </mat-tab>
+
+    <!-- Onglet des formations sans certification -->
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span>Sans Certification</span>
+      </ng-template>
+
+      <div class="programs-grid">
+        <mat-card
+          *ngFor="let training of nonCertifyingTrainings"
+          class="program-card"
+        >
+          <img mat-card-image [src]="training.banner" [alt]="training.title" />
+          <mat-card-title>{{ training.title }}</mat-card-title>
+          <mat-card-content>
+            <p>{{ training.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <a [routerLink]="['/trainings', training._id]">
+              <button mat-button color="warn">En savoir plus</button>
+            </a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </section>

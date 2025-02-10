@@ -86,10 +86,6 @@
       font-size: var(text-size-desktop);
       font-weight: 500;
       color: var(--primary-color);
-      display: flex;
-      text-align: center;
-      width: 100%;
-      justify-content: center;
     }
   }
 
@@ -153,6 +149,7 @@
       font-size: var(--h4-size-desktop);
       margin-bottom: var(--margin-big);
       color: var(--primary-color);
+      text-align: center;
     }
 
     ul {

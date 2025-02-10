@@ -61,7 +61,7 @@
 /* Description du programme */
 .program-content {
   background: var(--background-color);
-  padding: var(--padding-big) var(--padding-big) 0;
+  padding: var(--padding-big) 0;
   width: 80%;
   margin: 0 auto;
 
@@ -137,7 +137,7 @@
   height: 350px;
 
   img {
-    width: 100%;
+    width: 33%;
     height: 100%;
     object-fit: cover;
     border-radius: 10px;

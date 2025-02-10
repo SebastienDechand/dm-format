@@ -33,14 +33,18 @@ export class HeaderComponent {
 
   getIconForTraining(training: Program): string {
     switch (training.title) {
-      case 'Acteurs SST (niveau 1)':
+      case 'Acteurs Sauveteur Secouriste du Travail (niveau 1)':
         return 'person';
-      case 'Formateurs SST (niveau 2)':
+      case 'Formateurs Sauveteur Secouriste du Travail (niveau 2)':
         return 'school';
       case 'Initiations aux premiers secours':
         return 'favorite';
       case 'Aide pédagogique et administrative':
         return 'help';
+      case "Sensibilisation aux gestes d'urgences":
+        return 'volunteer_activism ';
+      case 'Utilisation du défibrillateur':
+        return 'electric_bolt';
       default:
         return 'menu_book';
     }

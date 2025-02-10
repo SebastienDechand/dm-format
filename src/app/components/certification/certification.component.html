@@ -1,5 +1,8 @@
 <section class="certification">
   <div class="certification-container">
+    <div class="certification-logo">
+      <img [src]="certificationData?.certificateImage" alt="Qualiopi" />
+    </div>
     <div class="certification-content">
       <h2 [innerHTML]="certificationData?.title | safeHtml"></h2>
       <p>{{ certificationData?.description }}</p>
@@ -10,9 +13,6 @@
         class="certification-button"
         >Voir le certificat</a
       >
-    </div>
-    <div class="certification-logo">
-      <img [src]="certificationData?.certificateImage" alt="Qualiopi" />
     </div>
   </div>
 </section>
