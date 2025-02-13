@@ -1,0 +1,11 @@
+<h2>Connexion Admin</h2>
+<form (ngSubmit)="login()">
+  <label>Email :</label>
+  <input type="email" [(ngModel)]="email" required name="email" />
+
+  <label>Mot de passe :</label>
+  <input type="password" [(ngModel)]="password" required name="password" />
+
+  <button type="submit">Se connecter</button>
+</form>
+<p *ngIf="errorMessage" class="error">{{ errorMessage }}</p>

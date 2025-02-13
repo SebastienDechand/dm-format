@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-header',
@@ -21,14 +22,20 @@ import { ApiService } from '../../services/api.service';
   standalone: true,
 })
 export class HeaderComponent {
-  trainings: Program[] = [];
+  private apiService: ApiService = inject(ApiService);
+  private adminService: AdminService = inject(AdminService);
 
-  constructor(private apiService: ApiService) {}
+  trainings: Program[] = [];
+  isAdmin$ = this.adminService.isAdminMode$;
 
   ngOnInit() {
     this.apiService.getPrograms().subscribe((data) => {
       this.trainings = data;
     });
+  }
+
+  toggleAdminMode() {
+    this.adminService.toggleAdminMode();
   }
 
   getIconForTraining(training: Program): string {

@@ -20,27 +20,58 @@ export class ApiService {
     return this.http.get<About>(`${this.apiUrl}/pages/about`);
   }
 
+  patchAbout(data: About): Observable<About> {
+    return this.http.patch<About>(`${this.apiUrl}/pages/about`, data);
+  }
+
   getHome(): Observable<any> {
     return this.http.get(`${this.apiUrl}/pages/home`);
+  }
+
+  patchHome(data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/pages/home`, data);
   }
 
   getContact(): Observable<ContactData> {
     return this.http.get<ContactData>(`${this.apiUrl}/pages/contact`);
   }
 
+  patchContact(data: ContactData): Observable<ContactData> {
+    return this.http.patch<ContactData>(`${this.apiUrl}/pages/contact`, data);
+  }
+
   getOrganisation(): Observable<ConditionsData> {
     return this.http.get<ConditionsData>(`${this.apiUrl}/pages/organisation`);
+  }
+
+  patchOrganisation(data: ConditionsData): Observable<ConditionsData> {
+    return this.http.patch<ConditionsData>(
+      `${this.apiUrl}/pages/organisation`,
+      data
+    );
   }
 
   getGallery(): Observable<GalleryImage[]> {
     return this.http.get<GalleryImage[]>(`${this.apiUrl}/gallery`);
   }
 
+  patchGallery(data: GalleryImage[]): Observable<GalleryImage[]> {
+    return this.http.patch<GalleryImage[]>(`${this.apiUrl}/gallery`, data);
+  }
+
   getPrograms(): Observable<Program[]> {
     return this.http.get<Program[]>(`${this.apiUrl}/trainings`);
   }
 
+  patchPrograms(data: Program[]): Observable<Program[]> {
+    return this.http.patch<Program[]>(`${this.apiUrl}/trainings`, data);
+  }
+
   getProgramById(id: string): Observable<Program> {
     return this.http.get<Program>(`${this.apiUrl}/trainings/${id}`);
+  }
+
+  patchProgramById(id: string, data: Program): Observable<Program> {
+    return this.http.patch<Program>(`${this.apiUrl}/trainings/${id}`, data);
   }
 }

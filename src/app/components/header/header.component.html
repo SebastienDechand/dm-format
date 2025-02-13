@@ -1,5 +1,8 @@
 <nav>
   <p mat-button [routerLink]="['/']" class="logo-btn">DM FORMAT</p>
+  <button (click)="toggleAdminMode()">
+    {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+  </button>
   <div class="nav-links">
     <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
     <mat-menu #menu="matMenu" class="menu">
