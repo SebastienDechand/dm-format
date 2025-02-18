@@ -176,3 +176,32 @@
     }
   }
 }
+
+.edit-input,
+.edit-textarea {
+  border: 2px solid var(--primary-color);
+  padding: 5px;
+  font-size: var(--text-size-desktop);
+  border-radius: 5px;
+}
+
+.edit-textarea {
+  min-width: 100%;
+  min-height: 150px;
+}
+
+.edit-input {
+  min-width: 90%;
+}
+
+.save-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 15px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
