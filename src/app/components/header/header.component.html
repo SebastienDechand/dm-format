@@ -1,6 +1,12 @@
 <nav>
   <p mat-button [routerLink]="['/']" class="logo-btn">DM FORMAT</p>
-  <button (click)="toggleAdminMode()">
+  <button mat-button [routerLink]="['/login']" *ngIf="!(isLoggedIn$ | async)">
+    Se connecter
+  </button>
+  <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
+    Se déconnecter
+  </button>
+  <button (click)="toggleAdminMode()" *ngIf="isLoggedIn$ | async">
     {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
   </button>
   <div class="nav-links">

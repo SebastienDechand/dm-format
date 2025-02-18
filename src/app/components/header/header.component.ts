@@ -7,6 +7,8 @@ import { RouterLink } from '@angular/router';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
+import { Observable } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -24,9 +26,11 @@ import { AdminService } from '../../services/admin.service';
 export class HeaderComponent {
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
+  private authService: AuthService = inject(AuthService);
 
   trainings: Program[] = [];
-  isAdmin$ = this.adminService.isAdminMode$;
+  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
   ngOnInit() {
     this.apiService.getPrograms().subscribe((data) => {
@@ -36,6 +40,11 @@ export class HeaderComponent {
 
   toggleAdminMode() {
     this.adminService.toggleAdminMode();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.adminService.setAdminMode(false);
   }
 
   getIconForTraining(training: Program): string {

@@ -6,20 +6,28 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class AdminService {
   private adminKey = 'isAdmin';
+
   private isAdminSubject = new BehaviorSubject<boolean>(this.isAdminMode());
   isAdminMode$ = this.isAdminSubject.asObservable();
+
+  constructor() {}
 
   setAdminMode(enabled: boolean) {
     if (typeof window !== 'undefined') {
       localStorage.setItem(this.adminKey, JSON.stringify(enabled));
     }
+    this.isAdminSubject.next(enabled);
   }
 
   toggleAdminMode() {
-    this.isAdminSubject.next(!this.isAdminSubject.value);
+    if (typeof window !== 'undefined') {
+      const newValue = !this.isAdminSubject.value;
+      this.isAdminSubject.next(newValue);
+      localStorage.setItem(this.adminKey, JSON.stringify(newValue));
+    }
   }
 
-  isAdminMode(): boolean {
+  private isAdminMode(): boolean {
     if (
       typeof window !== 'undefined' &&
       localStorage.getItem(this.adminKey) !== null

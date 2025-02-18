@@ -1,42 +1,50 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
+  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }) {
     return this.http
       .post<{ token: string }>(`${this.apiUrl}/auth/login`, credentials)
-      .subscribe({
-        next: (res) => {
-          console.log('Réponse API :', res);
+      .pipe(
+        tap((res) => {
           this.saveToken(res.token);
-        },
-        error: (err) => {
-          console.error('Erreur de connexion :', err);
-        },
-      });
+          this.isLoggedInSubject.next(true);
+        })
+      );
+  }
+
+  logout() {
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');
+    }
+    this.isLoggedInSubject.next(false);
   }
 
   saveToken(token: string) {
-    localStorage.setItem('token', token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('token', token);
+    }
   }
 
   getToken() {
-    return localStorage.getItem('token');
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('token');
+    }
+    return null;
   }
 
   isLoggedIn() {
     return !!this.getToken();
-  }
-
-  logout() {
-    localStorage.removeItem('token');
   }
 }
