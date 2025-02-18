@@ -3,32 +3,35 @@
   <div class="about-header">
     <div class="about-text">
       <h2>
-        <span
-          *ngIf="!editMode['header.title']"
-          (click)="toggleEditMode('header.title')"
-        >
-          {{ aboutData.header.title }}
-        </span>
+        <span *ngIf="!editMode['header.title']">{{
+          aboutData.header.title
+        }}</span>
         <input
           *ngIf="editMode['header.title']"
           [(ngModel)]="aboutData.header.title"
           class="edit-input"
           (blur)="toggleEditMode('header.title')"
         />
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('header.title')"
+        ></app-edit-button>
       </h2>
+
       <p class="intro">
-        <span
-          *ngIf="!editMode['header.description']"
-          (click)="toggleEditMode('header.description')"
-        >
-          {{ aboutData.header.description }}
-        </span>
+        <span *ngIf="!editMode['header.description']">{{
+          aboutData.header.description
+        }}</span>
         <textarea
           *ngIf="editMode['header.description']"
           [(ngModel)]="aboutData.header.description"
           class="edit-textarea"
           (blur)="toggleEditMode('header.description')"
         ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('header.description')"
+        ></app-edit-button>
       </p>
     </div>
     <img
@@ -41,18 +44,19 @@
   <!-- QUI SOMMES-NOUS ? -->
   <div class="who-we-are">
     <h3>
-      <span
-        *ngIf="!editMode['who_we_are.title']"
-        (click)="toggleEditMode('who_we_are.title')"
-      >
-        {{ aboutData.who_we_are.title }}
-      </span>
+      <span *ngIf="!editMode['who_we_are.title']">{{
+        aboutData.who_we_are.title
+      }}</span>
       <input
         *ngIf="editMode['who_we_are.title']"
         [(ngModel)]="aboutData.who_we_are.title"
         class="edit-input"
         (blur)="toggleEditMode('who_we_are.title')"
       />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('who_we_are.title')"
+      ></app-edit-button>
     </h3>
 
     <div class="who-we-are-content">
@@ -61,18 +65,19 @@
         <p
           *ngFor="let paragraph of aboutData.who_we_are.content; let i = index"
         >
-          <span
-            *ngIf="!editMode['who_we_are.content.' + i]"
-            (click)="toggleEditMode('who_we_are.content.' + i)"
-          >
-            {{ paragraph }}
-          </span>
+          <span *ngIf="!editMode['who_we_are.content.' + i]">{{
+            paragraph
+          }}</span>
           <textarea
             *ngIf="editMode['who_we_are.content.' + i]"
             [(ngModel)]="aboutData.who_we_are.content[i]"
             class="edit-textarea"
             (blur)="toggleEditMode('who_we_are.content.' + i)"
           ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('who_we_are.content.' + i)"
+          ></app-edit-button>
         </p>
       </div>
     </div>
@@ -81,19 +86,21 @@
   <!-- CONCEPT -->
   <div class="concept">
     <h3>
-      <span
-        *ngIf="!editMode['concept.title']"
-        (click)="toggleEditMode('concept.title')"
-      >
-        {{ aboutData.concept.title }}
-      </span>
+      <span *ngIf="!editMode['concept.title']">{{
+        aboutData.concept.title
+      }}</span>
       <input
         *ngIf="editMode['concept.title']"
         [(ngModel)]="aboutData.concept.title"
         class="edit-input"
         (blur)="toggleEditMode('concept.title')"
       />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('concept.title')"
+      ></app-edit-button>
     </h3>
+
     <div class="concept-steps">
       <div
         class="step"
@@ -102,33 +109,37 @@
         <i class="fa-solid" [ngClass]="step.icon"></i>
         <p>
           <strong>
-            <span
-              *ngIf="!editMode['concept.steps.' + i + '.title']"
-              (click)="toggleEditMode('concept.steps.' + i + '.title')"
-            >
-              {{ step.title }}
-            </span>
+            <span *ngIf="!editMode['concept.steps.' + i + '.title']">{{
+              step.title
+            }}</span>
             <input
               *ngIf="editMode['concept.steps.' + i + '.title']"
               [(ngModel)]="step.title"
               class="edit-input"
               (blur)="toggleEditMode('concept.steps.' + i + '.title')"
             />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="toggleEditMode('concept.steps.' + i + '.title')"
+            ></app-edit-button>
           </strong>
         </p>
         <p>
-          <span
-            *ngIf="!editMode['concept.steps.' + i + '.description']"
-            (click)="toggleEditMode('concept.steps.' + i + '.description')"
-          >
-            {{ step.description }}
-          </span>
+          <span *ngIf="!editMode['concept.steps.' + i + '.description']">{{
+            step.description
+          }}</span>
           <textarea
             *ngIf="editMode['concept.steps.' + i + '.description']"
             [(ngModel)]="step.description"
             class="edit-textarea"
             (blur)="toggleEditMode('concept.steps.' + i + '.description')"
           ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="
+              toggleEditMode('concept.steps.' + i + '.description')
+            "
+          ></app-edit-button>
         </p>
       </div>
     </div>
@@ -137,169 +148,191 @@
   <!-- FORMATIONS -->
   <div class="trainings">
     <h3>
-      <span
-        *ngIf="!editMode['trainings.title']"
-        (click)="toggleEditMode('trainings.title')"
-      >
-        {{ aboutData.trainings.title }}
-      </span>
+      <span *ngIf="!editMode['trainings.title']">{{
+        aboutData.trainings.title
+      }}</span>
       <input
         *ngIf="editMode['trainings.title']"
         [(ngModel)]="aboutData.trainings.title"
         class="edit-input"
         (blur)="toggleEditMode('trainings.title')"
       />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('trainings.title')"
+      ></app-edit-button>
     </h3>
+
     <p>
-      <span
-        *ngIf="!editMode['trainings.description']"
-        (click)="toggleEditMode('trainings.description')"
-      >
-        {{ aboutData.trainings.description }}
-      </span>
+      <span *ngIf="!editMode['trainings.description']">{{
+        aboutData.trainings.description
+      }}</span>
       <textarea
         *ngIf="editMode['trainings.description']"
         [(ngModel)]="aboutData.trainings.description"
         class="edit-textarea"
         (blur)="toggleEditMode('trainings.description')"
       ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('trainings.description')"
+      ></app-edit-button>
     </p>
+
     <ul class="training-list">
       <li *ngFor="let training of aboutData.trainings.list; let i = index">
-        <span
-          *ngIf="!editMode['trainings.list.' + i]"
-          (click)="toggleEditMode('trainings.list.' + i)"
-        >
-          {{ training }}
-        </span>
+        <span *ngIf="!editMode['trainings.list.' + i]">{{ training }}</span>
         <input
           *ngIf="editMode['trainings.list.' + i]"
           [(ngModel)]="aboutData.trainings.list[i]"
           class="edit-input"
           (blur)="toggleEditMode('trainings.list.' + i)"
         />
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('trainings.list.' + i)"
+        ></app-edit-button>
       </li>
     </ul>
+
     <p>
-      <span
-        *ngIf="!editMode['trainings.additional_info']"
-        (click)="toggleEditMode('trainings.additional_info')"
-      >
-        {{ aboutData.trainings.additional_info }}
-      </span>
+      <span *ngIf="!editMode['trainings.additional_info']">{{
+        aboutData.trainings.additional_info
+      }}</span>
       <textarea
         *ngIf="editMode['trainings.additional_info']"
         [(ngModel)]="aboutData.trainings.additional_info"
         class="edit-textarea"
         (blur)="toggleEditMode('trainings.additional_info')"
       ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('trainings.additional_info')"
+      ></app-edit-button>
     </p>
   </div>
 
   <!-- CERTIFICATIONS -->
   <div class="certifications">
     <h3>
-      <span
-        *ngIf="!editMode['certifications.title']"
-        (click)="toggleEditMode('certifications.title')"
-      >
-        {{ aboutData.certifications.title }}
-      </span>
+      <span *ngIf="!editMode['certifications.title']">{{
+        aboutData.certifications.title
+      }}</span>
       <input
         *ngIf="editMode['certifications.title']"
         [(ngModel)]="aboutData.certifications.title"
         class="edit-input"
         (blur)="toggleEditMode('certifications.title')"
       />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('certifications.title')"
+      ></app-edit-button>
     </h3>
+
     <p>
-      <span
-        *ngIf="!editMode['certifications.description']"
-        (click)="toggleEditMode('certifications.description')"
-      >
-        {{ aboutData.certifications.description }}
-      </span>
+      <span *ngIf="!editMode['certifications.description']">{{
+        aboutData.certifications.description
+      }}</span>
       <textarea
         *ngIf="editMode['certifications.description']"
         [(ngModel)]="aboutData.certifications.description"
         class="edit-textarea"
         (blur)="toggleEditMode('certifications.description')"
       ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('certifications.description')"
+      ></app-edit-button>
     </p>
+
     <div class="certification-logos">
-      <img
-        *ngFor="let logo of aboutData.certifications.logos"
-        [src]="logo.src"
-        [alt]="logo.alt"
-      />
+      <div
+        class="certification-logo"
+        *ngFor="let logo of aboutData.certifications.logos; let i = index"
+      >
+        <img [src]="logo.src" [alt]="logo.alt" />
+      </div>
     </div>
   </div>
 
   <!-- PRÉVENTION -->
   <div class="prevention">
     <h3>
-      <span
-        *ngIf="!editMode['prevention.title']"
-        (click)="toggleEditMode('prevention.title')"
-      >
-        {{ aboutData.prevention.title }}
-      </span>
+      <span *ngIf="!editMode['prevention.title']">{{
+        aboutData.prevention.title
+      }}</span>
       <input
         *ngIf="editMode['prevention.title']"
         [(ngModel)]="aboutData.prevention.title"
         class="edit-input"
         (blur)="toggleEditMode('prevention.title')"
       />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('prevention.title')"
+      ></app-edit-button>
     </h3>
+
     <p>
-      <span
-        *ngIf="!editMode['prevention.description']"
-        (click)="toggleEditMode('prevention.description')"
-      >
-        {{ aboutData.prevention.description }}
-      </span>
+      <span *ngIf="!editMode['prevention.description']">{{
+        aboutData.prevention.description
+      }}</span>
       <textarea
         *ngIf="editMode['prevention.description']"
         [(ngModel)]="aboutData.prevention.description"
         class="edit-textarea"
         (blur)="toggleEditMode('prevention.description')"
       ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('prevention.description')"
+      ></app-edit-button>
     </p>
+
     <div class="risk-prevention">
       <div
         class="risk"
         *ngFor="let risk of aboutData.prevention.points; let i = index"
       >
         <i class="fa-solid" [ngClass]="risk.icon"></i>
+
         <p>
           <strong>
-            <span
-              *ngIf="!editMode['prevention.points.' + i + '.title']"
-              (click)="toggleEditMode('prevention.points.' + i + '.title')"
-            >
-              {{ risk.title }}
-            </span>
+            <span *ngIf="!editMode['prevention.points.' + i + '.title']">{{
+              risk.title
+            }}</span>
             <input
               *ngIf="editMode['prevention.points.' + i + '.title']"
               [(ngModel)]="risk.title"
               class="edit-input"
               (blur)="toggleEditMode('prevention.points.' + i + '.title')"
             />
+            <app-edit-button
+              *ngIf="isAdmin$ | async"
+              (editClicked)="
+                toggleEditMode('prevention.points.' + i + '.title')
+              "
+            ></app-edit-button>
           </strong>
         </p>
+
         <p>
-          <span
-            *ngIf="!editMode['prevention.points.' + i + '.description']"
-            (click)="toggleEditMode('prevention.points.' + i + '.description')"
-          >
-            {{ risk.description }}
-          </span>
+          <span *ngIf="!editMode['prevention.points.' + i + '.description']">{{
+            risk.description
+          }}</span>
           <textarea
             *ngIf="editMode['prevention.points.' + i + '.description']"
             [(ngModel)]="risk.description"
             class="edit-textarea"
             (blur)="toggleEditMode('prevention.points.' + i + '.description')"
           ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="
+              toggleEditMode('prevention.points.' + i + '.description')
+            "
+          ></app-edit-button>
         </p>
       </div>
     </div>

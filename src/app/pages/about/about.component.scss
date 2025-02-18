@@ -3,217 +3,148 @@
   margin: auto;
   padding: var(--padding-big);
 
+  h2,
+  h3 {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: var(--margin-big);
+  }
+
+  h2 {
+    font-size: var(--title-size-desktop);
+    line-height: 1.2;
+
+    span {
+      color: var(--primary-color);
+    }
+  }
+
+  h3 {
+    font-size: var(--h3-size-desktop);
+  }
+
+  p {
+    line-height: 1.5;
+    margin-bottom: var(--margin-big);
+  }
+
+  /* 📌 Conteneurs généraux */
+  .about-header,
+  .who-we-are,
+  .concept,
+  .trainings,
+  .certifications,
+  .prevention {
+    margin-bottom: var(--margin-big);
+  }
+
   .about-header {
     display: flex;
     align-items: center;
-    margin-bottom: var(--margin-big);
-    h2 {
-      font-size: var(--title-size-desktop);
-      margin-bottom: var(--margin-big);
-      font-weight: 700;
-      text-transform: uppercase;
-      line-height: 1.2;
+  }
 
-      span {
-        color: var(--primary-color);
-      }
+  .who-we-are-content {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    i {
+      font-size: 180px;
+      color: var(--primary-color);
+      margin-right: var(--margin-medium);
     }
   }
 
-  .intro {
-    margin-bottom: var(--margin-big);
-    line-height: 1.5;
-  }
-
-  .who-we-are {
-    margin-bottom: var(--margin-big);
-    h3 {
-      font-size: var(--h3-size-desktop);
-      margin-bottom: var(--margin-big);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .who-we-are-content {
-      display: flex;
-      align-items: center;
-      gap: 50px;
-
-      i {
-        font-size: 180px;
-        color: var(--primary-color);
-        margin-right: var(--margin-medium);
-      }
-      .who-we-are-text {
-        p {
-          line-height: 1.5;
-        }
-      }
-    }
-  }
-
-  /* 📌 Concept */
-  .concept {
-    margin-bottom: var(--margin-big);
-    h3 {
-      font-size: var(--h3-size-desktop);
-      margin-bottom: var(--margin-big);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    .concept-steps {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin: var(--margin-medium) 0;
-
-      .step {
-        text-align: center;
-        max-width: 250px;
-
-        i {
-          font-size: 36px;
-          color: var(--primary-color);
-          margin-bottom: var(--margin-small);
-        }
-
-        strong {
-          color: var(--primary-color);
-        }
-      }
-    }
-  }
-
-  /* 🎓 Formations */
-  .trainings {
-    margin-bottom: 50px;
-    h3 {
-      font-size: var(--h3-size-desktop);
-      margin-bottom: var(--margin-big);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-    p {
-      line-height: 1.5;
-    }
-    .training-list {
-      list-style: none;
-      padding: 0;
-      margin: var(--margin-medium);
-
-      li {
-        font-size: var(--text-size-desktop);
-        padding-left: var(--padding-small);
-        line-height: 1.5;
-
-        &::marker {
-          content: '✅';
-        }
-      }
-    }
-  }
-
-  /* 🏅 Certifications */
-  .certifications {
-    border-radius: 8px;
-
-    h3 {
-      font-size: var(--h3-size-desktop);
-      margin-bottom: var(--margin-big);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    p {
-      line-height: 1.5;
-      margin-bottom: var(--margin-big);
-    }
-
-    .certification-logos {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: var(--margin-big);
-
-      img {
-        width: 250px;
-      }
-    }
-  }
-
-  /* ⚠️ Prévention */
-  .prevention {
-    h3 {
-      font-size: var(--h3-size-desktop);
-      margin-bottom: var(--margin-big);
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    p {
-      line-height: 1.5;
-      margin-bottom: var(--margin-big);
-    }
-  }
+  /* 📌 Sections avec icônes */
+  .concept-steps,
   .risk-prevention {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    margin-top: var(--margin-big);
+    margin: var(--margin-medium) 0;
+
+    .step,
     .risk {
-      width: 250px;
       text-align: center;
+      max-width: 250px;
+
       i {
         font-size: 36px;
         color: var(--primary-color);
         margin-bottom: var(--margin-small);
       }
-      p {
-        line-height: 1.5;
-        margin-bottom: var(--margin-medium);
-        strong {
-          color: var(--primary-color);
-        }
+
+      strong {
+        color: var(--primary-color);
       }
     }
   }
-}
 
-/* Styles pour le mode édition */
-.edit-input,
-.edit-textarea {
-  border: 2px solid var(--primary-color);
-  padding: 5px;
-  font-size: var(--text-size-desktop);
-  border-radius: 5px;
-  width: auto;
-}
+  /* 🎓 Formations */
+  .training-list {
+    list-style: none;
+    padding: 0;
+    margin: var(--margin-medium);
 
-.edit-textarea {
-  min-width: 100%;
-  min-height: 80px;
-  resize: vertical;
-}
+    li {
+      font-size: var(--text-size-desktop);
+      padding-left: var(--padding-small);
+      line-height: 1.5;
 
-.edit-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  margin-left: 8px;
-  color: var(--primary-color);
-}
+      &::marker {
+        content: '✅';
+      }
+    }
+  }
 
-.save-btn {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 15px;
-  background: var(--primary-color);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
+  /* 🏅 Certifications */
+  .certification-logos {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: var(--margin-big);
 
-.save-btn:hover {
-  // background: darken(var(--primary-color), 10%);
+    img {
+      width: 250px;
+    }
+  }
+
+  /* 🎛️ Mode édition */
+  .edit-input,
+  .edit-textarea {
+    border: 2px solid var(--primary-color);
+    padding: 5px;
+    font-size: var(--text-size-desktop);
+    border-radius: 5px;
+  }
+
+  .edit-textarea {
+    min-width: 100%;
+    min-height: 150px;
+  }
+
+  .edit-input {
+    min-width: 90%;
+  }
+
+  /* ✏️ Boutons */
+  .edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-left: 8px;
+    color: var(--primary-color);
+  }
+
+  .save-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
 }

@@ -1,20 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
-import { About } from '../../models/about.models';
-import { AdminService } from '../../services/admin.service';
-import { EditModeService } from '../../services/edit-mode.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
+import { About } from '../../models/about.models';
+import { AdminService } from '../../services/admin.service';
+import { ApiService } from '../../services/api.service';
+import { EditModeService } from '../../services/edit-mode.service';
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, EditButtonComponent],
   standalone: true,
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
-export class AboutComponent implements OnInit, OnDestroy {
+export class AboutComponent implements OnInit {
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
@@ -58,10 +59,5 @@ export class AboutComponent implements OnInit, OnDestroy {
         console.error('Error saving about page data', error);
       }
     );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }
