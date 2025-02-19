@@ -4,6 +4,24 @@
   display: flex;
   justify-content: center;
 
+  /* 🎛️ Mode édition */
+  .edit-input,
+  .edit-textarea {
+    border: 2px solid var(--primary-color);
+    padding: 5px;
+    font-size: var(--text-size-desktop);
+    border-radius: 5px;
+  }
+
+  .edit-textarea {
+    min-width: 100%;
+    min-height: 100px;
+  }
+
+  .edit-input {
+    min-width: 90%;
+  }
+
   .certification-container {
     display: flex;
     align-items: center;
@@ -20,10 +38,6 @@
         margin-bottom: var(--margin-medium);
         text-transform: uppercase;
         line-height: 1.2;
-
-        span {
-          color: var(--primary-color);
-        }
       }
 
       p {

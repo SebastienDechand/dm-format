@@ -1,12 +1,75 @@
 <section class="hero">
   <div class="hero-content">
-    <h1 [innerHTML]="bannerData?.title | safeHtml"></h1>
-    <h2 class="subtitle">{{ bannerData?.subtitle }}</h2>
-    <p class="details">{{ bannerData?.details }}</p>
+    <!-- Title -->
+    <h1>
+      <span
+        *ngIf="!editMode['title']"
+        [innerHTML]="bannerData?.title | safeHtml"
+      ></span>
+      <textarea
+        *ngIf="editMode['title']"
+        [(ngModel)]="bannerData.title"
+        (blur)="toggleEditMode('title')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('title')"
+        class="edit-btn"
+      ></app-edit-button>
+    </h1>
+
+    <!-- Subtitle -->
+    <h2 class="subtitle">
+      <span *ngIf="!editMode['subtitle']">{{ bannerData?.subtitle }}</span>
+      <textarea
+        *ngIf="editMode['subtitle']"
+        [(ngModel)]="bannerData.subtitle"
+        (blur)="toggleEditMode('subtitle')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('subtitle')"
+        class="edit-btn"
+      ></app-edit-button>
+    </h2>
+
+    <!-- Details -->
+    <p class="details">
+      <span *ngIf="!editMode['details']">{{ bannerData?.details }}</span>
+      <textarea
+        *ngIf="editMode['details']"
+        [(ngModel)]="bannerData.details"
+        (blur)="toggleEditMode('details')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('details')"
+        class="edit-btn"
+      ></app-edit-button>
+    </p>
+
+    <!-- Highlights -->
     <ul class="highlights">
-      <li *ngFor="let highlight of bannerData?.highlights">{{ highlight }}</li>
+      <li *ngFor="let highlight of bannerData?.highlights; let i = index">
+        <span *ngIf="!editMode['highlights.' + i]">{{ highlight }}</span>
+        <input
+          *ngIf="editMode['highlights.' + i]"
+          [(ngModel)]="bannerData.highlights[i]"
+          (blur)="toggleEditMode('highlights.' + i)"
+          class="edit-input"
+        />
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('highlights.' + i)"
+          class="edit-btn"
+        ></app-edit-button>
+      </li>
     </ul>
   </div>
+
   <div class="hero-image">
     <img [src]="bannerData?.image" alt="Exercice de massage cardiaque" />
   </div>

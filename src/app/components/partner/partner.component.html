@@ -1,25 +1,158 @@
 <section class="partner">
   <div class="partner-highlight">
-    <h2>{{ partnerData?.title }}</h2>
-    <p class="intro">{{ partnerData?.description }}</p>
+    <!-- Title -->
+    <h2>
+      <span *ngIf="!editMode['partnerTitle']">{{ partnerData?.title }}</span>
+      <input
+        *ngIf="editMode['partnerTitle']"
+        [(ngModel)]="partnerData.title"
+        (blur)="toggleEditMode('partnerTitle')"
+        class="edit-input"
+      />
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('partnerTitle')"
+        class="edit-btn"
+      ></app-edit-button>
+    </h2>
+
+    <!-- Description -->
+    <p class="intro">
+      <span *ngIf="!editMode['partnerDescription']">{{
+        partnerData?.description
+      }}</span>
+      <textarea
+        *ngIf="editMode['partnerDescription']"
+        [(ngModel)]="partnerData.description"
+        (blur)="toggleEditMode('partnerDescription')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('partnerDescription')"
+        class="edit-btn"
+      ></app-edit-button>
+    </p>
 
     <div class="partner-profile">
       <div class="partner-info">
-        <h3>{{ partnerData?.profile?.name }}</h3>
-        <p>{{ partnerData?.profile?.contact?.person }}</p>
-        <p>{{ partnerData?.profile?.contact?.address }}</p>
+        <!-- Partner Name -->
+        <h3>
+          <span *ngIf="!editMode['partnerName']">{{
+            partnerData?.profile?.name
+          }}</span>
+          <textarea
+            *ngIf="editMode['partnerName']"
+            [(ngModel)]="partnerData.profile.name"
+            (blur)="toggleEditMode('partnerName')"
+            class="edit-textarea"
+          ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerName')"
+            class="edit-btn"
+          ></app-edit-button>
+        </h3>
+
+        <!-- Contact Person -->
         <p>
-          <a [href]="'mailto:' + partnerData?.profile?.contact?.email">{{
-            partnerData?.profile?.contact?.email
-          }}</a>
+          <span *ngIf="!editMode['partnerContactPerson']">{{
+            partnerData?.profile?.contact?.person
+          }}</span>
+          <input
+            *ngIf="editMode['partnerContactPerson']"
+            [(ngModel)]="partnerData.profile.contact.person"
+            (blur)="toggleEditMode('partnerContactPerson')"
+            class="edit-input"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerContactPerson')"
+            class="edit-btn"
+          ></app-edit-button>
         </p>
-        <p>{{ partnerData?.profile?.contact?.phone }}</p>
+
+        <!-- Address -->
+        <p>
+          <span *ngIf="!editMode['partnerAddress']">{{
+            partnerData?.profile?.contact?.address
+          }}</span>
+          <textarea
+            *ngIf="editMode['partnerAddress']"
+            [(ngModel)]="partnerData.profile.contact.address"
+            (blur)="toggleEditMode('partnerAddress')"
+            class="edit-textarea"
+          ></textarea>
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerAddress')"
+            class="edit-btn"
+          ></app-edit-button>
+        </p>
+
+        <!-- Email -->
+        <p>
+          <a
+            *ngIf="!editMode['partnerEmail']"
+            [href]="'mailto:' + partnerData?.profile?.contact?.email"
+          >
+            {{ partnerData?.profile?.contact?.email }}
+          </a>
+          <input
+            *ngIf="editMode['partnerEmail']"
+            [(ngModel)]="partnerData.profile.contact.email"
+            (blur)="toggleEditMode('partnerEmail')"
+            class="edit-input"
+            type="email"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerEmail')"
+            class="edit-btn"
+          ></app-edit-button>
+        </p>
+
+        <!-- Phone -->
+        <p>
+          <span *ngIf="!editMode['partnerPhone']">{{
+            partnerData?.profile?.contact?.phone
+          }}</span>
+          <input
+            *ngIf="editMode['partnerPhone']"
+            [(ngModel)]="partnerData.profile.contact.phone"
+            (blur)="toggleEditMode('partnerPhone')"
+            class="edit-input"
+            type="tel"
+          />
+          <app-edit-button
+            *ngIf="isAdmin$ | async"
+            (editClicked)="toggleEditMode('partnerPhone')"
+            class="edit-btn"
+          ></app-edit-button>
+        </p>
       </div>
+
       <div class="partner-image">
-        <img [src]="partnerData?.profile?.image" alt="Nathalie Nicolas" />
+        <img [src]="partnerData?.profile?.image" alt="Partner Image" />
       </div>
     </div>
 
-    <p class="closing">{{ partnerData?.closingNote }}</p>
+    <!-- Closing Note -->
+    <p class="closing">
+      <span *ngIf="!editMode['partnerClosingNote']">{{
+        partnerData?.closingNote
+      }}</span>
+      <textarea
+        *ngIf="editMode['partnerClosingNote']"
+        [(ngModel)]="partnerData.closingNote"
+        (blur)="toggleEditMode('partnerClosingNote')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('partnerClosingNote')"
+        class="edit-btn"
+      ></app-edit-button>
+    </p>
   </div>
 </section>

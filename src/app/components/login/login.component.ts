@@ -54,12 +54,8 @@ export class LoginComponent {
 
     this.authService.login({ email, password }).subscribe({
       next: (res) => {
+        this.router.navigate(['/']);
         this.showSuccess('Connexion réussie !');
-
-        // 🔄 Redirection après 3 secondes vers la page d'accueil
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 3000);
       },
       error: () => {
         this.showError('Email ou mot de passe incorrect !');

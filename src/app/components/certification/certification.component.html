@@ -4,15 +4,84 @@
       <img [src]="certificationData?.certificateImage" alt="Qualiopi" />
     </div>
     <div class="certification-content">
-      <h2 [innerHTML]="certificationData?.title | safeHtml"></h2>
-      <p>{{ certificationData?.description }}</p>
-      <p>{{ certificationData?.additionalInfo }}</p>
-      <a
-        [href]="certificationData?.certificateLink"
-        target="_blank"
-        class="certification-button"
-        >Voir le certificat</a
-      >
+      <!-- Title -->
+      <h2>
+        <span
+          *ngIf="!editMode['certTitle']"
+          [innerHTML]="certificationData?.title | safeHtml"
+        ></span>
+        <textarea
+          *ngIf="editMode['certTitle']"
+          [(ngModel)]="certificationData.title"
+          (blur)="toggleEditMode('certTitle')"
+          class="edit-textarea"
+        ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('certTitle')"
+          class="edit-btn"
+        ></app-edit-button>
+      </h2>
+
+      <!-- Description -->
+      <p>
+        <span *ngIf="!editMode['certDescription']">{{
+          certificationData?.description
+        }}</span>
+        <textarea
+          *ngIf="editMode['certDescription']"
+          [(ngModel)]="certificationData.description"
+          (blur)="toggleEditMode('certDescription')"
+          class="edit-textarea"
+        ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('certDescription')"
+          class="edit-btn"
+        ></app-edit-button>
+      </p>
+
+      <!-- Additional Info -->
+      <p>
+        <span *ngIf="!editMode['certAdditionalInfo']">{{
+          certificationData?.additionalInfo
+        }}</span>
+        <textarea
+          *ngIf="editMode['certAdditionalInfo']"
+          [(ngModel)]="certificationData.additionalInfo"
+          (blur)="toggleEditMode('certAdditionalInfo')"
+          class="edit-textarea"
+        ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('certAdditionalInfo')"
+          class="edit-btn"
+        ></app-edit-button>
+      </p>
+
+      <!-- Certificate Link -->
+      <div>
+        <a
+          *ngIf="!editMode['certLink']"
+          [href]="certificationData?.certificateLink"
+          target="_blank"
+          class="certification-button"
+          >Voir le certificat</a
+        >
+        <div *ngIf="editMode['certLink']" class="link-editor">
+          <input
+            [(ngModel)]="certificationData.certificateLink"
+            (blur)="toggleEditMode('certLink')"
+            class="edit-input"
+            placeholder="URL du certificat"
+          />
+        </div>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('certLink')"
+          class="edit-btn"
+        ></app-edit-button>
+      </div>
     </div>
   </div>
 </section>

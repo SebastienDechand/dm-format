@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Program } from '../../models/programs.models';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -21,6 +21,9 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
 })
 export class ProgramsComponent implements OnInit {
+  @Input() editMode: boolean = false;
+  @Output() editClicked = new EventEmitter<void>();
+
   trainings: Program[] = [];
   certifyingTrainings: Program[] = [];
   nonCertifyingTrainings: Program[] = [];
@@ -34,5 +37,9 @@ export class ProgramsComponent implements OnInit {
       this.certifyingTrainings = data.slice(0, 2);
       this.nonCertifyingTrainings = data.slice(2, 6);
     });
+  }
+
+  toggleEditMode() {
+    this.editClicked.emit();
   }
 }

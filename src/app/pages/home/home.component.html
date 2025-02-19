@@ -12,3 +12,7 @@
   [partnerData]="homeData.partner"
 ></app-partner>
 <app-gallery></app-gallery>
+
+<button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
+  Sauvegarder les modifications
+</button>
