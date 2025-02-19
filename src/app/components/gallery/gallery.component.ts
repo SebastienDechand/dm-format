@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { GalleryImage } from '../../models/gallery.models';
-import { GalleryService } from '../../services/gallery.service';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-gallery',
@@ -15,10 +15,10 @@ export class GalleryComponent implements OnInit {
   selectedImage: GalleryImage | null = null;
   currentImageIndex: number = 0;
 
-  constructor(private galleryService: GalleryService) {}
+  constructor(private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.galleryService.getGalleryImages().subscribe((data) => {
+    this.apiService.getGallery().subscribe((data) => {
       this.images = data;
     });
   }

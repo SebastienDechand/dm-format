@@ -1,34 +1,76 @@
 <section class="hero">
   <div class="hero-content">
-    <h1>Soyez prêts à sauver des vies avec <span>DM FORMAT</span></h1>
-    <p class="subtitle">
-      La sécurité de vos équipes commence ici ! Nos formations certifiées
-      <strong>INRS</strong> et <strong>QUALIOPI</strong>
-      vous préparent à intervenir efficacement en cas d’urgence.
-    </p>
+    <!-- Title -->
+    <h1>
+      <span
+        *ngIf="!editMode['title']"
+        [innerHTML]="bannerData?.title | safeHtml"
+      ></span>
+      <textarea
+        *ngIf="editMode['title']"
+        [(ngModel)]="bannerData.title"
+        (blur)="toggleEditMode('title')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('title')"
+        class="edit-btn"
+      ></app-edit-button>
+    </h1>
 
+    <!-- Subtitle -->
+    <h2 class="subtitle">
+      <span *ngIf="!editMode['subtitle']">{{ bannerData?.subtitle }}</span>
+      <textarea
+        *ngIf="editMode['subtitle']"
+        [(ngModel)]="bannerData.subtitle"
+        (blur)="toggleEditMode('subtitle')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('subtitle')"
+        class="edit-btn"
+      ></app-edit-button>
+    </h2>
+
+    <!-- Details -->
     <p class="details">
-      Que vous soyez une entreprise, un particulier ou un organisme, nous
-      proposons des formations adaptées à vos besoins. Apprenez les gestes de
-      premiers secours, la réanimation, la gestion des situations d’urgence, et
-      obtenez une certification reconnue nationalement.
+      <span *ngIf="!editMode['details']">{{ bannerData?.details }}</span>
+      <textarea
+        *ngIf="editMode['details']"
+        [(ngModel)]="bannerData.details"
+        (blur)="toggleEditMode('details')"
+        class="edit-textarea"
+      ></textarea>
+      <app-edit-button
+        *ngIf="isAdmin$ | async"
+        (editClicked)="toggleEditMode('details')"
+        class="edit-btn"
+      ></app-edit-button>
     </p>
 
+    <!-- Highlights -->
     <ul class="highlights">
-      <li>✅ Formations 100% certifiées et reconnues</li>
-      <li>✅ Modules adaptés aux professionnels et particuliers</li>
-      <li>
-        ✅ Interventions sur toute la région
-        <strong>Bourgogne-Franche-Comté</strong>
+      <li *ngFor="let highlight of bannerData?.highlights; let i = index">
+        <span *ngIf="!editMode['highlights.' + i]">{{ highlight }}</span>
+        <input
+          *ngIf="editMode['highlights.' + i]"
+          [(ngModel)]="bannerData.highlights[i]"
+          (blur)="toggleEditMode('highlights.' + i)"
+          class="edit-input"
+        />
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('highlights.' + i)"
+          class="edit-btn"
+        ></app-edit-button>
       </li>
-      <li>✅ Formateurs expérimentés avec plus de 20 ans d’expertise</li>
     </ul>
   </div>
 
   <div class="hero-image">
-    <img
-      src="assets/images/massage1.webp"
-      alt="Exercice de massage cardiaque"
-    />
+    <img [src]="bannerData?.image" alt="Exercice de massage cardiaque" />
   </div>
 </section>

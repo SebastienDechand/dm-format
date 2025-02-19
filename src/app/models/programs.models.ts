@@ -1,5 +1,5 @@
-export type Program = {
-  id: number;
+export interface Program {
+  _id: { $oid: string };
   title: string;
   description: string;
   duration: string;
@@ -7,17 +7,17 @@ export type Program = {
   prerequisite: string;
   banner: string;
   summary: string;
-  modules: {
-    title: string;
-    description: string;
-  }[];
-  images: string[];
   content: string;
   details: string[];
   methodology: string[];
-  testimonials: {
+  modules: Array<{
+    title: string;
+    description: string;
+  }>;
+  images: string[];
+  testimonials: Array<{
     name: string;
     role: string;
     feedback: string;
-  }[];
-};
+  }>;
+}

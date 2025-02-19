@@ -1,24 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Program } from '../../models/programs.models';
-import { ProgramsService } from '../../services/programs.service';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-programs',
-  imports: [RouterLink, CommonModule],
+  imports: [
+    RouterLink,
+    CommonModule,
+    MatTabsModule,
+    MatCardModule,
+    MatButtonModule,
+  ],
   templateUrl: './programs.component.html',
   styleUrl: './programs.component.scss',
   standalone: true,
 })
 export class ProgramsComponent implements OnInit {
-  programs: Program[] = [];
+  @Input() editMode: boolean = false;
+  @Output() editClicked = new EventEmitter<void>();
 
-  constructor(private programsService: ProgramsService) {}
+  trainings: Program[] = [];
+  certifyingTrainings: Program[] = [];
+  nonCertifyingTrainings: Program[] = [];
+
+  constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    this.programsService.getPrograms().subscribe((data) => {
-      this.programs = data;
+    this.apiService.getPrograms().subscribe((data) => {
+      this.trainings = data;
+
+      this.certifyingTrainings = data.slice(0, 2);
+      this.nonCertifyingTrainings = data.slice(2, 6);
     });
+  }
+
+  toggleEditMode() {
+    this.editClicked.emit();
   }
 }
