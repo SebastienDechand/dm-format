@@ -7,7 +7,7 @@
   h3 {
     font-weight: 700;
     text-transform: uppercase;
-    margin-bottom: var(--margin-big);
+    margin-bottom: 75px;
   }
 
   h2 {
@@ -20,12 +20,13 @@
   }
 
   h3 {
+    text-align: center;
     font-size: var(--h3-size-desktop);
   }
 
   p {
-    line-height: 1.5;
-    margin-bottom: var(--margin-big);
+    line-height: 2;
+    margin-bottom: 50px;
   }
 
   /* 📌 Conteneurs généraux */
@@ -35,23 +36,28 @@
   .trainings,
   .certifications,
   .prevention {
-    margin-bottom: var(--margin-big);
+    margin-bottom: 75px;
   }
 
   .about-header {
+    margin-top: 75px;
     display: flex;
     align-items: center;
+    .about-text .intro {
+      width: 90%;
+    }
   }
 
   .who-we-are-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 50px;
 
-    i {
-      font-size: 180px;
-      color: var(--primary-color);
-      margin-right: var(--margin-medium);
+    .about-img {
+      height: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
   }
 
@@ -60,13 +66,23 @@
   .risk-prevention {
     display: flex;
     justify-content: space-around;
-    flex-wrap: wrap;
-    margin: var(--margin-medium) 0;
+    margin: 75px 0;
+    gap: 50px;
+
+    .step {
+      flex: 4;
+    }
+    .risk {
+      flex: 3;
+    }
 
     .step,
     .risk {
       text-align: center;
-      max-width: 250px;
+      background-color: var(--light-color);
+      padding: 32px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 
       i {
         font-size: 36px;
@@ -74,6 +90,9 @@
         margin-bottom: var(--margin-small);
       }
 
+      p {
+        margin-bottom: var(--margin-small);
+      }
       strong {
         color: var(--primary-color);
       }
@@ -84,12 +103,12 @@
   .training-list {
     list-style: none;
     padding: 0;
-    margin: var(--margin-medium);
+    margin: var(--margin-big) var(--margin-medium);
 
     li {
       font-size: var(--text-size-desktop);
       padding-left: var(--padding-small);
-      line-height: 1.5;
+      line-height: 2;
 
       &::marker {
         content: '✅';
@@ -98,13 +117,24 @@
   }
 
   /* 🏅 Certifications */
-  .certification-logos {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: var(--margin-big);
+  .certifications {
+    .certification-flex {
+      display: flex;
+      flex-direction: column;
+      gap: 100px;
+      p {
+        margin: 0;
+      }
+      .certification-logos {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
 
-    img {
-      width: 250px;
+        img {
+          width: 500px;
+          margin: 0;
+        }
+      }
     }
   }
 
@@ -137,14 +167,20 @@
   }
 
   .save-btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 15px;
-    background: var(--primary-color);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px 18px;
+    background: var(--button-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s ease-in-out;
+    &:hover {
+      background: var(--button-color-hover);
+    }
   }
 }

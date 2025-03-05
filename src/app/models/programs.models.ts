@@ -20,4 +20,9 @@ export interface Program {
     role: string;
     feedback: string;
   }>;
+  pdf: Array<{
+    title: string;
+    url: string;
+    preview: string;
+  }>;
 }

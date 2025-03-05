@@ -1,0 +1,240 @@
+.custom-tooltip {
+  position: fixed;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  max-width: 300px;
+  pointer-events: none;
+}
+
+.tooltip-content {
+  white-space: pre-line;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.floating-calendar-container {
+  position: relative;
+}
+
+.toggle-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.calendar-panel {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 350px;
+  max-height: 80vh;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 998;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f5f5f5;
+  border-radius: 8px 8px 0 0;
+}
+
+.calendar-footer {
+  display: flex;
+  justify-content: center;
+  padding: 12px 16px;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 8px;
+}
+
+.calendar-form {
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  margin-top: 8px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+::ng-deep {
+  .mat-calendar-body-cell {
+    position: relative;
+
+    &.has-event .mat-calendar-body-cell-content {
+      background-color: #1976d2 !important;
+      color: white !important;
+      border-radius: 50% !important;
+    }
+
+    &.mat-calendar-body-selected .mat-calendar-body-cell-content {
+      background-color: #f44336 !important;
+      color: white !important;
+      border-radius: 50% !important;
+      font-weight: bold !important;
+    }
+
+    &:hover {
+      background-color: rgba(25, 118, 210, 0.2);
+      cursor: pointer;
+    }
+  }
+
+  .mat-calendar-body-cell-content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 36px !important;
+    height: 36px !important;
+    margin: 2px !important;
+    line-height: 1 !important;
+  }
+
+  .mat-calendar-table-header {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+  }
+
+  .mat-calendar-body-today {
+    border: 1px solid #1976d2;
+  }
+
+  .mat-calendar-body-focused {
+    background-color: rgba(25, 118, 210, 0.1);
+  }
+
+  .mat-calendar-body-disabled {
+    opacity: 0.5;
+  }
+
+  .mat-calendar {
+    width: 100%;
+  }
+}
+
+::ng-deep .mat-calendar-content {
+  padding: 0 8px 8px 8px;
+}
+
+::ng-deep .mat-calendar-previous-button,
+::ng-deep .mat-calendar-next-button {
+  color: #1976d2;
+}
+
+::ng-deep .mat-calendar-period-button {
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
+}
+
+::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  background-color: rgba(25, 118, 210, 0.1);
+  border-color: transparent;
+}
+
+::ng-deep .mat-calendar-body-selected {
+  background-color: #f44336 !important;
+  color: white !important;
+}
+
+::ng-deep .has-event-content {
+  background-color: #1976d2 !important;
+  color: white !important;
+  border-radius: 50% !important;
+}
+
+.custom-tooltip {
+  position: fixed;
+  z-index: 10000;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  max-width: 320px;
+  min-width: 200px;
+  pointer-events: auto;
+}
+
+.tooltip-content {
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.tooltip-training-item {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+
+.tooltip-training-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.tooltip-training-title {
+  font-weight: bold;
+}
+
+.tooltip-delete-btn {
+  background: none;
+  border: none;
+  color: #ff6b6b;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: #ff4242;
+  }
+
+  .mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+  }
+}
+
+.tooltip-training-dates {
+  font-size: 12px;
+  color: #bbb;
+  margin-bottom: 4px;
+}
+
+.tooltip-training-desc {
+  font-size: 12px;
+  color: #ddd;
+}

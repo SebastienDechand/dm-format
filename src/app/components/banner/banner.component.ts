@@ -25,4 +25,8 @@ export class BannerComponent {
   toggleEditMode(field: string) {
     this.editMode[field] = !this.editMode[field];
   }
+
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
 }

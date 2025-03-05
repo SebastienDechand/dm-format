@@ -75,14 +75,15 @@
     mat-card-title {
       font-size: var(--small-text-size-desktop);
       color: var(--primary-color);
-      margin: var(--margin-small) 0;
+      padding: var(--padding-medium);
+      height: 100px;
     }
 
     mat-card-actions {
       display: flex;
       justify-content: center;
       padding-bottom: 15px;
-      margin: var(--margin-small) 0;
+      margin: 0 0 var(--margin-small) 0;
 
       a {
         button {

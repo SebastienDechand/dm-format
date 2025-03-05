@@ -8,6 +8,7 @@ import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-organisation',
@@ -20,6 +21,7 @@ export class OrganisationComponent implements OnInit {
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
+  private seoService: SeoService = inject(SeoService);
 
   organisationData!: ConditionsData;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
@@ -36,11 +38,69 @@ export class OrganisationComponent implements OnInit {
     this.apiService.getOrganisation().subscribe(
       (data) => {
         this.organisationData = data;
+
+        this.updateSeo(data);
       },
       (error) => {
         console.error('Error fetching organisation page data', error);
       }
     );
+  }
+
+  private updateSeo(data: ConditionsData): void {
+    let description =
+      "Découvrez nos modalités d'organisation, conditions générales et informations pratiques pour les formations SST et Formateurs SST.";
+
+    if (data.intro.description) {
+      const tempElement = document.createElement('div');
+      tempElement.innerHTML = data.intro.description;
+      const textContent =
+        tempElement.textContent || tempElement.innerText || '';
+
+      if (textContent.length > 0) {
+        description = textContent.substring(0, 157) + '...';
+      }
+    }
+
+    this.seoService.updateMetadata({
+      title: "Modalités d'organisation et conditions générales | DM-Format",
+      description: description,
+      url: 'https://dm-format.fr/organisation',
+      keywords:
+        "conditions générales, modalités d'organisation, formation SST, accessibilité formation, règlement intérieur, conditions de vente",
+    });
+
+    this.seoService.setSchemaMarkup([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: "Modalités d'organisation et conditions générales",
+        description: description,
+        publisher: {
+          '@type': 'Organization',
+          name: 'DM-Format',
+          url: 'https://dm-format.fr',
+        },
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Accueil',
+            item: 'https://dm-format.fr',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Organisation et Conditions',
+            item: 'https://dm-format.fr/organisation',
+          },
+        ],
+      },
+    ]);
   }
 
   toggleEditMode(field: string) {
@@ -49,11 +109,18 @@ export class OrganisationComponent implements OnInit {
     }
   }
 
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
+
   saveChanges() {
     this.apiService.patchOrganisation(this.organisationData).subscribe(
       (data) => {
         this.organisationData = data;
         this.editModeService.resetEditModes();
+
+        this.updateSeo(data);
+
         alert('Modifications sauvegardées avec succès');
       },
       (error) => {

@@ -1,13 +1,43 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, Input, ViewChild } from '@angular/core';
+import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
+import { environment } from '../../../environments/environment';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink],
+  imports: [ModalComponent, CommonModule, RecaptchaModule],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
   standalone: true,
 })
 export class FooterComponent {
+  siteKey: string = environment.recaptcha.siteKey;
   currentYear: number = new Date().getFullYear();
+  captchaVerified = false;
+  showMentionsLegales: boolean = false;
+
+  @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
+
+  executeRecaptcha() {
+    this.recaptcha.execute();
+  }
+
+  onCaptchaResolved(captchaResponse: string | null): void {
+    if (captchaResponse) {
+      setTimeout(() => {
+        this.captchaVerified = true;
+      }, 1000);
+    }
+  }
+
+  openModal(type: string): void {
+    if (type === 'mentionsLegales') {
+      this.showMentionsLegales = true;
+    }
+  }
+
+  closeModal(): void {
+    this.showMentionsLegales = false;
+  }
 }

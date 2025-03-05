@@ -39,6 +39,10 @@ export class ProgramsComponent implements OnInit {
     });
   }
 
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
+
   toggleEditMode() {
     this.editClicked.emit();
   }

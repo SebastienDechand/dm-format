@@ -53,7 +53,13 @@
 
     <!-- Highlights -->
     <ul class="highlights">
-      <li *ngFor="let highlight of bannerData?.highlights; let i = index">
+      <li
+        *ngFor="
+          let highlight of bannerData?.highlights;
+          let i = index;
+          trackBy: trackByIndex
+        "
+      >
         <span *ngIf="!editMode['highlights.' + i]">{{ highlight }}</span>
         <input
           *ngIf="editMode['highlights.' + i]"

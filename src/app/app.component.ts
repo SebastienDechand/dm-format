@@ -1,14 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from "./components/header/header.component";
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { filter } from 'rxjs';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, CalendarComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'dm-format';
+  constructor(
+    private router: Router,
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.router.events
+      .pipe(
+        filter(
+          (event) =>
+            isPlatformBrowser(this.platformId) && event instanceof NavigationEnd
+        )
+      )
+      .subscribe(() => {
+        this.document.defaultView?.scrollTo(0, 0);
+      });
+  }
 }
