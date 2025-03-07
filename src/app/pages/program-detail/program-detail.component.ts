@@ -8,6 +8,7 @@ import { Program } from '../../models/programs.models';
 import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-program-detail',
@@ -21,6 +22,7 @@ export class ProgramDetailComponent implements OnInit {
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
   private route: ActivatedRoute = inject(ActivatedRoute);
+  private seoService: SeoService = inject(SeoService);
 
   program?: Program;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
@@ -45,11 +47,82 @@ export class ProgramDetailComponent implements OnInit {
       .subscribe(
         (data) => {
           this.program = data;
+
+          if (this.program) {
+            this.updateSeo(this.program);
+          }
         },
         (error) => {
           console.error('Error fetching program data', error);
         }
       );
+  }
+
+  private updateSeo(program: Program): void {
+    const seoTitle = program.title.includes('SST')
+      ? `Formation ${program.title} | DM-Format`
+      : `Formation ${program.title} | SST | DM-Format`;
+
+    let seoDescription = '';
+    if (program.description) {
+      seoDescription = program.description.substring(0, 157) + '...';
+    } else {
+      seoDescription = `Formation certifiante ${program.title}. Programme adapté aux professionnels et entreprises. Formez-vous au secourisme et à la prévention des risques.`;
+    }
+
+    this.seoService.updateMetadata({
+      title: seoTitle,
+      description: seoDescription,
+      image: program.banner || '/assets/images/formation-sst.webp',
+      url: `https://dm-format.fr/trainings/${program._id}`,
+      keywords: `formation ${program.title}, certification SST, secourisme, sauveteur secouriste, entreprise, prévention risques`,
+    });
+
+    this.seoService.setSchemaMarkup({
+      '@context': 'https://schema.org',
+      '@type': 'Course',
+      name: program.title,
+      description: program.description,
+      provider: {
+        '@type': 'Organization',
+        name: 'DM-Format',
+        sameAs: 'https://dm-format.fr',
+      },
+      offers: {
+        '@type': 'Offer',
+        category: 'Formation professionnelle',
+        availability: 'https://schema.org/InStock',
+      },
+    });
+
+    this.seoService.addSchemaMarkup({
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Accueil',
+          item: 'https://dm-format.fr',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Formations',
+          item: 'https://dm-format.fr/trainings',
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: program.title,
+          item: `https://dm-format.fr/trainings/${program._id}`,
+        },
+      ],
+    });
+  }
+
+  trackByIndex(index: number, item: any): number {
+    return index;
   }
 
   toggleEditMode(field: string) {
@@ -64,6 +137,9 @@ export class ProgramDetailComponent implements OnInit {
           (data) => {
             this.program = data;
             this.editModeService.resetEditModes();
+
+            this.updateSeo(data);
+
             alert('Changes saved successfully');
           },
           (error) => {

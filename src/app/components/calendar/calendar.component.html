@@ -1,0 +1,155 @@
+<div
+  class="custom-tooltip"
+  [style.left.px]="tooltipX"
+  [style.top.px]="tooltipY"
+  [style.display]="showTooltip ? 'block' : 'none'"
+>
+  <div class="tooltip-content">
+    <div
+      *ngFor="let training of currentTooltipTrainings; let i = index"
+      class="tooltip-training-item"
+    >
+      <div
+        *ngIf="getDurationInDays(training) > 0"
+        class="tooltip-training-dates"
+      >
+        Du {{ training.startDate | date: 'dd/MM/yyyy' }} au
+        {{ training.endDate | date: 'dd/MM/yyyy' }}
+      </div>
+
+      <div class="tooltip-training-header">
+        <span class="tooltip-training-title">{{ training.title }}</span>
+        <button
+          *ngIf="isAdmin$ | async"
+          class="tooltip-delete-btn"
+          (click)="deleteTraining(training._id); $event.stopPropagation()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div *ngIf="training.description" class="tooltip-training-desc">
+        {{ training.description }}
+      </div>
+    </div>
+
+    <div *ngIf="currentTooltipTrainings.length === 0">
+      Aucune formation à cette date
+    </div>
+  </div>
+</div>
+
+<div class="floating-calendar-container">
+  <button
+    mat-fab
+    color="primary"
+    class="toggle-button"
+    (click)="toggleCalendar()"
+  >
+    <mat-icon>event</mat-icon>
+  </button>
+
+  <div class="calendar-panel" *ngIf="isCalendarVisible">
+    <div class="calendar-header">
+      <h3>Calendrier des formations</h3>
+      <div>
+        <button
+          mat-icon-button
+          (click)="refreshCalendar()"
+          matTooltip="Rafraîchir"
+        >
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-icon-button (click)="toggleCalendar()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-calendar
+      [(selected)]="selectedDate"
+      (selectedChange)="onDateSelected($event)"
+      [dateClass]="dateClass"
+      (mouseover)="onDateHover($event)"
+    >
+    </mat-calendar>
+
+    <div class="calendar-footer" *ngIf="isAdmin$ | async">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="toggleAddForm()"
+        *ngIf="isAdmin$ | async"
+      >
+        Ajouter une formation
+      </button>
+    </div>
+
+    <div class="calendar-form" *ngIf="isAddFormVisible">
+      <h4>Ajouter une nouvelle formation</h4>
+
+      <form (ngSubmit)="addTraining()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Titre</mat-label>
+          <input
+            matInput
+            [(ngModel)]="newTraining.title"
+            name="title"
+            required
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Date de début</mat-label>
+          <input
+            matInput
+            [matDatepicker]="startPicker"
+            [(ngModel)]="newTraining.startDate"
+            name="startDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="startPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Date de fin</mat-label>
+          <input
+            matInput
+            [matDatepicker]="endPicker"
+            [(ngModel)]="newTraining.endDate"
+            name="endDate"
+            required
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="endPicker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            [(ngModel)]="newTraining.description"
+            name="description"
+            rows="3"
+          ></textarea>
+        </mat-form-field>
+
+        <div class="form-actions">
+          <button mat-button type="button" (click)="toggleAddForm()">
+            Annuler
+          </button>
+          <button mat-raised-button color="primary" type="submit">
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

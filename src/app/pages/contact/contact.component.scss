@@ -24,7 +24,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: 50px;
+    gap: 100px;
   }
 
   /* 📌 Formulaire */
@@ -123,5 +123,49 @@
     margin-top: var(--margin-medium);
     border-radius: 8px;
     overflow: hidden;
+  }
+}
+
+.captcha-container {
+  text-align: center;
+
+  .captcha-button {
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    width: fit-content;
+    &:hover {
+      background: var(--info-color);
+    }
+  }
+
+  .hidden-recaptcha {
+    display: none;
+  }
+
+  .verified-number {
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
   }
 }

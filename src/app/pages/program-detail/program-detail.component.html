@@ -15,7 +15,13 @@
         ></app-edit-button>
       </h2>
       <ul>
-        <li *ngFor="let method of program.methodology; let i = index">
+        <li
+          *ngFor="
+            let method of program.methodology;
+            let i = index;
+            trackBy: trackByIndex
+          "
+        >
           <span *ngIf="!editMode['methodology.' + i]">{{ method }}</span>
           <input
             *ngIf="editMode['methodology.' + i]"
@@ -44,8 +50,8 @@
         <div class="detail-item">
           <i class="fa-solid fa-clock"></i>
           <span>
-            <strong>Durée :</strong>
-            <span *ngIf="!editMode['duration']">{{ program.duration }}</span>
+            <strong>Durée </strong>
+            <div *ngIf="!editMode['duration']">{{ program.duration }}</div>
             <input
               *ngIf="editMode['duration']"
               [(ngModel)]="program.duration"
@@ -61,10 +67,10 @@
         <div class="detail-item">
           <i class="fa-solid fa-check"></i>
           <span>
-            <strong>Pré-requis :</strong>
-            <span *ngIf="!editMode['prerequisite']">{{
-              program.prerequisite
-            }}</span>
+            <strong>Pré-requis </strong>
+            <div *ngIf="!editMode['prerequisite']">
+              {{ program.prerequisite }}
+            </div>
             <input
               *ngIf="editMode['prerequisite']"
               [(ngModel)]="program.prerequisite"
@@ -80,8 +86,8 @@
         <div class="detail-item">
           <i class="fa-solid fa-people-group"></i>
           <span>
-            <strong>Public cible :</strong>
-            <span *ngIf="!editMode['audience']">{{ program.audience }}</span>
+            <strong>Public cible </strong>
+            <div *ngIf="!editMode['audience']">{{ program.audience }}</div>
             <input
               *ngIf="editMode['audience']"
               [(ngModel)]="program.audience"
@@ -97,8 +103,14 @@
       </div>
     </div>
 
+    <div class="program-description">
+      <h2><span>Informations</span> pratiques concernant la formation</h2>
+      <p>{{ program.description }}</p>
+    </div>
+
     <div class="program-content">
       <h2><span>Contenu</span> de la formation</h2>
+
       <p>
         <span *ngIf="!editMode['summary']">{{ program.summary }}</span>
         <textarea
@@ -113,9 +125,29 @@
         ></app-edit-button>
       </p>
 
+      <p>
+        <span *ngIf="!editMode['content']">{{ program.content }}</span>
+        <textarea
+          *ngIf="editMode['content']"
+          [(ngModel)]="program.content"
+          class="edit-textarea"
+          (blur)="toggleEditMode('content')"
+        ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('content')"
+        ></app-edit-button>
+      </p>
+
       <div class="content-list">
         <ul class="content-details">
-          <li *ngFor="let item of program.details; let i = index">
+          <li
+            *ngFor="
+              let item of program.details;
+              let i = index;
+              trackBy: trackByIndex
+            "
+          >
             <span *ngIf="!editMode['details.' + i]">{{ item }}</span>
             <input
               *ngIf="editMode['details.' + i]"
@@ -133,9 +165,15 @@
 
       <h3><span>Modules</span> de la formation</h3>
       <ul class="modules">
-        <li *ngFor="let module of program.modules; let i = index">
+        <li
+          *ngFor="
+            let module of program.modules;
+            let i = index;
+            trackBy: trackByIndex
+          "
+        >
           <h4>
-            <span>{{ i + 1 }}.</span>
+            <span>{{ i + 1 }}. </span>
             <span *ngIf="!editMode['modules.' + i + '.title']">{{
               module.title
             }}</span>
@@ -167,11 +205,37 @@
           </p>
         </li>
       </ul>
+
+      <h4 class="program-title">Voir nos <span>programmes</span></h4>
+      <div class="certification-program">
+        <div class="certification-button" *ngFor="let pdf of program.pdf">
+          <p class="pdf-title">{{ pdf.title }}</p>
+          <div class="image-container">
+            <img [src]="pdf.preview" [alt]="pdf.title" class="pdf-preview" />
+            <div class="overlay">
+              <a
+                class="pdf-content"
+                [href]="pdf.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                type="application/pdf"
+              >
+                <span>Télécharger</span>
+                <i class="fa-solid fa-file-pdf"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="program-images">
+    <!-- <div class="program-images">
       <div
-        *ngFor="let image of program.images; let i = index"
+        *ngFor="
+          let image of program.images;
+          let i = index;
+          trackBy: trackByIndex
+        "
         class="image-container"
       >
         <img [src]="image" [alt]="program.title" />
@@ -188,14 +252,18 @@
           ></app-edit-button>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- Testimonials section -->
     <div class="testimonials">
       <h2>💬 <span>Avis</span> des participants</h2>
       <div *ngIf="program.testimonials.length > 0; else noTestimonials">
         <div
-          *ngFor="let testimonial of program.testimonials; let i = index"
+          *ngFor="
+            let testimonial of program.testimonials;
+            let i = index;
+            trackBy: trackByIndex
+          "
           class="testimonial"
         >
           <p>

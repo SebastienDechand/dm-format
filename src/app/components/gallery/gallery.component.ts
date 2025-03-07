@@ -1,48 +1,70 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { GalleryImage } from '../../models/gallery.models';
-import { ApiService } from '../../services/api.service';
+import { AdminService } from '../../services/admin.service';
+import { GalleryService } from '../../services/gallery.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-gallery',
   standalone: true,
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, ConfirmDialogComponent],
 })
 export class GalleryComponent implements OnInit {
   images: GalleryImage[] = [];
   selectedImage: GalleryImage | null = null;
   currentImageIndex: number = 0;
+  showDeleteModal: boolean = false;
+  deleteIndex: number | null = null;
+  cloudName = environment.cloudinary.cloudName;
+  uploadPreset = environment.cloudinary.upload_preset;
 
-  constructor(private apiService: ApiService) {}
+  private adminService: AdminService = inject(AdminService);
+  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+
+  constructor(private galleryService: GalleryService) {}
 
   ngOnInit(): void {
-    this.apiService.getGallery().subscribe((data) => {
-      this.images = data;
+    this.galleryService.images$.subscribe((images) => {
+      this.images = images;
     });
   }
 
-  openLightbox(image: GalleryImage, index: number): void {
+  openLightbox(image: GalleryImage): void {
     this.selectedImage = image;
-    this.currentImageIndex = index;
   }
 
   closeLightbox(): void {
     this.selectedImage = null;
   }
 
-  nextImage(): void {
-    if (this.currentImageIndex < this.images.length - 1) {
-      this.currentImageIndex++;
-      this.selectedImage = this.images[this.currentImageIndex];
-    }
+  uploadImage(event: any): void {
+    const file = event.target.files[0];
+    this.galleryService.uploadImage(file).subscribe();
   }
 
-  previousImage(): void {
-    if (this.currentImageIndex > 0) {
-      this.currentImageIndex--;
-      this.selectedImage = this.images[this.currentImageIndex];
+  deleteImage(index: number): void {
+    this.galleryService.deleteImage(index);
+  }
+
+  openDeleteModal(index: number) {
+    this.deleteIndex = index;
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.deleteIndex = null;
+  }
+
+  confirmDelete() {
+    if (this.deleteIndex !== null) {
+      this.galleryService.deleteImage(this.deleteIndex);
     }
+    this.closeDeleteModal();
   }
 }

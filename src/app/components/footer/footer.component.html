@@ -2,7 +2,10 @@
   <div class="footer-container">
     <!-- 🎨 Logo -->
     <div class="footer-section logo">
-      <p>DM FORMAT</p>
+      <p>
+        <span>&copy; {{ currentYear }}</span> DM FORMAT
+      </p>
+      <img src="assets/images/qualiopi.png" alt="Qualiopi" />
     </div>
 
     <!-- 📍 Coordonnées -->
@@ -10,47 +13,135 @@
       <h3>Coordonnées</h3>
       <ul>
         <li>
-          <a href="#"
-            ><i class="fa-solid fa-location-dot"></i> Basé à Dijon - Besançon</a
-          >
+          <p>
+            <i class="fa-solid fa-location-dot"></i>
+            Bourgogne-Franche-Comté
+          </p>
         </li>
         <li>
-          <a href="#"><i class="fa-solid fa-phone"></i> 06 XX XX XX XX</a>
-        </li>
-        <li>
-          <a href="mailto:contact&#64;dm-formation.fr"
-            ><i class="fa-solid fa-envelope"></i> contact&#64;dm-formation.fr</a
-          >
-        </li>
-      </ul>
-    </div>
+          <div class="captcha-container">
+            <!-- 🔥 Si reCAPTCHA n'est pas validé -->
+            <button
+              *ngIf="!captchaVerified"
+              class="captcha-button"
+              (click)="executeRecaptcha()"
+            >
+              <i class="fa-solid fa-lock"></i> Voir le numéro
+            </button>
 
-    <!-- 📜 Mentions légales et cookies -->
-    <div class="footer-section legal">
-      <h3>Mentions Légales</h3>
-      <ul>
-        <li>
-          <a routerLink="/mentions-legales"
-            ><i class="fa-solid fa-scale-balanced"></i> Mentions légales</a
-          >
+            <!-- ✅ Numéro visible après validation -->
+            <a
+              *ngIf="captchaVerified"
+              class="verified-number"
+              href="tel:+33681191790"
+            >
+              <i class="fa-solid fa-phone"></i> 06 81 19 17 90
+            </a>
+
+            <!-- 🚀 Widget invisible -->
+            <re-captcha
+              #recaptcha
+              [siteKey]="siteKey"
+              size="invisible"
+              (resolved)="onCaptchaResolved($event)"
+              class="hidden-recaptcha"
+            >
+            </re-captcha>
+          </div>
         </li>
+
         <li>
-          <a routerLink="/politique-confidentialite"
-            ><i class="fa-solid fa-lock"></i> Politique de confidentialité</a
-          >
+          <a href="mailto:dm-formatsst&#64;gmail.com">
+            <i class="fa-solid fa-envelope"></i> dm-formatsst&#64;gmail.com
+          </a>
         </li>
+
         <li>
-          <a routerLink="/cookies"
-            ><i class="fa-solid fa-cookie-bite"></i> Paramètres et politique de
-            cookies</a
-          >
+          <button (click)="openModal('mentionsLegales')">
+            <i class="fa-solid fa-scale-balanced"></i> Mentions légales
+          </button>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- 📌 Bas de page avec Copyright Dynamique -->
-  <div class="footer-bottom">
-    <p>&copy; {{ currentYear }} DM FORMAT - Tous droits réservés</p>
-  </div>
+  <!-- 🔥 Modale pour les mentions légales -->
+  <app-modal
+    title="Mentions légales"
+    [isOpen]="showMentionsLegales"
+    (close)="closeModal()"
+  >
+    <div class="modal-content">
+      <h3>Éditeur du site</h3>
+      <p><strong>DM FORMAT</strong></p>
+      <p>Entreprise individuelle</p>
+      <p>Responsable de publication : <strong>Dominique Masson</strong></p>
+      <p>Siège social : MARNAY - 70150</p>
+      <p>SIRET : 123 456 789 00012</p>
+      <p>Code APE : 8559A (Formation continue d'adultes)</p>
+      <p>
+        Email :
+        <a href="mailto:dm-formatsst&#64;gmail.com"
+          >dm-formatsst&#64;gmail.com</a
+        >
+      </p>
+      <p>Téléphone : 06 81 19 17 90</p>
+
+      <hr />
+
+      <h3>Hébergement</h3>
+      <p>Le site est hébergé par :</p>
+      <p><strong>Vercel Inc.</strong></p>
+      <p>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</p>
+      <p>
+        Site Web :
+        <a href="https://vercel.com/" target="_blank" rel="noopener"
+          >https://vercel.com/</a
+        >
+      </p>
+
+      <hr />
+
+      <h3>Propriété intellectuelle</h3>
+      <p>
+        Tout le contenu du site <strong>DM FORMAT</strong> (textes, images,
+        graphismes, logos, vidéos, icônes, etc.) est protégé par le droit
+        d’auteur et la propriété intellectuelle. Toute reproduction ou
+        distribution est interdite sans autorisation préalable.
+      </p>
+
+      <hr />
+
+      <h3>Protection des données</h3>
+      <p>
+        Aucune donnée personnelle n'est collectée sur ce site. Nous ne stockons
+        aucun cookie ni traceur.
+      </p>
+
+      <hr />
+
+      <h3>Responsabilité</h3>
+      <p>
+        L'éditeur du site ne saurait être tenu responsable des erreurs,
+        omissions ou indisponibilités de certaines informations. L'utilisateur
+        est invité à signaler toute erreur afin qu'elle soit corrigée.
+      </p>
+
+      <hr />
+
+      <h3>Contact</h3>
+      <p>
+        Pour toute question ou réclamation, vous pouvez nous contacter à
+        l’adresse suivante :
+      </p>
+      <p>
+        Email :
+        <a href="mailto:dm-formatsst&#64;gmail.com"
+          >dm-formatsst&#64;gmail.com</a
+        >
+      </p>
+
+      <button class="close-modal-btn" (click)="closeModal()">Fermer</button>
+    </div>
+  </app-modal>
 </footer>

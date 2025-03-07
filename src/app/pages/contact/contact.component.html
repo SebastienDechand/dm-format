@@ -126,12 +126,37 @@
         <p>
           <strong><i class="fa-solid fa-phone"></i> Téléphone :</strong>
         </p>
-        <p>06 12 34 56 78</p>
+        <div class="captcha-container">
+          <button
+            *ngIf="!captchaVerified"
+            class="captcha-button"
+            (click)="executeRecaptcha()"
+          >
+            <i class="fa-solid fa-lock"></i> Voir le numéro
+          </button>
+
+          <a
+            *ngIf="captchaVerified"
+            class="verified-number"
+            href="tel:+33681191790"
+          >
+            06 81 19 17 90
+          </a>
+
+          <re-captcha
+            #recaptcha
+            [siteKey]="siteKey"
+            size="invisible"
+            (resolved)="onCaptchaResolved($event)"
+            class="hidden-recaptcha"
+          >
+          </re-captcha>
+        </div>
 
         <p>
           <strong><i class="fa-solid fa-envelope"></i> Email :</strong>
         </p>
-        <p>contact&#64;dm-format.fr</p>
+        <p>dm-format&#64;gmail.com</p>
 
         <p>
           <strong><i class="fa-solid fa-clock"></i> Horaires :</strong>

@@ -20,9 +20,6 @@
             class="certifying-img"
           />
           <mat-card-title>{{ training.title }}</mat-card-title>
-          <mat-card-content>
-            <p>{{ training.description }}</p>
-          </mat-card-content>
           <mat-card-actions>
             <a [routerLink]="['/trainings', training._id]">
               <button mat-button color="primary">En savoir plus</button>
@@ -45,9 +42,6 @@
         >
           <img mat-card-image [src]="training.banner" [alt]="training.title" />
           <mat-card-title>{{ training.title }}</mat-card-title>
-          <mat-card-content>
-            <p>{{ training.description }}</p>
-          </mat-card-content>
           <mat-card-actions>
             <a [routerLink]="['/trainings', training._id]">
               <button mat-button color="warn">En savoir plus</button>

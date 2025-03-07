@@ -62,12 +62,16 @@
       <!-- Certificate Link -->
       <div>
         <a
-          *ngIf="!editMode['certLink']"
+          *ngIf="certificationData?.certificateLink && !editMode['certLink']"
           [href]="certificationData?.certificateLink"
           target="_blank"
+          rel="noopener noreferrer"
           class="certification-button"
-          >Voir le certificat</a
+          type="application/pdf"
         >
+          Voir le certificat
+        </a>
+
         <div *ngIf="editMode['certLink']" class="link-editor">
           <input
             [(ngModel)]="certificationData.certificateLink"

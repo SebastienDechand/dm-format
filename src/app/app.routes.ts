@@ -1,14 +1,29 @@
+// app.routes.ts mis à jour avec resolvers
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { HomeResolver } from './resolver/home.resolver';
+import { TrainingResolver } from './resolver/training.resolver';
+import { AboutResolver } from './resolver/about.resolver';
+import { OrganisationResolver } from './resolver/organisation.resolver';
+import { ContactResolver } from './resolver/contact.resolver';
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    resolve: {
+      homeData: HomeResolver,
+    },
+  },
   { path: 'login', component: LoginComponent },
   {
     path: 'about',
     loadComponent: () =>
       import('./pages/about/about.component').then((m) => m.AboutComponent),
+    resolve: {
+      aboutData: AboutResolver,
+    },
   },
   {
     path: 'organisation',
@@ -16,6 +31,9 @@ export const routes: Routes = [
       import('./pages/organisation/organisation.component').then(
         (m) => m.OrganisationComponent
       ),
+    resolve: {
+      organisationData: OrganisationResolver,
+    },
   },
   {
     path: 'trainings/:id',
@@ -23,6 +41,9 @@ export const routes: Routes = [
       import('./pages/program-detail/program-detail.component').then(
         (m) => m.ProgramDetailComponent
       ),
+    resolve: {
+      program: TrainingResolver,
+    },
   },
   {
     path: 'contact',
@@ -30,6 +51,9 @@ export const routes: Routes = [
       import('./pages/contact/contact.component').then(
         (m) => m.ContactComponent
       ),
+    resolve: {
+      contactData: ContactResolver,
+    },
   },
 
   { path: '**', redirectTo: '' },
