@@ -1,18 +1,15 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {
   BehaviorSubject,
   Observable,
   catchError,
-  forkJoin,
-  map,
   of,
   switchMap,
   tap,
 } from 'rxjs';
 import { GalleryImage } from '../models/gallery.models';
 import { environment } from '../../environments/environment.prod';
-import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +27,6 @@ export class GalleryService {
   }
 
   private loadGallery(): void {
-    // Utiliser l'URL directement car nous savons qu'elle renvoie un tableau
     this.http
       .get<GalleryImage[]>(`${this.apiUrl}/gallery`)
       .pipe(
@@ -62,7 +58,6 @@ export class GalleryService {
             src: response.secure_url,
           };
 
-          // POST à l'API pour créer une nouvelle image
           return this.http.post<GalleryImage>(
             `${this.apiUrl}/gallery`,
             newImage
@@ -75,18 +70,13 @@ export class GalleryService {
       );
   }
 
-  deleteImage(index: number): void {
-    const currentImages = this.imagesSubject.getValue();
-    const imageToDelete = currentImages[index];
-
-    if (!imageToDelete || !imageToDelete._id) {
-      console.error("Impossible de supprimer l'image: ID manquant");
-      return;
-    }
-
-    this.http.delete(`${this.apiUrl}/gallery/${imageToDelete._id}`).subscribe(
+  deleteImage(imageId: string): void {
+    this.http.delete(`${this.apiUrl}/gallery/${imageId}`).subscribe(
       () => {
-        const updatedImages = currentImages.filter((_, i) => i !== index);
+        const currentImages = this.imagesSubject.getValue();
+        const updatedImages = currentImages.filter(
+          (img) => img._id !== imageId
+        );
         this.imagesSubject.next(updatedImages);
       },
       (error) => {

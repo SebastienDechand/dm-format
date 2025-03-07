@@ -7,7 +7,7 @@
   <div class="gallery-grid">
     <div
       class="gallery-item"
-      *ngFor="let image of images; let i = index"
+      *ngFor="let image of images"
       (click)="openLightbox(image)"
     >
       <img [src]="image.src" [alt]="image.title" />
@@ -18,7 +18,10 @@
       <button
         *ngIf="isAdmin$ | async"
         class="delete-btn"
-        (click)="openDeleteModal(i); $event.stopPropagation()"
+        (click)="
+          image._id ? openDeleteModal(image._id) : null;
+          $event.stopPropagation()
+        "
       >
         <i class="fa-solid fa-trash-can"></i>
       </button>

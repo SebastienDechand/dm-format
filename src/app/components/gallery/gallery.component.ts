@@ -19,7 +19,7 @@ export class GalleryComponent implements OnInit {
   selectedImage: GalleryImage | null = null;
   currentImageIndex: number = 0;
   showDeleteModal: boolean = false;
-  deleteIndex: number | null = null;
+  deleteImageId: string | null = null;
   cloudName = environment.cloudinary.cloudName;
   uploadPreset = environment.cloudinary.upload_preset;
 
@@ -30,6 +30,7 @@ export class GalleryComponent implements OnInit {
 
   ngOnInit(): void {
     this.galleryService.images$.subscribe((images) => {
+      console.log('Images reçues dans le composant:', images);
       this.images = images;
     });
   }
@@ -47,23 +48,25 @@ export class GalleryComponent implements OnInit {
     this.galleryService.uploadImage(file).subscribe();
   }
 
-  deleteImage(index: number): void {
-    this.galleryService.deleteImage(index);
+  deleteImage(imageId: string): void {
+    if (imageId) {
+      this.galleryService.deleteImage(imageId);
+    }
   }
 
-  openDeleteModal(index: number) {
-    this.deleteIndex = index;
+  openDeleteModal(imageId: string) {
+    this.deleteImageId = imageId;
     this.showDeleteModal = true;
   }
 
   closeDeleteModal() {
     this.showDeleteModal = false;
-    this.deleteIndex = null;
+    this.deleteImageId = null;
   }
 
   confirmDelete() {
-    if (this.deleteIndex !== null) {
-      this.galleryService.deleteImage(this.deleteIndex);
+    if (this.deleteImageId) {
+      this.galleryService.deleteImage(this.deleteImageId);
     }
     this.closeDeleteModal();
   }
