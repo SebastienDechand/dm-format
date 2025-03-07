@@ -4,7 +4,23 @@
     Découvrez quelques moments de nos formations en action.
   </p>
 
-  <div class="gallery-grid">
+  <!-- Bouton de rechargement et indicateur de chargement -->
+  <div class="gallery-controls">
+    <button (click)="refreshGallery()" class="refresh-btn">
+      <i class="fa-solid fa-arrows-rotate"></i> Actualiser
+    </button>
+    <div *ngIf="isLoading" class="loading-indicator">
+      Chargement en cours...
+    </div>
+  </div>
+
+  <!-- Message si aucune image -->
+  <div *ngIf="!isLoading && images.length === 0" class="no-images">
+    Aucune image disponible dans la galerie.
+  </div>
+
+  <!-- Grille de la galerie -->
+  <div class="gallery-grid" *ngIf="images.length > 0">
     <div
       class="gallery-item"
       *ngFor="let image of images"
@@ -18,32 +34,36 @@
       <button
         *ngIf="isAdmin$ | async"
         class="delete-btn"
-        (click)="
-          image._id ? openDeleteModal(image._id) : null;
-          $event.stopPropagation()
-        "
+        (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
       >
         <i class="fa-solid fa-trash-can"></i>
       </button>
     </div>
   </div>
 
+  <!-- Lightbox -->
   <div class="lightbox" *ngIf="selectedImage">
     <div class="lightbox-content">
       <button class="close-lightbox-btn" (click)="closeLightbox()">
         <i class="fa-solid fa-xmark"></i>
       </button>
       <img [src]="selectedImage.src" [alt]="selectedImage.title" />
+      <div class="lightbox-caption">
+        <h3>{{ selectedImage.title }}</h3>
+        <p>{{ selectedImage.description }}</p>
+      </div>
     </div>
   </div>
 
+  <!-- Bouton d'upload (admin seulement) -->
   <label class="file-upload" *ngIf="isAdmin$ | async">
-    <input type="file" (change)="uploadImage($event)" />
+    <input type="file" (change)="uploadImage($event)" accept="image/*" />
     <span class="file-upload-label">
       <i class="fa-solid fa-upload"></i> Ajouter une image
     </span>
   </label>
 
+  <!-- Modal de confirmation de suppression -->
   <app-confirm-dialog
     *ngIf="showDeleteModal"
     title="Confirmer la suppression"
