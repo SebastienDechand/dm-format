@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { GalleryImage } from '../../models/gallery.models';
 import { AdminService } from '../../services/admin.service';
 import { GalleryService } from '../../services/gallery.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-gallery',

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SeoService } from '../../services/seo.service';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 
 @Component({
   selector: 'app-contact',
