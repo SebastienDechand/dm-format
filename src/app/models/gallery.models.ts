@@ -1,5 +1,5 @@
 export interface GalleryImage {
-  id: number;
+  _id?: string;
   title: string;
   description: string;
   src: string;
