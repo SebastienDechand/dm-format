@@ -1,0 +1,214 @@
+<div class="testimonials-section">
+  <!-- Témoignages existants -->
+  <div
+    class="testimonials-list"
+    *ngIf="testimonials && testimonials.length > 0"
+  >
+    <!-- Afficher en carousel si plus de 5 témoignages -->
+    <div class="testimonial-carousel" *ngIf="useCarousel">
+      <!-- Contrôles du carousel -->
+      <div class="carousel-controls">
+        <button
+          class="carousel-control prev"
+          (click)="prevSlide()"
+          (mouseenter)="pauseAutoplay()"
+          (mouseleave)="resumeAutoplay()"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button
+          class="carousel-control next"
+          (click)="nextSlide()"
+          (mouseenter)="pauseAutoplay()"
+          (mouseleave)="resumeAutoplay()"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Track du carousel -->
+      <div class="carousel-track-container">
+        <div
+          class="carousel-track"
+          [style.transform]="getCarouselTransform()"
+          [style.transition]="isAnimating ? 'transform 0.5s ease' : 'none'"
+        >
+          <div
+            class="testimonial-card"
+            *ngFor="let testimonial of testimonials; let i = index"
+            [style.width.%]="100 / slidesToShow"
+            (mouseenter)="pauseAutoplay()"
+            (mouseleave)="resumeAutoplay()"
+          >
+            <div class="testimonial-content">
+              <p class="feedback">"{{ testimonial.feedback }}"</p>
+              <div class="testimonial-author">
+                <p class="name">{{ testimonial.name }}</p>
+                <p class="role">{{ testimonial.role }}</p>
+              </div>
+              <!-- Bouton de suppression pour les admins -->
+              <button
+                *ngIf="isAdmin"
+                class="delete-btn"
+                (click)="deleteTestimonial(testimonial._id, i)"
+                title="Supprimer ce témoignage"
+              >
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicateurs de pages -->
+      <div class="carousel-indicators">
+        <button
+          *ngFor="let _ of [].constructor(getTotalPages()); let i = index"
+          class="carousel-indicator-dot"
+          [class.active]="isActivePage(i)"
+          (click)="goToSlide(i)"
+        ></button>
+      </div>
+    </div>
+
+    <!-- Affichage classique si moins de 5 témoignages -->
+    <div class="testimonial-cards" *ngIf="!useCarousel">
+      <div
+        class="testimonial-card"
+        *ngFor="let testimonial of testimonials; let i = index"
+      >
+        <div class="testimonial-content">
+          <p class="feedback">"{{ testimonial.feedback }}"</p>
+          <div class="testimonial-author">
+            <p class="name">{{ testimonial.name }}</p>
+            <p class="role">{{ testimonial.role }}</p>
+          </div>
+          <!-- Bouton de suppression pour les admins -->
+          <button
+            *ngIf="isAdmin"
+            class="delete-btn"
+            (click)="deleteTestimonial(testimonial._id, i)"
+            title="Supprimer ce témoignage"
+          >
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Chargement...</span>
+    </div>
+  </div>
+
+  <!-- Message si aucun témoignage -->
+  <div
+    *ngIf="!isLoading && (!testimonials || testimonials.length === 0)"
+    class="no-testimonials"
+  >
+    <p>Aucun témoignage n'est disponible pour le moment.</p>
+  </div>
+
+  <!-- Formulaire d'ajout de témoignage -->
+  <div class="testimonial-form-container">
+    <h3>Partagez votre expérience</h3>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="testimonialForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Votre nom *</label>
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': formSubmitted && f['name'].errors }"
+        />
+        <div *ngIf="formSubmitted && f['name'].errors" class="invalid-feedback">
+          <div *ngIf="f['name'].errors && f['name'].errors['required']">
+            Le nom est requis
+          </div>
+          <div *ngIf="f['name'].errors && f['name'].errors['minlength']">
+            Le nom doit comporter au moins 2 caractères
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="role">Votre fonction / rôle *</label>
+        <input
+          type="text"
+          id="role"
+          formControlName="role"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': formSubmitted && f['role'].errors }"
+        />
+        <div *ngIf="formSubmitted && f['role'].errors" class="invalid-feedback">
+          <div *ngIf="f['role'].errors && f['role'].errors['required']">
+            La fonction/le rôle est requis
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="feedback">Votre témoignage *</label>
+        <textarea
+          id="feedback"
+          formControlName="feedback"
+          class="form-control"
+          rows="4"
+          [ngClass]="{ 'is-invalid': formSubmitted && f['feedback'].errors }"
+        ></textarea>
+        <div
+          *ngIf="formSubmitted && f['feedback'].errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f['feedback'].errors && f['feedback'].errors['required']">
+            Le témoignage est requis
+          </div>
+          <div
+            *ngIf="f['feedback'].errors && f['feedback'].errors['minlength']"
+          >
+            Le témoignage doit comporter au moins 10 caractères
+          </div>
+        </div>
+      </div>
+
+      <!-- Afficher un indicateur visuel si le CAPTCHA est vérifié -->
+      <div class="captcha-status" *ngIf="captchaVerified">
+        <i class="fa-solid fa-shield-check text-success"></i>
+        <span class="text-success">Vérification humaine réussie</span>
+      </div>
+
+      <!-- Widget invisible reCAPTCHA -->
+      <re-captcha
+        #recaptcha
+        [siteKey]="siteKey"
+        size="invisible"
+        (resolved)="onCaptchaResolved($event)"
+        class="hidden-recaptcha"
+      >
+      </re-captcha>
+
+      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+        <span
+          *ngIf="isSubmitting"
+          class="spinner-border spinner-border-sm mr-1"
+        ></span>
+        <span *ngIf="!captchaVerified">
+          <i class="fa-solid fa-shield"></i>
+        </span>
+        Envoyer mon témoignage
+      </button>
+    </form>
+  </div>
+</div>

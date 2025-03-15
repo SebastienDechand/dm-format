@@ -1,5 +1,7 @@
+import { Testimonial } from './testimonials.model';
+
 export interface Program {
-  _id: { $oid: string };
+  _id: string;
   title: string;
   description: string;
   duration: string;
@@ -15,11 +17,6 @@ export interface Program {
     description: string;
   }>;
   images: string[];
-  testimonials: Array<{
-    name: string;
-    role: string;
-    feedback: string;
-  }>;
   pdf: Array<{
     title: string;
     url: string;

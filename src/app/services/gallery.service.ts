@@ -23,29 +23,29 @@ export class GalleryService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {
-    console.log('GalleryService instancié');
+    // console.log('GalleryService instancié');
     this.loadGallery();
   }
 
   public loadGallery(): void {
-    console.log("Chargement de la galerie depuis l'API");
+    // console.log("Chargement de la galerie depuis l'API");
     this.http
       .get<GalleryImage[]>(`${this.apiUrl}/gallery`)
       .pipe(
-        tap((images) => console.log('API: Images reçues:', images)),
+        // tap((images) => console.log('API: Images reçues:', images)),
         catchError((error) => {
           console.error("Erreur lors du chargement depuis l'API:", error);
           return of([]);
         })
       )
       .subscribe((images) => {
-        console.log('Images mises à jour dans le subject');
+        // console.log('Images mises à jour dans le subject');
         this.imagesSubject.next(images);
       });
   }
 
   uploadImage(file: File): Observable<GalleryImage> {
-    console.log('Démarrage upload image vers Cloudinary');
+    // console.log('Démarrage upload image vers Cloudinary');
     const formData = new FormData();
     formData.append('file', file);
     formData.append('upload_preset', this.uploadPreset);
@@ -56,7 +56,7 @@ export class GalleryService {
         formData
       )
       .pipe(
-        tap((response) => console.log('Réponse Cloudinary:', response)),
+        // tap((response) => console.log('Réponse Cloudinary:', response)),
         switchMap((response: any) => {
           const newImage: GalleryImage = {
             title: 'Nouvelle image',
@@ -64,14 +64,14 @@ export class GalleryService {
             src: response.secure_url,
           };
 
-          console.log("Envoi de la nouvelle image à l'API:", newImage);
+          // console.log("Envoi de la nouvelle image à l'API:", newImage);
           return this.http.post<GalleryImage>(
             `${this.apiUrl}/gallery`,
             newImage
           );
         }),
         tap((createdImage) => {
-          console.log("Image créée dans l'API:", createdImage);
+          // console.log("Image créée dans l'API:", createdImage);
           const currentImages = this.imagesSubject.getValue();
           this.imagesSubject.next([...currentImages, createdImage]);
         }),
@@ -83,10 +83,10 @@ export class GalleryService {
   }
 
   deleteImage(imageId: string): void {
-    console.log("Suppression de l'image:", imageId);
+    // console.log("Suppression de l'image:", imageId);
     this.http.delete(`${this.apiUrl}/gallery/${imageId}`).subscribe(
       () => {
-        console.log('Image supprimée avec succès');
+        // console.log('Image supprimée avec succès');
         const currentImages = this.imagesSubject.getValue();
         const updatedImages = currentImages.filter(
           (img) => img._id !== imageId
@@ -113,7 +113,7 @@ export class GalleryService {
       })
       .pipe(
         tap((updatedImage) => {
-          console.log("Image mise à jour dans l'API:", updatedImage);
+          // console.log("Image mise à jour dans l'API:", updatedImage);
           const currentImages = this.imagesSubject.getValue();
           const index = currentImages.findIndex(
             (img) => img._id === updatedImage._id
