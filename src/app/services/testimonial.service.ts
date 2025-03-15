@@ -1,54 +1,47 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, of, map } from 'rxjs';
+import { Testimonial } from '../models/testimonials.model';
 import { environment } from '../../environments/environment.prod';
-import { Testimonial, TestimonialResponse } from '../models/testimonials.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestimonialService {
-  private apiUrl = `${environment.apiUrl}/api/testimonials`;
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/testimonials`;
 
-  constructor(private http: HttpClient) {}
+  getTestimonialsByTraining(trainingId: string): Observable<any> {
+    return this.http.get(this.apiUrl).pipe(
+      map((response: any) => {
+        if (response && response.data) {
+          const filteredData = response.data.filter(
+            (testimonial: any) =>
+              testimonial.trainingId === trainingId ||
+              (testimonial.trainingId &&
+                testimonial.trainingId.$oid === trainingId)
+          );
 
-  // Ajouter un nouveau témoignage
-  addTestimonial(testimonial: Testimonial): Observable<TestimonialResponse> {
-    return this.http.post<TestimonialResponse>(this.apiUrl, testimonial);
-  }
-
-  // Récupérer tous les témoignages
-  getAllTestimonials(): Observable<TestimonialResponse> {
-    return this.http.get<TestimonialResponse>(this.apiUrl);
-  }
-
-  // Récupérer les témoignages pour une formation spécifique
-  getTestimonialsByTraining(
-    trainingId: string
-  ): Observable<TestimonialResponse> {
-    return this.http.get<TestimonialResponse>(
-      `${this.apiUrl}/training/${trainingId}`
+          return {
+            success: true,
+            count: filteredData.length,
+            data: filteredData,
+          };
+        }
+        return response;
+      }),
+      catchError((error) => {
+        console.error('Erreur API lors du chargement des témoignages:', error);
+        return of({ success: true, count: 0, data: [] });
+      })
     );
   }
 
-  // Récupérer un témoignage par son ID
-  getTestimonialById(id: string): Observable<TestimonialResponse> {
-    return this.http.get<TestimonialResponse>(`${this.apiUrl}/${id}`);
+  addTestimonial(testimonial: Testimonial): Observable<any> {
+    return this.http.post(this.apiUrl, testimonial);
   }
 
-  // Mettre à jour un témoignage
-  updateTestimonial(
-    id: string,
-    testimonial: Partial<Testimonial>
-  ): Observable<TestimonialResponse> {
-    return this.http.patch<TestimonialResponse>(
-      `${this.apiUrl}/${id}`,
-      testimonial
-    );
-  }
-
-  // Supprimer un témoignage
-  deleteTestimonial(id: string): Observable<TestimonialResponse> {
-    return this.http.delete<TestimonialResponse>(`${this.apiUrl}/${id}`);
+  deleteTestimonial(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`);
   }
 }

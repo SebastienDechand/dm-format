@@ -257,32 +257,11 @@
     <!-- Testimonials section -->
     <div class="testimonials">
       <h2>💬 <span>Avis</span> des participants</h2>
-      <div *ngIf="program.testimonials.length > 0; else noTestimonials">
-        <div
-          *ngFor="
-            let testimonial of program.testimonials;
-            let i = index;
-            trackBy: trackByIndex
-          "
-          class="testimonial"
-        >
-          <p>
-            "<span *ngIf="!editMode['testimonials.' + i + '.feedback']">{{
-              testimonial.feedback
-            }}</span>
-          </p>
-          <span>
-            -
-            <span *ngIf="!editMode['testimonials.' + i + '.name']">{{
-              testimonial.name
-            }}</span>
-            ,
-            <span *ngIf="!editMode['testimonials.' + i + '.role']">{{
-              testimonial.role
-            }}</span>
-          </span>
-        </div>
-      </div>
+
+      <app-training-testimonials
+        [programId]="program._id"
+        [isAdmin]="(isAdmin$ | async) === true"
+      ></app-training-testimonials>
     </div>
 
     <!-- Save button -->
