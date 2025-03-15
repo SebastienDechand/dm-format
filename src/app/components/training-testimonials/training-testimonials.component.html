@@ -4,97 +4,36 @@
     class="testimonials-list"
     *ngIf="testimonials && testimonials.length > 0"
   >
-    <!-- Afficher en carousel si plus de 5 témoignages -->
-    <div class="testimonial-carousel" *ngIf="useCarousel">
-      <!-- Contrôles du carousel -->
-      <div class="carousel-controls">
-        <button
-          class="carousel-control prev"
-          (click)="prevSlide()"
-          (mouseenter)="pauseAutoplay()"
-          (mouseleave)="resumeAutoplay()"
-        >
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button
-          class="carousel-control next"
-          (click)="nextSlide()"
-          (mouseenter)="pauseAutoplay()"
-          (mouseleave)="resumeAutoplay()"
-        >
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-
-      <!-- Track du carousel -->
-      <div class="carousel-track-container">
-        <div
-          class="carousel-track"
-          [style.transform]="getCarouselTransform()"
-          [style.transition]="isAnimating ? 'transform 0.5s ease' : 'none'"
-        >
-          <div
-            class="testimonial-card"
-            *ngFor="let testimonial of testimonials; let i = index"
-            [style.width.%]="100 / slidesToShow"
-            (mouseenter)="pauseAutoplay()"
-            (mouseleave)="resumeAutoplay()"
-          >
-            <div class="testimonial-content">
-              <p class="feedback">"{{ testimonial.feedback }}"</p>
-              <div class="testimonial-author">
-                <p class="name">{{ testimonial.name }}</p>
-                <p class="role">{{ testimonial.role }}</p>
-              </div>
-              <!-- Bouton de suppression pour les admins -->
-              <button
-                *ngIf="isAdmin"
-                class="delete-btn"
-                (click)="deleteTestimonial(testimonial._id, i)"
-                title="Supprimer ce témoignage"
-              >
-                <i class="fa-solid fa-trash-can"></i>
-              </button>
+    <ngx-slick-carousel
+      class="testimonial-carousel"
+      #slickModal="slick-carousel"
+      [config]="slideConfig"
+    >
+      @for (
+        testimonial of testimonials;
+        track testimonial._id;
+        let i = $index
+      ) {
+        <div ngxSlickItem class="testimonial-card">
+          <div class="testimonial-content">
+            <p class="feedback">"{{ testimonial.feedback }}"</p>
+            <div class="testimonial-author">
+              <p class="name">{{ testimonial.name }}</p>
+              <p class="role">{{ testimonial.role }}</p>
             </div>
+            <!-- Bouton de suppression pour les admins -->
+            <button
+              *ngIf="isAdmin"
+              class="delete-btn"
+              (click)="deleteTestimonial(testimonial._id, i)"
+              title="Supprimer ce témoignage"
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
           </div>
         </div>
-      </div>
-
-      <!-- Indicateurs de pages -->
-      <div class="carousel-indicators">
-        <button
-          *ngFor="let _ of [].constructor(getTotalPages()); let i = index"
-          class="carousel-indicator-dot"
-          [class.active]="isActivePage(i)"
-          (click)="goToSlide(i)"
-        ></button>
-      </div>
-    </div>
-
-    <!-- Affichage classique si moins de 5 témoignages -->
-    <div class="testimonial-cards" *ngIf="!useCarousel">
-      <div
-        class="testimonial-card"
-        *ngFor="let testimonial of testimonials; let i = index"
-      >
-        <div class="testimonial-content">
-          <p class="feedback">"{{ testimonial.feedback }}"</p>
-          <div class="testimonial-author">
-            <p class="name">{{ testimonial.name }}</p>
-            <p class="role">{{ testimonial.role }}</p>
-          </div>
-          <!-- Bouton de suppression pour les admins -->
-          <button
-            *ngIf="isAdmin"
-            class="delete-btn"
-            (click)="deleteTestimonial(testimonial._id, i)"
-            title="Supprimer ce témoignage"
-          >
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+      }
+    </ngx-slick-carousel>
   </div>
 
   <div *ngIf="isLoading" class="loading-container">

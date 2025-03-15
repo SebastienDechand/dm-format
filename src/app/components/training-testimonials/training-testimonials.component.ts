@@ -1,14 +1,13 @@
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  Inject,
   Input,
-  OnInit,
   OnChanges,
+  OnInit,
+  PLATFORM_ID,
   SimpleChanges,
   ViewChild,
-  AfterViewInit,
-  HostListener,
-  Inject,
-  PLATFORM_ID,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -16,25 +15,55 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TestimonialService } from '../../services/testimonial.service';
-import { Testimonial } from '../../models/testimonials.model';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
 import { environment } from '../../../environments/environment.prod';
-import { platform } from 'os';
+import { Testimonial } from '../../models/testimonials.model';
+import { TestimonialService } from '../../services/testimonial.service';
+import {
+  SlickCarouselComponent,
+  SlickCarouselModule,
+} from 'ngx-slick-carousel';
 
 @Component({
   selector: 'app-training-testimonials',
   templateUrl: './training-testimonials.component.html',
   styleUrls: ['./training-testimonials.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RecaptchaModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RecaptchaModule,
+    SlickCarouselModule,
+  ],
 })
-export class TrainingTestimonialsComponent
-  implements OnInit, OnChanges, AfterViewInit
-{
+export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   @Input() programId!: string;
   @Input() isAdmin: boolean = false;
+
+  // Carousel
+  @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
+  slideConfig = {
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    dots: true,
+    infinite: false,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   // ReCAPTCHA
   @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
@@ -42,15 +71,6 @@ export class TrainingTestimonialsComponent
   captchaVerified = false;
 
   testimonials: Testimonial[] = [];
-
-  // Propriétés du carousel
-  carouselThreshold = 5;
-  useCarousel = false;
-  currentSlide = 0;
-  slidesToShow = 5;
-  autoplayInterval: any = null;
-  autoplayDelay = 5000;
-  isAnimating = false;
 
   testimonialForm!: FormGroup;
   isLoading = false;
@@ -61,15 +81,12 @@ export class TrainingTestimonialsComponent
 
   // Variable pour tracker le dernier programId chargé
   private lastLoadedProgramId: string = '';
-  private isBrowser: boolean;
 
   constructor(
     private fb: FormBuilder,
     private testimonialService: TestimonialService,
-    @Inject(PLATFORM_ID) platformId: Object
-  ) {
-    this.isBrowser = isPlatformBrowser(platformId);
-  }
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -84,44 +101,8 @@ export class TrainingTestimonialsComponent
       if (newProgramId !== previousProgramId) {
         this.captchaVerified = false;
         this.loadTestimonials();
-        this.resetCarousel();
       }
     }
-  }
-
-  ngAfterViewInit(): void {
-    if (this.isBrowser) {
-      // Configurer l'affichage initial du carousel
-      this.updateCarouselConfig();
-    }
-  }
-
-  // Détecter les changements de taille d'écran
-  @HostListener('window:resize')
-  onResize() {
-    if (this.isBrowser) {
-      this.updateCarouselConfig();
-    }
-  }
-
-  updateCarouselConfig() {
-    if (!this.isBrowser) {
-      return; // Ne pas exécuter côté serveur
-    }
-
-    // Adapter le nombre de témoignages à afficher selon la largeur d'écran
-    const width = window.innerWidth;
-
-    if (width < 576) {
-      this.slidesToShow = 1;
-    } else if (width < 992) {
-      this.slidesToShow = 3;
-    } else {
-      this.slidesToShow = 5;
-    }
-
-    // Vérifier si le carousel doit être activé
-    this.useCarousel = this.testimonials.length > this.carouselThreshold;
   }
 
   initForm(): void {
@@ -150,12 +131,6 @@ export class TrainingTestimonialsComponent
       (response) => {
         if (response && response.data) {
           this.testimonials = response.data;
-
-          // Mettre à jour le carousel après le chargement des témoignages
-          setTimeout(() => {
-            this.updateCarouselConfig();
-            this.setupAutoplay();
-          });
         } else {
           console.warn('Format de réponse inattendu:', response);
           this.testimonials = [];
@@ -172,100 +147,11 @@ export class TrainingTestimonialsComponent
     );
   }
 
-  // Méthodes du carousel
-  nextSlide(): void {
-    if (this.isAnimating) return;
-
-    this.isAnimating = true;
-    const maxSlide =
-      Math.ceil(this.testimonials.length / this.slidesToShow) - 1;
-    this.currentSlide =
-      this.currentSlide + 1 > maxSlide ? 0 : this.currentSlide + 1;
-
-    setTimeout(() => {
-      this.isAnimating = false;
-    }, 500); // Correspondre à la durée de transition CSS
-  }
-
-  prevSlide(): void {
-    if (this.isAnimating) return;
-
-    this.isAnimating = true;
-    const maxSlide =
-      Math.ceil(this.testimonials.length / this.slidesToShow) - 1;
-    this.currentSlide =
-      this.currentSlide - 1 < 0 ? maxSlide : this.currentSlide - 1;
-
-    setTimeout(() => {
-      this.isAnimating = false;
-    }, 500); // Correspondre à la durée de transition CSS
-  }
-
-  goToSlide(index: number): void {
-    if (this.isAnimating) return;
-
-    this.isAnimating = true;
-    this.currentSlide = index;
-
-    setTimeout(() => {
-      this.isAnimating = false;
-    }, 500);
-  }
-
-  setupAutoplay(): void {
-    if (!this.isBrowser) {
-      return; // Ne pas exécuter côté serveur
-    }
-
-    // Nettoyer tout intervalle existant
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
-    }
-
-    // Configurer l'autoplay seulement si le carousel est activé
-    if (this.useCarousel) {
-      this.autoplayInterval = setInterval(() => {
-        this.nextSlide();
-      }, this.autoplayDelay);
-    }
-  }
-
-  pauseAutoplay(): void {
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
-    }
-  }
-
-  resumeAutoplay(): void {
-    this.setupAutoplay();
-  }
-
-  resetCarousel(): void {
-    this.currentSlide = 0;
-    this.pauseAutoplay();
-    this.setupAutoplay();
-  }
-
-  // Calculer la transformation pour le carousel
-  getCarouselTransform(): string {
-    const slideWidth = 100 / this.slidesToShow;
-    const translateX = -this.currentSlide * slideWidth * this.slidesToShow;
-    return `translateX(${translateX}%)`;
-  }
-
-  // Obtenir le nombre total de pages du carousel
-  getTotalPages(): number {
-    return Math.ceil(this.testimonials.length / this.slidesToShow);
-  }
-
-  // Vérifier si une page est active
-  isActivePage(index: number): boolean {
-    return this.currentSlide === index;
-  }
-
   // reCAPTCHA
   executeRecaptcha() {
-    this.recaptcha.execute();
+    if (isPlatformBrowser(this.platformId) && this.recaptcha) {
+      this.recaptcha.execute();
+    }
   }
 
   onCaptchaResolved(captchaResponse: string | null): void {
@@ -311,10 +197,6 @@ export class TrainingTestimonialsComponent
         if (response && response.data) {
           const newTestimonial = response.data;
           this.testimonials.unshift(newTestimonial);
-
-          // Mettre à jour le carousel avec le nouveau témoignage
-          this.updateCarouselConfig();
-          this.resetCarousel();
         }
         this.testimonialForm.reset();
         this.formSubmitted = false;
@@ -351,11 +233,6 @@ export class TrainingTestimonialsComponent
       () => {
         this.testimonials.splice(index, 1);
         this.successMessage = 'Témoignage supprimé avec succès';
-
-        // Mettre à jour le carousel après la suppression
-        this.updateCarouselConfig();
-        this.resetCarousel();
-
         setTimeout(() => (this.successMessage = ''), 5000);
       },
       (error) => {

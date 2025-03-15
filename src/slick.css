@@ -1,0 +1,40 @@
+/* Styles pour les flèches */
+.slick-prev,
+.slick-next {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 50% !important;
+  z-index: 10 !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  font-size: 30px !important;
+  color: white !important;
+  opacity: 1 !important;
+}
+
+.slick-prev {
+  left: -25px !important;
+}
+
+.slick-next {
+  right: -25px !important;
+}
+
+/* Styles pour les points (dots) */
+.slick-dots li button:before {
+  font-size: 12px !important;
+  color: #ddd !important;
+  opacity: 0.7 !important;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #316095 !important;
+  opacity: 1 !important;
+}
+
+/* Styles pour les slides */
+.slick-slide {
+  padding: 10px !important;
+}

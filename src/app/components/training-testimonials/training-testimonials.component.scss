@@ -14,73 +14,73 @@
 // Style pour la liste des témoignages
 .testimonials-list {
   margin-bottom: var(--margin-big);
+}
 
-  .testimonial-cards {
+// Style pour les cartes de témoignages
+.testimonial-card {
+  position: relative;
+  height: 100%;
+  padding: var(--padding-small);
+
+  .testimonial-content {
+    height: 100%;
+    background-color: var(--light-color);
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    padding: var(--padding-medium);
+    border: 1px solid var(--border-color);
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--margin-medium);
+    flex-direction: column;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
 
-    .testimonial-card {
-      flex: 1 1 300px;
-      max-width: 400px;
-      background-color: var(--light-color);
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      padding: var(--padding-medium);
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-      border: 1px solid var(--border-color);
-      position: relative;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
 
-      &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    .feedback {
+      font-style: italic;
+      font-size: var(--text-size-desktop);
+      line-height: 1.5;
+      margin-bottom: var(--margin-small);
+      color: var(--secondary-color);
+      flex-grow: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      flex-direction: column;
+
+      .name {
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 2px;
+        font-size: var(--small-text-size-desktop);
       }
 
-      .testimonial-content {
-        .feedback {
-          font-style: italic;
-          font-size: var(--text-size-desktop);
-          line-height: 1.5;
-          margin-bottom: var(--margin-small);
-          color: var(--secondary-color);
-        }
+      .role {
+        color: var(--secondary-color);
+        font-size: var(--small-text-size-desktop);
+      }
+    }
 
-        .testimonial-author {
-          display: flex;
-          flex-direction: column;
+    // Bouton de suppression pour admins
+    .delete-btn {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: transparent;
+      border: none;
+      color: var(--icon-color);
+      cursor: pointer;
+      font-size: var(--small-text-size-desktop);
+      opacity: 0.5;
+      transition: opacity 0.3s ease;
 
-          .name {
-            font-weight: 600;
-            color: var(--primary-color);
-            margin-bottom: 2px;
-            font-size: var(--small-text-size-desktop);
-          }
-
-          .role {
-            color: var(--secondary-color);
-            font-size: var(--small-text-size-desktop);
-          }
-        }
-
-        // Bouton de suppression pour admins
-        .delete-btn {
-          position: absolute;
-          top: 10px;
-          right: 10px;
-          background: transparent;
-          border: none;
-          color: var(--icon-color);
-          cursor: pointer;
-          font-size: var(--small-text-size-desktop);
-          opacity: 0.5;
-          transition: opacity 0.3s ease;
-
-          &:hover {
-            opacity: 1;
-          }
-        }
+      &:hover {
+        opacity: 1;
       }
     }
   }
@@ -207,166 +207,6 @@
   }
 }
 
-// Responsive adjustments
-@media (max-width: 768px) {
-  .testimonial-cards {
-    flex-direction: column;
-
-    .testimonial-card {
-      max-width: 100%;
-    }
-  }
-
-  .testimonials-section h3 {
-    font-size: calc(var(--h3-size-desktop) - 4px);
-  }
-
-  .testimonial-form-container {
-    padding: var(--padding-medium);
-  }
-}
-
-@media (max-width: 576px) {
-  .testimonials-section {
-    margin: var(--margin-medium) 0;
-  }
-
-  .testimonial-card .testimonial-content .feedback {
-    font-size: calc(var(--text-size-desktop) - 2px);
-  }
-}
-
-// Ajouter ces nouveaux styles au fichier SCSS existant (training-testimonials.component.scss)
-
-// Styles du carousel
-.testimonial-carousel {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  margin-bottom: var(--margin-medium);
-
-  // Container du track
-  .carousel-track-container {
-    position: relative;
-    width: 92%;
-    overflow: hidden;
-    margin: auto;
-  }
-
-  // Track qui contient les slides
-  .carousel-track {
-    display: flex;
-    width: 100%;
-    transition: transform 0.5s ease;
-  }
-
-  // Contrôles du carousel (flèches)
-  .carousel-controls {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-100%);
-    width: 100%;
-    z-index: 10;
-    display: flex;
-    justify-content: space-between;
-    pointer-events: none;
-
-    .carousel-control {
-      background-color: var(--primary-color);
-      color: var(--light-color);
-      border: none;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0.8;
-      transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-      pointer-events: auto;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-
-      &:hover {
-        opacity: 1;
-      }
-
-      &.prev {
-        margin-left: 0px;
-      }
-
-      &.next {
-        margin-right: 0px;
-      }
-
-      i {
-        font-size: 16px;
-      }
-    }
-  }
-
-  // Indicateurs de pages (points)
-  .carousel-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: var(--margin-small);
-    padding: 16px 0;
-
-    .carousel-indicator-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: var(--border-color);
-      border: none;
-      cursor: pointer;
-      transition:
-        background-color 0.3s ease,
-        transform 0.3s ease;
-
-      &.active {
-        background-color: var(--primary-color);
-        transform: scale(1.2);
-      }
-
-      &:hover:not(.active) {
-        background-color: var(--secondary-color);
-      }
-    }
-  }
-
-  // Adaptation des cartes de témoignages pour le carousel
-  .testimonial-card {
-    flex-shrink: 0;
-    padding: var(--padding-small);
-    transition: transform 0.3s ease;
-
-    // Espacement interne pour l'effet de gaps entre les cartes
-    .testimonial-content {
-      height: 100%;
-      padding: var(--padding-medium);
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-      background-color: var(--light-color);
-      border: 1px solid var(--border-color);
-      transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-
-      &:hover {
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-      }
-    }
-  }
-}
-
-// Adapter les styles existants pour une meilleure intégration avec le carousel
-.testimonials-list {
-  margin-bottom: var(--margin-big);
-}
-
 // Ajustements pour le CAPTCHA
 .hidden-recaptcha {
   position: absolute;
@@ -378,79 +218,132 @@
   align-items: center;
   margin-bottom: 15px;
   padding: 8px 12px;
-  background-color: rgba(var(--success-color-rgb, 40, 167, 69), 0.1);
+  background-color: rgba(40, 167, 69, 0.1);
   border-radius: 4px;
 
   i {
     margin-right: 8px;
-    color: var(--success-color, #28a745);
+    color: var(--success-color);
   }
 }
 
-// Responsive adjustments for carousel
+// Styles Slick Carousel personnalisés
+.testimonial-carousel {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 30px;
+
+  :host ::ng-deep {
+    .slick-track {
+      display: flex !important;
+
+      .slick-slide {
+        height: inherit !important;
+        display: flex !important;
+        align-items: stretch;
+        margin: 0 10px;
+
+        & > div {
+          height: 100%;
+          width: 100%;
+        }
+      }
+    }
+
+    .slick-list {
+      padding: 20px 0 !important;
+      margin: 0 -10px;
+    }
+
+    .slick-dots {
+      bottom: -30px;
+
+      li button:before {
+        font-size: 12px;
+        color: var(--border-color);
+      }
+
+      li.slick-active button:before {
+        font-size: 20px;
+        color: var(--primary-color);
+      }
+    }
+
+    .slick-prev,
+    .slick-next {
+      z-index: 1;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+
+      &:before {
+        opacity: 1;
+      }
+
+      &:hover {
+        background-color: var(--primary-color);
+        opacity: 0.8;
+      }
+    }
+
+    .slick-prev {
+      left: 0;
+    }
+
+    .slick-next {
+      right: 0;
+    }
+  }
+}
+
+// Responsive adjustments
 @media (max-width: 992px) {
   .testimonial-carousel {
-    .carousel-controls {
-      .carousel-control {
-        width: 35px;
-        height: 35px;
+    :host ::ng-deep {
+      .slick-prev {
+        left: -5px;
+      }
 
-        &.prev {
-          margin-left: -10px;
-        }
-
-        &.next {
-          margin-right: -10px;
-        }
+      .slick-next {
+        right: -5px;
       }
     }
   }
 }
 
 @media (max-width: 768px) {
-  .testimonial-carousel {
-    .carousel-controls {
-      .carousel-control {
-        width: 30px;
-        height: 30px;
+  .testimonials-section h3 {
+    font-size: calc(var(--h3-size-desktop) - 4px);
+  }
 
-        &.prev {
-          margin-left: 10px;
-        }
+  .testimonial-form-container {
+    padding: var(--padding-medium);
+  }
 
-        &.next {
-          margin-right: 10px;
-        }
-
-        i {
-          font-size: 14px;
-        }
-      }
-    }
-
-    .testimonial-card {
-      .testimonial-content {
-        padding: var(--padding-small);
-      }
-    }
+  .testimonial-card .testimonial-content .feedback {
+    font-size: calc(var(--text-size-desktop) - 2px);
   }
 }
 
 @media (max-width: 576px) {
+  .testimonials-section {
+    margin: var(--margin-medium) 0;
+  }
+
   .testimonial-carousel {
-    .carousel-controls {
-      top: auto;
-      bottom: -45px;
-      justify-content: center;
-      gap: 20px;
+    padding: 0 10px;
 
-      .carousel-control {
-        margin: 0;
+    :host ::ng-deep {
+      .slick-prev,
+      .slick-next {
+        width: 35px;
+        height: 35px;
       }
-    }
 
-    .carousel-indicators {
-      margin-top: 50px;
+      .slick-dots {
+        bottom: -35px;
+      }
     }
   }
 }
