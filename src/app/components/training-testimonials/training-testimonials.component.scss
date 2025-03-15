@@ -1,0 +1,456 @@
+// training-testimonials.component.scss
+
+.testimonials-section {
+  margin: var(--margin-big) 0;
+
+  h3 {
+    font-size: var(--h3-size-desktop);
+    margin-bottom: var(--margin-small);
+    color: var(--dark-color);
+    font-weight: 500;
+  }
+}
+
+// Style pour la liste des témoignages
+.testimonials-list {
+  margin-bottom: var(--margin-big);
+
+  .testimonial-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--margin-medium);
+
+    .testimonial-card {
+      flex: 1 1 300px;
+      max-width: 400px;
+      background-color: var(--light-color);
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      padding: var(--padding-medium);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+      border: 1px solid var(--border-color);
+      position: relative;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+
+      .testimonial-content {
+        .feedback {
+          font-style: italic;
+          font-size: var(--text-size-desktop);
+          line-height: 1.5;
+          margin-bottom: var(--margin-small);
+          color: var(--secondary-color);
+        }
+
+        .testimonial-author {
+          display: flex;
+          flex-direction: column;
+
+          .name {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 2px;
+            font-size: var(--small-text-size-desktop);
+          }
+
+          .role {
+            color: var(--secondary-color);
+            font-size: var(--small-text-size-desktop);
+          }
+        }
+
+        // Bouton de suppression pour admins
+        .delete-btn {
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: transparent;
+          border: none;
+          color: var(--icon-color);
+          cursor: pointer;
+          font-size: var(--small-text-size-desktop);
+          opacity: 0.5;
+          transition: opacity 0.3s ease;
+
+          &:hover {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Message si aucun témoignage
+.no-testimonials {
+  background-color: var(--background-color-dark);
+  padding: var(--padding-medium);
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: var(--margin-medium);
+
+  p {
+    font-size: var(--small-text-size-desktop);
+    color: var(--secondary-color);
+    margin: 0;
+  }
+}
+
+// Style pour le formulaire
+.testimonial-form-container {
+  background-color: var(--background-color-dark);
+  border-radius: 10px;
+  padding: var(--padding-big);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+
+  .form-group {
+    margin-bottom: var(--margin-medium);
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--dark-color);
+      font-size: var(--small-text-size-desktop);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: var(--padding-small) var(--padding-medium);
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+      font-size: var(--small-text-size-desktop);
+
+      &:focus {
+        border-color: var(--primary-color);
+        outline: 0;
+        box-shadow: 0 0 0 0.2rem rgba(49, 96, 149, 0.25);
+      }
+
+      &.is-invalid {
+        border-color: var(--icon-color);
+      }
+    }
+
+    .invalid-feedback {
+      color: var(--icon-color);
+      font-size: calc(var(--small-text-size-desktop) - 2px);
+      margin-top: 5px;
+    }
+  }
+
+  .btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: var(--padding-small) var(--padding-medium);
+    border-radius: 5px;
+    color: var(--light-color);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: var(--small-text-size-desktop);
+
+    &:hover:not(:disabled) {
+      background-color: #316095;
+    }
+
+    &:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .spinner-border {
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+  }
+
+  .alert {
+    padding: var(--padding-small) var(--padding-medium);
+    margin-bottom: var(--margin-medium);
+    border-radius: 5px;
+    font-size: var(--small-text-size-desktop);
+
+    &.alert-success {
+      background-color: rgba(40, 167, 69, 0.1);
+      border: 1px solid var(--success-color);
+      color: var(--success-color);
+    }
+
+    &.alert-danger {
+      background-color: rgba(220, 53, 69, 0.1);
+      border: 1px solid var(--icon-color);
+      color: var(--icon-color);
+    }
+  }
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-big);
+
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    color: var(--primary-color);
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .testimonial-cards {
+    flex-direction: column;
+
+    .testimonial-card {
+      max-width: 100%;
+    }
+  }
+
+  .testimonials-section h3 {
+    font-size: calc(var(--h3-size-desktop) - 4px);
+  }
+
+  .testimonial-form-container {
+    padding: var(--padding-medium);
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonials-section {
+    margin: var(--margin-medium) 0;
+  }
+
+  .testimonial-card .testimonial-content .feedback {
+    font-size: calc(var(--text-size-desktop) - 2px);
+  }
+}
+
+// Ajouter ces nouveaux styles au fichier SCSS existant (training-testimonials.component.scss)
+
+// Styles du carousel
+.testimonial-carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-bottom: var(--margin-medium);
+
+  // Container du track
+  .carousel-track-container {
+    position: relative;
+    width: 92%;
+    overflow: hidden;
+    margin: auto;
+  }
+
+  // Track qui contient les slides
+  .carousel-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s ease;
+  }
+
+  // Contrôles du carousel (flèches)
+  .carousel-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-100%);
+    width: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+
+    .carousel-control {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0.8;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+      pointer-events: auto;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.prev {
+        margin-left: 0px;
+      }
+
+      &.next {
+        margin-right: 0px;
+      }
+
+      i {
+        font-size: 16px;
+      }
+    }
+  }
+
+  // Indicateurs de pages (points)
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--margin-small);
+    padding: 16px 0;
+
+    .carousel-indicator-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: var(--border-color);
+      border: none;
+      cursor: pointer;
+      transition:
+        background-color 0.3s ease,
+        transform 0.3s ease;
+
+      &.active {
+        background-color: var(--primary-color);
+        transform: scale(1.2);
+      }
+
+      &:hover:not(.active) {
+        background-color: var(--secondary-color);
+      }
+    }
+  }
+
+  // Adaptation des cartes de témoignages pour le carousel
+  .testimonial-card {
+    flex-shrink: 0;
+    padding: var(--padding-small);
+    transition: transform 0.3s ease;
+
+    // Espacement interne pour l'effet de gaps entre les cartes
+    .testimonial-content {
+      height: 100%;
+      padding: var(--padding-medium);
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      background-color: var(--light-color);
+      border: 1px solid var(--border-color);
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+
+      &:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+}
+
+// Adapter les styles existants pour une meilleure intégration avec le carousel
+.testimonials-list {
+  margin-bottom: var(--margin-big);
+}
+
+// Ajustements pour le CAPTCHA
+.hidden-recaptcha {
+  position: absolute;
+  left: -9999px;
+}
+
+.captcha-status {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  background-color: rgba(var(--success-color-rgb, 40, 167, 69), 0.1);
+  border-radius: 4px;
+
+  i {
+    margin-right: 8px;
+    color: var(--success-color, #28a745);
+  }
+}
+
+// Responsive adjustments for carousel
+@media (max-width: 992px) {
+  .testimonial-carousel {
+    .carousel-controls {
+      .carousel-control {
+        width: 35px;
+        height: 35px;
+
+        &.prev {
+          margin-left: -10px;
+        }
+
+        &.next {
+          margin-right: -10px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonial-carousel {
+    .carousel-controls {
+      .carousel-control {
+        width: 30px;
+        height: 30px;
+
+        &.prev {
+          margin-left: 10px;
+        }
+
+        &.next {
+          margin-right: 10px;
+        }
+
+        i {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .testimonial-card {
+      .testimonial-content {
+        padding: var(--padding-small);
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .testimonial-carousel {
+    .carousel-controls {
+      top: auto;
+      bottom: -45px;
+      justify-content: center;
+      gap: 20px;
+
+      .carousel-control {
+        margin: 0;
+      }
+    }
+
+    .carousel-indicators {
+      margin-top: 50px;
+    }
+  }
+}

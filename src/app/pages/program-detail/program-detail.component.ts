@@ -9,11 +9,18 @@ import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
+import { TrainingTestimonialsComponent } from '../../components/training-testimonials/training-testimonials.component';
+import { Testimonial } from '../../models/testimonials.model';
 
 @Component({
   selector: 'app-program-detail',
   standalone: true,
-  imports: [CommonModule, FormsModule, EditButtonComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    EditButtonComponent,
+    TrainingTestimonialsComponent,
+  ],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
 })
@@ -152,6 +159,22 @@ export class ProgramDetailComponent implements OnInit {
 
   getBackgroundImage(program: Program | undefined): string {
     return program ? `url(${program.banner})` : '';
+  }
+
+  getIdAsString(id: any): string {
+    if (!id) {
+      return '';
+    }
+
+    if (typeof id === 'string') {
+      return id;
+    }
+
+    if (id.$oid) {
+      return id.$oid;
+    }
+
+    return String(id);
   }
 
   ngOnDestroy() {
