@@ -25,6 +25,8 @@ import { environment } from '../../../environments/environment.prod';
 export class GalleryComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
+  // TODO : GALLERY A DEBUGG
+
   images: GalleryImage[] = [];
   selectedImage: GalleryImage | null = null;
   showDeleteModal: boolean = false;
@@ -38,16 +40,16 @@ export class GalleryComponent
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
 
   constructor(private galleryService: GalleryService) {
-    console.log('GalleryComponent construit');
+    // console.log('GalleryComponent construit');
   }
 
   ngOnInit(): void {
-    console.log('GalleryComponent ngOnInit');
+    // console.log('GalleryComponent ngOnInit');
     this.loadImages();
   }
 
   ngAfterViewInit(): void {
-    console.log('GalleryComponent ngAfterViewInit');
+    // console.log('GalleryComponent ngAfterViewInit');
     // Recharger les images après le rendu de la vue pour s'assurer que tout est prêt
     setTimeout(() => {
       this.loadImages();
@@ -55,7 +57,7 @@ export class GalleryComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('GalleryComponent ngOnChanges', changes);
+    // console.log('GalleryComponent ngOnChanges', changes);
     // Recharger les images si certaines propriétés changent
     this.loadImages();
   }
@@ -66,7 +68,7 @@ export class GalleryComponent
   }
 
   loadImages(): void {
-    console.log('Chargement des images demandé');
+    // console.log('Chargement des images demandé');
     this.isLoading = true;
 
     // Déclencher explicitement le chargement depuis le service
@@ -76,7 +78,7 @@ export class GalleryComponent
     this.subscription.add(
       this.galleryService.images$.subscribe({
         next: (images) => {
-          console.log('Images reçues dans le composant:', images);
+          // console.log('Images reçues dans le composant:', images);
           this.images = images;
           this.isLoading = false;
         },
