@@ -1,16 +1,16 @@
 <div class="login-container">
   <mat-card class="login-card">
-    <h2>Connexion Administrateur</h2>
+    <h2>Accès Administrateur</h2>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form-group">
         <mat-form-field appearance="outline">
-          <mat-label>Email</mat-label>
+          <mat-label>Identifiant</mat-label>
           <input matInput type="email" formControlName="email" required />
           <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
-            L'email est requis
+            L'identifiant est requis
           </mat-error>
           <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
-            Email invalide
+            Format invalide
           </mat-error>
         </mat-form-field>
 
@@ -37,11 +37,6 @@
           >
             Le mot de passe est requis
           </mat-error>
-          <mat-error
-            *ngIf="loginForm.controls['password'].hasError('minlength')"
-          >
-            Minimum 6 caractères
-          </mat-error>
         </mat-form-field>
       </div>
 
@@ -50,8 +45,9 @@
         color="primary"
         type="submit"
         class="full-width"
+        [disabled]="loginForm.invalid"
       >
-        Se connecter
+        Accéder
       </button>
     </form>
   </mat-card>

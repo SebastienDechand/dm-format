@@ -1,0 +1,8 @@
+<div class="admin-toggle-container" *ngIf="isLoggedIn$ | async">
+  <button mat-raised-button color="primary" (click)="toggleAdminMode()">
+    <mat-icon>{{
+      (isAdmin$ | async) ? 'person' : 'admin_panel_settings'
+    }}</mat-icon>
+    {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+  </button>
+</div>
