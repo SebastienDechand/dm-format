@@ -32,7 +32,7 @@ export class ContactResolver implements Resolve<ContactData> {
           name: 'DM-Format',
           description: 'Centre de formation SST et Formateur SST',
           telephone: '+33612345678',
-          email: 'dm-formatsst@gmail.com',
+          email: 'dm.formatsst@gmail.com',
           url: 'https://dm-format.fr/contact',
           address: {
             '@type': 'PostalAddress',

@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatCardModule,
     MatSnackBarModule,
+    MatIconModule,
   ],
 })
 export class LoginComponent {
@@ -36,6 +38,7 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
 
   loginForm: FormGroup;
+  hidePassword = true;
 
   constructor() {
     this.loginForm = this.fb.group({
