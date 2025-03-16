@@ -36,10 +36,18 @@
         </p>
       </div>
       <div class="banner-image">
-        <img
-          [src]="organisationData.header.image.src"
-          [alt]="organisationData.header.image.alt"
-        />
+        <app-editable-image
+          *ngIf="imageRefreshTrigger.header"
+          pageId="organisation-header"
+          [imageSrc]="organisationData.header.image?.src || ''"
+          [altText]="
+            organisationData.header.image?.alt ||
+            'Image d\'en-tête Modalités d\'organisation'
+          "
+          imageClass="organisation-banner-image"
+          [isEditable]="(isAdmin$ | async) ?? false"
+          (imageUploaded)="onHeaderImageUploaded($event)"
+        ></app-editable-image>
       </div>
     </div>
 
@@ -422,7 +430,7 @@
         </div>
       </div>
 
-      <h4 class="subtitle">
+      <!-- <h4 class="subtitle">
         <span *ngIf="!editMode['financing.subtitle']">{{
           organisationData.financing.subtitle
         }}</span>
@@ -470,7 +478,7 @@
             ></app-edit-button>
           </p>
         </li>
-      </ul>
+      </ul> -->
     </div>
 
     <!-- Bouton de sauvegarde global -->

@@ -37,10 +37,17 @@
       </ul>
     </div>
 
-    <div
-      class="banner"
-      [ngStyle]="{ 'background-image': getBackgroundImage(program) }"
-    ></div>
+    <div class="image-wrapper">
+      <app-editable-image
+        *ngIf="imageRefreshTrigger && program"
+        [pageId]="'program-' + getIdAsString(program._id)"
+        [imageSrc]="program.banner.src"
+        [altText]="'Bannière ' + program.title"
+        imageClass="program-banner-image"
+        [isEditable]="(isAdmin$ | async) ?? false"
+        (imageUploaded)="onBannerImageUploaded($event)"
+      ></app-editable-image>
+    </div>
   </div>
 
   <div class="program-container">

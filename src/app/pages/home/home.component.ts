@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { CertificationComponent } from '../../components/certification/certification.component';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
@@ -33,16 +33,35 @@ export class HomeComponent implements OnInit {
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
 
+  constructor(private cdr: ChangeDetectorRef) {}
+
   toggleEditMode(section: string) {
     this.editMode[section] = !this.editMode[section];
   }
 
-  saveChanges() {
+  onBannerImageUploaded(imageData: { url: string; altText: string }): void {
+    if (this.homeData && this.homeData.banner) {
+      this.homeData.banner.image = imageData.url;
+
+      this.saveChanges(() => {
+        console.log('Image de bannière mise à jour avec succès');
+      });
+    }
+  }
+
+  saveChanges(callback?: () => void) {
     this.apiService.patchHome(this.homeData).subscribe(
       (data) => {
         this.homeData = data;
         this.updateSeo(data);
-        alert('Changes saved successfully');
+
+        if (!callback) {
+          alert('Changes saved successfully');
+        }
+
+        if (callback) {
+          callback();
+        }
       },
       (error) => {
         console.error('Error saving home page data', error);

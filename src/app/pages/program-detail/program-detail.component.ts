@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, takeUntil, switchMap } from 'rxjs';
+import { Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
+import { TrainingTestimonialsComponent } from '../../components/training-testimonials/training-testimonials.component';
 import { Program } from '../../models/programs.models';
 import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
-import { TrainingTestimonialsComponent } from '../../components/training-testimonials/training-testimonials.component';
-import { Testimonial } from '../../models/testimonials.model';
+import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 
 @Component({
   selector: 'app-program-detail',
@@ -20,6 +20,7 @@ import { Testimonial } from '../../models/testimonials.model';
     FormsModule,
     EditButtonComponent,
     TrainingTestimonialsComponent,
+    EditableImageComponent,
   ],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
@@ -35,6 +36,11 @@ export class ProgramDetailComponent implements OnInit {
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
   private destroy$ = new Subject<void>();
+
+  imageRefreshTrigger: boolean = true;
+  showBannerUpload: boolean = false;
+
+  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.editModeService.editMode$
@@ -65,6 +71,20 @@ export class ProgramDetailComponent implements OnInit {
       );
   }
 
+  onBannerImageUploaded(imageData: { url: string; altText: string }): void {
+    if (this.program) {
+      this.program.banner = { src: imageData.url, alt: imageData.altText };
+
+      this.saveChanges(() => {
+        this.imageRefreshTrigger = false;
+        setTimeout(() => {
+          this.imageRefreshTrigger = true;
+          this.cdr.detectChanges();
+        }, 50);
+      });
+    }
+  }
+
   private updateSeo(program: Program): void {
     const seoTitle = program.title.includes('SST')
       ? `Formation ${program.title} | DM-Format`
@@ -80,7 +100,7 @@ export class ProgramDetailComponent implements OnInit {
     this.seoService.updateMetadata({
       title: seoTitle,
       description: seoDescription,
-      image: program.banner || '/assets/images/formation-sst.webp',
+      image: program.banner?.src || '/assets/images/formation-sst.webp',
       url: `https://dm-format.fr/trainings/${program._id}`,
       keywords: `formation ${program.title}, certification SST, secourisme, sauveteur secouriste, entreprise, prévention risques`,
     });
@@ -136,7 +156,7 @@ export class ProgramDetailComponent implements OnInit {
     this.editModeService.toggleEditMode(field);
   }
 
-  saveChanges() {
+  saveChanges(callback?: () => void) {
     if (this.program) {
       const id = this.route.snapshot.paramMap.get('id');
       if (id) {
@@ -144,10 +164,15 @@ export class ProgramDetailComponent implements OnInit {
           (data) => {
             this.program = data;
             this.editModeService.resetEditModes();
-
             this.updateSeo(data);
 
-            alert('Changes saved successfully');
+            if (!callback) {
+              alert('Changes saved successfully');
+            }
+
+            if (callback) {
+              callback();
+            }
           },
           (error) => {
             console.error('Error saving program data', error);
@@ -155,10 +180,6 @@ export class ProgramDetailComponent implements OnInit {
         );
       }
     }
-  }
-
-  getBackgroundImage(program: Program | undefined): string {
-    return program ? `url(${program.banner})` : '';
   }
 
   getIdAsString(id: any): string {

@@ -77,6 +77,14 @@
   </div>
 
   <div class="hero-image">
-    <img [src]="bannerData?.image" alt="Exercice de massage cardiaque" />
+    <app-editable-image
+      *ngIf="imageRefreshTrigger"
+      [pageId]="pageId"
+      [imageSrc]="bannerData?.image || ''"
+      [altText]="'Exercice de massage cardiaque'"
+      imageClass="hero-banner-image"
+      [isEditable]="(isAdmin$ | async) ?? false"
+      (imageUploaded)="onImageUploaded($event)"
+    ></app-editable-image>
   </div>
 </section>

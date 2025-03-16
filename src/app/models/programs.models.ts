@@ -7,7 +7,10 @@ export interface Program {
   duration: string;
   audience: string;
   prerequisite: string;
-  banner: string;
+  banner: {
+    src: string;
+    alt: string;
+  };
   summary: string;
   content: string;
   details: string[];

@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
+import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { About } from '../../models/about.models';
 import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
@@ -11,8 +12,13 @@ import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, FormsModule, EditButtonComponent],
   standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    EditButtonComponent,
+    EditableImageComponent,
+  ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
@@ -27,6 +33,13 @@ export class AboutComponent implements OnInit {
   editMode: { [key: string]: boolean } = {};
   private destroy$ = new Subject<void>();
 
+  uploadingImages: { [key: string]: boolean } = {
+    'header.image': false,
+    'who_we_are.image': false,
+  };
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
   ngOnInit(): void {
     this.editModeService.editMode$
       .pipe(takeUntil(this.destroy$))
@@ -37,6 +50,20 @@ export class AboutComponent implements OnInit {
     this.apiService.getAbout().subscribe(
       (data) => {
         this.aboutData = data;
+
+        if (!this.aboutData.header.image) {
+          this.aboutData.header.image = {
+            src: 'assets/images/default-header.jpg',
+            alt: "Image d'en-tête À propos",
+          };
+        }
+
+        if (!this.aboutData.who_we_are.image) {
+          this.aboutData.who_we_are.image = {
+            src: 'assets/images/dominique.jpg',
+            alt: 'Image Qui sommes-nous',
+          };
+        }
 
         this.updateSeo(data);
       },
@@ -110,15 +137,55 @@ export class AboutComponent implements OnInit {
     }
   }
 
-  saveChanges() {
+  imageRefreshTrigger = {
+    header: true,
+    whoWeAre: true,
+  };
+
+  onHeaderImageUploaded(imageData: { url: string; altText: string }): void {
+    if (!this.aboutData.header.image) {
+      this.aboutData.header.image = { src: '', alt: '' };
+    }
+    this.aboutData.header.image.src = imageData.url;
+    if (imageData.altText) {
+      this.aboutData.header.image.alt = imageData.altText;
+    }
+
+    this.saveChanges(() => {
+      this.imageRefreshTrigger.header = false;
+      setTimeout(() => (this.imageRefreshTrigger.header = true), 50);
+    });
+  }
+
+  onWhoWeAreImageUploaded(imageData: { url: string; altText: string }): void {
+    if (!this.aboutData.who_we_are.image) {
+      this.aboutData.who_we_are.image = { src: '', alt: '' };
+    }
+    this.aboutData.who_we_are.image.src = imageData.url;
+    if (imageData.altText) {
+      this.aboutData.who_we_are.image.alt = imageData.altText;
+    }
+
+    this.saveChanges(() => {
+      this.imageRefreshTrigger.whoWeAre = false;
+      setTimeout(() => (this.imageRefreshTrigger.whoWeAre = true), 50);
+    });
+  }
+
+  saveChanges(callback?: () => void) {
     this.apiService.patchAbout(this.aboutData).subscribe(
       (data) => {
         this.aboutData = data;
         this.editModeService.resetEditModes();
-
         this.updateSeo(data);
 
-        alert('Changes saved successfully');
+        if (!callback) {
+          alert('Changes saved successfully');
+        }
+
+        if (callback) {
+          callback();
+        }
       },
       (error) => {
         console.error('Error saving about page data', error);
