@@ -44,7 +44,7 @@ export class HomeResolver implements Resolve<any> {
             '@type': 'ContactPoint',
             telephone: '+33681191790',
             contactType: 'customer service',
-            email: 'dm-format@gmail.com',
+            email: 'dm.formatsst@gmail.com',
           },
         });
       })

@@ -5,6 +5,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { SeoService } from '../../services/seo.service';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
 import { environment } from '../../../environments/environment.prod';
+import emailjs from '@emailjs/browser';
 
 @Component({
   selector: 'app-contact',
@@ -17,6 +18,7 @@ export class ContactComponent implements OnInit {
   private seoService: SeoService = inject(SeoService);
   siteKey: string = environment.recaptcha.siteKey;
   captchaVerified = false;
+  isSubmitting = false;
 
   @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
 
@@ -28,7 +30,10 @@ export class ContactComponent implements OnInit {
     message: '',
   };
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar) {
+    // Initialisation d'EmailJS
+    emailjs.init(environment.emailjs.userId);
+  }
 
   ngOnInit() {
     this.updateSeo();
@@ -92,26 +97,71 @@ export class ContactComponent implements OnInit {
 
   onSubmit() {
     if (
-      this.contactData.name &&
-      this.contactData.email &&
-      this.contactData.message
+      !this.contactData.name ||
+      !this.contactData.email ||
+      !this.contactData.message ||
+      this.isSubmitting
     ) {
-      console.log('Formulaire soumis :', this.contactData);
-
-      this.snackBar.open('Votre message a bien été envoyé !', 'Fermer', {
-        duration: 3000,
-        horizontalPosition: 'center',
-        verticalPosition: 'bottom',
-        panelClass: ['success-snackbar'],
-      });
-
-      this.contactData = {
-        company: '',
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-      };
+      return;
     }
+
+    this.isSubmitting = true;
+
+    // Préparation des paramètres pour EmailJS
+    const templateParams = {
+      company: this.contactData.company,
+      name: this.contactData.name,
+      email: this.contactData.email,
+      phone: this.contactData.phone || 'Non renseigné',
+      message: this.contactData.message,
+      time: new Date().toLocaleString('fr-FR', {
+        timeZone: 'Europe/Paris',
+      }),
+      to_email: 'dm.formatsst@gmail.com',
+    };
+
+    // Envoi de l'email via EmailJS
+    emailjs
+      .send(
+        environment.emailjs.serviceId,
+        environment.emailjs.templateId,
+        templateParams
+      )
+      .then(
+        (response) => {
+          console.log('Email envoyé !', response.status, response.text);
+          this.snackBar.open('Votre message a bien été envoyé !', 'Fermer', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'bottom',
+            panelClass: ['success-snackbar'],
+          });
+
+          // Réinitialisation du formulaire
+          this.contactData = {
+            company: '',
+            name: '',
+            email: '',
+            phone: '',
+            message: '',
+          };
+        },
+        (error) => {
+          console.error("Erreur lors de l'envoi de l'email:", error);
+          this.snackBar.open(
+            "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer plus tard.",
+            'Fermer',
+            {
+              duration: 5000,
+              horizontalPosition: 'center',
+              verticalPosition: 'bottom',
+              panelClass: ['error-snackbar'],
+            }
+          );
+        }
+      )
+      .finally(() => {
+        this.isSubmitting = false;
+      });
   }
 }

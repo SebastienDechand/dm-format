@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
         name: 'DM-Format',
         image: image,
         telephone: '+33681191790',
-        email: 'dm-format@gmail.com',
+        email: 'dm.formatsst@gmail.com',
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Marnay',
