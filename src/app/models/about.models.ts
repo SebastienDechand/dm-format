@@ -9,6 +9,7 @@ export interface About {
     title: string;
     icon: string;
     content: string[];
+    image: { src: string; alt: string };
   };
   concept: {
     title: string;

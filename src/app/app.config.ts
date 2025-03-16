@@ -17,6 +17,7 @@ import { ApiService } from './services/api.service';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { environment } from '../environments/environment.prod';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { FileUploadModule } from 'ng2-file-upload';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,7 +28,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withFetch()),
     ApiService,
-    importProvidersFrom(RecaptchaModule, SlickCarouselModule),
+    importProvidersFrom(RecaptchaModule, SlickCarouselModule, FileUploadModule),
     {
       provide: RECAPTCHA_SETTINGS,
       useValue: environment.recaptcha.siteKey,
