@@ -88,8 +88,6 @@ export class HeaderComponent {
         return 'person';
       case 'Formateurs Sauveteur Secouriste du Travail (niveau 2)':
         return 'school';
-      case 'Initiations aux premiers secours':
-        return 'favorite';
       case 'Aide pédagogique et administrative':
         return 'help';
       case "Sensibilisation aux gestes d'urgences":

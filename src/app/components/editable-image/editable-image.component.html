@@ -1,0 +1,18 @@
+<!-- src/app/components/editable-image/editable-image.component.html -->
+<div
+  class="image-container"
+  [class.editable]="isEditable"
+  (click)="openFileSelector()"
+>
+  <img *ngIf="imageSrc" [src]="imageSrc" [alt]="altText" [class]="imageClass" />
+
+  <div *ngIf="isEditable" class="image-overlay" [class.uploading]="isUploading">
+    <div *ngIf="isUploading" class="upload-spinner">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+    </div>
+    <div *ngIf="!isUploading" class="upload-prompt">
+      <i class="fa-solid fa-camera"></i>
+      <span>Cliquer pour modifier</span>
+    </div>
+  </div>
+</div>

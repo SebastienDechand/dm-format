@@ -36,11 +36,21 @@
         ></app-edit-button>
       </p>
     </div>
-    <img
+    <!-- <img
       [src]="aboutData.header.image.src"
       [alt]="aboutData.header.image.alt"
       class="about-image"
-    />
+    /> -->
+
+    <app-editable-image
+      *ngIf="imageRefreshTrigger.header"
+      pageId="about-header"
+      [imageSrc]="aboutData.header.image?.src || ''"
+      [altText]="aboutData.header.image?.alt || 'Image d\'en-tête À propos'"
+      imageClass="about-image"
+      [isEditable]="(isAdmin$ | async) ?? false"
+      (imageUploaded)="onHeaderImageUploaded($event)"
+    ></app-editable-image>
   </div>
 
   <!-- QUI SOMMES-NOUS ? -->
@@ -63,11 +73,16 @@
     </h3>
 
     <div class="who-we-are-content">
-      <img
-        src="assets/images/dominique.jpg"
-        alt="Dominique met une personne en PLS"
-        class="about-img"
-      />
+      <app-editable-image
+        *ngIf="imageRefreshTrigger.whoWeAre"
+        pageId="about-who-we-are"
+        [imageSrc]="aboutData.who_we_are.image?.src || ''"
+        [altText]="aboutData.who_we_are.image?.alt || ''"
+        imageClass="about-img-large"
+        [isEditable]="(isAdmin$ | async) ?? false"
+        (imageUploaded)="onWhoWeAreImageUploaded($event)"
+      ></app-editable-image>
+
       <div class="who-we-are-text">
         <p
           *ngFor="

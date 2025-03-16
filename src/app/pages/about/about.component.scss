@@ -184,3 +184,14 @@
     }
   }
 }
+
+/* Styles pour les images modifiables */
+::ng-deep .about-image {
+  width: 30vw;
+  border-radius: 20px;
+}
+
+::ng-deep .about-img-large {
+  width: 40vw;
+  border-radius: 20px;
+}
