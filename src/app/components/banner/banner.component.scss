@@ -90,3 +90,8 @@
     color: var(--primary-color);
   }
 }
+
+::ng-deep .hero-banner-image {
+  width: 100%;
+  border-radius: 10px;
+}
