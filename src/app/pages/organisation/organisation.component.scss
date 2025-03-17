@@ -256,3 +256,9 @@
     background: var(--button-color-hover);
   }
 }
+
+::ng-deep .organisation-banner-image {
+  width: 100%;
+  border-radius: 10px;
+  margin: 50px 0;
+}

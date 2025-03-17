@@ -9,11 +9,18 @@ import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { SeoService } from '../../services/seo.service';
+import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 
 @Component({
   selector: 'app-organisation',
   standalone: true,
-  imports: [CommonModule, FormsModule, EditButtonComponent, SafeHtmlPipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+    EditButtonComponent,
+    SafeHtmlPipe,
+    EditableImageComponent,
+  ],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',
 })
@@ -27,6 +34,28 @@ export class OrganisationComponent implements OnInit {
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
   private destroy$ = new Subject<void>();
+
+  imageRefreshTrigger = {
+    header: true,
+    intro: true,
+    certification: true,
+    financing: true,
+  };
+
+  onHeaderImageUploaded(imageData: { url: string; altText: string }): void {
+    if (!this.organisationData.header.image) {
+      this.organisationData.header.image = { src: '', alt: '' };
+    }
+    this.organisationData.header.image.src = imageData.url;
+    if (imageData.altText) {
+      this.organisationData.header.image.alt = imageData.altText;
+    }
+
+    this.saveChanges(() => {
+      this.imageRefreshTrigger.header = false;
+      setTimeout(() => (this.imageRefreshTrigger.header = true), 50);
+    });
+  }
 
   ngOnInit(): void {
     this.editModeService.editMode$
@@ -113,15 +142,17 @@ export class OrganisationComponent implements OnInit {
     return index;
   }
 
-  saveChanges() {
+  saveChanges(callback?: () => void) {
     this.apiService.patchOrganisation(this.organisationData).subscribe(
       (data) => {
         this.organisationData = data;
         this.editModeService.resetEditModes();
-
         this.updateSeo(data);
-
         alert('Modifications sauvegardées avec succès');
+
+        if (callback) {
+          callback();
+        }
       },
       (error) => {
         console.error('Error saving organisation page data', error);
