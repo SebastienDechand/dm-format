@@ -5,11 +5,18 @@ import { Observable } from 'rxjs';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { AdminService } from '../../services/admin.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
+import { EditableImageComponent } from '../editable-image/editable-image.component';
 
 @Component({
   selector: 'app-banner',
   standalone: true,
-  imports: [CommonModule, FormsModule, EditButtonComponent, SafeHtmlPipe],
+  imports: [
+    CommonModule,
+    FormsModule,
+    EditButtonComponent,
+    SafeHtmlPipe,
+    EditableImageComponent,
+  ],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })
@@ -17,10 +24,17 @@ export class BannerComponent {
   private adminService: AdminService = inject(AdminService);
 
   @Input() bannerData: any;
+  @Input() pageId: string = 'home-banner';
   @Output() editClicked = new EventEmitter<void>();
+  @Output() imageUploaded = new EventEmitter<{
+    url: string;
+    altText: string;
+  }>();
 
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
+
+  imageRefreshTrigger: boolean = true;
 
   toggleEditMode(field: string) {
     this.editMode[field] = !this.editMode[field];
@@ -28,5 +42,12 @@ export class BannerComponent {
 
   trackByIndex(index: number, item: any): number {
     return index;
+  }
+
+  onImageUploaded(imageData: { url: string; altText: string }) {
+    this.imageUploaded.emit(imageData);
+
+    this.imageRefreshTrigger = false;
+    setTimeout(() => (this.imageRefreshTrigger = true), 50);
   }
 }
