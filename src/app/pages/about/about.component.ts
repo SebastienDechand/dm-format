@@ -33,7 +33,6 @@ export class AboutComponent implements OnInit {
   editMode: { [key: string]: boolean } = {};
   private destroy$ = new Subject<void>();
 
-  // Gestion des uploads d'images
   uploadingImages: { [key: string]: boolean } = {
     'header.image': false,
     'who_we_are.image': false,
@@ -52,7 +51,6 @@ export class AboutComponent implements OnInit {
       (data) => {
         this.aboutData = data;
 
-        // Initialiser les objets d'image si nécessaire
         if (!this.aboutData.header.image) {
           this.aboutData.header.image = {
             src: 'assets/images/default-header.jpg',
@@ -139,9 +137,6 @@ export class AboutComponent implements OnInit {
     }
   }
 
-  // Dans about.component.ts
-
-  // Ajoutez un flag pour contrôler la visibilité temporaire des composants
   imageRefreshTrigger = {
     header: true,
     whoWeAre: true,
@@ -157,7 +152,6 @@ export class AboutComponent implements OnInit {
     }
 
     this.saveChanges(() => {
-      // Forcer le rechargement du composant après la sauvegarde
       this.imageRefreshTrigger.header = false;
       setTimeout(() => (this.imageRefreshTrigger.header = true), 50);
     });
@@ -173,13 +167,11 @@ export class AboutComponent implements OnInit {
     }
 
     this.saveChanges(() => {
-      // Forcer le rechargement du composant après la sauvegarde
       this.imageRefreshTrigger.whoWeAre = false;
       setTimeout(() => (this.imageRefreshTrigger.whoWeAre = true), 50);
     });
   }
 
-  // Modifiez saveChanges pour accepter un callback
   saveChanges(callback?: () => void) {
     this.apiService.patchAbout(this.aboutData).subscribe(
       (data) => {
@@ -188,7 +180,6 @@ export class AboutComponent implements OnInit {
         this.updateSeo(data);
         alert('Changes saved successfully');
 
-        // Exécuter le callback si fourni
         if (callback) {
           callback();
         }
