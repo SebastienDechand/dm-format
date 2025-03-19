@@ -90,8 +90,8 @@ export class EditableImageComponent implements OnInit {
           this.altText = response.altText || this.altText;
           this.isUploading = false;
           this.imageUploaded.emit({
-            url: response.imageUrl,
-            altText: response.altText,
+            url: response.data.imageUrl,
+            altText: response.data.altText,
           });
         },
         error: (error) => {

@@ -77,11 +77,4 @@ export class ImageUploadService {
       })
     );
   }
-
-  /**
-   * Récupère le token d'authentification depuis le service d'auth
-   */
-  private getAuthToken(): string {
-    return this.authService.getToken() || '';
-  }
 }
