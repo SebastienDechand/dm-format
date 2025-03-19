@@ -148,7 +148,10 @@ export class OrganisationComponent implements OnInit {
         this.organisationData = data;
         this.editModeService.resetEditModes();
         this.updateSeo(data);
-        alert('Modifications sauvegardées avec succès');
+
+        if (!callback) {
+          alert('Changes saved successfully');
+        }
 
         if (callback) {
           callback();

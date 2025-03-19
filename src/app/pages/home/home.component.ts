@@ -54,7 +54,10 @@ export class HomeComponent implements OnInit {
       (data) => {
         this.homeData = data;
         this.updateSeo(data);
-        alert('Modifications sauvegardées avec succès');
+
+        if (!callback) {
+          alert('Changes saved successfully');
+        }
 
         if (callback) {
           callback();

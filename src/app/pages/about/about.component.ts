@@ -178,7 +178,10 @@ export class AboutComponent implements OnInit {
         this.aboutData = data;
         this.editModeService.resetEditModes();
         this.updateSeo(data);
-        alert('Changes saved successfully');
+
+        if (!callback) {
+          alert('Changes saved successfully');
+        }
 
         if (callback) {
           callback();
