@@ -6,8 +6,12 @@
       *ngFor="let training of trainings; trackBy: trackByIndex"
       class="program-card"
     >
-      <img mat-card-image [src]="training.banner" [alt]="training.title" />
-      <mat-card-title>{{ training.title }}</mat-card-title>
+      <img
+        mat-card-image
+        [src]="training.banner.src"
+        [alt]="stripHtmlTags(training.title)"
+      />
+      <mat-card-title>{{ stripHtmlTags(training.title) }}</mat-card-title>
       <mat-card-actions>
         <a [routerLink]="['/trainings', training._id]">
           <button mat-button>En savoir plus</button>

@@ -75,7 +75,7 @@
 /* Description du programme */
 .program-content {
   background: var(--background-color);
-  padding: var(--padding-big) 0;
+  padding: var(--padding-big) 0 0;
   width: 80%;
   margin: 0 auto;
 
@@ -112,10 +112,10 @@
   }
 
   h3 {
-    font-size: var(--h3-size-desktop);
+    font-size: var(--h2-size-desktop);
     margin-bottom: var(--margin-big);
     text-transform: uppercase;
-    font-weight: bold;
+    font-weight: 500;
     text-align: center;
 
     span {
@@ -137,6 +137,7 @@
         margin-bottom: var(--margin-medium);
         text-transform: uppercase;
         font-weight: bold;
+        text-align: center;
         span {
           color: var(--primary-color);
         }
@@ -228,11 +229,10 @@
 
 /* 🎯 Titre de la section */
 .program-title {
-  font-size: var(--h3-size-desktop);
-  margin: var(--margin-big);
+  font-size: var(--h2-size-desktop);
+  margin-bottom: var(--margin-big);
   text-transform: uppercase;
-  font-weight: bold;
-  text-align: center;
+  font-weight: 500;
 
   span {
     color: var(--primary-color);
@@ -422,10 +422,158 @@
 }
 
 ::ng-deep .program-banner-image {
-  width: 100%;
+  width: 50vw;
   height: 70vh;
   overflow: hidden;
   object-fit: cover;
   padding: 0;
   margin: 0;
+}
+
+/* 📂 Section des PDFs */
+.uploaded-pdf {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background: var(--background-color);
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* 📜 Liste des PDFs */
+.pdf-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* 📌 Éléments de la liste */
+.pdf-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: var(--light-color);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.pdf-item:hover {
+  transform: scale(1.05);
+}
+
+/* 📎 Lien vers le PDF */
+.pdf-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--dark-color);
+  font-size: var(--text-size-desktop);
+  font-weight: bold;
+}
+
+/* 🖼 Icône du PDF */
+.pdf-icon {
+  width: 40px;
+  height: 40px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.pdf-item:hover .pdf-icon {
+  transform: scale(1.2);
+}
+
+/* ❌ Bouton de suppression */
+.delete-btn {
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.delete-btn:hover {
+  background: darkred;
+}
+
+/* 📤 Upload de PDF */
+.pdf-upload {
+  text-align: center;
+  background: var(--background-color);
+  border-radius: 8px;
+}
+
+.pdf-upload input {
+  display: block;
+  margin: 10px auto;
+}
+
+.upload-btn {
+  background: var(--button-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.upload-btn:disabled {
+  background: gray;
+  cursor: not-allowed;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background: var(--button-color-hover);
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 50px 0;
+}
+/* MODULES */
+.add-module-btn {
+  padding: 0.5rem 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-module-btn {
+  margin-left: 1rem;
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* DETAILS */
+.add-detail-btn {
+  padding: 0.5rem 1rem;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.delete-detail-btn {
+  margin-left: 1rem;
+  background: transparent;
+  border: none;
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
 }

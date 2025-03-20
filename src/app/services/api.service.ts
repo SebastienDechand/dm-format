@@ -75,4 +75,18 @@ export class ApiService {
   patchProgramById(id: string, data: Program): Observable<Program> {
     return this.http.patch<Program>(`${this.apiUrl}/trainings/${id}`, data);
   }
+
+  uploadPagePdf(pageId: string, formData: FormData): Observable<any> {
+    return this.http.put(`${this.apiUrl}/pdfs/${pageId}`, formData);
+  }
+
+  getPagePdfs(pageId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/pdfs/${pageId}`);
+  }
+
+  deletePagePdf(pageId: string, publicId: string): Observable<any> {
+    return this.http.delete(
+      `${this.apiUrl}/pdfs/${pageId}/${encodeURIComponent(publicId)}`
+    );
+  }
 }

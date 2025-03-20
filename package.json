@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "prebuild": "ts-node set-env.ts",
+    "build": "ng build --configuration=production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:dm-format": "node dist/dm-format/server/server.mjs",
@@ -65,6 +66,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.4.2",
+    "ts-node": "^10.9.2",
     "typescript": "~5.7.2"
   }
 }

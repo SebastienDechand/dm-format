@@ -11,6 +11,8 @@ import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
+import { PdfFile } from '../../models/pdf.models';
+import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 
 @Component({
   selector: 'app-program-detail',
@@ -21,6 +23,7 @@ import { EditableImageComponent } from '../../components/editable-image/editable
     EditButtonComponent,
     TrainingTestimonialsComponent,
     EditableImageComponent,
+    SafeHtmlPipe,
   ],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
@@ -33,8 +36,15 @@ export class ProgramDetailComponent implements OnInit {
   private seoService: SeoService = inject(SeoService);
 
   program?: Program;
+
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
+
+  hasPdfs: boolean = false;
+  pdfsData?: PdfFile[] = [];
+  filteredPdfs: PdfFile[] = [];
+  selectedPdfFile?: File;
+
   private destroy$ = new Subject<void>();
 
   imageRefreshTrigger: boolean = true;
@@ -63,12 +73,22 @@ export class ProgramDetailComponent implements OnInit {
 
           if (this.program) {
             this.updateSeo(this.program);
+            this.loadPdfsData();
           }
         },
         (error) => {
           console.error('Error fetching program data', error);
         }
       );
+  }
+
+  filterPdfsByPageId(pageId: string): void {
+    if (!this.pdfsData || !Array.isArray(this.pdfsData)) {
+      this.filteredPdfs = [];
+      return;
+    }
+
+    this.filteredPdfs = this.pdfsData.filter((pdf) => pdf.pageId === pageId);
   }
 
   onBannerImageUploaded(imageData: { url: string; altText: string }): void {
@@ -83,6 +103,71 @@ export class ProgramDetailComponent implements OnInit {
         }, 50);
       });
     }
+  }
+
+  onPdfFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedPdfFile = input.files[0];
+    }
+  }
+
+  uploadSelectedPdf() {
+    if (!this.selectedPdfFile || !this.program?._id) return;
+
+    const pageId = `program-${this.getIdAsString(this.program._id)}`;
+    const formData = new FormData();
+    formData.append('pdf', this.selectedPdfFile);
+    formData.append('title', this.selectedPdfFile.name);
+
+    this.apiService.uploadPagePdf(pageId, formData).subscribe({
+      next: (res) => {
+        alert('PDF uploadé avec succès !');
+        this.loadPdfsData();
+      },
+      error: (err) => {
+        console.error('Erreur upload PDF :', err);
+        alert(`Erreur : ${err.message}`);
+      },
+    });
+  }
+
+  loadPdfsData() {
+    if (!this.program?._id) return;
+
+    const pageId = `program-${this.getIdAsString(this.program._id)}`;
+
+    this.apiService.getPagePdfs(pageId).subscribe({
+      next: (res) => {
+        this.pdfsData = res.data || [];
+
+        this.filteredPdfs = (this.pdfsData ?? []).filter(
+          (pdf) => pdf.pageId === pageId
+        );
+
+        this.hasPdfs = this.filteredPdfs.length > 0;
+      },
+      error: (err) => {
+        console.error('Erreur chargement PDFs', err);
+        this.hasPdfs = false;
+      },
+    });
+  }
+
+  deletePdf(pdf: PdfFile) {
+    if (!confirm(`Es-tu sûr de vouloir supprimer le PDF "${pdf.title}" ?`))
+      return;
+
+    this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
+      next: () => {
+        alert('PDF supprimé avec succès !');
+        this.loadPdfsData();
+      },
+      error: (err) => {
+        console.error('Erreur suppression PDF :', err);
+        alert('Erreur lors de la suppression du PDF.');
+      },
+    });
   }
 
   private updateSeo(program: Program): void {
@@ -196,6 +281,41 @@ export class ProgramDetailComponent implements OnInit {
     }
 
     return String(id);
+  }
+
+  /* MODULES */
+  addModule() {
+    if (!this.program) return;
+
+    this.program.modules.push({ title: '', description: '' });
+    this.saveChanges();
+  }
+
+  deleteModule(index: number) {
+    if (!this.program) return;
+
+    const confirmDelete = confirm('Supprimer ce module ?');
+    if (confirmDelete) {
+      this.program.modules.splice(index, 1);
+      this.saveChanges();
+    }
+  }
+
+  /* DETAILS */
+  addDetail() {
+    if (!this.program) return;
+    this.program.details.push('');
+    this.saveChanges();
+  }
+
+  deleteDetail(index: number) {
+    if (!this.program) return;
+
+    const confirmDelete = confirm('Supprimer ce détail ?');
+    if (confirmDelete) {
+      this.program.details.splice(index, 1);
+      this.saveChanges();
+    }
   }
 
   ngOnDestroy() {

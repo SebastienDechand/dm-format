@@ -34,14 +34,18 @@ export class HeaderComponent {
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
   showLoginButton: boolean = false;
 
+  private clickCount = 0;
+  private clickTimer: any = null;
+
   ngOnInit() {
     this.apiService.getPrograms().subscribe((data) => {
       this.trainings = data;
     });
   }
 
-  private clickCount = 0;
-  private clickTimer: any = null;
+  stripHtmlTags(html: string): string {
+    return html.replace(/<[^>]*>/g, '');
+  }
 
   handleLogoClick(event: MouseEvent) {
     event.preventDefault();
@@ -84,13 +88,13 @@ export class HeaderComponent {
 
   getIconForTraining(training: Program): string {
     switch (training.title) {
-      case 'Acteurs Sauveteur Secouriste du Travail (niveau 1)':
+      case 'Acteur Sauveteur Secouriste du Travail (niveau 1)':
         return 'person';
-      case 'Formateurs Sauveteur Secouriste du Travail (niveau 2)':
+      case 'Formateur Sauveteur Secouriste du Travail (niveau 2)':
         return 'school';
       case 'Aide pédagogique et administrative':
         return 'help';
-      case "Sensibilisation aux gestes d'urgences":
+      case "Sensibilisation aux gestes d'urgence":
         return 'volunteer_activism ';
       case 'Utilisation du défibrillateur':
         return 'electric_bolt';
