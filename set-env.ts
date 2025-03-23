@@ -17,7 +17,7 @@ const env = process.env as EnvConfig;
 
 const targetPath = join(__dirname, 'src/environments/environment.prod.ts');
 
-const envFileContent = `// 🔐 File generated automatically at build time
+const envFileContent = `
 export const environment = {
   production: true,
   apiUrl: '${env['API_URL']}',
