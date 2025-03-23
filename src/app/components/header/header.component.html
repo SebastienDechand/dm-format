@@ -22,7 +22,7 @@
         class="menu-item"
       >
         <mat-icon class="icon">{{ getIconForTraining(training) }}</mat-icon>
-        {{ training.title }}
+        {{ stripHtmlTags(training.title) }}
       </button>
     </mat-menu>
 

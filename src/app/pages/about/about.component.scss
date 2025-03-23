@@ -192,6 +192,8 @@
 }
 
 ::ng-deep .about-img-large {
-  width: 40vw;
+  height: 500px;
+  width: 30vw;
+  object-fit: cover;
   border-radius: 20px;
 }

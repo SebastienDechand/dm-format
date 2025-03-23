@@ -10,6 +10,7 @@ import { EditModeService } from '../../services/edit-mode.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { SeoService } from '../../services/seo.service';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
+import { PdfFile } from '../../models/pdf.models';
 
 @Component({
   selector: 'app-organisation',
@@ -29,11 +30,17 @@ export class OrganisationComponent implements OnInit {
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
   private seoService: SeoService = inject(SeoService);
+  private pageId = 'organisation-documents';
 
   organisationData!: ConditionsData;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
   private destroy$ = new Subject<void>();
+
+  hasPdfs: boolean = false;
+  pdfsData: PdfFile[] = [];
+  filteredPdfs: PdfFile[] = [];
+  selectedPdfFile?: File;
 
   imageRefreshTrigger = {
     header: true,
@@ -58,6 +65,7 @@ export class OrganisationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loadPdfsData();
     this.editModeService.editMode$
       .pipe(takeUntil(this.destroy$))
       .subscribe((editMode) => {
@@ -76,19 +84,74 @@ export class OrganisationComponent implements OnInit {
     );
   }
 
+  onPdfFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedPdfFile = input.files[0];
+    }
+  }
+
+  uploadSelectedPdf() {
+    if (!this.selectedPdfFile) return;
+
+    const formData = new FormData();
+    formData.append('pdf', this.selectedPdfFile);
+    formData.append('title', this.selectedPdfFile.name);
+
+    this.apiService.uploadPagePdf(this.pageId, formData).subscribe({
+      next: () => {
+        alert('PDF uploadé avec succès !');
+        this.loadPdfsData();
+      },
+      error: (err) => {
+        console.error('Erreur upload PDF :', err);
+        alert(`Erreur : ${err.message}`);
+      },
+    });
+  }
+
+  loadPdfsData() {
+    this.apiService.getPagePdfs(this.pageId).subscribe({
+      next: (res) => {
+        this.pdfsData = res.data || [];
+        this.filteredPdfs = this.pdfsData.filter(
+          (pdf) => pdf.pageId === this.pageId
+        );
+        this.hasPdfs = this.filteredPdfs.length > 0;
+      },
+      error: (err) => {
+        console.error('Erreur chargement PDFs', err);
+        this.hasPdfs = false;
+      },
+    });
+  }
+
+  deletePdf(pdf: PdfFile) {
+    if (!confirm(`Es-tu sûr de vouloir supprimer le PDF "${pdf.title}" ?`))
+      return;
+
+    this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
+      next: () => {
+        alert('PDF supprimé avec succès !');
+        this.loadPdfsData();
+      },
+      error: (err) => {
+        console.error('Erreur suppression PDF :', err);
+        alert('Erreur lors de la suppression du PDF.');
+      },
+    });
+  }
+
   private updateSeo(data: ConditionsData): void {
     let description =
       "Découvrez nos modalités d'organisation, conditions générales et informations pratiques pour les formations SST et Formateurs SST.";
 
-    if (data.intro.description) {
-      const tempElement = document.createElement('div');
-      tempElement.innerHTML = data.intro.description;
-      const textContent =
-        tempElement.textContent || tempElement.innerText || '';
-
-      if (textContent.length > 0) {
-        description = textContent.substring(0, 157) + '...';
-      }
+    const textContent = data.intro.description?.trim();
+    if (textContent?.length) {
+      description =
+        textContent.length > 157
+          ? textContent.substring(0, 157) + '...'
+          : textContent;
     }
 
     this.seoService.updateMetadata({

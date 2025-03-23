@@ -27,6 +27,10 @@ export class ProgramsComponent implements OnInit {
     });
   }
 
+  stripHtmlTags(html: string): string {
+    return html.replace(/<[^>]*>/g, '');
+  }
+
   trackByIndex(index: number, item: any): number {
     return index;
   }

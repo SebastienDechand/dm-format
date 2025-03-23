@@ -25,4 +25,5 @@ export interface Program {
     url: string;
     preview: string;
   }>;
+  information: string;
 }

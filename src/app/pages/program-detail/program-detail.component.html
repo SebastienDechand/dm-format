@@ -2,7 +2,10 @@
   <div class="banner-container">
     <div class="banner-summary">
       <h2>
-        <span *ngIf="!editMode['title']">{{ program.title }}</span>
+        <span
+          *ngIf="!editMode['title']"
+          [innerHTML]="program.title | safeHtml"
+        ></span>
         <input
           *ngIf="editMode['title']"
           [(ngModel)]="program.title"
@@ -52,7 +55,7 @@
 
   <div class="program-container">
     <div class="program-info">
-      <h2><span>À propos</span> de cette formation</h2>
+      <h2><span>À propos</span> de cette session</h2>
       <div class="details">
         <div class="detail-item">
           <i class="fa-solid fa-clock"></i>
@@ -110,13 +113,71 @@
       </div>
     </div>
 
+    <div *ngIf="hasPdfs" class="uploaded-pdf">
+      <h4 class="program-title"><span>documents</span> à télécharger</h4>
+      <ul class="pdf-list">
+        <li *ngFor="let pdf of filteredPdfs" class="pdf-item">
+          <a
+            [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+            target="_blank"
+            class="pdf-link"
+            rel="noopener noreferrer"
+            type="application/pdf"
+          >
+            <img
+              src="assets/images/pdf-placeholder.png"
+              alt="PDF"
+              class="pdf-icon"
+            />
+            <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
+          </a>
+          <button
+            *ngIf="isAdmin$ | async"
+            class="delete-btn"
+            (click)="deletePdf(pdf)"
+          >
+            ❌ Supprimer
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pdf-upload" *ngIf="isAdmin$ | async">
+      <p>Ajouter un PDF à la page</p>
+      <input
+        type="file"
+        accept="application/pdf"
+        (change)="onPdfFileSelected($event)"
+      />
+      <button
+        class="upload-btn"
+        (click)="uploadSelectedPdf()"
+        [disabled]="!selectedPdfFile"
+      >
+        Uploader le PDF
+      </button>
+    </div>
+
     <div class="program-description">
-      <h2><span>Informations</span> pratiques concernant la formation</h2>
-      <p>{{ program.description }}</p>
+      <h2><span>Informations</span> pratiques concernant la session</h2>
+
+      <p>
+        <span *ngIf="!editMode['information']">{{ program.information }}</span>
+        <textarea
+          *ngIf="editMode['information']"
+          [(ngModel)]="program.information"
+          class="edit-textarea"
+          (blur)="toggleEditMode('information')"
+        ></textarea>
+        <app-edit-button
+          *ngIf="isAdmin$ | async"
+          (editClicked)="toggleEditMode('information')"
+        ></app-edit-button>
+      </p>
     </div>
 
     <div class="program-content">
-      <h2><span>Contenu</span> de la formation</h2>
+      <h2><span>Contenu</span> de la session</h2>
 
       <p>
         <span *ngIf="!editMode['summary']">{{ program.summary }}</span>
@@ -166,11 +227,29 @@
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('details.' + i)"
             ></app-edit-button>
+
+            <button
+              *ngIf="isAdmin$ | async"
+              class="delete-detail-btn"
+              (click)="deleteDetail(i)"
+            >
+              ❌ Supprimer
+            </button>
           </li>
         </ul>
+
+        <div class="btn-wrapper">
+          <button
+            *ngIf="isAdmin$ | async"
+            class="add-detail-btn"
+            (click)="addDetail()"
+          >
+            Ajouter un détail du contenu
+          </button>
+        </div>
       </div>
 
-      <h3><span>Modules</span> de la formation</h3>
+      <h3><span>Compétences</span> de la session</h3>
       <ul class="modules">
         <li
           *ngFor="
@@ -180,7 +259,6 @@
           "
         >
           <h4>
-            <span>{{ i + 1 }}. </span>
             <span *ngIf="!editMode['modules.' + i + '.title']">{{
               module.title
             }}</span>
@@ -210,56 +288,27 @@
               (editClicked)="toggleEditMode('modules.' + i + '.description')"
             ></app-edit-button>
           </p>
+
+          <button
+            *ngIf="isAdmin$ | async"
+            class="delete-module-btn"
+            (click)="deleteModule(i)"
+          >
+            ❌ Supprimer
+          </button>
         </li>
       </ul>
 
-      <h4 class="program-title">Voir nos <span>programmes</span></h4>
-      <div class="certification-program">
-        <div class="certification-button" *ngFor="let pdf of program.pdf">
-          <p class="pdf-title">{{ pdf.title }}</p>
-          <div class="image-container">
-            <img [src]="pdf.preview" [alt]="pdf.title" class="pdf-preview" />
-            <div class="overlay">
-              <a
-                class="pdf-content"
-                [href]="pdf.url"
-                target="_blank"
-                rel="noopener noreferrer"
-                type="application/pdf"
-              >
-                <span>Télécharger</span>
-                <i class="fa-solid fa-file-pdf"></i>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="btn-wrapper">
+        <button
+          *ngIf="isAdmin$ | async"
+          class="add-module-btn"
+          (click)="addModule()"
+        >
+          Ajouter un module de compétence
+        </button>
       </div>
     </div>
-
-    <!-- <div class="program-images">
-      <div
-        *ngFor="
-          let image of program.images;
-          let i = index;
-          trackBy: trackByIndex
-        "
-        class="image-container"
-      >
-        <img [src]="image" [alt]="program.title" />
-        <div class="image-edit" *ngIf="isAdmin$ | async">
-          <input
-            *ngIf="editMode['images.' + i]"
-            [(ngModel)]="program.images[i]"
-            class="edit-input"
-            (blur)="toggleEditMode('images.' + i)"
-            placeholder="URL de l'image"
-          />
-          <app-edit-button
-            (editClicked)="toggleEditMode('images.' + i)"
-          ></app-edit-button>
-        </div>
-      </div>
-    </div> -->
 
     <!-- Testimonials section -->
     <div class="testimonials">
