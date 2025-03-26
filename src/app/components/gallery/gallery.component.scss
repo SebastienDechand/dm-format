@@ -206,3 +206,148 @@
   border-radius: 4px;
   color: #666;
 }
+
+@media (max-width: 1024px) {
+  .gallery {
+    padding: 60px 30px;
+
+    h2 {
+      font-size: calc(var(--subtitle-size-desktop) * 0.9);
+    }
+
+    .gallery-description {
+      font-size: var(--text-size-desktop);
+    }
+
+    .gallery-controls {
+      flex-direction: column;
+      gap: 10px;
+
+      .refresh-btn {
+        width: 100%;
+      }
+
+      .loading-indicator {
+        margin-left: 0;
+      }
+    }
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery {
+    padding: 40px 20px;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    .gallery-description {
+      font-size: 14px;
+    }
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gallery-item {
+    height: 250px;
+
+    img {
+      height: 250px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 14px;
+    }
+
+    .delete-btn {
+      font-size: 16px;
+      padding: 6px;
+    }
+  }
+
+  .file-upload {
+    width: 90%;
+    height: 45px;
+
+    .file-upload-label {
+      font-size: 14px;
+
+      i {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+.gallery-carousel {
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+
+  .carousel-wrapper {
+    display: flex;
+    gap: 25px;
+    padding: 1rem;
+    scroll-snap-align: start;
+  }
+
+  .carousel-slide {
+    flex: 0 0 auto;
+    width: 300px;
+    height: 300px;
+    position: relative;
+    scroll-snap-align: center;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    h3,
+    p {
+      color: white;
+    }
+
+    .carousel-caption {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.6);
+      text-align: left;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      color: black;
+    }
+  }
+}

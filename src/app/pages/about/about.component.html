@@ -36,11 +36,6 @@
         ></app-edit-button>
       </p>
     </div>
-    <!-- <img
-      [src]="aboutData.header.image.src"
-      [alt]="aboutData.header.image.alt"
-      class="about-image"
-    /> -->
 
     <app-editable-image
       *ngIf="imageRefreshTrigger.header"
@@ -73,16 +68,6 @@
     </h3>
 
     <div class="who-we-are-content">
-      <app-editable-image
-        *ngIf="imageRefreshTrigger.whoWeAre"
-        pageId="about-who-we-are"
-        [imageSrc]="aboutData.who_we_are.image?.src || ''"
-        [altText]="aboutData.who_we_are.image?.alt || ''"
-        imageClass="about-img-large"
-        [isEditable]="(isAdmin$ | async) ?? false"
-        (imageUploaded)="onWhoWeAreImageUploaded($event)"
-      ></app-editable-image>
-
       <div class="who-we-are-text">
         <p
           *ngFor="
@@ -139,7 +124,7 @@
         "
       >
         <i class="fa-solid" [ngClass]="step.icon"></i>
-        <p>
+        <p class="step-title">
           <strong>
             <span *ngIf="!editMode['concept.steps.' + i + '.title']">{{
               step.title
@@ -293,17 +278,15 @@
         ></app-edit-button>
       </p>
 
-      <div class="certification-logos">
-        <div
-          class="certification-logo"
-          *ngFor="
-            let logo of aboutData.certifications.logos;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <img [src]="logo.src" [alt]="logo.alt" />
-        </div>
+      <div
+        class="certification-logo"
+        *ngFor="
+          let logo of aboutData.certifications.logos;
+          let i = index;
+          trackBy: trackByIndex
+        "
+      >
+        <img [src]="logo.src" [alt]="logo.alt" />
       </div>
     </div>
   </div>

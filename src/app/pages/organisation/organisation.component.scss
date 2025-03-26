@@ -363,3 +363,175 @@ h4.section-title {
 .upload-btn:hover:not(:disabled) {
   background: var(--button-color-hover);
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 1024px) {
+  .conditions-page {
+    width: 90%;
+
+    .header-banner {
+      flex-direction: column;
+
+      .banner-content,
+      .banner-image {
+        width: 80%;
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .banner-content p {
+        width: 100%;
+        font-size: calc(var(--h3-size-desktop) * 0.9);
+        margin: 0;
+      }
+    }
+
+    .finances {
+      .finance-flex {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+
+    .conditions-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .obligations-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      .obligation-item {
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .conditions-page {
+    .header-banner h2 span {
+      font-size: calc(var(--title-size-desktop) * 0.8);
+      margin: 50px 0;
+    }
+
+    h3 span {
+      font-size: calc(var(--h3-size-desktop) * 0.9);
+    }
+
+    .conditions-grid,
+    .obligations-grid,
+    .certification ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+      .condition-item,
+      .obligation-item {
+        text-align: center;
+      }
+    }
+
+    ul li {
+      font-size: 16px;
+      padding: 24px;
+    }
+
+    .certification ul li {
+      margin: 0;
+    }
+
+    .finances {
+      .finance-steps {
+        flex-direction: column;
+
+        .finance-step {
+          width: 100%;
+        }
+      }
+    }
+
+    .edit-textarea {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .conditions-page {
+    width: 95%;
+    padding: 0 10px;
+
+    .header-banner h2 span {
+      font-size: 28px;
+    }
+
+    h3 span,
+    h4,
+    h4 span {
+      margin-bottom: 30px;
+      font-size: 20px;
+    }
+
+    p span {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .banner-content p {
+      font-size: 16px;
+    }
+
+    ul {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .certification ul li {
+      font-size: 14px;
+      padding: 20px;
+    }
+
+    .finances {
+      .finance-flex {
+        gap: 50px;
+        .finance-description {
+          h3 {
+            margin-bottom: 50px;
+          }
+          p {
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .edit-input,
+    .edit-textarea {
+      font-size: 14px;
+    }
+
+    .edit-textarea {
+      min-height: 120px;
+    }
+
+    .pdf-title {
+      font-size: 16px;
+    }
+
+    .pdf-icon {
+      width: 30px;
+    }
+
+    .save-btn {
+      font-size: 14px;
+      padding: 10px 14px;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    .uploaded-pdf {
+      padding: 0;
+    }
+  }
+}

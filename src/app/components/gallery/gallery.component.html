@@ -4,23 +4,13 @@
     Découvrez quelques moments de nos formations en action.
   </p>
 
-  <!-- Bouton de rechargement et indicateur de chargement -->
-  <div class="gallery-controls">
-    <button (click)="refreshGallery()" class="refresh-btn">
-      <i class="fa-solid fa-arrows-rotate"></i> Actualiser
-    </button>
-    <div *ngIf="isLoading" class="loading-indicator">
-      Chargement en cours...
-    </div>
-  </div>
-
   <!-- Message si aucune image -->
   <div *ngIf="!isLoading && images.length === 0" class="no-images">
     Aucune image disponible dans la galerie.
   </div>
 
   <!-- Grille de la galerie -->
-  <div class="gallery-grid" *ngIf="images.length > 0">
+  <div class="gallery-grid" *ngIf="images.length > 0 && isDesktop">
     <div
       class="gallery-item"
       *ngFor="let image of images"
@@ -40,6 +30,28 @@
       </button>
     </div>
   </div>
+
+  <!-- Affichage desktop : carousel -->
+  <ng-container *ngIf="images.length > 0 && !isDesktop">
+    <div class="gallery-carousel">
+      <div class="carousel-wrapper">
+        <div
+          class="carousel-slide"
+          *ngFor="let image of images"
+          (click)="openLightbox(image)"
+        >
+          <img [src]="image.src" [alt]="image.title" />
+          <button
+            *ngIf="isAdmin$ | async"
+            class="delete-btn"
+            (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
+          >
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 
   <!-- Lightbox -->
   <div class="lightbox" *ngIf="selectedImage">

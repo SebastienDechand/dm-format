@@ -35,7 +35,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
-      font-size: var(--h4-size-desktop);
+      font-size: var(--text-size-desktop);
       line-height: 1.5;
 
       li::marker {
@@ -53,6 +53,8 @@
   margin: 0 auto;
 
   .program-description {
+    width: 80%;
+    margin: 0 auto;
     h2 {
       font-size: var(--h2-size-desktop);
       text-transform: uppercase;
@@ -65,7 +67,6 @@
     }
     p {
       margin: auto;
-      width: 80%;
       font-size: var(--text-size-desktop);
       line-height: 2;
     }
@@ -576,4 +577,180 @@
   color: red;
   font-size: 1rem;
   cursor: pointer;
+}
+
+/* Responsive - Program Detail */
+
+@media (max-width: 1024px) {
+  .banner-container {
+    .banner-summary {
+      h2 {
+        font-size: calc(var(--title-size-desktop) * 0.7);
+      }
+
+      ul span {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .program-content,
+  .program-container .program-description,
+  .uploaded-pdf {
+    width: 90%;
+    margin: auto;
+  }
+
+  .modules {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .program-container {
+    .program-title,
+    .program-info h2,
+    .program-description h2,
+    .program-content h2,
+    .program-content h3,
+    .testimonials h2 {
+      font-size: calc(var(--h2-size-desktop) * 0.85);
+    }
+
+    .program-info .detail-item {
+      flex: 1;
+    }
+
+    .program-info .detail-item strong {
+      font-size: calc(var(--text-size-desktop) * 0.95);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .banner-container {
+    flex-direction: column;
+    height: auto;
+
+    .banner-summary {
+      min-width: 100%;
+      h2 {
+        font-size: calc(var(--title-size-desktop) * 0.5);
+      }
+
+      ul {
+        gap: 10px;
+        span {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .program-banner-image {
+    width: 100vw;
+    height: 40vh;
+    overflow: hidden;
+    object-fit: cover;
+    padding: 0;
+    margin: 0;
+  }
+
+  .modules {
+    grid-template-columns: 1fr;
+  }
+
+  .program-container {
+    .program-info {
+      h2 {
+        font-size: calc(var(--h2-size-desktop) * 0.6);
+      }
+      .details {
+        .detail-item {
+          strong {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .program-content {
+      .content-list {
+        .content-details {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  .program-container .program-description p,
+  .program-content p {
+    font-size: 16px;
+  }
+
+  .program-info {
+    padding: var(--margin-small);
+  }
+
+  .program-info .details {
+    gap: 20px;
+  }
+
+  .edit-input,
+  .edit-textarea {
+    font-size: 16px;
+  }
+
+  .save-btn {
+    padding: 10px 14px;
+    font-size: 16px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .banner-summary ul span {
+    font-size: 16px;
+  }
+
+  .program-container {
+    .program-info {
+      .details {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+    .program-title,
+    .program-info h2,
+    .program-description h2,
+    .program-content h2,
+    .program-content h3,
+    .testimonials h2 {
+      font-size: 20px;
+    }
+  }
+
+  .pdf-title {
+    font-size: 16px;
+  }
+
+  .pdf-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .pdf-link {
+    font-size: 16px;
+  }
+
+  .delete-btn {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  .add-detail-btn,
+  .add-module-btn {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
 }

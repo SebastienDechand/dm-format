@@ -70,9 +70,12 @@
     gap: 50px;
 
     .step {
+      min-width: 200px;
       flex: 4;
     }
     .risk {
+      min-width: 250px;
+
       flex: 3;
     }
 
@@ -93,8 +96,13 @@
       p {
         margin-bottom: var(--margin-small);
       }
+
       strong {
         color: var(--primary-color);
+      }
+
+      .step-title {
+        height: 80px;
       }
     }
   }
@@ -121,18 +129,21 @@
     .certification-flex {
       display: flex;
       flex-direction: column;
-      gap: 100px;
+      gap: 50px;
       p {
         margin: 0;
       }
-      .certification-logos {
+      .certification-logo {
         display: flex;
         justify-content: space-around;
         align-items: center;
+        width: 80%;
+        margin: auto;
 
         img {
-          width: 500px;
-          margin: 0;
+          width: 100%;
+          max-width: 400px;
+          height: auto;
         }
       }
     }
@@ -191,9 +202,127 @@
   border-radius: 20px;
 }
 
-::ng-deep .about-img-large {
-  height: 500px;
-  width: 30vw;
-  object-fit: cover;
-  border-radius: 20px;
+.about {
+  @media (max-width: 1600px) {
+    .concept-steps,
+    .risk-prevention {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 50px;
+
+      .step,
+      .risk {
+        width: 100%;
+      }
+    }
+  }
+
+  /* ✅ Responsive 1024px (tablette paysage) */
+  @media (max-width: 1024px) {
+    .about-header {
+      flex-direction: column;
+      text-align: center;
+
+      .about-text .intro {
+        width: 100%;
+      }
+    }
+
+    .who-we-are-content {
+      .about-img {
+        height: 250px;
+      }
+    }
+
+    .certification-logo img {
+      max-width: 300px;
+    }
+  }
+
+  /* ✅ Responsive 768px (tablette portrait) */
+  @media (max-width: 768px) {
+    width: 90%;
+
+    h2 {
+      font-size: calc(var(--title-size-desktop) * 0.8);
+    }
+
+    h3 {
+      font-size: calc(var(--h3-size-desktop) * 0.9);
+    }
+
+    .who-we-are-content .about-img {
+      height: 200px;
+    }
+
+    .training-list li {
+      font-size: calc(var(--text-size-desktop) * 0.9);
+      line-height: 1.8;
+    }
+
+    .concept-steps,
+    .risk-prevention {
+      grid-template-columns: repeat(1, 1fr);
+      .step,
+      .risk {
+        .step-title {
+          height: auto;
+        }
+      }
+    }
+
+    .certification-logo img {
+      max-width: 200px;
+    }
+  }
+
+  /* ✅ Responsive 480px (mobile) */
+  @media (max-width: 480px) {
+    padding: var(--padding-small);
+
+    h2 span,
+    h3 span {
+      margin-bottom: 40px;
+    }
+
+    p span {
+      margin-bottom: 30px;
+      font-size: 16px;
+    }
+
+    .save-btn {
+      padding: 10px 16px;
+      font-size: 16px;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    .training-list {
+      margin: var(--margin-medium) 0;
+
+      li {
+        font-size: 16px;
+        line-height: 1.6;
+        padding-left: var(--padding-small);
+      }
+    }
+
+    .edit-input {
+      min-width: 100%;
+    }
+
+    .edit-textarea {
+      min-height: 100px;
+    }
+
+    ::ng-deep .about-image {
+      width: 80%;
+      height: auto;
+      margin: auto;
+    }
+
+    .certification-logo img {
+      max-width: 100%;
+    }
+  }
 }

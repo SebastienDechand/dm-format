@@ -70,3 +70,78 @@
     }
   }
 }
+
+@media (max-width: 1200px) {
+  .certification {
+    padding: var(--padding-big);
+
+    .certification-container {
+      flex-direction: column-reverse;
+      text-align: center;
+
+      .certification-logo {
+        img {
+          width: 60%;
+          margin: auto;
+        }
+      }
+
+      .certification-content {
+        h2 {
+          font-size: calc(var(--subtitle-size-desktop) * 0.9);
+        }
+
+        p {
+          font-size: var(--text-size-desktop);
+        }
+
+        .certification-button {
+          padding: 14px 28px;
+          font-size: 14px;
+        }
+
+        div {
+          margin: auto;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .certification {
+    padding: var(--padding-medium);
+
+    .certification-container {
+      gap: 30px;
+
+      .certification-logo {
+        img {
+          width: 80%;
+        }
+      }
+
+      .certification-content {
+        text-align: center;
+        h2 {
+          font-size: 20px;
+        }
+
+        p {
+          font-size: 14px;
+        }
+
+        .certification-button {
+          padding: 12px 24px;
+          font-size: 13px;
+        }
+      }
+
+      .edit-input,
+      .edit-textarea {
+        font-size: 14px;
+      }
+    }
+  }
+}
