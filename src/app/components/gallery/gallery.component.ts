@@ -7,6 +7,8 @@ import {
   SimpleChanges,
   OnDestroy,
   AfterViewInit,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { GalleryImage } from '../../models/gallery.models';
@@ -14,7 +16,8 @@ import { AdminService } from '../../services/admin.service';
 import { GalleryService } from '../../services/gallery.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { environment } from '../../../environments/environment.prod';
-
+import { isPlatformBrowser } from '@angular/common';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({
   selector: 'app-gallery',
   standalone: true,
@@ -25,8 +28,6 @@ import { environment } from '../../../environments/environment.prod';
 export class GalleryComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
-  // TODO : GALLERY A DEBUGG
-
   images: GalleryImage[] = [];
   selectedImage: GalleryImage | null = null;
   showDeleteModal: boolean = false;
@@ -34,22 +35,34 @@ export class GalleryComponent
   cloudName = environment.cloudinary.cloudName;
   uploadPreset = environment.cloudinary.upload_preset;
   isLoading: boolean = true;
+  isDesktop = false;
+  private isBrowser: boolean;
+  private breakpointObserver = inject(BreakpointObserver);
 
   private subscription: Subscription = new Subscription();
   private adminService: AdminService = inject(AdminService);
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
 
-  constructor(private galleryService: GalleryService) {
-    // console.log('GalleryComponent construit');
+  constructor(
+    private galleryService: GalleryService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
-    // console.log('GalleryComponent ngOnInit');
     this.loadImages();
+
+    if (this.isBrowser) {
+      this.breakpointObserver
+        .observe(['(min-width: 1024px)'])
+        .subscribe((result) => {
+          this.isDesktop = result.matches;
+        });
+    }
   }
 
   ngAfterViewInit(): void {
-    // console.log('GalleryComponent ngAfterViewInit');
     // Recharger les images après le rendu de la vue pour s'assurer que tout est prêt
     setTimeout(() => {
       this.loadImages();
@@ -57,7 +70,6 @@ export class GalleryComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log('GalleryComponent ngOnChanges', changes);
     // Recharger les images si certaines propriétés changent
     this.loadImages();
   }
@@ -68,7 +80,6 @@ export class GalleryComponent
   }
 
   loadImages(): void {
-    // console.log('Chargement des images demandé');
     this.isLoading = true;
 
     // Déclencher explicitement le chargement depuis le service
@@ -78,7 +89,6 @@ export class GalleryComponent
     this.subscription.add(
       this.galleryService.images$.subscribe({
         next: (images) => {
-          // console.log('Images reçues dans le composant:', images);
           this.images = images;
           this.isLoading = false;
         },

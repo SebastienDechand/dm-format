@@ -102,3 +102,72 @@
     color: var(--secondary-color);
   }
 }
+
+@media (max-width: 1024px) {
+  .partner-highlight {
+    padding: var(--padding-big) var(--padding-medium) 0;
+
+    .partner-profile {
+      flex-direction: column;
+      text-align: center;
+
+      .partner-info {
+        h3 {
+          font-size: calc(var(--h3-size-desktop) * 0.9);
+        }
+
+        p {
+          font-size: var(--text-size-desktop);
+        }
+
+        .edit-input,
+        .edit-textarea {
+          width: 100%;
+        }
+      }
+
+      .partner-image {
+        img {
+          width: 70%;
+          margin-top: var(--margin-medium);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .partner-highlight {
+    h2 {
+      font-size: 24px;
+    }
+
+    .intro,
+    .closing {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+
+    .partner-profile {
+      gap: 30px;
+      padding: var(--padding-medium);
+
+      .partner-info {
+        p {
+          font-size: 14px;
+        }
+
+        .edit-input,
+        .edit-textarea {
+          font-size: 14px;
+        }
+      }
+
+      .partner-image {
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

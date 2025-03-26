@@ -95,3 +95,104 @@
   width: 100%;
   border-radius: 10px;
 }
+
+/* RESPONSIVE */
+
+@media (max-width: 1400px) {
+  .hero {
+    padding: 0 60px;
+    gap: var(--margin-big);
+  }
+}
+
+@media (max-width: 1200px) {
+  .hero {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    padding: var(--padding-big);
+    text-align: center;
+
+    .hero-content {
+      max-width: 100%;
+      text-align: center;
+
+      .highlights {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: fit-content;
+        li {
+          text-align: left;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    .hero-content {
+      h1 {
+        font-size: calc(var(--subtitle-size-desktop) * 0.9);
+      }
+
+      .subtitle,
+      .details,
+      .highlights li {
+        font-size: calc(var(--text-size-desktop) * 0.95);
+      }
+    }
+
+    .hero-image {
+      max-width: 100%;
+      margin-top: var(--margin-big);
+    }
+
+    ::ng-deep .hero-banner-image {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--padding-medium);
+  }
+
+  .hero-content {
+    h1 {
+      font-size: 24px;
+    }
+
+    .subtitle,
+    .details,
+    .highlights li {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: var(--padding-small);
+  }
+
+  .hero-content {
+    h1 {
+      font-size: 20px;
+    }
+
+    .subtitle span,
+    .details span,
+    .highlights li span {
+      font-size: 16px;
+    }
+  }
+
+  .edit-input,
+  .edit-textarea {
+    font-size: 16px;
+  }
+}
