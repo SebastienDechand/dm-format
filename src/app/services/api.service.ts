@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 import { About } from '../models/about.models';
 import { ContactData } from '../models/contact.models';
 import { GalleryImage } from '../models/gallery.models';
