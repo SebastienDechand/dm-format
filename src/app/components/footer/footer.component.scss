@@ -1,4 +1,4 @@
-/* 📌 Footer */
+/* footer.component.scss */
 .footer {
   background: var(--background-color-dark);
   color: var(--light-color);
@@ -7,7 +7,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* 📌 Conteneur principal */
+/* Conteneur principal */
 .footer-container {
   display: flex;
   flex-wrap: wrap;
@@ -15,130 +15,129 @@
   max-width: 1200px;
   margin: auto;
   padding: 30px 20px;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
 }
 
-/* 📍 Section individuelle */
+/* Section individuelle */
 .footer-section {
   margin-bottom: 20px;
 
-  h3 {
-    font-size: 28px;
-    margin-bottom: 50px;
-    text-transform: uppercase;
-    font-weight: bold;
+  .contact-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+  }
+}
+
+/* Contact Item */
+.contact-item {
+  color: var(--dark-color);
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
     color: var(--primary-color);
-    text-align: center;
+    font-size: 32px;
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
+  a,
+  button,
+  p {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--dark-color);
+    text-decoration: none;
     display: flex;
-    flex: 4;
-    gap: 25px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition:
+      color 0.3s ease,
+      transform 0.2s ease;
+    font-size: 14px;
+    margin: 0;
 
-    li {
-      color: var(--dark-color);
-      width: 200px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      i {
-        color: var(--primary-color);
-        font-size: 32px;
-      }
-
-      a,
-      button,
-      p {
-        border: none;
-        background: none;
-        cursor: pointer;
-        color: var(--dark-color);
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-        transition:
-          color 0.3s ease,
-          transform 0.2s ease;
-        font-size: 14px;
-        margin: 0;
-
-        &:hover {
-          color: var(--primary-color);
-          transform: translateY(-5px);
-        }
-      }
-    }
-
-    /* 📌 Style du bouton de vérification */
-    .captcha-container {
-      text-align: center;
-
-      .captcha-button {
-        background: var(--primary-color);
-        color: var(--light-color);
-        padding: 8px 15px;
-        border-radius: 8px;
-        font-weight: bold;
-        cursor: pointer;
-        display: flex;
-
-        gap: 10px;
-        border: none;
-        transition: all 0.3s ease-in-out;
-
-        &:hover {
-          background: var(--info-color);
-        }
-
-        i.fa-solid.fa-lock {
-          font-size: 16px;
-          color: white;
-        }
-      }
-      /* Masquer le widget reCAPTCHA */
-      .hidden-recaptcha {
-        display: none;
-      }
-
-      /* ✅ Ajout d'une animation de vérification */
-      .verified-number {
-        color: var(--success-color);
-        font-weight: bold;
-        display: flex;
-        gap: 10px;
-        font-size: 20px;
-        animation: fadeIn 0.5s ease-in-out;
-
-        i {
-          font-size: 32px;
-          color: var(--success-color);
-        }
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-        }
-        to {
-          opacity: 1;
-        }
-      }
+    &:hover {
+      color: var(--primary-color);
+      transform: translateY(-5px);
     }
   }
 }
 
-/* 🎨 Logo */
+/* Section mentions légales */
+.legal-section {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+
+  .legal-item {
+    width: auto;
+  }
+}
+
+/* Style du bouton de vérification */
+.captcha-container {
+  text-align: center;
+
+  .captcha-button {
+    background: var(--primary-color);
+    color: var(--light-color);
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    gap: 10px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background: var(--info-color);
+    }
+
+    i.fa-solid.fa-lock {
+      font-size: 16px;
+      color: white;
+    }
+  }
+
+  /* Masquer le widget reCAPTCHA */
+  .hidden-recaptcha {
+    display: none;
+  }
+
+  /* Ajout d'une animation de vérification */
+  .verified-number {
+    color: var(--success-color);
+    font-weight: bold;
+    display: flex;
+    gap: 10px;
+    font-size: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+
+    i {
+      font-size: 32px;
+      color: var(--success-color);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Logo */
 .logo {
   display: flex;
   align-items: center;
@@ -146,6 +145,8 @@
   justify-content: center;
   font-size: 24px;
   color: var(--primary-color);
+  width: 100%;
+  margin-bottom: 40px;
 
   span {
     color: var(--secondary-color);
@@ -154,22 +155,16 @@
   img {
     width: 200px;
     object-fit: cover;
+    margin-top: 20px;
   }
 }
 
-/* 📌 Bas de page */
-.footer-bottom {
-  text-align: center;
-  background: rgba(0, 0, 0, 0.2);
-  color: var(--light-color);
-  padding: 15px 0;
-  font-size: 14px;
-
-  p {
-    margin: 0;
-  }
+/* Contact Section */
+.contact {
+  width: 100%;
 }
 
+/* Modal Content */
 .modal-content {
   padding: 32px;
 
@@ -222,6 +217,223 @@
     &:hover,
     &:focus-visible {
       background: var(--button-color-hover);
+    }
+  }
+}
+
+/* Responsive Breakpoints */
+
+/* Large Desktops - 1400px and down */
+@media (max-width: 1400px) {
+  .footer-container {
+    max-width: 1200px;
+    padding: 25px 15px;
+  }
+
+  .contact-item {
+    width: 180px;
+    i {
+      font-size: 28px;
+    }
+  }
+}
+
+/* Regular Desktops - 1200px and down */
+@media (max-width: 1200px) {
+  .footer-container {
+    max-width: 960px;
+  }
+
+  .contact-item {
+    width: 160px;
+
+    i {
+      font-size: 26px;
+    }
+
+    a, button, p {
+      font-size: 13px;
+    }
+  }
+
+  .logo {
+    font-size: 22px;
+
+    img {
+      width: 180px;
+    }
+  }
+}
+
+/* Small Desktops/Tablets - 1024px and down */
+@media (max-width: 1024px) {
+  .footer-container {
+    max-width: 768px;
+  }
+
+  .footer-section {
+    .contact-items {
+      gap: 15px;
+    }
+  }
+
+  .contact-item {
+    width: 140px;
+
+    a, button, p {
+      font-size: 13px;
+    }
+
+    i {
+      font-size: 24px;
+    }
+  }
+
+  .legal-section {
+    margin-top: 30px;
+    padding-top: 15px;
+  }
+}
+
+/* Tablets/Large Phones - 768px and down */
+@media (max-width: 768px) {
+  .footer {
+    padding: 30px 0 0;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+  }
+
+  .footer-section {
+    width: 100%;
+
+    .contact-items {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+
+  .contact-item {
+    width: auto;
+
+    a, button, p {
+      width: 100%;
+    }
+  }
+
+  .logo {
+    margin-bottom: 30px;
+
+    img {
+      width: 160px;
+    }
+  }
+
+  .legal-section {
+    margin-top: 25px;
+    padding-top: 15px;
+  }
+
+  .modal-content {
+    padding: 20px;
+
+    h3 {
+      font-size: 20px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .close-modal-btn {
+      width: 80%;
+    }
+  }
+}
+
+/* Small Phones - 480px and down */
+@media (max-width: 480px) {
+  .footer {
+    padding: 20px 0 0;
+  }
+
+  .footer-container {
+    padding: 10px;
+  }
+
+  .footer-section {
+    .contact-items {
+      grid-template-columns: 1fr;
+      gap: 15px;
+      max-width: 280px;
+    }
+  }
+
+  .contact-item {
+    i {
+      font-size: 22px;
+    }
+
+    a, button, p {
+      font-size: 12px;
+      gap: 6px;
+    }
+  }
+
+  .captcha-container {
+    .captcha-button {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+
+    .verified-number {
+      font-size: 16px;
+
+      i {
+        font-size: 22px;
+      }
+    }
+  }
+
+  .legal-section {
+    margin-top: 20px;
+    padding-top: 10px;
+  }
+
+  .logo {
+    img {
+      width: 140px;
+    }
+  }
+
+  .modal-content {
+    padding: 15px;
+
+    hr {
+      margin: 20px auto;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .close-modal-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 14px;
     }
   }
 }

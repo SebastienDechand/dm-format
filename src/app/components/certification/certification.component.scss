@@ -109,7 +109,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .certification {
     padding: var(--padding-medium);
 
@@ -129,18 +129,49 @@
         }
 
         p {
-          font-size: 14px;
+          font-size: 18px;
         }
 
         .certification-button {
           padding: 12px 24px;
-          font-size: 13px;
+          font-size: 18px;
         }
       }
 
       .edit-input,
       .edit-textarea {
-        font-size: 14px;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .certification {
+    padding: var(--padding-small);
+
+    .certification-container {
+      gap: 20px;
+
+      .certification-logo {
+        img {
+          width: 90%;
+        }
+      }
+
+      .certification-content {
+        h2 {
+          font-size: 18px;
+        }
+
+        p {
+          font-size: 16px;
+        }
+
+        .certification-button {
+          padding: 10px 20px;
+          font-size: 16px;
+        }
       }
     }
   }

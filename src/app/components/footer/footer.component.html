@@ -1,6 +1,7 @@
+<!-- footer.component.html -->
 <footer class="footer">
   <div class="footer-container">
-    <!-- 🎨 Logo -->
+    <!-- Logo et Copyright -->
     <div class="footer-section logo">
       <p>
         <span>&copy; {{ currentYear }}</span> DM FORMAT
@@ -8,25 +9,24 @@
       <img src="assets/images/qualiopi.png" alt="Qualiopi" />
     </div>
 
-    <!-- 📍 Coordonnées -->
+    <!-- Coordonnées -->
     <div class="footer-section contact">
-      <h3>Coordonnées</h3>
-      <ul>
-        <li>
+      <div class="contact-items">
+        <div class="contact-item">
           <p>
             <i class="fa-solid fa-location-dot"></i>
             Bourgogne-Franche-Comté
           </p>
-        </li>
-        <li>
+        </div>
+        <div class="contact-item">
           <p>
             <i class="fa-solid fa-earth-europe"></i>
             Habilitation nationale
           </p>
-        </li>
-        <li>
+        </div>
+        <div class="contact-item">
           <div class="captcha-container">
-            <!-- 🔥 Si reCAPTCHA n'est pas validé -->
+            <!-- Si reCAPTCHA n'est pas validé -->
             <button
               *ngIf="!captchaVerified"
               class="captcha-button"
@@ -35,7 +35,7 @@
               <i class="fa-solid fa-lock"></i> Voir le numéro
             </button>
 
-            <!-- ✅ Numéro visible après validation -->
+            <!-- Numéro visible après validation -->
             <a
               *ngIf="captchaVerified"
               class="verified-number"
@@ -44,7 +44,7 @@
               <i class="fa-solid fa-phone"></i> 06 81 19 17 90
             </a>
 
-            <!-- 🚀 Widget invisible -->
+            <!-- Widget invisible -->
             <re-captcha
               #recaptcha
               [siteKey]="siteKey"
@@ -54,24 +54,26 @@
             >
             </re-captcha>
           </div>
-        </li>
-
-        <li>
+        </div>
+        <div class="contact-item">
           <a href="mailto:dm.formatsst&#64;gmail.com">
             <i class="fa-solid fa-envelope"></i> dm.formatsst&#64;gmail.com
           </a>
-        </li>
+        </div>
+      </div>
 
-        <li>
+      <!-- Mentions légales en bas -->
+      <div class="legal-section">
+        <div class="contact-item legal-item">
           <button (click)="openModal('mentionsLegales')">
             <i class="fa-solid fa-scale-balanced"></i> Mentions légales
           </button>
-        </li>
-      </ul>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 🔥 Modale pour les mentions légales -->
+  <!-- Modale pour les mentions légales -->
   <app-modal
     title="Mentions légales"
     [isOpen]="showMentionsLegales"
@@ -112,7 +114,7 @@
       <p>
         Tout le contenu du site <strong>DM FORMAT</strong> (textes, images,
         graphismes, logos, vidéos, icônes, etc.) est protégé par le droit
-        d’auteur et la propriété intellectuelle. Toute reproduction ou
+        d'auteur et la propriété intellectuelle. Toute reproduction ou
         distribution est interdite sans autorisation préalable.
       </p>
 
@@ -138,7 +140,7 @@
       <h3>Contact</h3>
       <p>
         Pour toute question ou réclamation, vous pouvez nous contacter à
-        l’adresse suivante :
+        l'adresse suivante :
       </p>
       <p>
         Email :

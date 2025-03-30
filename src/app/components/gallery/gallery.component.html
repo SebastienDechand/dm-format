@@ -4,13 +4,12 @@
     Découvrez quelques moments de nos formations en action.
   </p>
 
-  <!-- Message si aucune image -->
   <div *ngIf="!isLoading && images.length === 0" class="no-images">
     Aucune image disponible dans la galerie.
   </div>
 
-  <!-- Grille de la galerie -->
-  <div class="gallery-grid" *ngIf="images.length > 0 && isDesktop">
+  <!-- Grille pour desktop -->
+  <div class="gallery-grid" *ngIf="isDesktop && images.length">
     <div
       class="gallery-item"
       *ngFor="let image of images"
@@ -31,27 +30,29 @@
     </div>
   </div>
 
-  <!-- Affichage desktop : carousel -->
-  <ng-container *ngIf="images.length > 0 && !isDesktop">
-    <div class="gallery-carousel">
-      <div class="carousel-wrapper">
-        <div
-          class="carousel-slide"
-          *ngFor="let image of images"
-          (click)="openLightbox(image)"
-        >
-          <img [src]="image.src" [alt]="image.title" />
-          <button
-            *ngIf="isAdmin$ | async"
-            class="delete-btn"
-            (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
-          >
-            <i class="fa-solid fa-trash-can"></i>
-          </button>
+  <!-- Carousel pour tablette/mobile -->
+  <div class="gallery-carousel" *ngIf="!isDesktop && images.length">
+    <div class="carousel-wrapper">
+      <div
+        class="carousel-slide"
+        *ngFor="let image of images"
+        (click)="openLightbox(image)"
+      >
+        <img [src]="image.src" [alt]="image.title" />
+        <div class="carousel-caption">
+          <h3>{{ image.title }}</h3>
+          <p>{{ image.description }}</p>
         </div>
+        <button
+          *ngIf="isAdmin$ | async"
+          class="delete-btn"
+          (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
+        >
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
       </div>
     </div>
-  </ng-container>
+  </div>
 
   <!-- Lightbox -->
   <div class="lightbox" *ngIf="selectedImage">
@@ -67,7 +68,7 @@
     </div>
   </div>
 
-  <!-- Bouton d'upload (admin seulement) -->
+  <!-- Upload admin -->
   <label class="file-upload" *ngIf="isAdmin$ | async">
     <input type="file" (change)="uploadImage($event)" accept="image/*" />
     <span class="file-upload-label">
@@ -75,13 +76,12 @@
     </span>
   </label>
 
-  <!-- Modal de confirmation de suppression -->
+  <!-- Modal suppression -->
   <app-confirm-dialog
     *ngIf="showDeleteModal"
     title="Confirmer la suppression"
     message="Êtes-vous sûr(e) de vouloir supprimer cette image ?"
     (confirmed)="confirmDelete()"
     (canceled)="closeDeleteModal()"
-  >
-  </app-confirm-dialog>
+  ></app-confirm-dialog>
 </section>

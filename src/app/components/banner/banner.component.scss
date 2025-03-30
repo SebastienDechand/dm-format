@@ -163,13 +163,21 @@
 
   .hero-content {
     h1 {
+      margin-top: 25px;
       font-size: 24px;
     }
 
     .subtitle,
     .details,
     .highlights li {
-      font-size: 16px;
+      span {
+
+        font-size: 18px;
+      }
+    }
+
+    .highlights li span {
+      padding-left: 8px;
     }
   }
 }
