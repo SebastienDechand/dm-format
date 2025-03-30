@@ -40,8 +40,8 @@
     <app-editable-image
       *ngIf="imageRefreshTrigger.header"
       pageId="about-header"
-      [imageSrc]="aboutData.header.image?.src || ''"
-      [altText]="aboutData.header.image?.alt || 'Image d\'en-tête À propos'"
+      [imageSrc]="aboutData.header.image.src || ''"
+      [altText]="aboutData.header.image.alt || 'Image d\'en-tête À propos'"
       imageClass="about-image"
       [isEditable]="(isAdmin$ | async) ?? false"
       (imageUploaded)="onHeaderImageUploaded($event)"

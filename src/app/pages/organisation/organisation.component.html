@@ -39,9 +39,9 @@
         <app-editable-image
           *ngIf="imageRefreshTrigger.header"
           pageId="organisation-header"
-          [imageSrc]="organisationData.header.image?.src || ''"
+          [imageSrc]="organisationData.header.image.src || ''"
           [altText]="
-            organisationData.header.image?.alt ||
+            organisationData.header.image.alt ||
             'Image d\'en-tête Modalités d\'organisation'
           "
           imageClass="organisation-banner-image"
