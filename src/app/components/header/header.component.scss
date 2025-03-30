@@ -1,3 +1,4 @@
+/* header.component.scss */
 nav {
   position: fixed;
   top: 0;
@@ -5,14 +6,50 @@ nav {
   width: 100%;
   color: var(--dark-color);
   z-index: 1000;
-  padding: var(--padding-small) var(--padding-big);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 70px;
-  border-bottom: 1px solid var(--border-color);
   background-color: var(--background-color);
+  border-bottom: 1px solid var(--border-color);
+  transition: height 0.3s ease;
+  height: 70px;
+  display: flex;
+  flex-direction: column;
 
+  // Rangée principale
+  .nav-top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--padding-small) var(--padding-big);
+    height: 70px;
+    width: 100%;
+  }
+
+  // Deuxième rangée (visible seulement sur petits écrans)
+  .nav-bottom-row {
+    height: 50px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid var(--border-color);
+    padding: 0 var(--padding-big);
+
+    .auth-buttons-mobile {
+      display: flex;
+      gap: 20px;
+
+      button {
+        display: flex;
+        align-items: center;
+
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+    }
+  }
+
+  // Logo
   .logo-btn {
     color: var(--primary-color);
     font-size: var(--h3-size-desktop);
@@ -22,6 +59,7 @@ nav {
     margin: auto 0;
   }
 
+  // Boutons standard
   button {
     color: var(--dark-color);
     border: none;
@@ -30,9 +68,19 @@ nav {
     padding: var(--padding-small) var(--padding-big);
   }
 
+  // Authentification pour grands écrans
+  .auth-buttons {
+    position: absolute;
+    right: calc(var(--padding-big) + 60px);
+    display: flex;
+    gap: 10px;
+  }
+
+  // Navigation desktop
   .nav-links {
     display: flex;
     gap: 10px;
+
     .contact {
       color: var(--light-color);
       background-color: var(--primary-color);
@@ -43,4 +91,207 @@ nav {
       }
     }
   }
+
+  // Bouton burger
+  .mobile-nav {
+    button {
+      padding: var(--padding-small);
+    }
+  }
+
+  // Quand le header est en mode étendu (pour petits écrans)
+  &.expanded {
+    height: 120px; // 70px (première ligne) + 50px (deuxième ligne)
+  }
+}
+
+// Sidenav styles
+.sidenav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1001;
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s, visibility 0.3s;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .sidenav-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  .sidenav {
+    position: relative;
+    width: 80%;
+    max-width: 400px;
+    height: 100%;
+    background-color: var(--background-color);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+
+    .sidenav-header {
+      display: flex;
+      justify-content: flex-end;
+      padding: var(--padding-small);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .sidenav-content {
+      padding: var(--padding-big);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      h3 {
+        color: var(--primary-color);
+        margin-bottom: 8px;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .mobile-menu-items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 16px;
+
+        .menu-item {
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          gap: 8px;
+          text-align: left;
+          padding: 8px;
+
+
+
+          .icon {
+            margin-right: 8px;
+          }
+        }
+      }
+
+      button {
+        text-align: left;
+        justify-content: flex-start;
+      }
+
+      .contact {
+        color: var(--light-color);
+        background-color: var(--primary-color);
+        transition: all 0.3s;
+        margin-top: 16px;
+
+        &:hover {
+          background-color: var(--info-color);
+        }
+      }
+    }
+  }
+
+  &.open .sidenav {
+    transform: translateX(0);
+  }
+}
+
+// Ajustement pour le contenu de la page
+// Ajuster le padding-top du contenu principal en fonction de la hauteur du header
+body {
+  --header-height-desktop: 70px;
+  --header-height-mobile: 120px;
+}
+
+// Media queries
+@media (max-width: 1400px) {
+  nav {
+    .nav-top-row {
+      padding: var(--padding-small) var(--padding-big);
+    }
+
+    .logo-btn {
+      font-size: calc(var(--h3-size-desktop) * 0.9);
+    }
+
+    .auth-buttons {
+      right: 80px;
+    }
+  }
+}
+
+// Ajustement pour les petits écrans
+@media (max-width: 768px) {
+  nav {
+    .mobile-nav {
+      margin-left: auto;
+    }
+
+    .logo-btn {
+      font-size: calc(var(--h3-size-desktop) * 0.7);
+    }
+
+    .nav-bottom-row {
+      .auth-buttons-mobile {
+        width: 100%;
+        justify-content: space-around;
+
+        button {
+          flex: 1;
+          max-width: 180px;
+          justify-content: center;
+        }
+      }
+    }
+
+  }
+
+  // Assurer que l'espace en haut de la page s'adapte à la hauteur du header
+  main, .content-wrapper, .page-content {
+    padding-top: var(--header-height-mobile);
+  }
+}
+
+// Pour les écrans plus grands
+@media (min-width: 769px) {
+  main, .content-wrapper, .page-content {
+    padding-top: var(--header-height-desktop);
+  }
+}
+
+@media (max-width: 480px) {
+
+  .sidenav-container {
+    .sidenav {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+}
+
+
+::ng-deep .mat-mdc-button .mdc-button__label{
+  text-align: center;
+  width: 100%;
+}
+
+::ng-deep .mat-icon {
+  color: var(--primary-color);
 }

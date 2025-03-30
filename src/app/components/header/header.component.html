@@ -1,37 +1,107 @@
-<nav>
-  <p class="logo-btn" (click)="handleLogoClick($event)">DM FORMAT</p>
+<!-- header.component.html -->
+<nav [class.expanded]="isSmallScreen && isBrowser && showLoginButton">
+  <div class="nav-top-row">
+    <p class="logo-btn" (click)="handleLogoClick($event)">DM FORMAT</p>
 
-  <button
-    mat-button
-    [routerLink]="['/login']"
-    *ngIf="showLoginButton && !(isLoggedIn$ | async)"
-  >
-    Se connecter
-  </button>
-  <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
-    Se déconnecter
-  </button>
+    <!-- Affichage pour écrans > 1400px -->
+    <div class="desktop-nav" *ngIf="!isMobileView || !isBrowser">
+      <div class="nav-links">
+        <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
+        <mat-menu #menu="matMenu" class="menu">
+          <button
+            mat-menu-item
+            *ngFor="let training of trainings"
+            [routerLink]="['/trainings', training._id]"
+            class="menu-item"
+          >
+            <mat-icon class="icon">{{ getIconForTraining(training) }}</mat-icon>
+            {{ stripHtmlTags(training.title) }}
+          </button>
+        </mat-menu>
 
-  <div class="nav-links">
-    <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
-    <mat-menu #menu="matMenu" class="menu">
-      <button
-        mat-menu-item
-        *ngFor="let training of trainings"
-        [routerLink]="['/trainings', training._id]"
-        class="menu-item"
-      >
-        <mat-icon class="icon">{{ getIconForTraining(training) }}</mat-icon>
-        {{ stripHtmlTags(training.title) }}
+        <button mat-button [routerLink]="['/about']">Qui sommes-nous</button>
+        <button mat-button [routerLink]="['/organisation']">
+          Conditions d'organisation
+        </button>
+        <button mat-button [routerLink]="['/contact']" class="contact">
+          Contactez-nous !
+        </button>
+      </div>
+    </div>
+
+    <!-- Burger menu pour écrans <= 1400px -->
+    <div class="mobile-nav" *ngIf="isMobileView && isBrowser">
+      <button mat-icon-button (click)="toggleSidenav()">
+        <mat-icon>menu</mat-icon>
       </button>
-    </mat-menu>
+    </div>
+  </div>
 
-    <button mat-button [routerLink]="['/about']">Qui sommes-nous</button>
-    <button mat-button [routerLink]="['/organisation']">
-      Conditions d'organisation
+  <!-- Deuxième ligne pour les boutons d'authentification sur petits écrans -->
+  <div class="nav-bottom-row" *ngIf="isSmallScreen && isBrowser && showLoginButton">
+    <div class="auth-buttons-mobile">
+      <button
+        mat-button
+        [routerLink]="['/login']"
+        *ngIf="showLoginButton && !(isLoggedIn$ | async)"
+      >
+        Connexion
+      </button>
+      <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
+        Déconnexion
+      </button>
+    </div>
+  </div>
+
+  <!-- Boutons d'authentification pour grands écrans -->
+  <div class="auth-buttons" *ngIf="!isSmallScreen && isBrowser">
+    <button
+      mat-button
+      [routerLink]="['/login']"
+      *ngIf="showLoginButton && !(isLoggedIn$ | async)"
+    >
+      Se connecter
     </button>
-    <button mat-button [routerLink]="['/contact']" class="contact">
-      Contactez-nous !
+    <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
+      Se déconnecter
     </button>
   </div>
 </nav>
+
+<!-- Sidenav pour mobile -->
+<div class="sidenav-container" [class.open]="isSidenavOpen" *ngIf="isMobileView && isBrowser">
+  <div class="sidenav-backdrop" (click)="closeSidenav()"></div>
+  <div class="sidenav">
+    <div class="sidenav-header">
+      <button mat-icon-button (click)="closeSidenav()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <div class="sidenav-content">
+      <h3>Nos formations</h3>
+      <div class="mobile-menu-items">
+        <button
+          mat-button
+          *ngFor="let training of trainings"
+          [routerLink]="['/trainings', training._id]"
+          class="menu-item"
+          (click)="closeSidenav()"
+        >
+          <mat-icon class="icon">{{ getIconForTraining(training) }}</mat-icon>
+          {{ stripHtmlTags(training.title) }}
+        </button>
+      </div>
+
+      <button mat-button [routerLink]="['/about']" (click)="closeSidenav()">
+        Qui sommes-nous
+      </button>
+      <button mat-button [routerLink]="['/organisation']" (click)="closeSidenav()">
+        Conditions d'organisation
+      </button>
+      <button mat-button [routerLink]="['/contact']" class="contact" (click)="closeSidenav()">
+        Contactez-nous !
+      </button>
+    </div>
+  </div>
+</div>

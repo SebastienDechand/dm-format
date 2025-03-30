@@ -135,6 +135,40 @@
     }
   }
 }
+@media (max-width: 768px) {
+  .partner-highlight {
+    padding: var(--padding-medium) var(--padding-small) 0;
+
+    h2 {
+      margin-top: 25px;
+      font-size: 24px;
+    }
+
+    .intro,
+    .closing {
+      font-size: calc(var(--text-size-desktop) * 0.9);
+      padding: 0 20px;
+    }
+
+    .partner-profile {
+      gap: 20px;
+      padding: var(--padding-small);
+
+      .partner-info {
+        p, span {
+          font-size: 20px;
+        }
+      }
+
+      .partner-image {
+        img {
+          width: 80%;
+        }
+      }
+    }
+  }
+}
+
 
 @media (max-width: 480px) {
   .partner-highlight {

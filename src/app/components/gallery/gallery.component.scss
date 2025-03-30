@@ -289,36 +289,34 @@
     }
   }
 }
-
 .gallery-carousel {
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   padding-bottom: 1rem;
   margin-bottom: 2rem;
 
   .carousel-wrapper {
     display: flex;
-    gap: 25px;
+    gap: 15px;
     padding: 1rem;
-    scroll-snap-align: start;
   }
 
   .carousel-slide {
     flex: 0 0 auto;
-    width: 300px;
-    height: 300px;
+    width: 80%;
+    max-width: 320px;
+    height: 250px;
     position: relative;
     scroll-snap-align: center;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
 
     &:hover {
-      transform: scale(1.03);
+      transform: scale(1.05);
     }
 
     img {
@@ -328,26 +326,46 @@
       border-radius: 8px;
     }
 
-    h3,
-    p {
-      color: white;
-    }
-
     .carousel-caption {
       position: absolute;
       bottom: 0;
       width: 100%;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.6);
+      padding: 8px;
+      background: rgba(0,0,0,0.6);
       text-align: left;
+
+      h3, p {
+        color: var(--light-color);
+        margin: 0;
+      }
+
+      h3 {
+        font-size: 18px;
+      }
+
+      p {
+        font-size: 14px;
+      }
     }
 
     .delete-btn {
       position: absolute;
-      top: 10px;
-      right: 10px;
-      background: white;
-      color: black;
+      top: 8px;
+      right: 8px;
+      background: var(--light-color);
+      font-size: 16px;
     }
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-carousel {
+    display: none; // Carousel désactivé sur desktop
+  }
+}
+
+@media (max-width: 1023px) {
+  .gallery-grid {
+    display: none; // Grille désactivée sur mobile/tablette
   }
 }
