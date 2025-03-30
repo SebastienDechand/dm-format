@@ -750,7 +750,11 @@
 
   .program-container {
     .program-info {
+      h2 {
+        margin-top: 25px;
+      }
       .details {
+        padding-bottom: 25px;
         flex-direction: column;
         gap: 20px;
       }
