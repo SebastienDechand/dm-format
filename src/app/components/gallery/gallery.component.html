@@ -39,10 +39,6 @@
         (click)="openLightbox(image)"
       >
         <img [src]="image.src" [alt]="image.title" />
-        <div class="carousel-caption">
-          <h3>{{ image.title }}</h3>
-          <p>{{ image.description }}</p>
-        </div>
         <button
           *ngIf="isAdmin$ | async"
           class="delete-btn"
