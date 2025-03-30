@@ -408,19 +408,49 @@
   position: fixed;
   bottom: 20px;
   right: 20px;
-  padding: 12px 18px;
   background: var(--button-color);
   color: white;
   border: none;
   border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
   transition: background 0.3s ease-in-out;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
   &:hover {
     background: var(--button-color-hover);
   }
+
+  .save-icon {
+    display: none;
+  }
 }
+
+@media (max-width: 768px) {
+  .save-btn {
+    bottom: 75px;
+    right: 15px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    border-radius: 50%;
+    justify-content: center;
+
+    .save-text {
+      display: none;
+    }
+
+    .save-icon {
+      display: inline-block;
+      font-size: 20px;
+    }
+  }
+}
+
 
 ::ng-deep .program-banner-image {
   width: 50vw;
@@ -538,7 +568,7 @@
 .btn-wrapper {
   display: flex;
   justify-content: center;
-  margin: 50px 0;
+  margin-bottom: 25px;
 }
 /* MODULES */
 .add-module-btn {
@@ -627,6 +657,7 @@
 }
 
 @media (max-width: 768px) {
+
   .banner-container {
     flex-direction: column;
     height: auto;
@@ -638,7 +669,7 @@
       }
 
       ul {
-        gap: 10px;
+        margin-bottom: 25px;
         span {
           font-size: 16px;
         }
@@ -700,17 +731,21 @@
     font-size: 16px;
   }
 
-  .save-btn {
-    padding: 10px 14px;
-    font-size: 16px;
-    bottom: 15px;
-    right: 15px;
-  }
 }
 
 @media (max-width: 480px) {
-  .banner-summary ul span {
-    font-size: 16px;
+  .banner-summary ul {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 50px;
+    margin: 0;
+    li {
+      padding-left: 8px;
+    }
+    span {
+      font-size: 16px;
+    }
   }
 
   .program-container {
@@ -720,18 +755,30 @@
         gap: 20px;
       }
     }
+
+    .program-content {
+      .content-details {
+        margin: 25px 0;
+      }
+    }
     .program-title,
-    .program-info h2,
-    .program-description h2,
-    .program-content h2,
-    .program-content h3,
-    .testimonials h2 {
-      font-size: 20px;
-      text-align: center;
+    .program-info,
+    .program-description,
+    .program-content,
+    .testimonials {
+      padding: 0;
+      h2, h3 {
+        font-size: 20px;
+        text-align: center;
+      }
+      p {
+        text-align: center;
+      }
     }
 
-
-
+    .testimonials h2 {
+      margin: 25px auto;
+    }
   }
 
   .pdf-title {

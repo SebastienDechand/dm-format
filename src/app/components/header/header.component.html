@@ -55,16 +55,18 @@
 
   <!-- Boutons d'authentification pour grands écrans -->
   <div class="auth-buttons" *ngIf="!isSmallScreen && isBrowser">
-    <button
-      mat-button
-      [routerLink]="['/login']"
-      *ngIf="showLoginButton && !(isLoggedIn$ | async)"
-    >
-      Se connecter
-    </button>
-    <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
-      Se déconnecter
-    </button>
+    <div class="auth-buttons-desktop">
+      <button
+        mat-button
+        [routerLink]="['/login']"
+        *ngIf="showLoginButton && !(isLoggedIn$ | async)"
+      >
+        Connexion
+      </button>
+      <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
+        Déconnexion
+      </button>
+    </div>
   </div>
 </nav>
 

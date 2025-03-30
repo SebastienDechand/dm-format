@@ -1,8 +1,12 @@
 <div class="admin-toggle-container" *ngIf="isLoggedIn$ | async">
-  <button mat-raised-button color="primary" (click)="toggleAdminMode()">
-    <mat-icon>{{
-      (isAdmin$ | async) ? 'person' : 'admin_panel_settings'
-    }}</mat-icon>
-    {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+  <button mat-raised-button color="primary" (click)="toggleAdminMode()" class="btn-desktop">
+    <i class="fa-solid" [ngClass]="(isAdmin$ | async) ? 'fa-user' : 'fa-user-shield'"></i>
+    <span class="btn-label">
+      {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+    </span>
+  </button>
+
+  <button (click)="toggleAdminMode()" class="btn-mobile">
+    <i class="fa-solid" [ngClass]="(isAdmin$ | async) ? 'fa-user' : 'fa-user-shield'"></i>
   </button>
 </div>

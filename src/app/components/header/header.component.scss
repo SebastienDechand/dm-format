@@ -71,7 +71,8 @@ nav {
   // Authentification pour grands écrans
   .auth-buttons {
     position: absolute;
-    right: calc(var(--padding-big) + 60px);
+    top: 17px;
+    left: calc(var(--padding-big) + 20vh);
     display: flex;
     gap: 10px;
   }
@@ -292,6 +293,3 @@ body {
   width: 100%;
 }
 
-::ng-deep .mat-icon {
-  color: var(--primary-color);
-}

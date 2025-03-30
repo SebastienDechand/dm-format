@@ -16,5 +16,6 @@
 <app-gallery></app-gallery>
 
 <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
-  Sauvegarder les modifications
+  <span class="save-text">Sauvegarder les modifications</span>
+  <i class="fa-solid fa-floppy-disk save-icon"></i>
 </button>
