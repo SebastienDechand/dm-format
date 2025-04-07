@@ -41,7 +41,6 @@ nav {
         display: flex;
         align-items: center;
 
-
         mat-icon {
           margin-right: 8px;
         }
@@ -72,7 +71,7 @@ nav {
   .auth-buttons {
     position: absolute;
     top: 17px;
-    left: calc(var(--padding-big) + 20vh);
+    left: calc(var(--padding-big) + 30vh);
     display: flex;
     gap: 10px;
   }
@@ -117,7 +116,9 @@ nav {
   display: flex;
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.3s, visibility 0.3s;
+  transition:
+    opacity 0.3s,
+    visibility 0.3s;
 
   &.open {
     visibility: visible;
@@ -182,8 +183,6 @@ nav {
           gap: 8px;
           text-align: left;
           padding: 8px;
-
-
 
           .icon {
             margin-right: 8px;
@@ -261,24 +260,26 @@ body {
         }
       }
     }
-
   }
 
   // Assurer que l'espace en haut de la page s'adapte à la hauteur du header
-  main, .content-wrapper, .page-content {
+  main,
+  .content-wrapper,
+  .page-content {
     padding-top: var(--header-height-mobile);
   }
 }
 
 // Pour les écrans plus grands
 @media (min-width: 769px) {
-  main, .content-wrapper, .page-content {
+  main,
+  .content-wrapper,
+  .page-content {
     padding-top: var(--header-height-desktop);
   }
 }
 
 @media (max-width: 480px) {
-
   .sidenav-container {
     .sidenav {
       width: 100%;
@@ -287,9 +288,7 @@ body {
   }
 }
 
-
-::ng-deep .mat-mdc-button .mdc-button__label{
+::ng-deep .mat-mdc-button .mdc-button__label {
   text-align: center;
   width: 100%;
 }
-

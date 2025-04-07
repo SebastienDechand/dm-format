@@ -142,7 +142,7 @@
 .logo {
   display: flex;
   align-items: center;
-  flex-direction: column;
+
   justify-content: center;
   font-size: 24px;
   color: var(--primary-color);
@@ -156,7 +156,6 @@
   img {
     width: 200px;
     object-fit: cover;
-    margin-top: 20px;
   }
 }
 
@@ -252,7 +251,9 @@
       font-size: 26px;
     }
 
-    a, button, p {
+    a,
+    button,
+    p {
       font-size: 13px;
     }
   }
@@ -281,7 +282,9 @@
   .contact-item {
     width: 140px;
 
-    a, button, p {
+    a,
+    button,
+    p {
       font-size: 13px;
     }
 
@@ -324,7 +327,9 @@
   .contact-item {
     width: auto;
 
-    a, button, p {
+    a,
+    button,
+    p {
       width: 100%;
     }
   }
@@ -382,7 +387,9 @@
       font-size: 22px;
     }
 
-    a, button, p {
+    a,
+    button,
+    p {
       font-size: 12px;
       gap: 6px;
     }

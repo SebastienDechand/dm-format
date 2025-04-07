@@ -59,7 +59,7 @@
         ></app-edit-button>
       </p>
 
-      <!-- Certificate Link -->
+      <!-- Certificate Link
       <div>
         <a
           *ngIf="certificationData?.certificateLink && !editMode['certLink']"
@@ -85,6 +85,52 @@
           (editClicked)="toggleEditMode('certLink')"
           class="edit-btn"
         ></app-edit-button>
+      </div> -->
+
+      <!-- 📎 Section PDF de certification -->
+      <div *ngIf="hasPdfs" class="uploaded-pdf">
+        <ul class="pdf-list">
+          <li *ngFor="let pdf of filteredPdfs" class="pdf-item">
+            <a
+              [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+              target="_blank"
+              class="pdf-link"
+              rel="noopener noreferrer"
+              type="application/pdf"
+            >
+              <img
+                src="assets/images/pdf-placeholder.png"
+                alt="PDF"
+                class="pdf-icon"
+              />
+              <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
+            </a>
+            <button
+              *ngIf="isAdmin$ | async"
+              class="delete-btn"
+              (click)="deletePdf(pdf)"
+            >
+              ❌ Supprimer
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 📤 Upload PDF -->
+      <div class="pdf-upload" *ngIf="isAdmin$ | async">
+        <p>Ajouter un certificat PDF</p>
+        <input
+          type="file"
+          accept="application/pdf"
+          (change)="onPdfFileSelected($event)"
+        />
+        <button
+          class="upload-btn"
+          (click)="uploadSelectedPdf()"
+          [disabled]="!selectedPdfFile"
+        >
+          Uploader le PDF
+        </button>
       </div>
     </div>
   </div>

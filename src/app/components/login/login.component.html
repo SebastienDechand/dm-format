@@ -5,7 +5,13 @@
       <div class="form-group">
         <mat-form-field appearance="outline">
           <mat-label>Identifiant</mat-label>
-          <input matInput type="email" formControlName="email" required />
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            required
+            autocomplete="on"
+          />
           <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
             L'identifiant est requis
           </mat-error>
@@ -20,6 +26,7 @@
             matInput
             [type]="hidePassword ? 'password' : 'text'"
             formControlName="password"
+            autocomplete="on"
             required
           />
           <button

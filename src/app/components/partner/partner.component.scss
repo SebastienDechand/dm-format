@@ -65,6 +65,7 @@
       p {
         color: var(--dark-color);
         margin: 16px 0;
+        line-height: 1.5;
       }
 
       i {
@@ -117,7 +118,9 @@
         }
 
         p {
-          font-size: var(--text-size-desktop);
+          span {
+            font-size: 16px;
+          }
         }
 
         .edit-input,
@@ -156,7 +159,8 @@
       padding: var(--padding-small);
 
       .partner-info {
-        p, span {
+        p,
+        span {
           font-size: 20px;
         }
       }
@@ -169,7 +173,6 @@
     }
   }
 }
-
 
 @media (max-width: 480px) {
   .partner-highlight {
