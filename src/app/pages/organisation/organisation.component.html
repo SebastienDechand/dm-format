@@ -4,10 +4,9 @@
     <div class="header-banner">
       <div class="banner-content">
         <h2>
-          <span
-            *ngIf="!editMode['header.title']"
-            [innerHTML]="organisationData.header.title | safeHtml"
-          ></span>
+          <span *ngIf="!editMode['header.title']">{{
+            organisationData.header.title
+          }}</span>
           <input
             *ngIf="editMode['header.title']"
             [(ngModel)]="organisationData.header.title"
@@ -35,6 +34,7 @@
           ></app-edit-button>
         </p>
       </div>
+
       <div class="banner-image">
         <app-editable-image
           *ngIf="imageRefreshTrigger.header"
