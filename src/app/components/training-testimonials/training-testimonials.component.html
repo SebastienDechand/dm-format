@@ -16,7 +16,21 @@
       ) {
         <div ngxSlickItem class="testimonial-card">
           <div class="testimonial-content">
-            <p class="feedback">"{{ testimonial.feedback }}"</p>
+            <p class="feedback">
+              "{{
+                testimonial.feedback.length > 200
+                  ? (testimonial.feedback | slice: 0 : 200) + '...'
+                  : testimonial.feedback
+              }}"
+            </p>
+            <button
+              *ngIf="testimonial.feedback.length > 200"
+              (click)="openTestimonialDialog(testimonial)"
+              class="btn-link"
+            >
+              Voir plus
+            </button>
+
             <div class="testimonial-author">
               <p class="name">{{ testimonial.name }}</p>
               <p class="role">{{ testimonial.role }}</p>

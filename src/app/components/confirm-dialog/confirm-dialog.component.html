@@ -1,10 +1,12 @@
-<div class="modal-overlay">
-  <div class="modal">
-    <h3>{{ title }}</h3>
-    <p>{{ message }}</p>
-    <div class="modal-actions">
-      <button class="cancel-btn" (click)="cancel()">Annuler</button>
-      <button class="confirm-btn" (click)="confirm()">Confirmer</button>
-    </div>
-  </div>
-</div>
+<h2 mat-dialog-title>Confirmation</h2>
+
+<mat-dialog-content class="content">
+  {{ data.message }}
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="dialogRef.close(false)">Annuler</button>
+  <button mat-raised-button color="warn" (click)="dialogRef.close(true)">
+    Confirmer
+  </button>
+</mat-dialog-actions>

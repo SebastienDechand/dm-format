@@ -65,6 +65,7 @@ body {
   background: var(--background-color);
   line-height: 1.6;
   color: var(--secondary-color);
+  overflow-x: hidden;
 }
 
 h1,
@@ -113,4 +114,22 @@ simple-snack-bar {
   .mdc-button__panel {
     color: white;
   }
+}
+
+.toast-success {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #4caf50,
+      supporting-text-color: #fff,
+    )
+  );
+}
+
+.toast-error {
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #f44336,
+      supporting-text-color: #fff,
+    )
+  );
 }

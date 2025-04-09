@@ -133,6 +133,10 @@
       border-radius: 20px;
       padding: 32px;
       background-color: var(--light-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
       h4 {
         font-size: var(--text-size-desktop);
         margin-bottom: var(--margin-medium);
@@ -414,7 +418,7 @@
   border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
-  box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   transition: background 0.3s ease-in-out;
   padding: 12px 18px;
   display: flex;
@@ -450,7 +454,6 @@
     }
   }
 }
-
 
 ::ng-deep .program-banner-image {
   width: 50vw;
@@ -578,10 +581,11 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-top: 50px;
 }
 
 .delete-module-btn {
-  margin-left: 1rem;
+  width: 100%;
   background: transparent;
   border: none;
   color: red;
@@ -598,6 +602,7 @@
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
+  margin-bottom: 50px;
 }
 
 .delete-detail-btn {
@@ -657,7 +662,6 @@
 }
 
 @media (max-width: 768px) {
-
   .banner-container {
     flex-direction: column;
     height: auto;
@@ -730,7 +734,6 @@
   .edit-textarea {
     font-size: 16px;
   }
-
 }
 
 @media (max-width: 480px) {
@@ -771,7 +774,8 @@
     .program-content,
     .testimonials {
       padding: 0;
-      h2, h3 {
+      h2,
+      h3 {
         font-size: 20px;
         text-align: center;
       }

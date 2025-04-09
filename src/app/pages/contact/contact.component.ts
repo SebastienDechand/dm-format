@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { SeoService } from '../../services/seo.service';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
 import { environment } from '../../../environments/environment.prod';
+import { SeoService } from '../../services/seo.service';
+import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';
 
 @Component({
@@ -12,10 +12,12 @@ import emailjs from '@emailjs/browser';
   standalone: true,
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [FormsModule, CommonModule, MatSnackBarModule, RecaptchaModule],
+  imports: [FormsModule, CommonModule, RecaptchaModule],
 })
 export class ContactComponent implements OnInit {
-  private seoService: SeoService = inject(SeoService);
+  private seoService = inject(SeoService);
+  private toast = inject(ToastService);
+
   siteKey: string = environment.recaptcha.siteKey;
   captchaVerified = false;
   isSubmitting = false;
@@ -30,8 +32,7 @@ export class ContactComponent implements OnInit {
     message: '',
   };
 
-  constructor(private snackBar: MatSnackBar) {
-    // Initialisation d'EmailJS
+  constructor() {
     emailjs.init(environment.emailjs.userId);
   }
 
@@ -55,10 +56,10 @@ export class ContactComponent implements OnInit {
     this.seoService.updateMetadata({
       title: 'Contact | DM-Format',
       description:
-        'Contactez DM-Format pour vos besoins en formation SST et formateur SST. Notre équipe est à votre écoute pour toutes vos questions concernant nos formations de secourisme en entreprise.',
+        'Contactez DM-Format pour vos besoins en formation SST et formateur SST...',
       url: 'https://dm-format.fr/contact',
       keywords:
-        'contact, formation SST, devis formation secourisme, demande information formation, contact formateur SST',
+        'contact, formation SST, devis formation secourisme, formateur SST',
     });
 
     this.seoService.setSchemaMarkup([
@@ -107,20 +108,16 @@ export class ContactComponent implements OnInit {
 
     this.isSubmitting = true;
 
-    // Préparation des paramètres pour EmailJS
     const templateParams = {
       company: this.contactData.company,
       name: this.contactData.name,
       email: this.contactData.email,
       phone: this.contactData.phone || 'Non renseigné',
       message: this.contactData.message,
-      time: new Date().toLocaleString('fr-FR', {
-        timeZone: 'Europe/Paris',
-      }),
+      time: new Date().toLocaleString('fr-FR', { timeZone: 'Europe/Paris' }),
       to_email: 'dm.formatsst@gmail.com',
     };
 
-    // Envoi de l'email via EmailJS
     emailjs
       .send(
         environment.emailjs.serviceId,
@@ -128,16 +125,9 @@ export class ContactComponent implements OnInit {
         templateParams
       )
       .then(
-        (response) => {
-          console.log('Email envoyé !', response.status, response.text);
-          this.snackBar.open('Votre message a bien été envoyé !', 'Fermer', {
-            duration: 3000,
-            horizontalPosition: 'center',
-            verticalPosition: 'bottom',
-            panelClass: ['success-snackbar'],
-          });
+        () => {
+          this.toast.success('Votre message a bien été envoyé !');
 
-          // Réinitialisation du formulaire
           this.contactData = {
             company: '',
             name: '',
@@ -148,15 +138,8 @@ export class ContactComponent implements OnInit {
         },
         (error) => {
           console.error("Erreur lors de l'envoi de l'email:", error);
-          this.snackBar.open(
-            "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer plus tard.",
-            'Fermer',
-            {
-              duration: 5000,
-              horizontalPosition: 'center',
-              verticalPosition: 'bottom',
-              panelClass: ['error-snackbar'],
-            }
+          this.toast.error(
+            "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer plus tard."
           );
         }
       )

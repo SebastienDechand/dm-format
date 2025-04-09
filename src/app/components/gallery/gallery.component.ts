@@ -14,7 +14,7 @@ import { Observable, Subscription } from 'rxjs';
 import { GalleryImage } from '../../models/gallery.models';
 import { AdminService } from '../../services/admin.service';
 import { GalleryService } from '../../services/gallery.service';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogGalleryComponent } from '../confirm-dialog-gallery/confirm-dialog-gallery.component';
 import { environment } from '../../../environments/environment.prod';
 import { isPlatformBrowser } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -23,7 +23,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   standalone: true,
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
-  imports: [CommonModule, ConfirmDialogComponent],
+  imports: [CommonModule, ConfirmDialogGalleryComponent],
 })
 export class GalleryComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy

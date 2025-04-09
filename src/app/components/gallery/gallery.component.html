@@ -69,11 +69,11 @@
   </label>
 
   <!-- Modal suppression -->
-  <app-confirm-dialog
+  <app-confirm-dialog-gallery
     *ngIf="showDeleteModal"
     title="Confirmer la suppression"
     message="Êtes-vous sûr(e) de vouloir supprimer cette image ?"
     (confirmed)="confirmDelete()"
     (canceled)="closeDeleteModal()"
-  ></app-confirm-dialog>
+  ></app-confirm-dialog-gallery>
 </section>

@@ -14,6 +14,9 @@ import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { PdfFile } from '../../models/pdf.models';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastService } from '../../services/toast.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-certification',
@@ -25,6 +28,8 @@ import { PdfFile } from '../../models/pdf.models';
 export class CertificationComponent implements OnInit {
   private adminService: AdminService = inject(AdminService);
   private apiService: ApiService = inject(ApiService);
+  private toast = inject(ToastService);
+  private dialog = inject(MatDialog);
 
   @Input() certificationData: any;
   @Output() editClicked = new EventEmitter<void>();
@@ -82,29 +87,35 @@ export class CertificationComponent implements OnInit {
 
     this.apiService.uploadPagePdf(this.pageId, formData).subscribe({
       next: () => {
-        alert('PDF uploadé avec succès !');
+        this.toast.success('PDF uploadé avec succès !');
         this.selectedPdfFile = undefined;
         this.loadPdfsData();
       },
       error: (err) => {
         console.error('Erreur upload PDF :', err);
-        alert(`Erreur : ${err.message}`);
+        this.toast.error(`Erreur : ${err.message}`);
       },
     });
   }
 
   deletePdf(pdf: PdfFile) {
-    if (!confirm(`Supprimer le PDF "${pdf.title}" ?`)) return;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: `Supprimer le PDF "${pdf.title}" ?` },
+    });
 
-    this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
-      next: () => {
-        alert('PDF supprimé !');
-        this.loadPdfsData();
-      },
-      error: (err) => {
-        console.error('Erreur suppression PDF :', err);
-        alert('Erreur lors de la suppression.');
-      },
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
+          next: () => {
+            this.toast.success('PDF supprimé !');
+            this.loadPdfsData();
+          },
+          error: (err) => {
+            console.error('Erreur suppression PDF :', err);
+            this.toast.error('Erreur lors de la suppression.');
+          },
+        });
+      }
     });
   }
 }

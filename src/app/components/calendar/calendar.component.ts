@@ -25,6 +25,9 @@ import { CalendarService } from '../../services/calendar.service';
 import { Training } from '../../models/calendar.model';
 import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastService } from '../../services/toast.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-calendar',
@@ -46,6 +49,10 @@ import { AdminService } from '../../services/admin.service';
   styleUrls: ['./calendar.component.scss'],
 })
 export class CalendarComponent implements OnInit {
+  private toast = inject(ToastService);
+  private dialog = inject(MatDialog);
+  private adminService: AdminService = inject(AdminService);
+
   trainings: Training[] = [];
   selectedDate: Date = new Date();
   isCalendarVisible: boolean = false;
@@ -63,7 +70,6 @@ export class CalendarComponent implements OnInit {
   tooltipText: string = '';
   hoveredDate: Date | null = null;
 
-  private adminService: AdminService = inject(AdminService);
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
 
   constructor(
@@ -325,7 +331,7 @@ export class CalendarComponent implements OnInit {
 
   addTraining(): void {
     if (!this.newTraining.startDate || !this.newTraining.endDate) {
-      alert('Les dates de début et de fin sont obligatoires');
+      this.toast.error('Les dates de début et de fin sont obligatoires');
       return;
     }
 
@@ -346,19 +352,16 @@ export class CalendarComponent implements OnInit {
     this.trainingService.createTraining(trainingToAdd).subscribe(
       (response) => {
         this.toggleAddForm();
-        if (response) {
-          this.trainings = [...this.trainings, response];
-        } else {
-          this.trainings = [...this.trainings, trainingToAdd];
-        }
+        this.trainings = [...this.trainings, response ?? trainingToAdd];
         setTimeout(() => {
           this.refreshCalendar();
         }, 10);
         this.loadTrainings();
+        this.toast.success('Formation ajoutée avec succès !');
       },
       (error) => {
         console.error('Error adding training:', error);
-        alert("Erreur lors de l'ajout de la formation");
+        this.toast.error("Erreur lors de l'ajout de la formation");
       }
     );
   }
@@ -366,17 +369,26 @@ export class CalendarComponent implements OnInit {
   deleteTraining(id: string | undefined): void {
     if (!id) return;
 
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette formation ?')) {
-      this.trainingService.deleteTraining(id).subscribe(
-        () => {
-          this.showTooltip = false;
-          this.loadTrainings();
-        },
-        (error) => {
-          console.error('Error deleting training:', error);
-          alert('Erreur lors de la suppression de la formation');
-        }
-      );
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: 'Êtes-vous sûr de vouloir supprimer cette formation ?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.trainingService.deleteTraining(id).subscribe(
+          () => {
+            this.showTooltip = false;
+            this.loadTrainings();
+            this.toast.success('Formation supprimée !');
+          },
+          (error) => {
+            console.error('Error deleting training:', error);
+            this.toast.error('Erreur lors de la suppression de la formation');
+          }
+        );
+      }
+    });
   }
 }

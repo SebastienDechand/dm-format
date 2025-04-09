@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
@@ -11,6 +11,9 @@ import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { SeoService } from '../../services/seo.service';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { PdfFile } from '../../models/pdf.models';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastService } from '../../services/toast.service';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-organisation',
@@ -26,16 +29,19 @@ import { PdfFile } from '../../models/pdf.models';
   styleUrl: './organisation.component.scss',
 })
 export class OrganisationComponent implements OnInit {
-  private apiService: ApiService = inject(ApiService);
-  private adminService: AdminService = inject(AdminService);
-  private editModeService: EditModeService = inject(EditModeService);
-  private seoService: SeoService = inject(SeoService);
+  private apiService = inject(ApiService);
+  private adminService = inject(AdminService);
+  private editModeService = inject(EditModeService);
+  private seoService = inject(SeoService);
+  private toast = inject(ToastService);
+  private dialog = inject(MatDialog);
+
   private pageId = 'organisation-documents';
+  private destroy$ = new Subject<void>();
 
   organisationData!: ConditionsData;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
-  private destroy$ = new Subject<void>();
 
   hasPdfs: boolean = false;
   pdfsData: PdfFile[] = [];
@@ -48,6 +54,26 @@ export class OrganisationComponent implements OnInit {
     certification: true,
     financing: true,
   };
+
+  ngOnInit(): void {
+    this.loadPdfsData();
+
+    this.editModeService.editMode$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((editMode) => {
+        this.editMode = editMode;
+      });
+
+    this.apiService.getOrganisation().subscribe(
+      (data) => {
+        this.organisationData = data;
+        this.updateSeo(data);
+      },
+      (error) => {
+        console.error('Error fetching organisation page data', error);
+      }
+    );
+  }
 
   onHeaderImageUploaded(imageData: { url: string; altText: string }): void {
     if (!this.organisationData.header.image) {
@@ -62,26 +88,6 @@ export class OrganisationComponent implements OnInit {
       this.imageRefreshTrigger.header = false;
       setTimeout(() => (this.imageRefreshTrigger.header = true), 50);
     });
-  }
-
-  ngOnInit(): void {
-    this.loadPdfsData();
-    this.editModeService.editMode$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((editMode) => {
-        this.editMode = editMode;
-      });
-
-    this.apiService.getOrganisation().subscribe(
-      (data) => {
-        this.organisationData = data;
-
-        this.updateSeo(data);
-      },
-      (error) => {
-        console.error('Error fetching organisation page data', error);
-      }
-    );
   }
 
   onPdfFileSelected(event: Event) {
@@ -100,12 +106,12 @@ export class OrganisationComponent implements OnInit {
 
     this.apiService.uploadPagePdf(this.pageId, formData).subscribe({
       next: () => {
-        alert('PDF uploadé avec succès !');
+        this.toast.success('PDF uploadé avec succès !');
         this.loadPdfsData();
       },
       error: (err) => {
         console.error('Erreur upload PDF :', err);
-        alert(`Erreur : ${err.message}`);
+        this.toast.error(`Erreur : ${err.message}`);
       },
     });
   }
@@ -127,19 +133,63 @@ export class OrganisationComponent implements OnInit {
   }
 
   deletePdf(pdf: PdfFile) {
-    if (!confirm(`Es-tu sûr de vouloir supprimer le PDF "${pdf.title}" ?`))
-      return;
-
-    this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
-      next: () => {
-        alert('PDF supprimé avec succès !');
-        this.loadPdfsData();
-      },
-      error: (err) => {
-        console.error('Erreur suppression PDF :', err);
-        alert('Erreur lors de la suppression du PDF.');
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Êtes-vous sûr de vouloir supprimer le PDF "${pdf.title}" ?`,
       },
     });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+
+      this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
+        next: () => {
+          this.toast.success('PDF supprimé avec succès !');
+          this.loadPdfsData();
+        },
+        error: (err) => {
+          console.error('Erreur suppression PDF :', err);
+          this.toast.error('Erreur lors de la suppression du PDF.');
+        },
+      });
+    });
+  }
+
+  saveChanges(callback?: () => void) {
+    this.apiService.patchOrganisation(this.organisationData).subscribe(
+      (data) => {
+        this.organisationData = data;
+        this.editModeService.resetEditModes();
+        this.updateSeo(data);
+
+        if (!callback) {
+          this.toast.success('Modifications enregistrées avec succès !');
+        }
+
+        if (callback) {
+          callback();
+        }
+      },
+      (error) => {
+        console.error('Error saving organisation page data', error);
+        this.toast.error("Erreur lors de l'enregistrement.");
+      }
+    );
+  }
+
+  toggleEditMode(field: string) {
+    if (this.isAdmin$) {
+      this.editModeService.toggleEditMode(field);
+    }
+  }
+
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private updateSeo(data: ConditionsData): void {
@@ -193,41 +243,5 @@ export class OrganisationComponent implements OnInit {
         ],
       },
     ]);
-  }
-
-  toggleEditMode(field: string) {
-    if (this.isAdmin$) {
-      this.editModeService.toggleEditMode(field);
-    }
-  }
-
-  trackByIndex(index: number, item: any): number {
-    return index;
-  }
-
-  saveChanges(callback?: () => void) {
-    this.apiService.patchOrganisation(this.organisationData).subscribe(
-      (data) => {
-        this.organisationData = data;
-        this.editModeService.resetEditModes();
-        this.updateSeo(data);
-
-        if (!callback) {
-          alert('Changes saved successfully');
-        }
-
-        if (callback) {
-          callback();
-        }
-      },
-      (error) => {
-        console.error('Error saving organisation page data', error);
-      }
-    );
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

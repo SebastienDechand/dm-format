@@ -13,6 +13,9 @@ import { SeoService } from '../../services/seo.service';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { PdfFile } from '../../models/pdf.models';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastService } from '../../services/toast.service';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-program-detail',
@@ -34,6 +37,8 @@ export class ProgramDetailComponent implements OnInit {
   private editModeService: EditModeService = inject(EditModeService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private seoService: SeoService = inject(SeoService);
+  private toast = inject(ToastService);
+  private dialog = inject(MatDialog);
 
   program?: Program;
 
@@ -121,13 +126,13 @@ export class ProgramDetailComponent implements OnInit {
     formData.append('title', this.selectedPdfFile.name);
 
     this.apiService.uploadPagePdf(pageId, formData).subscribe({
-      next: (res) => {
-        alert('PDF uploadé avec succès !');
+      next: () => {
+        this.toast.success('PDF uploadé avec succès !');
         this.loadPdfsData();
       },
       error: (err) => {
         console.error('Erreur upload PDF :', err);
-        alert(`Erreur : ${err.message}`);
+        this.toast.error(`Erreur : ${err.message}`);
       },
     });
   }
@@ -155,18 +160,25 @@ export class ProgramDetailComponent implements OnInit {
   }
 
   deletePdf(pdf: PdfFile) {
-    if (!confirm(`Es-tu sûr de vouloir supprimer le PDF "${pdf.title}" ?`))
-      return;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Êtes-vous sûr de vouloir supprimer le PDF "${pdf.title}" ?`,
+      },
+    });
 
-    this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
-      next: () => {
-        alert('PDF supprimé avec succès !');
-        this.loadPdfsData();
-      },
-      error: (err) => {
-        console.error('Erreur suppression PDF :', err);
-        alert('Erreur lors de la suppression du PDF.');
-      },
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
+          next: () => {
+            this.toast.success('PDF supprimé avec succès !');
+            this.loadPdfsData();
+          },
+          error: (err) => {
+            console.error('Erreur suppression PDF :', err);
+            this.toast.error('Erreur lors de la suppression du PDF.');
+          },
+        });
+      }
     });
   }
 
@@ -252,7 +264,7 @@ export class ProgramDetailComponent implements OnInit {
             this.updateSeo(data);
 
             if (!callback) {
-              alert('Changes saved successfully');
+              this.toast.success('Modifications enregistrées avec succès !');
             }
 
             if (callback) {
@@ -261,6 +273,7 @@ export class ProgramDetailComponent implements OnInit {
           },
           (error) => {
             console.error('Error saving program data', error);
+            this.toast.error("Erreur lors de l'enregistrement.");
           }
         );
       }
@@ -294,11 +307,16 @@ export class ProgramDetailComponent implements OnInit {
   deleteModule(index: number) {
     if (!this.program) return;
 
-    const confirmDelete = confirm('Supprimer ce module ?');
-    if (confirmDelete) {
-      this.program.modules.splice(index, 1);
-      this.saveChanges();
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Êtes-vous sûr de vouloir supprimer ce module ?' },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.program!.modules.splice(index, 1);
+        this.saveChanges();
+      }
+    });
   }
 
   /* DETAILS */
@@ -311,11 +329,16 @@ export class ProgramDetailComponent implements OnInit {
   deleteDetail(index: number) {
     if (!this.program) return;
 
-    const confirmDelete = confirm('Supprimer ce détail ?');
-    if (confirmDelete) {
-      this.program.details.splice(index, 1);
-      this.saveChanges();
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Êtes-vous sûr de vouloir supprimer cette ligne ?' },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.program!.details.splice(index, 1);
+        this.saveChanges();
+      }
+    });
   }
 
   ngOnDestroy() {

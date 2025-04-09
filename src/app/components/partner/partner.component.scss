@@ -63,24 +63,23 @@
       }
 
       p {
-        color: var(--dark-color);
+        color: var(--secondary-color);
         margin: 16px 0;
         line-height: 1.5;
+
+        .phone {
+          font-weight: bold;
+        }
+
+        .contact {
+          font-weight: bold;
+          color: var(--dark-color);
+        }
       }
 
       i {
         color: var(--primary-color);
         margin-right: 8px;
-      }
-
-      a {
-        color: var(--primary-color);
-        text-decoration: none;
-        font-weight: bold;
-
-        &:hover {
-          text-decoration: underline;
-        }
       }
     }
 

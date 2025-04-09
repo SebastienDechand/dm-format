@@ -1,7 +1,15 @@
 // src/app/components/editable-image/editable-image.component.ts
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImageUploadService } from '../../services/image-upload.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-editable-image',
@@ -11,6 +19,8 @@ import { ImageUploadService } from '../../services/image-upload.service';
   styleUrls: ['./editable-image.component.scss'],
 })
 export class EditableImageComponent implements OnInit {
+  private toast = inject(ToastService);
+
   @Input() pageId: string = '';
   @Input() imageSrc: string = '';
   @Input() altText: string = '';
@@ -70,12 +80,12 @@ export class EditableImageComponent implements OnInit {
   private uploadImage(file: File): void {
     // Vérifications basiques
     if (!file.type.startsWith('image/')) {
-      alert('Veuillez sélectionner une image valide');
+      this.toast.error('Veuillez sélectionner une image valide');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      alert("L'image ne doit pas dépasser 5MB");
+      this.toast.error("L'image ne doit pas dépasser 5MB");
       return;
     }
 
@@ -97,7 +107,7 @@ export class EditableImageComponent implements OnInit {
         error: (error) => {
           console.error("Erreur lors de l'upload", error);
           this.isUploading = false;
-          alert("Erreur lors de l'upload. Veuillez réessayer.");
+          this.toast.error("Erreur lors de l'upload. Veuillez réessayer.");
         },
       });
   }

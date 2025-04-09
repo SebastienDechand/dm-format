@@ -9,6 +9,7 @@ import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-about',
@@ -27,6 +28,7 @@ export class AboutComponent implements OnInit {
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
   private seoService: SeoService = inject(SeoService);
+  private toast = inject(ToastService);
 
   aboutData!: About;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
@@ -180,7 +182,7 @@ export class AboutComponent implements OnInit {
         this.updateSeo(data);
 
         if (!callback) {
-          alert('Changes saved successfully');
+          this.toast.success('Modifications enregistrées avec succès !');
         }
 
         if (callback) {
@@ -189,6 +191,7 @@ export class AboutComponent implements OnInit {
       },
       (error) => {
         console.error('Error saving about page data', error);
+        this.toast.error("Erreur lors de l'enregistrement.");
       }
     );
   }

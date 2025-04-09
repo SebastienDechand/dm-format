@@ -31,8 +31,7 @@
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    transition:
-      box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
@@ -67,7 +66,7 @@
     // Bouton de suppression pour admins
     .delete-btn {
       position: absolute;
-      top: 15px;
+      top: 20px;
       right: 15px;
       background: transparent;
       border: none;
@@ -292,6 +291,21 @@
     .slick-next {
       right: 0;
     }
+  }
+}
+
+.btn-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  padding: 0;
+  margin-top: 5px;
+  font-size: var(--small-text-size-desktop);
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
   }
 }
 

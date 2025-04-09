@@ -12,8 +12,9 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -34,7 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class LoginComponent {
   private router = inject(Router);
   private authService = inject(AuthService);
-  private snackBar = inject(MatSnackBar);
+  private toast = inject(ToastService);
   private fb = inject(FormBuilder);
 
   loginForm: FormGroup;
@@ -49,34 +50,20 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.invalid) {
-      this.showError('Veuillez remplir correctement le formulaire !');
+      this.toast.error('Veuillez remplir correctement le formulaire !');
       return;
     }
 
     const { email, password } = this.loginForm.value;
 
     this.authService.login({ email, password }).subscribe({
-      next: (res) => {
+      next: () => {
         this.router.navigate(['/']);
-        this.showSuccess('Connexion réussie !');
+        this.toast.success('Connexion réussie !');
       },
       error: () => {
-        this.showError('Email ou mot de passe incorrect !');
+        this.toast.error('Email ou mot de passe incorrect !');
       },
-    });
-  }
-
-  showError(message: string) {
-    this.snackBar.open(message, 'Fermer', {
-      duration: 3000,
-      panelClass: ['error-snackbar'],
-    });
-  }
-
-  showSuccess(message: string) {
-    this.snackBar.open(message, 'Fermer', {
-      duration: 3000,
-      panelClass: ['success-snackbar'],
     });
   }
 }

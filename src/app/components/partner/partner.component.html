@@ -56,7 +56,7 @@
 
         <!-- Contact Person -->
         <p>
-          <span *ngIf="!editMode['partnerContactPerson']">{{
+          <span class="contact" *ngIf="!editMode['partnerContactPerson']">{{
             partnerData?.profile?.contact?.person
           }}</span>
           <input
@@ -92,12 +92,9 @@
 
         <!-- Email -->
         <p>
-          <a
-            *ngIf="!editMode['partnerEmail']"
-            [href]="'mailto:' + partnerData?.profile?.contact?.email"
-          >
+          <span *ngIf="!editMode['partnerEmail']">
             {{ partnerData?.profile?.contact?.email }}
-          </a>
+          </span>
           <input
             *ngIf="editMode['partnerEmail']"
             [(ngModel)]="partnerData.profile.contact.email"
@@ -114,7 +111,7 @@
 
         <!-- Phone -->
         <p>
-          <span *ngIf="!editMode['partnerPhone']">{{
+          <span class="phone" *ngIf="!editMode['partnerPhone']">{{
             partnerData?.profile?.contact?.phone
           }}</span>
           <input

@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  inject,
   Inject,
   Input,
   OnChanges,
@@ -23,6 +24,10 @@ import {
   SlickCarouselComponent,
   SlickCarouselModule,
 } from 'ngx-slick-carousel';
+import { MatDialog } from '@angular/material/dialog';
+import { ToastService } from '../../services/toast.service';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { TestimonialDialogComponent } from '../testimonial-dialog/testimonial-dialog.component';
 
 @Component({
   selector: 'app-training-testimonials',
@@ -37,6 +42,9 @@ import {
   ],
 })
 export class TrainingTestimonialsComponent implements OnInit, OnChanges {
+  private toast = inject(ToastService);
+  private dialog = inject(MatDialog);
+
   @Input() programId!: string;
   @Input() isAdmin: boolean = false;
 
@@ -184,67 +192,74 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
 
   private processFormSubmission(): void {
     this.isSubmitting = true;
-    this.errorMessage = '';
-    this.successMessage = '';
 
     const testimonial: Testimonial = {
       ...this.testimonialForm.value,
       trainingId: this.programId,
     };
 
-    this.testimonialService.addTestimonial(testimonial).subscribe(
-      (response) => {
-        if (response && response.data) {
-          const newTestimonial = response.data;
-          this.testimonials.unshift(newTestimonial);
+    this.testimonialService.addTestimonial(testimonial).subscribe({
+      next: (response) => {
+        if (response?.data) {
+          this.testimonials.unshift(response.data);
         }
+
         this.testimonialForm.reset();
         this.formSubmitted = false;
         this.isSubmitting = false;
-        this.successMessage = 'Votre témoignage a été ajouté avec succès !';
         this.captchaVerified = false;
-        setTimeout(() => (this.successMessage = ''), 5000);
+
+        this.toast.success('Votre témoignage a été ajouté avec succès !');
       },
-      (error) => {
+      error: (error) => {
         console.error("Erreur lors de l'ajout du témoignage:", error);
         this.isSubmitting = false;
-        this.errorMessage =
+        this.toast.error(
           error.error?.message ||
-          "Une erreur est survenue lors de l'ajout du témoignage";
-        setTimeout(() => (this.errorMessage = ''), 5000);
-      }
-    );
+            "Une erreur est survenue lors de l'ajout du témoignage"
+        );
+      },
+    });
   }
 
   deleteTestimonial(testimonialId: any, index: number): void {
-    if (
-      !this.isAdmin ||
-      !confirm('Êtes-vous sûr de vouloir supprimer ce témoignage ?')
-    ) {
-      return;
-    }
+    if (!this.isAdmin) return;
 
-    const id =
-      typeof testimonialId === 'object' && testimonialId.$oid
-        ? testimonialId.$oid
-        : testimonialId;
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: { message: 'Êtes-vous sûr de vouloir supprimer ce témoignage ?' },
+    });
 
-    this.testimonialService.deleteTestimonial(id).subscribe(
-      () => {
-        this.testimonials.splice(index, 1);
-        this.successMessage = 'Témoignage supprimé avec succès';
-        setTimeout(() => (this.successMessage = ''), 5000);
-      },
-      (error) => {
-        console.error('Erreur lors de la suppression:', error);
-        this.errorMessage =
-          error.error?.message || 'Erreur lors de la suppression du témoignage';
-        setTimeout(() => (this.errorMessage = ''), 5000);
-      }
-    );
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+
+      const id =
+        typeof testimonialId === 'object' && testimonialId.$oid
+          ? testimonialId.$oid
+          : testimonialId;
+
+      this.testimonialService.deleteTestimonial(id).subscribe({
+        next: () => {
+          this.testimonials.splice(index, 1);
+          this.toast.success('Témoignage supprimé avec succès');
+        },
+        error: (error) => {
+          console.error('Erreur lors de la suppression:', error);
+          this.toast.error(
+            error.error?.message ||
+              'Erreur lors de la suppression du témoignage'
+          );
+        },
+      });
+    });
   }
 
   get f() {
     return this.testimonialForm.controls;
+  }
+
+  openTestimonialDialog(testimonial: Testimonial): void {
+    this.dialog.open(TestimonialDialogComponent, {
+      data: testimonial,
+    });
   }
 }

@@ -9,6 +9,7 @@ import { ApiService } from '../../services/api.service';
 import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { SeoService } from '../../services/seo.service';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   private adminService: AdminService = inject(AdminService);
   private seoService: SeoService = inject(SeoService);
   private apiService: ApiService = inject(ApiService);
+  private toast = inject(ToastService);
 
   homeData: any;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
@@ -56,7 +58,7 @@ export class HomeComponent implements OnInit {
         this.updateSeo(data);
 
         if (!callback) {
-          alert('Changes saved successfully');
+          this.toast.success('Modifications enregistrées avec succès !');
         }
 
         if (callback) {
@@ -65,6 +67,7 @@ export class HomeComponent implements OnInit {
       },
       (error) => {
         console.error('Error saving home page data', error);
+        this.toast.error("Erreur lors de l'enregistrement.");
       }
     );
   }
