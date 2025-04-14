@@ -3,12 +3,13 @@
     <!-- Title -->
     <h2>
       <span *ngIf="!editMode['partnerTitle']">{{ partnerData?.title }}</span>
-      <input
+      <textarea
+        autoResize
         *ngIf="editMode['partnerTitle']"
         [(ngModel)]="partnerData.title"
         (blur)="toggleEditMode('partnerTitle')"
-        class="edit-input"
-      />
+        class="edit-textarea"
+      ></textarea>
       <app-edit-button
         *ngIf="isAdmin$ | async"
         (editClicked)="toggleEditMode('partnerTitle')"
@@ -22,6 +23,7 @@
         partnerData?.description
       }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['partnerDescription']"
         [(ngModel)]="partnerData.description"
         (blur)="toggleEditMode('partnerDescription')"
@@ -42,6 +44,7 @@
             partnerData?.profile?.name
           }}</span>
           <textarea
+            autoResize
             *ngIf="editMode['partnerName']"
             [(ngModel)]="partnerData.profile.name"
             (blur)="toggleEditMode('partnerName')"
@@ -59,12 +62,13 @@
           <span class="contact" *ngIf="!editMode['partnerContactPerson']">{{
             partnerData?.profile?.contact?.person
           }}</span>
-          <input
+          <textarea
+            autoResize
             *ngIf="editMode['partnerContactPerson']"
             [(ngModel)]="partnerData.profile.contact.person"
             (blur)="toggleEditMode('partnerContactPerson')"
-            class="edit-input"
-          />
+            class="edit-textarea"
+          ></textarea>
           <app-edit-button
             *ngIf="isAdmin$ | async"
             (editClicked)="toggleEditMode('partnerContactPerson')"
@@ -78,6 +82,7 @@
             partnerData?.profile?.contact?.address
           }}</span>
           <textarea
+            autoResize
             *ngIf="editMode['partnerAddress']"
             [(ngModel)]="partnerData.profile.contact.address"
             (blur)="toggleEditMode('partnerAddress')"
@@ -95,13 +100,14 @@
           <span *ngIf="!editMode['partnerEmail']">
             {{ partnerData?.profile?.contact?.email }}
           </span>
-          <input
+          <textarea
+            autoResize
             *ngIf="editMode['partnerEmail']"
             [(ngModel)]="partnerData.profile.contact.email"
             (blur)="toggleEditMode('partnerEmail')"
-            class="edit-input"
+            class="edit-textarea"
             type="email"
-          />
+          ></textarea>
           <app-edit-button
             *ngIf="isAdmin$ | async"
             (editClicked)="toggleEditMode('partnerEmail')"
@@ -114,13 +120,14 @@
           <span class="phone" *ngIf="!editMode['partnerPhone']">{{
             partnerData?.profile?.contact?.phone
           }}</span>
-          <input
+          <textarea
+            autoResize
             *ngIf="editMode['partnerPhone']"
             [(ngModel)]="partnerData.profile.contact.phone"
             (blur)="toggleEditMode('partnerPhone')"
-            class="edit-input"
+            class="edit-textarea"
             type="tel"
-          />
+          ></textarea>
           <app-edit-button
             *ngIf="isAdmin$ | async"
             (editClicked)="toggleEditMode('partnerPhone')"
@@ -140,6 +147,7 @@
         partnerData?.closingNote
       }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['partnerClosingNote']"
         [(ngModel)]="partnerData.closingNote"
         (blur)="toggleEditMode('partnerClosingNote')"

@@ -6,12 +6,13 @@
           *ngIf="!editMode['title']"
           [innerHTML]="program.title | safeHtml"
         ></span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['title']"
           [(ngModel)]="program.title"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('title')"
-        />
+        ></textarea>
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('title')"
@@ -26,12 +27,13 @@
           "
         >
           <span *ngIf="!editMode['methodology.' + i]">{{ method }}</span>
-          <input
+          <textarea
+            autoResize
             *ngIf="editMode['methodology.' + i]"
             [(ngModel)]="program.methodology[i]"
-            class="edit-input"
+            class="edit-textarea"
             (blur)="toggleEditMode('methodology.' + i)"
-          />
+          ></textarea>
           <app-edit-button
             *ngIf="isAdmin$ | async"
             (editClicked)="toggleEditMode('methodology.' + i)"
@@ -62,12 +64,13 @@
           <span>
             <strong>Durée </strong>
             <div *ngIf="!editMode['duration']">{{ program.duration }}</div>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['duration']"
               [(ngModel)]="program.duration"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('duration')"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('duration')"
@@ -81,12 +84,13 @@
             <div *ngIf="!editMode['prerequisite']">
               {{ program.prerequisite }}
             </div>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['prerequisite']"
               [(ngModel)]="program.prerequisite"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('prerequisite')"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('prerequisite')"
@@ -98,12 +102,13 @@
           <span>
             <strong>Public cible </strong>
             <div *ngIf="!editMode['audience']">{{ program.audience }}</div>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['audience']"
               [(ngModel)]="program.audience"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('audience')"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('audience')"
@@ -145,6 +150,7 @@
     <div class="pdf-upload" *ngIf="isAdmin$ | async">
       <p>Ajouter un PDF à la page</p>
       <input
+        autoResize
         type="file"
         accept="application/pdf"
         (change)="onPdfFileSelected($event)"
@@ -164,6 +170,7 @@
       <p>
         <span *ngIf="!editMode['information']">{{ program.information }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['information']"
           [(ngModel)]="program.information"
           class="edit-textarea"
@@ -182,6 +189,7 @@
       <p>
         <span *ngIf="!editMode['summary']">{{ program.summary }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['summary']"
           [(ngModel)]="program.summary"
           class="edit-textarea"
@@ -190,12 +198,14 @@
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('summary')"
+          class="edit-btn"
         ></app-edit-button>
       </p>
 
       <p>
         <span *ngIf="!editMode['content']">{{ program.content }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['content']"
           [(ngModel)]="program.content"
           class="edit-textarea"
@@ -217,12 +227,13 @@
             "
           >
             <span *ngIf="!editMode['details.' + i]">{{ item }}</span>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['details.' + i]"
               [(ngModel)]="program.details[i]"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('details.' + i)"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('details.' + i)"
@@ -262,12 +273,13 @@
             <span *ngIf="!editMode['modules.' + i + '.title']">{{
               module.title
             }}</span>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['modules.' + i + '.title']"
               [(ngModel)]="module.title"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('modules.' + i + '.title')"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('modules.' + i + '.title')"
@@ -278,6 +290,7 @@
               module.description
             }}</span>
             <textarea
+              autoResize
               *ngIf="editMode['modules.' + i + '.description']"
               [(ngModel)]="module.description"
               class="edit-textarea"

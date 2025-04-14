@@ -150,7 +150,6 @@
   }
 
   /* 🎛️ Mode édition */
-  .edit-input,
   .edit-textarea {
     border: 2px solid var(--primary-color);
     padding: 5px;
@@ -160,11 +159,6 @@
 
   .edit-textarea {
     min-width: 100%;
-    min-height: 150px;
-  }
-
-  .edit-input {
-    min-width: 90%;
   }
 
   /* ✏️ Boutons */
@@ -187,7 +181,7 @@
     border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease-in-out;
     padding: 12px 18px;
     display: flex;
@@ -333,7 +327,6 @@
       text-align: center;
     }
 
-
     .training-list {
       margin: var(--margin-big) 0;
       display: flex;
@@ -346,10 +339,6 @@
         line-height: 1.6;
         padding-left: var(--padding-small);
       }
-    }
-
-    .edit-input {
-      min-width: 100%;
     }
 
     .edit-textarea {

@@ -17,10 +17,17 @@ import { PdfFile } from '../../models/pdf.models';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 
 @Component({
   selector: 'app-certification',
-  imports: [CommonModule, SafeHtmlPipe, EditButtonComponent, FormsModule],
+  imports: [
+    CommonModule,
+    SafeHtmlPipe,
+    EditButtonComponent,
+    FormsModule,
+    AutoResizeDirective,
+  ],
   templateUrl: './certification.component.html',
   styleUrl: './certification.component.scss',
   standalone: true,

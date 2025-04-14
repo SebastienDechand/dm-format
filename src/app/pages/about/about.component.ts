@@ -10,6 +10,7 @@ import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
+import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 
 @Component({
   selector: 'app-about',
@@ -19,6 +20,7 @@ import { ToastService } from '../../services/toast.service';
     FormsModule,
     EditButtonComponent,
     EditableImageComponent,
+    AutoResizeDirective,
   ],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',

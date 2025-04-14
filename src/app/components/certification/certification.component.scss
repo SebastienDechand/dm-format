@@ -5,7 +5,6 @@
   justify-content: center;
 
   /* 🎛️ Mode édition */
-  .edit-input,
   .edit-textarea {
     border: 2px solid var(--primary-color);
     padding: 5px;
@@ -15,11 +14,6 @@
 
   .edit-textarea {
     min-width: 100%;
-    min-height: 100px;
-  }
-
-  .edit-input {
-    min-width: 90%;
   }
 
   .certification-container {
@@ -235,8 +229,6 @@ h4.section-title {
           font-size: 18px;
         }
       }
-
-      .edit-input,
       .edit-textarea {
         font-size: 16px;
       }

@@ -7,6 +7,7 @@
         [innerHTML]="bannerData?.title | safeHtml"
       ></span>
       <textarea
+        autoResize
         *ngIf="editMode['title']"
         [(ngModel)]="bannerData.title"
         (blur)="toggleEditMode('title')"
@@ -23,6 +24,7 @@
     <h2 class="subtitle">
       <span *ngIf="!editMode['subtitle']">{{ bannerData?.subtitle }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['subtitle']"
         [(ngModel)]="bannerData.subtitle"
         (blur)="toggleEditMode('subtitle')"
@@ -39,6 +41,7 @@
     <p class="details">
       <span *ngIf="!editMode['details']">{{ bannerData?.details }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['details']"
         [(ngModel)]="bannerData.details"
         (blur)="toggleEditMode('details')"
@@ -61,12 +64,13 @@
         "
       >
         <span *ngIf="!editMode['highlights.' + i]">{{ highlight }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['highlights.' + i]"
           [(ngModel)]="bannerData.highlights[i]"
           (blur)="toggleEditMode('highlights.' + i)"
-          class="edit-input"
-        />
+          class="edit-textarea"
+        ></textarea>
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('highlights.' + i)"

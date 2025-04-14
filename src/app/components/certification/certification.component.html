@@ -11,6 +11,7 @@
           [innerHTML]="certificationData?.title | safeHtml"
         ></span>
         <textarea
+          autoResize
           *ngIf="editMode['certTitle']"
           [(ngModel)]="certificationData.title"
           (blur)="toggleEditMode('certTitle')"
@@ -29,6 +30,7 @@
           certificationData?.description
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['certDescription']"
           [(ngModel)]="certificationData.description"
           (blur)="toggleEditMode('certDescription')"
@@ -47,6 +49,7 @@
           certificationData?.additionalInfo
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['certAdditionalInfo']"
           [(ngModel)]="certificationData.additionalInfo"
           (blur)="toggleEditMode('certAdditionalInfo')"

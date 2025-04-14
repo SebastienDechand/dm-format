@@ -7,12 +7,13 @@
           <span *ngIf="!editMode['header.title']">{{
             organisationData.header.title
           }}</span>
-          <input
+          <textarea
+            autoResize
             *ngIf="editMode['header.title']"
             [(ngModel)]="organisationData.header.title"
-            class="edit-input"
+            class="edit-textarea"
             (blur)="toggleEditMode('header.title')"
-          />
+          ></textarea>
           <app-edit-button
             *ngIf="isAdmin$ | async"
             (editClicked)="toggleEditMode('header.title')"
@@ -23,6 +24,7 @@
             organisationData.header.description
           }}</span>
           <textarea
+            autoResize
             *ngIf="editMode['header.description']"
             [(ngModel)]="organisationData.header.description"
             class="edit-textarea"
@@ -57,12 +59,13 @@
         <span *ngIf="!editMode['intro.title']">{{
           organisationData.intro.title
         }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['intro.title']"
           [(ngModel)]="organisationData.intro.title"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('intro.title')"
-        />
+        ></textarea>
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('intro.title')"
@@ -73,6 +76,7 @@
           organisationData.intro.description
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['intro.description']"
           [(ngModel)]="organisationData.intro.description"
           class="edit-textarea"
@@ -140,12 +144,13 @@
         <span *ngIf="!editMode['general_conditions.title']">{{
           organisationData.general_conditions.title
         }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['general_conditions.title']"
           [(ngModel)]="organisationData.general_conditions.title"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('general_conditions.title')"
-        />
+        ></textarea>
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('general_conditions.title')"
@@ -157,6 +162,7 @@
           [innerHTML]="organisationData.general_conditions.description"
         ></span>
         <textarea
+          autoResize
           *ngIf="editMode['general_conditions.description']"
           [(ngModel)]="organisationData.general_conditions.description"
           class="edit-textarea"
@@ -183,14 +189,15 @@
                 *ngIf="!editMode['general_conditions.points.' + i + '.title']"
                 >{{ point.title }}</span
               >
-              <input
+              <textarea
+                autoResize
                 *ngIf="editMode['general_conditions.points.' + i + '.title']"
                 [(ngModel)]="point.title"
-                class="edit-input"
+                class="edit-textarea"
                 (blur)="
                   toggleEditMode('general_conditions.points.' + i + '.title')
                 "
-              />
+              ></textarea>
               <app-edit-button
                 *ngIf="isAdmin$ | async"
                 (editClicked)="
@@ -207,6 +214,7 @@
               >{{ point.description }}</span
             >
             <textarea
+              autoResize
               *ngIf="
                 editMode['general_conditions.points.' + i + '.description']
               "
@@ -237,12 +245,13 @@
         <span *ngIf="!editMode['certification.title']">{{
           organisationData.certification.title
         }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['certification.title']"
           [(ngModel)]="organisationData.certification.title"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('certification.title')"
-        />
+        ></textarea>
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('certification.title')"
@@ -254,6 +263,7 @@
           [innerHTML]="organisationData.certification.description"
         ></span>
         <textarea
+          autoResize
           *ngIf="editMode['certification.description']"
           [(ngModel)]="organisationData.certification.description"
           class="edit-textarea"
@@ -278,6 +288,7 @@
             [innerHTML]="detail | safeHtml"
           ></span>
           <textarea
+            autoResize
             *ngIf="editMode['certification.details.' + i]"
             [(ngModel)]="organisationData.certification.details[i]"
             class="edit-textarea"
@@ -294,6 +305,7 @@
           organisationData.certification.note
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['certification.note']"
           [(ngModel)]="organisationData.certification.note"
           class="edit-textarea"
@@ -312,12 +324,13 @@
         <span *ngIf="!editMode['obligations.title']">{{
           organisationData.obligations.title
         }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['obligations.title']"
           [(ngModel)]="organisationData.obligations.title"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('obligations.title')"
-        />
+        ></textarea>
         <app-edit-button
           *ngIf="isAdmin$ | async"
           (editClicked)="toggleEditMode('obligations.title')"
@@ -329,6 +342,7 @@
           [innerHTML]="organisationData.obligations.description"
         ></span>
         <textarea
+          autoResize
           *ngIf="editMode['obligations.description']"
           [(ngModel)]="organisationData.obligations.description"
           class="edit-textarea"
@@ -354,12 +368,13 @@
               <span *ngIf="!editMode['obligations.points.' + i + '.title']">{{
                 point.title
               }}</span>
-              <input
+              <textarea
+                autoResize
                 *ngIf="editMode['obligations.points.' + i + '.title']"
                 [(ngModel)]="point.title"
-                class="edit-input"
+                class="edit-textarea"
                 (blur)="toggleEditMode('obligations.points.' + i + '.title')"
-              />
+              ></textarea>
               <app-edit-button
                 *ngIf="isAdmin$ | async"
                 (editClicked)="
@@ -374,6 +389,7 @@
               >{{ point.description }}</span
             >
             <textarea
+              autoResize
               *ngIf="editMode['obligations.points.' + i + '.description']"
               [(ngModel)]="point.description"
               class="edit-textarea"
@@ -395,6 +411,7 @@
           organisationData.obligations.note
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['obligations.note']"
           [(ngModel)]="organisationData.obligations.note"
           class="edit-textarea"
@@ -415,12 +432,13 @@
             <span *ngIf="!editMode['financing.title']">{{
               organisationData.financing.title
             }}</span>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['financing.title']"
               [(ngModel)]="organisationData.financing.title"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('financing.title')"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('financing.title')"
@@ -432,6 +450,7 @@
               [innerHTML]="organisationData.financing.description | safeHtml"
             ></span>
             <textarea
+              autoResize
               *ngIf="editMode['financing.description']"
               [(ngModel)]="organisationData.financing.description"
               class="edit-textarea"
@@ -449,12 +468,13 @@
             <span *ngIf="!editMode['financing.opco.title']">{{
               organisationData.financing.opco.title
             }}</span>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['financing.opco.title']"
               [(ngModel)]="organisationData.financing.opco.title"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('financing.opco.title')"
-            />
+            ></textarea>
             <app-edit-button
               *ngIf="isAdmin$ | async"
               (editClicked)="toggleEditMode('financing.opco.title')"
@@ -466,6 +486,7 @@
               [innerHTML]="organisationData.financing.opco.description"
             ></span>
             <textarea
+              autoResize
               *ngIf="editMode['financing.opco.description']"
               [(ngModel)]="organisationData.financing.opco.description"
               class="edit-textarea"
@@ -483,10 +504,11 @@
         <span *ngIf="!editMode['financing.subtitle']">{{
           organisationData.financing.subtitle
         }}</span>
-        <input
+        <textarea
+        autoResize
           *ngIf="editMode['financing.subtitle']"
           [(ngModel)]="organisationData.financing.subtitle"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('financing.subtitle')"
         />
         <app-edit-button
@@ -516,6 +538,7 @@
               step.text
             }}</span>
             <textarea
+              autoResize
               *ngIf="editMode['financing.steps.' + i + '.text']"
               [(ngModel)]="step.text"
               class="edit-textarea"

@@ -6,6 +6,7 @@ import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { AdminService } from '../../services/admin.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { EditableImageComponent } from '../editable-image/editable-image.component';
+import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 
 @Component({
   selector: 'app-banner',
@@ -16,6 +17,7 @@ import { EditableImageComponent } from '../editable-image/editable-image.compone
     EditButtonComponent,
     SafeHtmlPipe,
     EditableImageComponent,
+    AutoResizeDirective,
   ],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',

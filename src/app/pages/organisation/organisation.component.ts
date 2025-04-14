@@ -14,6 +14,7 @@ import { PdfFile } from '../../models/pdf.models';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 
 @Component({
   selector: 'app-organisation',
@@ -24,6 +25,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
     EditButtonComponent,
     SafeHtmlPipe,
     EditableImageComponent,
+    AutoResizeDirective,
   ],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',

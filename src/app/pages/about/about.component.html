@@ -6,12 +6,13 @@
         <span *ngIf="!editMode['header.title']">{{
           aboutData.header.title
         }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['header.title']"
           [(ngModel)]="aboutData.header.title"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('header.title')"
-        />
+        ></textarea>
         <app-edit-button
           tabindex="-1"
           *ngIf="isAdmin$ | async"
@@ -24,6 +25,7 @@
           aboutData.header.description
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['header.description']"
           [(ngModel)]="aboutData.header.description"
           class="edit-textarea"
@@ -54,12 +56,13 @@
       <span *ngIf="!editMode['who_we_are.title']">{{
         aboutData.who_we_are.title
       }}</span>
-      <input
+      <textarea
+        autoResize
         *ngIf="editMode['who_we_are.title']"
         [(ngModel)]="aboutData.who_we_are.title"
-        class="edit-input"
+        class="edit-textarea"
         (blur)="toggleEditMode('who_we_are.title')"
-      />
+      ></textarea>
       <app-edit-button
         tabindex="-1"
         *ngIf="isAdmin$ | async"
@@ -80,6 +83,7 @@
             paragraph
           }}</span>
           <textarea
+            autoResize
             *ngIf="editMode['who_we_are.content.' + i]"
             [(ngModel)]="aboutData.who_we_are.content[i]"
             class="edit-textarea"
@@ -101,12 +105,13 @@
       <span *ngIf="!editMode['concept.title']">{{
         aboutData.concept.title
       }}</span>
-      <input
+      <textarea
+        autoResize
         *ngIf="editMode['concept.title']"
         [(ngModel)]="aboutData.concept.title"
-        class="edit-input"
+        class="edit-textarea"
         (blur)="toggleEditMode('concept.title')"
-      />
+      ></textarea>
       <app-edit-button
         tabindex="-1"
         *ngIf="isAdmin$ | async"
@@ -129,12 +134,13 @@
             <span *ngIf="!editMode['concept.steps.' + i + '.title']">{{
               step.title
             }}</span>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['concept.steps.' + i + '.title']"
               [(ngModel)]="step.title"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('concept.steps.' + i + '.title')"
-            />
+            ></textarea>
             <app-edit-button
               tabindex="-1"
               *ngIf="isAdmin$ | async"
@@ -147,6 +153,7 @@
             step.description
           }}</span>
           <textarea
+            autoResize
             *ngIf="editMode['concept.steps.' + i + '.description']"
             [(ngModel)]="step.description"
             class="edit-textarea"
@@ -170,12 +177,13 @@
       <span *ngIf="!editMode['trainings.title']">{{
         aboutData.trainings.title
       }}</span>
-      <input
+      <textarea
+        autoResize
         *ngIf="editMode['trainings.title']"
         [(ngModel)]="aboutData.trainings.title"
-        class="edit-input"
+        class="edit-textarea"
         (blur)="toggleEditMode('trainings.title')"
-      />
+      ></textarea>
       <app-edit-button
         tabindex="-1"
         *ngIf="isAdmin$ | async"
@@ -188,6 +196,7 @@
         aboutData.trainings.description
       }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['trainings.description']"
         [(ngModel)]="aboutData.trainings.description"
         class="edit-textarea"
@@ -209,12 +218,13 @@
         "
       >
         <span *ngIf="!editMode['trainings.list.' + i]">{{ training }}</span>
-        <input
+        <textarea
+          autoResize
           *ngIf="editMode['trainings.list.' + i]"
           [(ngModel)]="aboutData.trainings.list[i]"
-          class="edit-input"
+          class="edit-textarea"
           (blur)="toggleEditMode('trainings.list.' + i)"
-        />
+        ></textarea>
         <app-edit-button
           tabindex="-1"
           *ngIf="isAdmin$ | async"
@@ -228,6 +238,7 @@
         aboutData.trainings.additional_info
       }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['trainings.additional_info']"
         [(ngModel)]="aboutData.trainings.additional_info"
         class="edit-textarea"
@@ -247,12 +258,13 @@
       <span *ngIf="!editMode['certifications.title']">{{
         aboutData.certifications.title
       }}</span>
-      <input
+      <textarea
+        autoResize
         *ngIf="editMode['certifications.title']"
         [(ngModel)]="aboutData.certifications.title"
-        class="edit-input"
+        class="edit-textarea"
         (blur)="toggleEditMode('certifications.title')"
-      />
+      ></textarea>
       <app-edit-button
         tabindex="-1"
         *ngIf="isAdmin$ | async"
@@ -266,6 +278,7 @@
           aboutData.certifications.description
         }}</span>
         <textarea
+          autoResize
           *ngIf="editMode['certifications.description']"
           [(ngModel)]="aboutData.certifications.description"
           class="edit-textarea"
@@ -297,12 +310,13 @@
       <span *ngIf="!editMode['prevention.title']">{{
         aboutData.prevention.title
       }}</span>
-      <input
+      <textarea
+        autoResize
         *ngIf="editMode['prevention.title']"
         [(ngModel)]="aboutData.prevention.title"
-        class="edit-input"
+        class="edit-textarea"
         (blur)="toggleEditMode('prevention.title')"
-      />
+      ></textarea>
       <app-edit-button
         tabindex="-1"
         *ngIf="isAdmin$ | async"
@@ -315,6 +329,7 @@
         aboutData.prevention.description
       }}</span>
       <textarea
+        autoResize
         *ngIf="editMode['prevention.description']"
         [(ngModel)]="aboutData.prevention.description"
         class="edit-textarea"
@@ -343,12 +358,13 @@
             <span *ngIf="!editMode['prevention.points.' + i + '.title']">{{
               risk.title
             }}</span>
-            <input
+            <textarea
+              autoResize
               *ngIf="editMode['prevention.points.' + i + '.title']"
               [(ngModel)]="risk.title"
-              class="edit-input"
+              class="edit-textarea"
               (blur)="toggleEditMode('prevention.points.' + i + '.title')"
-            />
+            ></textarea>
             <app-edit-button
               tabindex="-1"
               *ngIf="isAdmin$ | async"
@@ -364,6 +380,7 @@
             risk.description
           }}</span>
           <textarea
+            autoResize
             *ngIf="editMode['prevention.points.' + i + '.description']"
             [(ngModel)]="risk.description"
             class="edit-textarea"

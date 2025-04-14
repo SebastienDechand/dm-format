@@ -99,6 +99,13 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+.edit-textarea {
+  font: inherit;
+  white-space: pre-wrap;
+  word-wrap: break-word; // 🔧 à ajouter absolument
+  box-sizing: border-box; // 🔧 pour éviter que le padding fausse la hauteur
+}
+
 simple-snack-bar {
   font-size: 1.1rem;
   text-align: center;

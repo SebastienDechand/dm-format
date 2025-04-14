@@ -5,7 +5,6 @@
   border-radius: 10px;
 
   /* 🎛️ Mode édition */
-  .edit-input,
   .edit-textarea {
     border: 2px solid var(--primary-color);
     padding: 5px;
@@ -15,11 +14,6 @@
 
   .edit-textarea {
     min-width: 75%;
-    min-height: 100px;
-  }
-
-  .edit-input {
-    min-width: 50%;
   }
 
   h2 {
@@ -122,7 +116,6 @@
           }
         }
 
-        .edit-input,
         .edit-textarea {
           width: 100%;
         }
@@ -194,7 +187,6 @@
           font-size: 14px;
         }
 
-        .edit-input,
         .edit-textarea {
           font-size: 14px;
         }

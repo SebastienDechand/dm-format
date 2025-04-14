@@ -16,6 +16,7 @@ import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
+import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 
 @Component({
   selector: 'app-program-detail',
@@ -27,6 +28,7 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
     TrainingTestimonialsComponent,
     EditableImageComponent,
     SafeHtmlPipe,
+    AutoResizeDirective,
   ],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
