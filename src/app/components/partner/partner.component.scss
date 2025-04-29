@@ -91,9 +91,10 @@
   }
 
   .closing {
-    margin-top: var(--margin-big);
+    margin: var(--margin-big) auto 0;
     font-style: italic;
     color: var(--secondary-color);
+    width: 80%;
   }
 }
 

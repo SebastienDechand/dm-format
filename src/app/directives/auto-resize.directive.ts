@@ -21,6 +21,5 @@ export class AutoResizeDirective {
     textarea.style.height = 'auto';
     textarea.style.height = textarea.scrollHeight + 'px';
     textarea.style.overflow = 'hidden';
-    console.log('Resized textarea to:', textarea.scrollHeight);
   }
 }

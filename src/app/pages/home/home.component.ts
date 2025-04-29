@@ -44,10 +44,6 @@ export class HomeComponent implements OnInit {
   onBannerImageUploaded(imageData: { url: string; altText: string }): void {
     if (this.homeData && this.homeData.banner) {
       this.homeData.banner.image = imageData.url;
-
-      this.saveChanges(() => {
-        console.log('Image de bannière mise à jour avec succès');
-      });
     }
   }
 

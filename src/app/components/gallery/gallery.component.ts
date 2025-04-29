@@ -101,23 +101,19 @@ export class GalleryComponent
   }
 
   openLightbox(image: GalleryImage): void {
-    console.log("Ouverture lightbox pour l'image:", image);
     this.selectedImage = image;
   }
 
   closeLightbox(): void {
-    console.log('Fermeture lightbox');
     this.selectedImage = null;
   }
 
   uploadImage(event: any): void {
     const file = event.target.files[0];
     if (!file) {
-      console.log('Aucun fichier sélectionné');
       return;
     }
 
-    console.log("Upload de l'image:", file.name);
     this.galleryService.uploadImage(file).subscribe({
       next: (image) => console.log('Image uploadée avec succès:', image),
       error: (error) => console.error("Erreur lors de l'upload:", error),
@@ -125,20 +121,17 @@ export class GalleryComponent
   }
 
   openDeleteModal(imageId: string) {
-    console.log("Ouverture modal suppression pour l'image:", imageId);
     this.deleteImageId = imageId;
     this.showDeleteModal = true;
   }
 
   closeDeleteModal() {
-    console.log('Fermeture modal suppression');
     this.showDeleteModal = false;
     this.deleteImageId = null;
   }
 
   confirmDelete() {
     if (this.deleteImageId) {
-      console.log('Confirmation suppression image:', this.deleteImageId);
       this.galleryService.deleteImage(this.deleteImageId);
     }
     this.closeDeleteModal();
@@ -146,7 +139,6 @@ export class GalleryComponent
 
   // Méthode pour forcer le rechargement des images
   refreshGallery(): void {
-    console.log('Actualisation forcée de la galerie');
     this.loadImages();
   }
 }

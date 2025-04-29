@@ -33,7 +33,6 @@ export class ImageUploadService {
     const url = `${this.apiUrl}/images/${pageId}`;
 
     return this.http.put<any>(url, formData, { headers }).pipe(
-      tap((response) => console.log('Réponse serveur:', response)),
       catchError((error) => {
         console.error("Erreur d'upload détaillée:", error);
         return throwError(() => new Error("Échec de l'upload"));
