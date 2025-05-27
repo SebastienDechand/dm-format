@@ -13,6 +13,26 @@ nav {
   display: flex;
   flex-direction: column;
 
+  // Boutons de navigation classiques
+  .nav-links button:not(.contact).nav-active,
+  .sidenav-content button:not(.contact).nav-active {
+    position: relative;
+    font-weight: bold;
+    color: var(--primary-color);
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0px;
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background-color: var(--primary-color);
+      border-radius: 1px;
+      transition: all 0.3s ease;
+    }
+  }
+
   // Rangée principale
   .nav-top-row {
     display: flex;
@@ -88,6 +108,12 @@ nav {
 
       &:hover {
         background-color: var(--info-color);
+      }
+
+      &.nav-active {
+        font-weight: bold;
+        background-color: var(--danger-color);
+        color: var(--primary-color);
       }
     }
   }

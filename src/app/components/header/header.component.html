@@ -19,11 +19,26 @@
           </button>
         </mat-menu>
 
-        <button mat-button [routerLink]="['/about']">Qui sommes-nous</button>
-        <button mat-button [routerLink]="['/organisation']">
+        <button
+          mat-button
+          [routerLink]="['/about']"
+          routerLinkActive="nav-active"
+        >
+          Qui sommes-nous
+        </button>
+        <button
+          mat-button
+          [routerLink]="['/organisation']"
+          routerLinkActive="nav-active"
+        >
           Conditions d'organisation
         </button>
-        <button mat-button [routerLink]="['/contact']" class="contact">
+        <button
+          mat-button
+          [routerLink]="['/contact']"
+          class="contact"
+          routerLinkActive="nav-active"
+        >
           Contactez-nous !
         </button>
       </div>
@@ -38,7 +53,10 @@
   </div>
 
   <!-- Deuxième ligne pour les boutons d'authentification sur petits écrans -->
-  <div class="nav-bottom-row" *ngIf="isSmallScreen && isBrowser && showLoginButton">
+  <div
+    class="nav-bottom-row"
+    *ngIf="isSmallScreen && isBrowser && showLoginButton"
+  >
     <div class="auth-buttons-mobile">
       <button
         mat-button
@@ -71,7 +89,11 @@
 </nav>
 
 <!-- Sidenav pour mobile -->
-<div class="sidenav-container" [class.open]="isSidenavOpen" *ngIf="isMobileView && isBrowser">
+<div
+  class="sidenav-container"
+  [class.open]="isSidenavOpen"
+  *ngIf="isMobileView && isBrowser"
+>
   <div class="sidenav-backdrop" (click)="closeSidenav()"></div>
   <div class="sidenav">
     <div class="sidenav-header">
@@ -98,10 +120,19 @@
       <button mat-button [routerLink]="['/about']" (click)="closeSidenav()">
         Qui sommes-nous
       </button>
-      <button mat-button [routerLink]="['/organisation']" (click)="closeSidenav()">
+      <button
+        mat-button
+        [routerLink]="['/organisation']"
+        (click)="closeSidenav()"
+      >
         Conditions d'organisation
       </button>
-      <button mat-button [routerLink]="['/contact']" class="contact" (click)="closeSidenav()">
+      <button
+        mat-button
+        [routerLink]="['/contact']"
+        class="contact"
+        (click)="closeSidenav()"
+      >
         Contactez-nous !
       </button>
     </div>

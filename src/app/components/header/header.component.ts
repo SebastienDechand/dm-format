@@ -1,12 +1,18 @@
-// header.component.ts
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, HostListener, PLATFORM_ID, Inject } from '@angular/core';
+import {
+  Component,
+  inject,
+  OnInit,
+  HostListener,
+  PLATFORM_ID,
+  Inject,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
@@ -23,6 +29,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     CommonModule,
     MatIconModule,
     MatSidenavModule,
+    RouterLinkActive,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -59,7 +66,7 @@ export class HeaderComponent implements OnInit {
     if (this.isBrowser) {
       this.breakpointObserver
         .observe(['(max-width: 1400px)', '(max-width: 768px)'])
-        .subscribe(result => {
+        .subscribe((result) => {
           this.isMobileView = result.breakpoints['(max-width: 1400px)'];
           this.isSmallScreen = result.breakpoints['(max-width: 768px)'];
         });
