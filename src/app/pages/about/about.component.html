@@ -39,15 +39,10 @@
       </p>
     </div>
 
-    <app-editable-image
-      *ngIf="imageRefreshTrigger.header"
-      pageId="about-header"
-      [imageSrc]="aboutData.header.image.src || ''"
-      [altText]="aboutData.header.image.alt || 'Image d\'en-tête À propos'"
-      imageClass="about-image"
-      [isEditable]="(isAdmin$ | async) ?? false"
-      (imageUploaded)="onHeaderImageUploaded($event)"
-    ></app-editable-image>
+    <video class="header-video" controls controlsList="nodownload">
+      <source src="assets/video/DM FORMAT.mp4" type="video/mp4" />
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
   </div>
 
   <!-- QUI SOMMES-NOUS ? -->
