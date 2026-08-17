@@ -84,7 +84,7 @@ function createUrlEntry(
 
 // Route pour robots.txt (si non servi par les fichiers statiques)
 app.get('/robots.txt', (req, res) => {
-  res.sendFile(join(browserDistFolder, 'assets', 'robots.txt'));
+  res.sendFile(join(browserDistFolder, 'robots.txt'));
 });
 
 /**
