@@ -1,33 +1,41 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, combineLatest, map } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
+  private authService = inject(AuthService);
   private adminKey = 'isAdmin';
 
-  private isAdminSubject = new BehaviorSubject<boolean>(this.isAdminMode());
-  isAdminMode$ = this.isAdminSubject.asObservable();
+  private adminToggleSubject = new BehaviorSubject<boolean>(
+    this.isAdminToggleOn()
+  );
 
-  constructor() {}
+  // Edit UI is only ever shown when the user is actually authenticated.
+  // The toggle just lets a logged-in user switch between edit and preview mode.
+  isAdminMode$ = combineLatest([
+    this.authService.isLoggedIn$,
+    this.adminToggleSubject,
+  ]).pipe(map(([isLoggedIn, toggle]) => isLoggedIn && toggle));
 
   setAdminMode(enabled: boolean) {
     if (typeof window !== 'undefined') {
       localStorage.setItem(this.adminKey, JSON.stringify(enabled));
     }
-    this.isAdminSubject.next(enabled);
+    this.adminToggleSubject.next(enabled);
   }
 
   toggleAdminMode() {
     if (typeof window !== 'undefined') {
-      const newValue = !this.isAdminSubject.value;
-      this.isAdminSubject.next(newValue);
+      const newValue = !this.adminToggleSubject.value;
+      this.adminToggleSubject.next(newValue);
       localStorage.setItem(this.adminKey, JSON.stringify(newValue));
     }
   }
 
-  private isAdminMode(): boolean {
+  private isAdminToggleOn(): boolean {
     if (
       typeof window !== 'undefined' &&
       localStorage.getItem(this.adminKey) !== null

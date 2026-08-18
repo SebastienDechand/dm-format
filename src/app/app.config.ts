@@ -1,4 +1,8 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -13,6 +17,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 import { RECAPTCHA_SETTINGS, RecaptchaModule } from 'ng-recaptcha-2';
 import { routes } from './app.routes';
+import { authInterceptor } from './interceptors/auth.interceptor';
 import { ApiService } from './services/api.service';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { environment } from '../environments/environment.prod';
@@ -26,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideAnimations(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     ApiService,
     importProvidersFrom(RecaptchaModule, SlickCarouselModule, FileUploadModule),
     {
