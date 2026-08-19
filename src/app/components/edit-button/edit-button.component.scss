@@ -3,11 +3,11 @@
   border: none;
   cursor: pointer;
   font-size: 20px;
-  color: #007bff;
+  color: var(--button-color);
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: #0056b3;
+    color: var(--button-color-hover);
   }
 
   i {
