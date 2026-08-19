@@ -44,3 +44,6 @@ Thumbs.db
 # Environment variables
 src/environments/environment.prod.ts
 .vercel
+
+# Superpowers scratch workspace (ledgers, briefs, review packages)
+/.superpowers/
