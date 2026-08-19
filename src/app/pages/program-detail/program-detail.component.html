@@ -60,7 +60,7 @@
       <h2><span>À propos</span> de cette session</h2>
       <div class="details">
         <div class="detail-item">
-          <i class="fa-solid fa-clock"></i>
+          <lucide-icon name="clock"></lucide-icon>
           <span>
             <strong>Durée </strong>
             <div *ngIf="!editMode['duration']">{{ program.duration }}</div>
@@ -78,7 +78,7 @@
           </span>
         </div>
         <div class="detail-item">
-          <i class="fa-solid fa-check"></i>
+          <lucide-icon name="check"></lucide-icon>
           <span>
             <strong>Pré-requis </strong>
             <div *ngIf="!editMode['prerequisite']">
@@ -98,7 +98,7 @@
           </span>
         </div>
         <div class="detail-item">
-          <i class="fa-solid fa-people-group"></i>
+          <lucide-icon name="users"></lucide-icon>
           <span>
             <strong>Public cible </strong>
             <div *ngIf="!editMode['audience']">{{ program.audience }}</div>
@@ -336,7 +336,7 @@
     <!-- Save button -->
     <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
       <span class="save-text">Sauvegarder les modifications</span>
-      <i class="fa-solid fa-floppy-disk save-icon"></i>
+      <lucide-icon name="save" class="save-icon"></lucide-icon>
     </button>
   </div>
 </section>

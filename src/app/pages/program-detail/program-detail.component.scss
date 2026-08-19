@@ -319,9 +319,13 @@
     gap: 50px;
     width: 100%;
 
-    i {
-      font-size: var(--h3-size-desktop);
+    lucide-icon {
       color: var(--primary-color);
+
+      svg {
+        width: var(--h3-size-desktop);
+        height: var(--h3-size-desktop);
+      }
     }
 
     .detail-item {
@@ -444,7 +448,11 @@
 
     .save-icon {
       display: inline-block;
-      font-size: 20px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

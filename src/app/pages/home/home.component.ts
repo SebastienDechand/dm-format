@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
+import { LucideAngularModule, Save } from 'lucide-angular';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,9 @@ import { ToastService } from '../../services/toast.service';
     ProgramsComponent,
     PartnerComponent,
     GalleryComponent,
+    LucideAngularModule,
   ],
+  providers: [LucideAngularModule.pick({ Save }).providers ?? []],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
