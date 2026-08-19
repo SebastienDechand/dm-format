@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { LucideAngularModule, Save } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
+import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { About } from '../../models/about.models';
 import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
@@ -20,6 +21,7 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
     CommonModule,
     FormsModule,
     EditButtonComponent,
+    EditableImageComponent,
     AutoResizeDirective,
     LucideAngularModule,
     DynamicIconComponent,
