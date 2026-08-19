@@ -41,8 +41,8 @@
 
   .header-video {
     width: 35vw;
-    border-radius: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
     flex-shrink: 0;
   }
 
@@ -63,8 +63,8 @@
 
     .about-img {
       height: 300px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
     }
   }
 
@@ -91,8 +91,8 @@
       text-align: center;
       background-color: var(--light-color);
       padding: 32px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
 
       i {
         font-size: 36px;
@@ -161,7 +161,7 @@
     border: 2px solid var(--primary-color);
     padding: 5px;
     font-size: var(--text-size-desktop);
-    border-radius: 5px;
+    border-radius: var(--radius-control);
   }
 
   .edit-textarea {
@@ -229,7 +229,7 @@
 /* Styles pour les images modifiables */
 ::ng-deep .about-image {
   width: 30vw;
-  border-radius: 20px;
+  border-radius: var(--radius-card);
 }
 
 .about {
