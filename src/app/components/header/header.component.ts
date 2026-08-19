@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { LucideAngularModule, Menu, X } from 'lucide-angular';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
@@ -30,7 +31,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     MatIconModule,
     MatSidenavModule,
     RouterLinkActive,
+    LucideAngularModule,
   ],
+  providers: [LucideAngularModule.pick({ Menu, X }).providers ?? []],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   standalone: true,

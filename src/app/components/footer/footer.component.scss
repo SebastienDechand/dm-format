@@ -36,9 +36,13 @@
   align-items: center;
   justify-content: center;
 
-  i {
+  lucide-icon {
     color: var(--light-color);
-    font-size: 32px;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
   }
 
   a,
@@ -101,9 +105,13 @@
       color: var(--light-color);
     }
 
-    i.fa-solid.fa-lock {
-      font-size: 16px;
+    lucide-icon {
       color: white;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 
@@ -121,9 +129,13 @@
     font-size: 20px;
     animation: fadeIn 0.5s ease-in-out;
 
-    i {
-      font-size: 32px;
+    lucide-icon {
       color: var(--success-color);
+
+      svg {
+        width: 32px;
+        height: 32px;
+      }
     }
   }
 
@@ -231,8 +243,9 @@
 
   .contact-item {
     width: 180px;
-    i {
-      font-size: 28px;
+    lucide-icon svg {
+      width: 28px;
+      height: 28px;
     }
   }
 }
@@ -246,8 +259,9 @@
   .contact-item {
     width: 160px;
 
-    i {
-      font-size: 26px;
+    lucide-icon svg {
+      width: 26px;
+      height: 26px;
     }
 
     a,
@@ -287,8 +301,9 @@
       font-size: 13px;
     }
 
-    i {
-      font-size: 24px;
+    lucide-icon svg {
+      width: 24px;
+      height: 24px;
     }
   }
 
@@ -382,8 +397,9 @@
   }
 
   .contact-item {
-    i {
-      font-size: 22px;
+    lucide-icon svg {
+      width: 22px;
+      height: 22px;
     }
 
     a,
@@ -403,8 +419,9 @@
     .verified-number {
       font-size: 16px;
 
-      i {
-        font-size: 22px;
+      lucide-icon svg {
+        width: 22px;
+        height: 22px;
       }
     }
   }

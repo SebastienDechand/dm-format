@@ -47,7 +47,7 @@
     <!-- Burger menu pour écrans <= 1400px -->
     <div class="mobile-nav" *ngIf="isMobileView && isBrowser">
       <button mat-icon-button (click)="toggleSidenav()">
-        <mat-icon>menu</mat-icon>
+        <lucide-icon name="menu"></lucide-icon>
       </button>
     </div>
   </div>
@@ -98,7 +98,7 @@
   <div class="sidenav">
     <div class="sidenav-header">
       <button mat-icon-button (click)="closeSidenav()">
-        <mat-icon>close</mat-icon>
+        <lucide-icon name="x"></lucide-icon>
       </button>
     </div>
 

@@ -3,10 +3,23 @@ import { Component, ViewChild } from '@angular/core';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
 import { ModalComponent } from '../modal/modal.component';
 import { environment } from '../../../environments/environment';
+import {
+  LucideAngularModule,
+  MapPin,
+  Globe,
+  Lock,
+  Phone,
+  Mail,
+  Scale,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-footer',
-  imports: [ModalComponent, CommonModule, RecaptchaModule],
+  imports: [ModalComponent, CommonModule, RecaptchaModule, LucideAngularModule],
+  providers: [
+    LucideAngularModule.pick({ MapPin, Globe, Lock, Phone, Mail, Scale })
+      .providers ?? [],
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
   standalone: true,
