@@ -4,8 +4,8 @@
   background-color: rgba(0, 0, 0, 0.85);
   color: white;
   padding: 10px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
   max-width: 300px;
   pointer-events: none;
 }
@@ -34,8 +34,8 @@
   width: 350px;
   max-height: 80vh;
   background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
   z-index: 998;
   overflow-y: auto;
   display: flex;
@@ -50,7 +50,7 @@
   padding: 12px 16px;
   border-bottom: 1px solid #e0e0e0;
   background-color: #f5f5f5;
-  border-radius: 8px 8px 0 0;
+  border-radius: var(--radius-card) var(--radius-card) 0 0;
 }
 
 .calendar-footer {
@@ -171,8 +171,8 @@
   background-color: rgba(0, 0, 0, 0.85);
   color: white;
   padding: 12px;
-  border-radius: 4px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
   max-width: 320px;
   min-width: 200px;
   pointer-events: auto;
