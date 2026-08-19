@@ -129,10 +129,14 @@
       padding: 32px;
       flex: 1;
 
-      i {
-        font-size: 36px;
+      lucide-icon {
         color: var(--primary-color);
         margin-bottom: var(--margin-small);
+
+        svg {
+          width: 36px;
+          height: 36px;
+        }
       }
 
       p {
@@ -223,10 +227,14 @@
           margin-bottom: 0;
           line-height: 1.5;
         }
-        i {
-          font-size: 36px;
+        lucide-icon {
           color: var(--primary-color);
           margin-bottom: var(--margin-small);
+
+          svg {
+            width: 36px;
+            height: 36px;
+          }
         }
       }
     }
@@ -292,7 +300,11 @@
 
     .save-icon {
       display: inline-block;
-      font-size: 20px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 }

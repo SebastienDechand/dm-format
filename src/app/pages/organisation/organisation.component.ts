@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { LucideAngularModule, GraduationCap, Save } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { ConditionsData } from '../../models/organisation.models';
 import { AdminService } from '../../services/admin.service';
@@ -15,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
+import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon.component';
 
 @Component({
   selector: 'app-organisation',
@@ -26,7 +28,10 @@ import { AutoResizeDirective } from '../../directives/auto-resize.directive';
     SafeHtmlPipe,
     EditableImageComponent,
     AutoResizeDirective,
+    LucideAngularModule,
+    DynamicIconComponent,
   ],
+  providers: [LucideAngularModule.pick({ GraduationCap, Save }).providers ?? []],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',
 })

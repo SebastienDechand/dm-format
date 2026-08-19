@@ -94,10 +94,14 @@
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-soft);
 
-      i {
-        font-size: 36px;
+      lucide-icon {
         color: var(--primary-color);
         margin-bottom: var(--margin-small);
+
+        svg {
+          width: 36px;
+          height: 36px;
+        }
       }
 
       p {
@@ -220,7 +224,11 @@
 
       .save-icon {
         display: inline-block;
-        font-size: 20px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
   }

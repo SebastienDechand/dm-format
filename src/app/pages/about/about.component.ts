@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
+import { LucideAngularModule, Save } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
-import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { About } from '../../models/about.models';
 import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
@@ -11,6 +11,7 @@ import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
+import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon.component';
 
 @Component({
   selector: 'app-about',
@@ -19,9 +20,11 @@ import { AutoResizeDirective } from '../../directives/auto-resize.directive';
     CommonModule,
     FormsModule,
     EditButtonComponent,
-    EditableImageComponent,
     AutoResizeDirective,
+    LucideAngularModule,
+    DynamicIconComponent,
   ],
+  providers: [LucideAngularModule.pick({ Save }).providers ?? []],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })

@@ -123,7 +123,7 @@
           trackBy: trackByIndex
         "
       >
-        <i class="fa-solid" [ngClass]="step.icon"></i>
+        <app-dynamic-icon [faClass]="step.icon"></app-dynamic-icon>
         <p class="step-title">
           <strong>
             <span *ngIf="!editMode['concept.steps.' + i + '.title']">{{
@@ -346,7 +346,7 @@
           trackBy: trackByIndex
         "
       >
-        <i class="fa-solid" [ngClass]="risk.icon"></i>
+        <app-dynamic-icon [faClass]="risk.icon"></app-dynamic-icon>
 
         <p>
           <strong>
@@ -396,6 +396,6 @@
   <!-- Bouton de sauvegarde global -->
   <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
     <span class="save-text">Sauvegarder les modifications</span>
-    <i class="fa-solid fa-floppy-disk save-icon"></i>
+    <lucide-icon name="save" class="save-icon"></lucide-icon>
   </button>
 </section>

@@ -182,7 +182,7 @@
             trackBy: trackByIndex
           "
         >
-          <i class="fa-solid" [ngClass]="point.icon"></i>
+          <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
           <p>
             <strong>
               <span
@@ -282,7 +282,7 @@
             trackBy: trackByIndex
           "
         >
-          <span class="badge"><i class="fa-solid fa-graduation-cap"></i></span>
+          <span class="badge"><lucide-icon name="graduation-cap"></lucide-icon></span>
           <span
             *ngIf="!editMode['certification.details.' + i]"
             [innerHTML]="detail | safeHtml"
@@ -362,7 +362,7 @@
             trackBy: trackByIndex
           "
         >
-          <i class="fa-solid" [ngClass]="point.icon"></i>
+          <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
           <p>
             <strong>
               <span *ngIf="!editMode['obligations.points.' + i + '.title']">{{
@@ -527,11 +527,10 @@
           class="finance-step"
         >
           <div>
-            <i
+            <app-dynamic-icon
               *ngIf="!editMode['financing.steps.' + i + '.icon']"
-              class="fa-solid"
-              [ngClass]="step.icon"
-            ></i>
+              [faClass]="step.icon"
+            ></app-dynamic-icon>
           </div>
           <p>
             <span *ngIf="!editMode['financing.steps.' + i + '.text']">{{
@@ -556,7 +555,7 @@
     <!-- Bouton de sauvegarde global -->
     <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
       <span class="save-text">Sauvegarder les modifications</span>
-      <i class="fa-solid fa-floppy-disk save-icon"></i>
+      <lucide-icon name="save" class="save-icon"></lucide-icon>
     </button>
   </div>
 </section>
