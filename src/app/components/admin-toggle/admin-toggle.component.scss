@@ -12,10 +12,6 @@
     box-shadow: var(--shadow-overlay);
     transition: all 0.3s ease;
 
-    &:hover {
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    }
-
     i {
       font-size: 16px;
       margin-right: 8px;
@@ -46,10 +42,6 @@
         transition: all 0.3s ease;
         background-color: var(--button-color);
         border: none;
-
-        &:hover {
-          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
 
         i {
           font-size: 18px;
