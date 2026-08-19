@@ -4,7 +4,7 @@
 
 **Goal:** Replace every Font Awesome and Angular Material icon usage in the DM Format Angular site with `lucide-angular`, including the icon names driven by admin-edited page content stored in the database.
 
-**Architecture:** `lucide-angular` icons are imported individually (PascalCase icon objects) and registered per-component via `LucideAngularModule.pick({ IconOne, IconTwo })` in each standalone component's `imports` array — the same per-component-imports pattern this codebase already uses everywhere. Static template icons become `<lucide-icon name="kebab-case-name" />`. The five content-driven icon spots (Organisation ×3, About ×2) route through one new shared `DynamicIconComponent` that normalizes the stored Font Awesome class string and resolves it against a fixed lookup table, with a fallback icon for anything unmapped.
+**Architecture:** `lucide-angular` icons are imported individually (PascalCase icon objects) and registered per-component: bare `LucideAngularModule` goes in the standalone component's `imports` array (this registers the `<lucide-icon>` element), and `LucideAngularModule.pick({ IconOne, IconTwo }).providers ?? []` goes in the component's `providers` array (this supplies the picked icon set via DI) — **not** `.pick(...)` directly inside `imports`, which Angular 19's standalone-component compiler rejects at build time (`TS-992012`/`TS2322`, `ModuleWithProviders` is not a valid `imports` entry — discovered and fixed during Task 2). Static template icons become `<lucide-icon name="kebab-case-name" />`. The five content-driven icon spots (Organisation ×3, About ×2) route through one new shared `DynamicIconComponent` that normalizes the stored Font Awesome class string and resolves it against a fixed lookup table, with a fallback icon for anything unmapped.
 
 **Tech Stack:** Angular 19 (standalone components), `lucide-angular@1.0.0` (already installed — verified compatible with `@angular/core` `13.x`–`21.x`).
 
@@ -13,6 +13,8 @@
 ## Global Constraints
 
 - `lucide-angular@1.0.0` is already in `package.json` (installed during spec verification). Every icon name below was checked against `node_modules/lucide-angular/icons/*.d.ts` — use the exact names given, do not guess or substitute.
+- **`imports` vs `providers` split (found in Task 2, applies to every remaining task):** add bare `LucideAngularModule` to the component's `imports: [...]` array. Add `LucideAngularModule.pick({ IconOne, IconTwo }).providers ?? []` to the component's `providers: [...]` array (create a `providers: [...]` array if the component doesn't have one yet). Never put `.pick(...)` inside `imports` — it compiles to a `ModuleWithProviders` value, which Angular 19 rejects there.
+- **Icon-font sizing does not carry over (found in Task 2, check for it in every task):** if a component's `.scss` sizes its old Font Awesome icons via CSS `font-size` on the `i`/icon-class selector, that rule has no effect on Lucide's `<lucide-icon>` (it renders an inline `<svg>` with numeric `width`/`height` attributes, not a font glyph). Before finishing a task, check the component's `.scss` for any `font-size` rule that was sizing an icon you just migrated — if found, replace it with a rule targeting `lucide-icon svg { width: Npx; height: Npx; }` (keep the same pixel value) so the icon keeps its existing visual size. Leave `color`/other non-size rules on `lucide-icon` itself (Lucide's stroke defaults to `currentColor`, so color inheritance keeps working unchanged).
 - Default Lucide styling (stroke-width 2, `currentColor`) is kept as-is — no custom size/stroke overrides unless a task says so.
 - `MatIconModule` is removed from a component's `imports` array only when that component has zero remaining `<mat-icon>` usages. Other Angular Material modules (`MatButtonModule`, `MatCardModule`, etc.) are NOT touched — out of scope.
 - `npm run lint` is broken at this repo's baseline for an unrelated, pre-existing reason (ESLint config migration) — every task's verification gate is `npm run build` passing, not lint.
@@ -211,7 +213,7 @@ In `calendar.component.ts`: remove `MatIconModule` import and from `imports: [..
 ```typescript
 import { LucideAngularModule, X, Calendar, RefreshCw } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ X, Calendar, RefreshCw })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ X, Calendar, RefreshCw }).providers ?? []]` (see Global Constraints — never put `.pick(...)` inside `imports`).
 
 - [ ] **Step 2: Testimonial dialog**
 
@@ -221,7 +223,7 @@ In `testimonial-dialog.component.ts`: remove `MatIconModule`, add:
 ```typescript
 import { LucideAngularModule, X } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ X })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ X }).providers ?? []]`.
 
 - [ ] **Step 3: Login**
 
@@ -251,7 +253,7 @@ In `login.component.ts`: remove `MatIconModule`, add:
 ```typescript
 import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Eye, EyeOff })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Eye, EyeOff }).providers ?? []]`.
 
 - [ ] **Step 4: Verify**
 
@@ -277,7 +279,7 @@ In `contact.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Clock, Building2, User, Mail, Phone, MessageCircle, Send, House, Lock } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Clock, Building2, User, Mail, Phone, MessageCircle, Send, House, Lock })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Clock, Building2, User, Mail, Phone, MessageCircle, Send, House, Lock }).providers ?? []]`.
 
 In `contact.component.html`, replace each `<i class="fa-solid fa-xxx">` with `<lucide-icon name="kebab-name"></lucide-icon>`:
 - Line ~14: `fa-building` → `building-2`
@@ -321,7 +323,7 @@ In `gallery.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Trash2, X, Upload } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Trash2, X, Upload })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Trash2, X, Upload }).providers ?? []]`.
 
 In `gallery.component.html`:
 - Line ~28: `fa-trash-can` → `trash-2`
@@ -335,7 +337,7 @@ In `editable-image.component.ts`, add:
 ```typescript
 import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ LoaderCircle, Camera })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ LoaderCircle, Camera }).providers ?? []]`.
 
 In `editable-image.component.html`:
 - Line ~11: `<i class="fa-solid fa-spinner fa-spin">` (or similar — read the file, the classes may be split across attributes) → `<lucide-icon name="loader-circle" class="spin-icon"></lucide-icon>`. Font Awesome's `fa-spin` class applied a CSS rotation animation that no longer exists once the `fa-spin` class is gone — add a small CSS rule to `editable-image.component.scss` to replace it:
@@ -357,7 +359,7 @@ In `edit-button.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Pen } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Pen })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Pen }).providers ?? []]`.
 
 In `edit-button.component.html` line ~2: `fa-pen` → `pen`.
 
@@ -367,7 +369,7 @@ In `admin-toggle.component.ts`, add:
 ```typescript
 import { LucideAngularModule, User, ShieldUser } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ User, ShieldUser })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ User, ShieldUser }).providers ?? []]`.
 
 In `admin-toggle.component.html`, there are two occurrences (lines ~3 and ~10) of:
 ```html
@@ -405,7 +407,7 @@ In `program-detail.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Clock, Check, Users, Save } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Clock, Check, Users, Save })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Clock, Check, Users, Save }).providers ?? []]`.
 
 In `program-detail.component.html`:
 - Line ~63: `fa-clock` → `clock`
@@ -419,7 +421,7 @@ In `home.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Save } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Save })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Save }).providers ?? []]`.
 
 In `home.component.html` line ~20: `fa-floppy-disk` → `save`.
 
@@ -447,7 +449,7 @@ In `training-testimonials.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Trash2, ShieldCheck, Shield } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Trash2, ShieldCheck, Shield })` to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Trash2, ShieldCheck, Shield }).providers ?? []]`.
 
 In `training-testimonials.component.html`:
 - Line ~45: `fa-trash-can` → `trash-2`
@@ -482,7 +484,7 @@ In `organisation.component.ts`, add:
 ```typescript
 import { LucideAngularModule, GraduationCap, Save } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ GraduationCap, Save })` to `imports: [...]`. Also add the shared component:
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ GraduationCap, Save }).providers ?? []]`. Also add the shared component:
 ```typescript
 import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon.component';
 ```
@@ -505,7 +507,7 @@ In `about.component.ts`, add:
 ```typescript
 import { LucideAngularModule, Save } from 'lucide-angular';
 ```
-and `LucideAngularModule.pick({ Save })` to `imports: [...]`. Also add `DynamicIconComponent` (same import as Step 1) to `imports: [...]`.
+Add `LucideAngularModule` to `imports: [...]`, and add `providers: [LucideAngularModule.pick({ Save }).providers ?? []]`. Also add `DynamicIconComponent` (same import as Step 1) to `imports: [...]`.
 
 In `about.component.html`:
 - Line ~126: `<i class="fa-solid" [ngClass]="step.icon"></i>` → `<app-dynamic-icon [faClass]="step.icon"></app-dynamic-icon>`
