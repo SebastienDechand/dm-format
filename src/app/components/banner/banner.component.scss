@@ -67,7 +67,7 @@
     border: 2px solid var(--primary-color);
     padding: 5px;
     font-size: var(--text-size-desktop);
-    border-radius: 5px;
+    border-radius: var(--radius-control);
   }
 
   .edit-textarea {
@@ -88,7 +88,7 @@
 ::ng-deep .hero-banner-image {
   width: 100%;
   max-height: 70vh;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
 }
 
 /* RESPONSIVE */

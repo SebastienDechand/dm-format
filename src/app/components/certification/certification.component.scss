@@ -9,7 +9,7 @@
     border: 2px solid var(--primary-color);
     padding: 5px;
     font-size: var(--text-size-desktop);
-    border-radius: 5px;
+    border-radius: var(--radius-control);
   }
 
   .edit-textarea {
@@ -46,7 +46,7 @@
         padding: 16px 32px;
         text-decoration: none;
         font-weight: bold;
-        border-radius: 5px;
+        border-radius: var(--radius-control);
         transition: background 0.3s ease-in-out;
 
         &:hover {
@@ -72,7 +72,7 @@
   margin: 50px auto;
   padding: 20px;
   background: var(--background-color);
-  border-radius: 10px;
+  border-radius: var(--radius-card);
 }
 
 h4.section-title {
@@ -101,8 +101,8 @@ h4.section-title {
   justify-content: space-between;
   background: white;
   padding: 10px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
 }
 
 .pdf-link {
@@ -135,7 +135,7 @@ h4.section-title {
   text-align: center;
   padding: 20px;
   background: var(--background-color);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   margin-top: 20px;
 }
 
@@ -149,7 +149,7 @@ h4.section-title {
   color: white;
   padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: var(--radius-control);
   cursor: pointer;
   transition: background 0.3s ease-in-out;
 }
