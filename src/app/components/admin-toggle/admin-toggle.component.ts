@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { AdminService } from '../../services/admin.service';
 import { AuthService } from '../../services/auth.service';
 import { Observable } from 'rxjs';
@@ -12,7 +11,7 @@ import { LucideAngularModule, User, ShieldUser } from 'lucide-angular';
   templateUrl: './admin-toggle.component.html',
   styleUrl: './admin-toggle.component.scss',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, LucideAngularModule],
+  imports: [CommonModule, MatButtonModule, LucideAngularModule],
   providers: [LucideAngularModule.pick({ User, ShieldUser }).providers ?? []],
 })
 export class AdminToggleComponent {
