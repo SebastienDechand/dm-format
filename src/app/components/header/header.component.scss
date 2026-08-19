@@ -6,8 +6,8 @@ nav {
   width: 100%;
   color: var(--dark-color);
   z-index: 1000;
-  background-color: var(--background-color);
-  border-bottom: 1px solid var(--border-color);
+  background-color: var(--light-color);
+  box-shadow: var(--shadow-soft);
   transition: height 0.3s ease;
   height: 70px;
   display: flex;
@@ -112,7 +112,7 @@ nav {
 
       &.nav-active {
         font-weight: bold;
-        background-color: var(--danger-color);
+        background-color: var(--primary-tint);
         color: var(--primary-color);
       }
     }
@@ -177,7 +177,7 @@ nav {
       display: flex;
       justify-content: flex-end;
       padding: var(--padding-small);
-      border-bottom: 1px solid var(--border-color);
+      box-shadow: var(--shadow-soft);
     }
 
     .sidenav-content {
