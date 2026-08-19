@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatIconModule } from '@angular/material/icon';
+import { LucideAngularModule, Eye, EyeOff } from 'lucide-angular';
 import { ToastService } from '../../services/toast.service';
 
 @Component({
@@ -29,8 +29,9 @@ import { ToastService } from '../../services/toast.service';
     MatInputModule,
     MatCardModule,
     MatSnackBarModule,
-    MatIconModule,
+    LucideAngularModule,
   ],
+  providers: [LucideAngularModule.pick({ Eye, EyeOff }).providers ?? []],
 })
 export class LoginComponent {
   private router = inject(Router);

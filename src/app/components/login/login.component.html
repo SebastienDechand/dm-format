@@ -35,9 +35,8 @@
             (click)="hidePassword = !hidePassword"
             type="button"
           >
-            <mat-icon>{{
-              hidePassword ? 'visibility_off' : 'visibility'
-            }}</mat-icon>
+            <lucide-icon *ngIf="!hidePassword" name="eye"></lucide-icon>
+            <lucide-icon *ngIf="hidePassword" name="eye-off"></lucide-icon>
           </button>
           <mat-error
             *ngIf="loginForm.controls['password'].hasError('required')"

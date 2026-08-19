@@ -1,13 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
+import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-testimonial-dialog',
   templateUrl: './testimonial-dialog.component.html',
   styleUrls: ['./testimonial-dialog.component.scss'],
   standalone: true,
-  imports: [MatDialogModule, MatIconModule],
+  imports: [MatDialogModule, LucideAngularModule],
+  providers: [LucideAngularModule.pick({ X }).providers ?? []],
 })
 export class TestimonialDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
