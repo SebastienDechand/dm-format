@@ -95,18 +95,18 @@ Un composant partagé `app-dynamic-icon` (nouveau, à créer), qui :
 3. Résout ce nom via une table de correspondance fixe (voir ci-dessous)
    vers le composant icône Lucide correspondant.
 4. Si le nom n'est dans aucune des deux tables (statique ou dynamique),
-   affiche une icône de repli (`circle-help`) et émet un
+   affiche une icône de repli (`circle-question-mark`) et émet un
    `console.warn` en développement, plutôt qu'un trou vide — pour repérer
    une valeur de contenu qui n'existait pas au moment de la migration.
 
-### Table de correspondance FA → Lucide (à vérifier à l'implémentation)
+### Table de correspondance FA → Lucide (vérifiée)
 
-Les noms d'icônes Lucide ci-dessous sont les correspondances les plus
-proches identifiées, mais **n'ont pas été vérifiés un par un contre le
-jeu d'icônes réellement exporté par `lucide-angular@1.0.0`** (les noms
-changent parfois d'une version à l'autre de Lucide). L'implémentation doit
-vérifier chaque import et corriger si le nom exact diffère — un import
-invalide échoue à la compilation (échec sûr, pas un bug silencieux).
+`lucide-angular@1.0.0` a été installé et chaque nom ci-dessous a été
+vérifié contre `node_modules/lucide-angular/icons/*.d.ts` (le nom exact
+change parfois d'une version de Lucide à l'autre — deux corrections ont
+été faites suite à cette vérification : `loader-2` n'existe pas, c'est
+`loader-circle` ; `circle-help` n'existe pas, c'est
+`circle-question-mark`).
 
 | Font Awesome | Lucide (à vérifier) |
 |---|---|
@@ -127,20 +127,20 @@ invalide échoue à la compilation (échec sûr, pas un bug silencieux).
 | `fa-user` | `user` |
 | `fa-message` | `message-circle` |
 | `fa-paper-plane` | `send` |
-| `fa-house` | `home` |
-| `fa-spinner` (+`fa-spin`) | `loader-2` (rotation en CSS, remplace `fa-spin`) |
+| `fa-house` | `house` |
+| `fa-spinner` (+`fa-spin`) | `loader-circle` (rotation en CSS, remplace `fa-spin`) |
 | `fa-camera` | `camera` |
 | `fa-xmark` | `x` |
 | `fa-upload` | `upload` |
 | `fa-pen` | `pen` |
-| `fa-user-shield` | `shield-user` (à vérifier — sinon `user-cog`) |
+| `fa-user-shield` | `shield-user` |
 | `fa-chalkboard-teacher` | `presentation` (pas d'équivalent exact) |
 | `fa-wheelchair` | `accessibility` |
 | `fa-clipboard-check` | `clipboard-check` |
 | `fa-user-check` | `user-check` |
-| `fa-circle-check` | `circle-check-big` (à vérifier — sinon `circle-check`) |
+| `fa-circle-check` | `circle-check-big` |
 | `fa-phone-volume` | `phone-call` |
-| `fa-circle-question` | `circle-help` |
+| `fa-circle-question` | `circle-question-mark` |
 | `fa-file` | `file` |
 | `fa-hourglass-half` | `hourglass` |
 | `fa-calendar-days` | `calendar-days` |
