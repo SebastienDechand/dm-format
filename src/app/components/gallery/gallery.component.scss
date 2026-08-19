@@ -160,6 +160,7 @@
       max-width: 100%;
       max-height: 100%;
       border-radius: var(--radius-card);
+      // Intentionally hardcoded: shadow tokens are tuned for light backgrounds; this image floats over a near-black overlay.
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       transition: transform 0.3s ease-in-out;
       object-fit: cover;

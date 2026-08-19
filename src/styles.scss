@@ -18,6 +18,7 @@
   --primary-tint: #e7eef5;
   --accent: #e07856;
   --accent-tint: #fdece5;
+  --accent-text: #9c4227;
   --secondary-color: #5a6a78;
   --border-color: #e0e0e0;
   --success-color: #2f9e5c;
@@ -36,6 +37,7 @@
   --radius-card: 10px;
   --radius-control: 8px;
   --shadow-soft: 0 4px 16px rgba(15, 41, 66, 0.08);
+  --shadow-overlay: 0 8px 24px rgba(15, 41, 66, 0.28);
 
   /* Sizes — fluid rem clamps instead of fixed px, so they scale between the
      current mobile and desktop values and respect the browser's zoom/root
@@ -112,7 +114,7 @@ a {
 }
 
 p {
-  font-size: 20px;
+  font-size: var(--text-size-desktop);
 }
 
 html,

@@ -5,7 +5,7 @@
   color: white;
   padding: 10px;
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-overlay);
   max-width: 300px;
   pointer-events: none;
 }
@@ -35,7 +35,7 @@
   max-height: 80vh;
   background-color: white;
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-overlay);
   z-index: 998;
   overflow-y: auto;
   display: flex;
@@ -172,7 +172,7 @@
   color: white;
   padding: 12px;
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
+  box-shadow: var(--shadow-overlay);
   max-width: 320px;
   min-width: 200px;
   pointer-events: auto;
