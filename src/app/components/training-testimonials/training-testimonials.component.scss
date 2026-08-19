@@ -25,10 +25,9 @@
   .testimonial-content {
     height: 100%;
     background-color: var(--light-color);
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
     padding: var(--padding-medium);
-    border: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.3s ease;
@@ -70,7 +69,7 @@
       right: 15px;
       background: transparent;
       border: none;
-      color: var(--icon-color);
+      color: var(--danger);
       cursor: pointer;
       font-size: var(--small-text-size-desktop);
       opacity: 0.5;
@@ -101,10 +100,9 @@
 // Style pour le formulaire
 .testimonial-form-container {
   background-color: var(--background-color-dark);
-  border-radius: 10px;
+  border-radius: var(--radius-card);
   padding: var(--padding-big);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-soft);
 
   .form-group {
     margin-bottom: var(--margin-medium);
@@ -134,12 +132,12 @@
       }
 
       &.is-invalid {
-        border-color: var(--icon-color);
+        border-color: var(--danger);
       }
     }
 
     .invalid-feedback {
-      color: var(--icon-color);
+      color: var(--danger);
       font-size: calc(var(--small-text-size-desktop) - 2px);
       margin-top: 5px;
     }
@@ -157,7 +155,7 @@
     font-size: var(--small-text-size-desktop);
 
     &:hover:not(:disabled) {
-      background-color: #316095;
+      background-color: var(--primary-color);
     }
 
     &:disabled {
@@ -184,9 +182,9 @@
     }
 
     &.alert-danger {
-      background-color: rgba(220, 53, 69, 0.1);
-      border: 1px solid var(--icon-color);
-      color: var(--icon-color);
+      background-color: var(--danger-tint);
+      border: 1px solid var(--danger);
+      color: var(--danger);
     }
   }
 }
