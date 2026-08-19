@@ -48,10 +48,14 @@
     font-size: 20px;
     font-weight: 500;
 
-    i {
-      font-size: 20px;
+    lucide-icon {
       color: var(--primary-color);
       margin-right: 8px;
+
+      svg {
+        width: 20px;
+        height: 20px;
+      }
     }
   }
 
@@ -111,10 +115,14 @@
     p {
       line-height: 1.5;
 
-      i {
-        font-size: 20px;
+      lucide-icon {
         color: var(--primary-color);
         margin-right: 4px;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
       }
     }
   }
@@ -226,8 +234,9 @@
     label {
       font-size: 16px;
 
-      i {
-        font-size: 16px;
+      lucide-icon svg {
+        width: 16px;
+        height: 16px;
       }
     }
 

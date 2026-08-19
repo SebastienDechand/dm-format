@@ -6,13 +6,38 @@ import { environment } from '../../../environments/environment';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';
+import {
+  LucideAngularModule,
+  Clock,
+  Building2,
+  User,
+  Mail,
+  Phone,
+  MessageCircle,
+  Send,
+  House,
+  Lock,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [FormsModule, CommonModule, RecaptchaModule],
+  imports: [FormsModule, CommonModule, RecaptchaModule, LucideAngularModule],
+  providers: [
+    LucideAngularModule.pick({
+      Clock,
+      Building2,
+      User,
+      Mail,
+      Phone,
+      MessageCircle,
+      Send,
+      House,
+      Lock,
+    }).providers ?? [],
+  ],
 })
 export class ContactComponent implements OnInit {
   private seoService = inject(SeoService);
