@@ -9,11 +9,21 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { LucideAngularModule, Menu, X } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Menu,
+  X,
+  User,
+  School,
+  CircleQuestionMark,
+  HeartHandshake,
+  Zap,
+  BookOpen,
+} from 'lucide-angular';
+import type { LucideIconData } from 'lucide-angular';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
@@ -28,12 +38,22 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     MatButtonModule,
     MatMenuModule,
     CommonModule,
-    MatIconModule,
     MatSidenavModule,
     RouterLinkActive,
     LucideAngularModule,
   ],
-  providers: [LucideAngularModule.pick({ Menu, X }).providers ?? []],
+  providers: [
+    LucideAngularModule.pick({
+      Menu,
+      X,
+      User,
+      School,
+      CircleQuestionMark,
+      HeartHandshake,
+      Zap,
+      BookOpen,
+    }).providers ?? [],
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
   standalone: true,
@@ -146,20 +166,20 @@ export class HeaderComponent implements OnInit {
     this.closeSidenav();
   }
 
-  getIconForTraining(training: Program): string {
+  getIconForTraining(training: Program): LucideIconData {
     switch (training.title) {
       case 'Acteur Sauveteur Secouriste du Travail (niveau 1)':
-        return 'person';
+        return User;
       case 'Formateur Sauveteur Secouriste du Travail (niveau 2)':
-        return 'school';
+        return School;
       case 'Aide pédagogique et administrative':
-        return 'help';
+        return CircleQuestionMark;
       case "Sensibilisation aux gestes d'urgence":
-        return 'volunteer_activism';
+        return HeartHandshake;
       case 'Utilisation du défibrillateur':
-        return 'electric_bolt';
+        return Zap;
       default:
-        return 'menu_book';
+        return BookOpen;
     }
   }
 }
