@@ -28,6 +28,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { TestimonialDialogComponent } from '../testimonial-dialog/testimonial-dialog.component';
+import { LucideAngularModule, Trash2, ShieldCheck, Shield } from 'lucide-angular';
 
 @Component({
   selector: 'app-training-testimonials',
@@ -39,7 +40,9 @@ import { TestimonialDialogComponent } from '../testimonial-dialog/testimonial-di
     ReactiveFormsModule,
     RecaptchaModule,
     SlickCarouselModule,
+    LucideAngularModule,
   ],
+  providers: [LucideAngularModule.pick({ Trash2, ShieldCheck, Shield }).providers ?? []],
 })
 export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   private toast = inject(ToastService);
