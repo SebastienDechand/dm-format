@@ -8,10 +8,10 @@
 
   <div *ngIf="isEditable" class="image-overlay" [class.uploading]="isUploading">
     <div *ngIf="isUploading" class="upload-spinner">
-      <i class="fa-solid fa-spinner fa-spin"></i>
+      <lucide-icon name="loader-circle" class="spin-icon"></lucide-icon>
     </div>
     <div *ngIf="!isUploading" class="upload-prompt">
-      <i class="fa-solid fa-camera"></i>
+      <lucide-icon name="camera"></lucide-icon>
       <span>Cliquer pour modifier</span>
     </div>
   </div>

@@ -18,12 +18,14 @@ import { ConfirmDialogGalleryComponent } from '../confirm-dialog-gallery/confirm
 import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { LucideAngularModule, Trash2, X, Upload } from 'lucide-angular';
 @Component({
   selector: 'app-gallery',
   standalone: true,
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
-  imports: [CommonModule, ConfirmDialogGalleryComponent],
+  imports: [CommonModule, ConfirmDialogGalleryComponent, LucideAngularModule],
+  providers: [LucideAngularModule.pick({ Trash2, X, Upload }).providers ?? []],
 })
 export class GalleryComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy

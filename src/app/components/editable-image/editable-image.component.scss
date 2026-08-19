@@ -40,9 +40,13 @@
       align-items: center;
       color: white;
 
-      i {
-        font-size: 24px;
+      lucide-icon {
         margin-bottom: 8px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
       }
 
       span {
@@ -53,7 +57,20 @@
 
     .upload-spinner {
       color: white;
-      font-size: 32px;
+
+      lucide-icon svg {
+        width: 32px;
+        height: 32px;
+      }
     }
   }
+}
+
+.spin-icon {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }

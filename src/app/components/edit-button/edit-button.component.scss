@@ -2,7 +2,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 20px;
   color: var(--button-color);
   transition: color 0.2s ease-in-out;
 
@@ -10,7 +9,12 @@
     color: var(--button-color-hover);
   }
 
-  i {
+  lucide-icon {
     pointer-events: none;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
   }
 }

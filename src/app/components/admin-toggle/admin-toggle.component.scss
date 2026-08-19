@@ -12,9 +12,13 @@
     box-shadow: var(--shadow-overlay);
     transition: all 0.3s ease;
 
-    i {
-      font-size: 16px;
+    lucide-icon {
       margin-right: 8px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     .btn-label {
@@ -43,10 +47,14 @@
         background-color: var(--button-color);
         border: none;
 
-        i {
-          font-size: 18px;
+        lucide-icon {
           margin: auto;
           color: var(--light-color);
+
+          svg {
+            width: 18px;
+            height: 18px;
+          }
         }
       }
     }

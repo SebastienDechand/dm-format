@@ -10,11 +10,15 @@ import {
 import { CommonModule } from '@angular/common';
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ToastService } from '../../services/toast.service';
+import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
 
 @Component({
   selector: 'app-editable-image',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
+  providers: [
+    LucideAngularModule.pick({ LoaderCircle, Camera }).providers ?? [],
+  ],
   templateUrl: './editable-image.component.html',
   styleUrls: ['./editable-image.component.scss'],
 })

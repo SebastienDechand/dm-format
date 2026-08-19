@@ -25,7 +25,7 @@
         class="delete-btn"
         (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
       >
-        <i class="fa-solid fa-trash-can"></i>
+        <lucide-icon name="trash-2"></lucide-icon>
       </button>
     </div>
   </div>
@@ -44,7 +44,7 @@
           class="delete-btn"
           (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
         >
-          <i class="fa-solid fa-trash-can"></i>
+          <lucide-icon name="trash-2"></lucide-icon>
         </button>
       </div>
     </div>
@@ -54,7 +54,7 @@
   <div class="lightbox" *ngIf="selectedImage">
     <div class="lightbox-content">
       <button class="close-lightbox-btn" (click)="closeLightbox()">
-        <i class="fa-solid fa-xmark"></i>
+        <lucide-icon name="x"></lucide-icon>
       </button>
       <img [src]="selectedImage.src" [alt]="selectedImage.title" />
     </div>
@@ -64,7 +64,7 @@
   <label class="file-upload" *ngIf="isAdmin$ | async">
     <input type="file" (change)="uploadImage($event)" accept="image/*" />
     <span class="file-upload-label">
-      <i class="fa-solid fa-upload"></i> Ajouter une image
+      <lucide-icon name="upload"></lucide-icon> Ajouter une image
     </span>
   </label>
 

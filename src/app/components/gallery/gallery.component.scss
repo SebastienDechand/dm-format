@@ -95,15 +95,15 @@
     font-size: 16px;
     text-transform: uppercase;
 
-    i {
-      font-size: 20px;
+    lucide-icon svg {
+      width: 20px;
+      height: 20px;
     }
   }
 }
 
 .delete-btn {
   background-color: var(--light-color);
-  font-size: 20px;
   color: var(--dark-color);
   border: none;
   padding: 10px;
@@ -112,6 +112,11 @@
   position: absolute;
   top: 10px;
   right: 10px;
+
+  lucide-icon svg {
+    width: 20px;
+    height: 20px;
+  }
 
   &:hover {
     background-color: var(--danger);
@@ -144,12 +149,16 @@
       right: 20px;
       background: rgba(0, 0, 0, 0.7);
       color: var(--light-color);
-      font-size: 24px;
       border: none;
       padding: 5px 10px;
       cursor: pointer;
       border-radius: 50%;
       transition: background 0.3s ease-in-out;
+
+      lucide-icon svg {
+        width: 24px;
+        height: 24px;
+      }
     }
 
     .close-lightbox-btn:hover {
@@ -272,8 +281,12 @@
     }
 
     .delete-btn {
-      font-size: 16px;
       padding: 6px;
+
+      lucide-icon svg {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 
@@ -284,8 +297,9 @@
     .file-upload-label {
       font-size: 14px;
 
-      i {
-        font-size: 18px;
+      lucide-icon svg {
+        width: 18px;
+        height: 18px;
       }
     }
   }
@@ -354,7 +368,11 @@
       top: 8px;
       right: 8px;
       background: var(--light-color);
-      font-size: 16px;
+
+      lucide-icon svg {
+        width: 16px;
+        height: 16px;
+      }
     }
   }
 }
