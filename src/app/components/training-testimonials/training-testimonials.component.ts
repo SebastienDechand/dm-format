@@ -17,7 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { Testimonial } from '../../models/testimonials.model';
 import { TestimonialService } from '../../services/testimonial.service';
 import {

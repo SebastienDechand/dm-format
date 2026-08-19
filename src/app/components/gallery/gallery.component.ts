@@ -15,7 +15,7 @@ import { GalleryImage } from '../../models/gallery.models';
 import { AdminService } from '../../services/admin.service';
 import { GalleryService } from '../../services/gallery.service';
 import { ConfirmDialogGalleryComponent } from '../confirm-dialog-gallery/confirm-dialog-gallery.component';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 @Component({

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';

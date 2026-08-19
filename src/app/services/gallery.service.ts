@@ -9,7 +9,7 @@ import {
   tap,
 } from 'rxjs';
 import { GalleryImage } from '../models/gallery.models';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

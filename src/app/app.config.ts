@@ -15,7 +15,7 @@ import { RECAPTCHA_SETTINGS, RecaptchaModule } from 'ng-recaptcha-2';
 import { routes } from './app.routes';
 import { ApiService } from './services/api.service';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
-import { environment } from '../environments/environment.prod';
+import { environment } from '../environments/environment';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { FileUploadModule } from 'ng2-file-upload';
 

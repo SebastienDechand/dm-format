@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
 import { ModalComponent } from '../modal/modal.component';
-import { environment } from '../../../environments/environment.prod';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-footer',
