@@ -14,28 +14,41 @@
 :root {
   /* Colors */
   --primary-color: #316095;
-  --secondary-color: #696969;
+  --primary-dark: #0f2942;
+  --primary-tint: #e7eef5;
+  --accent: #e07856;
+  --accent-tint: #fdece5;
+  --secondary-color: #5a6a78;
   --border-color: #e0e0e0;
-  --success-color: #28a745;
+  --success-color: #2f9e5c;
   --info-color: #0c498f;
-  --warning-color: #ffc107;
-  --danger-color: #abc1db;
+  --warning-color: #e0a13c;
+  --danger: #c9503f;
+  --danger-tint: #f7e6e3;
+  --danger-color: #abc1db; /* deprecated — remove in Task 9 once all call sites are reclassified */
   --light-color: white;
-  --dark-color: #3d4145;
+  --dark-color: #0f2942;
   --background-color: #f9f9f9;
   --background-color-dark: #f4f4f4;
-  --button-color: #007bff;
-  --button-color-hover: #0056b3;
-  --icon-color: #dc3545;
+  --button-color: #316095;
+  --button-color-hover: #24476f;
+  --icon-color: #dc3545; /* deprecated — remove in Task 9 once all call sites are reclassified */
 
-  /* Sizes */
-  --title-size-desktop: 50px;
-  --subtitle-size-desktop: 40px;
-  --h2-size-desktop: 36px;
-  --h3-size-desktop: 28px;
-  --h4-size-desktop: 24px;
-  --text-size-desktop: 20px;
-  --small-text-size-desktop: 16px;
+  /* Shape */
+  --radius-card: 10px;
+  --radius-control: 8px;
+  --shadow-soft: 0 4px 16px rgba(15, 41, 66, 0.08);
+
+  /* Sizes — fluid rem clamps instead of fixed px, so they scale between the
+     current mobile and desktop values and respect the browser's zoom/root
+     font size (accessibility requirement from the spec) */
+  --title-size-desktop: clamp(1.75rem, 1.2rem + 2.5vw, 3.125rem);
+  --subtitle-size-desktop: clamp(1.5rem, 1.1rem + 2vw, 2.5rem);
+  --h2-size-desktop: clamp(1.375rem, 1.05rem + 1.6vw, 2.25rem);
+  --h3-size-desktop: clamp(1.25rem, 1rem + 1.2vw, 1.75rem);
+  --h4-size-desktop: clamp(1.125rem, 0.95rem + 0.8vw, 1.5rem);
+  --text-size-desktop: clamp(1rem, 0.92rem + 0.4vw, 1.25rem);
+  --small-text-size-desktop: clamp(0.875rem, 0.83rem + 0.2vw, 1rem);
 
   /* Margins */
   --margin-big: 50px;
@@ -46,6 +59,18 @@
   --padding-big: 32px;
   --padding-medium: 16px;
   --padding-small: 8px;
+
+  /* Finer spacing scale (base 4/8px) — additive, for new/touched components
+     going forward. These do not replace existing margin and padding tokens;
+     see the scope note at the end of Task 1. */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
 
   /* Breakpoints */
   --breakpoint-sm: 576px;
@@ -59,7 +84,7 @@
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0;
   padding: 70px 0 0 0;
   background: var(--background-color);
@@ -72,6 +97,8 @@ h1,
 h2,
 h3,
 h4 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
   color: var(--dark-color);
 }
 
@@ -96,7 +123,7 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Inter', 'Helvetica Neue', sans-serif;
 }
 
 .edit-textarea {
