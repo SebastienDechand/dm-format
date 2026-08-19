@@ -2,14 +2,14 @@
   background: var(--background-color);
   padding: 100px 0 0;
   text-align: center;
-  border-radius: 10px;
+  border-radius: var(--radius-card);
 
   /* 🎛️ Mode édition */
   .edit-textarea {
     border: 2px solid var(--primary-color);
     padding: 5px;
     font-size: var(--text-size-desktop);
-    border-radius: 5px;
+    border-radius: var(--radius-control);
   }
 
   .edit-textarea {
@@ -41,8 +41,8 @@
     gap: 50px;
     background: var(--light-color);
     padding: var(--padding-big);
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
     max-width: 900px;
     margin: 0 auto;
     text-align: left;
@@ -84,8 +84,8 @@
       img {
         max-width: 80%;
         height: auto;
-        border-radius: 10px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-soft);
       }
     }
   }
