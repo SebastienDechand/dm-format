@@ -57,6 +57,7 @@ Material uniques sur 4 fichiers (`calendar`, `header`, `testimonial-dialog`,
 | calendar | `event` (mat-icon) | date |
 | calendar | `refresh` (mat-icon) | rafraîchir |
 | header | `menu` (mat-icon) | menu mobile |
+| login | `visibility` / `visibility_off` (mat-icon, liés par interpolation `{{ hidePassword ? ... : ... }}`) | afficher/masquer le mot de passe |
 
 ### Icônes dynamiques (contenu admin stocké en base)
 
@@ -153,6 +154,8 @@ change parfois d'une version de Lucide à l'autre — deux corrections ont
 | `event` (mat-icon) | `calendar` |
 | `refresh` (mat-icon) | `refresh-cw` |
 | `menu` (mat-icon) | `menu` |
+| `visibility` (mat-icon) | `eye` |
+| `visibility_off` (mat-icon) | `eye-off` |
 
 ## Nettoyage
 
