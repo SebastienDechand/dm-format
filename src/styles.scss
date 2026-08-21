@@ -8,7 +8,20 @@
 );
 
 .menu .menu-item {
-  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+
+  lucide-icon {
+    flex-shrink: 0;
+    color: var(--primary-color);
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
 }
 
 :root {
