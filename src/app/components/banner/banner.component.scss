@@ -2,10 +2,9 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 88vh;
   display: grid;
   grid-template-columns: minmax(360px, 42%) 1fr;
-  align-items: stretch;
+  align-items: center;
   gap: 0;
 
   /* 📝 Contenu texte */
@@ -16,11 +15,6 @@
     padding: var(--space-16) var(--space-12) var(--space-16) 120px;
     color: var(--secondary-color);
     text-align: left;
-    background: radial-gradient(
-      ellipse 80% 60% at 20% 10%,
-      var(--primary-tint) 0%,
-      transparent 100%
-    );
 
     .hero-eyebrow {
       display: flex;
@@ -103,28 +97,22 @@
     }
   }
 
-  /* 📸 Visuel : la photo déborde jusqu'au bord de l'écran */
   .hero-visual {
     position: relative;
-    overflow: hidden;
-    background: var(--primary-dark);
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: var(--space-16) 120px;
   }
 
   .hero-image-frame {
-    position: absolute;
-    inset: 0;
-
-    ::ng-deep .image-container {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
+    position: relative;
   }
 
   .hero-floating-card {
     position: absolute;
-    left: -28px;
-    bottom: 56px;
+    left: 24px;
+    bottom: 32px;
     z-index: 3;
     max-width: 260px;
     background: var(--light-color);
@@ -185,11 +173,13 @@
 }
 
 ::ng-deep .hero-banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 80dvh;
   display: block;
-  border-radius: 0;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
 }
 
 @keyframes hero-pulse-draw {
@@ -228,8 +218,7 @@
   }
 
   .hero-visual {
-    height: 50vh;
-    min-height: 320px;
+    padding: 0 var(--padding-big) var(--padding-big);
   }
 
   .hero-floating-card {
@@ -269,8 +258,7 @@
   }
 
   .hero-visual {
-    height: 40vh;
-    min-height: 240px;
+    padding: 0 var(--padding-medium) var(--padding-medium);
   }
 
   .hero-floating-card {

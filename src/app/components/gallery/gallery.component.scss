@@ -19,10 +19,14 @@
   }
 }
 
+/* Mosaïque : une tuile plus grande toutes les 6 images pour casser la
+   monotonie de la grille uniforme, plutôt qu'un quadrillage régulier. */
 .gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  grid-auto-flow: dense;
+  gap: 16px;
   margin: auto;
 
   .gallery-item {
@@ -30,19 +34,58 @@
     border-radius: var(--radius-card);
     overflow: hidden;
     box-shadow: var(--shadow-soft);
-    transition: transform 0.3s ease-in-out;
-    height: 300px;
+    cursor: pointer;
+
+    &:nth-child(6n + 1) {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
 
     img {
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
-      border-radius: var(--radius-card);
-      cursor: pointer;
+      display: block;
+      transition: transform 0.4s ease;
     }
 
-    &:hover {
-      transform: scale(1.02);
+    &:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 20px 16px 14px;
+      background: linear-gradient(
+        to top,
+        rgba(11, 31, 51, 0.85),
+        transparent
+      );
+      opacity: 0;
+      transform: translateY(6px);
+      transition:
+        opacity 0.25s ease,
+        transform 0.25s ease;
+      text-align: left;
+
+      h3 {
+        font-size: var(--small-text-size-desktop);
+        margin: 0 0 4px;
+      }
+
+      p {
+        font-size: 13px;
+        margin: 0;
+        opacity: 0.85;
+      }
+    }
+
+    &:hover .gallery-caption {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h3,
@@ -242,7 +285,8 @@
   }
 
   .gallery-grid {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 180px;
   }
 }
 
