@@ -36,6 +36,12 @@ export class SeoService {
       ? image
       : `https://dm-format.fr${image}`;
 
+    // Admin-editable content (e.g. training titles) can carry inline HTML
+    // for color-coding; that must never leak into <title> or meta tags.
+    title = this.stripHtml(title);
+    description = this.stripHtml(description);
+    keywords = this.stripHtml(keywords);
+
     this.title.setTitle(title);
 
     this.meta.updateTag({ name: 'description', content: description });
@@ -59,6 +65,10 @@ export class SeoService {
     this.updateCanonical(url);
   }
 
+  private stripHtml(value: string): string {
+    return value.replace(/<[^>]*>/g, '');
+  }
+
   private updateCanonical(url: string): void {
     let link: HTMLLinkElement = this.document.querySelector(
       'link[rel="canonical"]'
@@ -80,21 +90,6 @@ export class SeoService {
         existingScript.remove();
       }
 
-      const script = this.document.createElement('script');
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(schema);
-      this.document.head.appendChild(script);
-    }
-  }
-
-  addSchemaMarkup(schema: any) {
-    if (isPlatformBrowser(this.platformId)) {
-      const existingScript = this.document.querySelector(
-        'script[type="application/ld+json"]'
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
       const script = this.document.createElement('script');
       script.type = 'application/ld+json';
       script.textContent = JSON.stringify(schema);

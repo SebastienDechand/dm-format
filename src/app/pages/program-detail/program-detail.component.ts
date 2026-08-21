@@ -202,15 +202,17 @@ export class ProgramDetailComponent implements OnInit {
   }
 
   private updateSeo(program: Program): void {
-    const seoTitle = program.title.includes('SST')
-      ? `Formation ${program.title} | DM-Format`
-      : `Formation ${program.title} | SST | DM-Format`;
+    const plainTitle = program.title.replace(/<[^>]*>/g, '');
+
+    const seoTitle = plainTitle.includes('SST')
+      ? `Formation ${plainTitle} | DM-Format`
+      : `Formation ${plainTitle} | SST | DM-Format`;
 
     let seoDescription = '';
     if (program.description) {
       seoDescription = program.description.substring(0, 157) + '...';
     } else {
-      seoDescription = `Formation certifiante ${program.title}. Programme adapté aux professionnels et entreprises. Formez-vous au secourisme et à la prévention des risques.`;
+      seoDescription = `Formation certifiante ${plainTitle}. Programme adapté aux professionnels et entreprises. Formez-vous au secourisme et à la prévention des risques.`;
     }
 
     this.seoService.updateMetadata({
@@ -218,50 +220,51 @@ export class ProgramDetailComponent implements OnInit {
       description: seoDescription,
       image: program.banner?.src || '/assets/images/formation-sst.webp',
       url: `https://dm-format.fr/trainings/${program._id}`,
-      keywords: `formation ${program.title}, certification SST, secourisme, sauveteur secouriste, entreprise, prévention risques`,
+      keywords: `formation ${plainTitle}, certification SST, secourisme, sauveteur secouriste, entreprise, prévention risques`,
     });
 
-    this.seoService.setSchemaMarkup({
-      '@context': 'https://schema.org',
-      '@type': 'Course',
-      name: program.title,
-      description: program.description,
-      provider: {
-        '@type': 'Organization',
-        name: 'DM-Format',
-        sameAs: 'https://dm-format.fr',
+    this.seoService.setSchemaMarkup([
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Course',
+        name: plainTitle,
+        description: program.description,
+        provider: {
+          '@type': 'Organization',
+          name: 'DM-Format',
+          sameAs: 'https://dm-format.fr',
+        },
+        offers: {
+          '@type': 'Offer',
+          category: 'Formation professionnelle',
+          availability: 'https://schema.org/InStock',
+        },
       },
-      offers: {
-        '@type': 'Offer',
-        category: 'Formation professionnelle',
-        availability: 'https://schema.org/InStock',
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Accueil',
+            item: 'https://dm-format.fr',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Formations',
+            item: 'https://dm-format.fr/trainings',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: plainTitle,
+            item: `https://dm-format.fr/trainings/${program._id}`,
+          },
+        ],
       },
-    });
-
-    this.seoService.addSchemaMarkup({
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Accueil',
-          item: 'https://dm-format.fr',
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Formations',
-          item: 'https://dm-format.fr/trainings',
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: program.title,
-          item: `https://dm-format.fr/trainings/${program._id}`,
-        },
-      ],
-    });
+    ]);
   }
 
   trackByIndex(index: number, item: any): number {
