@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
+import { RecaptchaComponent } from '../recaptcha/recaptcha.component';
 import { ModalComponent } from '../modal/modal.component';
 import { environment } from '../../../environments/environment';
 import {
@@ -15,7 +15,7 @@ import {
 
 @Component({
   selector: 'app-footer',
-  imports: [ModalComponent, CommonModule, RecaptchaModule, LucideAngularModule],
+  imports: [ModalComponent, CommonModule, RecaptchaComponent, LucideAngularModule],
   providers: [
     LucideAngularModule.pick({ MapPin, Globe, Lock, Phone, Mail, Scale })
       .providers ?? [],

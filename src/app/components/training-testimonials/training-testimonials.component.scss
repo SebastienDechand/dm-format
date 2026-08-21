@@ -222,72 +222,87 @@
   }
 }
 
-// Styles Slick Carousel personnalisés
+// Carousel natif (remplace ngx-slick-carousel — peer deps bloquaient Angular 21)
 .testimonial-carousel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   width: 100%;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 20px 0;
+}
 
-  :host ::ng-deep {
-    .slick-track {
-      display: flex !important;
+.carousel-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
 
-      .slick-slide {
-        height: inherit !important;
-        display: flex !important;
-        align-items: stretch;
-        margin: 0 10px;
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease;
+}
 
-        & > div {
-          height: 100%;
-          width: 100%;
-        }
-      }
-    }
+.carousel-track .testimonial-card {
+  flex: 0 0 calc(100% / var(--visible-slides, 3));
+  box-sizing: border-box;
+}
 
-    .slick-list {
-      padding: 20px 0 !important;
-      margin: 0 -10px;
-    }
+.carousel-nav {
+  flex-shrink: 0;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    opacity 0.3s ease,
+    background-color 0.3s ease;
 
-    .slick-dots {
-      bottom: -30px;
+  ::ng-deep svg {
+    width: 20px;
+    height: 20px;
+  }
 
-      li button:before {
-        font-size: 12px;
-        color: var(--border-color);
-      }
+  &:hover:not(:disabled) {
+    opacity: 0.8;
+  }
 
-      li.slick-active button:before {
-        font-size: 20px;
-        color: var(--primary-color);
-      }
-    }
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
 
-    .slick-prev,
-    .slick-next {
-      z-index: 1;
-      width: 40px;
-      height: 40px;
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+
+  .dot {
+    width: 10px;
+    height: 10px;
+    padding: 0;
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.active {
+      width: 14px;
+      height: 14px;
       background-color: var(--primary-color);
-      border-radius: 50%;
-
-      &:before {
-        opacity: 1;
-      }
-
-      &:hover {
-        background-color: var(--primary-color);
-        opacity: 0.8;
-      }
-    }
-
-    .slick-prev {
-      left: 0;
-    }
-
-    .slick-next {
-      right: 0;
+      border-color: var(--primary-color);
     }
   }
 }
@@ -308,20 +323,6 @@
 }
 
 // Responsive adjustments
-@media (max-width: 992px) {
-  .testimonial-carousel {
-    :host ::ng-deep {
-      .slick-prev {
-        left: -5px;
-      }
-
-      .slick-next {
-        right: -5px;
-      }
-    }
-  }
-}
-
 @media (max-width: 768px) {
   .testimonials-section h3 {
     font-size: calc(var(--h3-size-desktop) - 4px);
@@ -343,18 +344,9 @@
   }
 
   .testimonial-carousel {
-    padding: 0 10px;
-
-    :host ::ng-deep {
-      .slick-prev,
-      .slick-next {
-        width: 35px;
-        height: 35px;
-      }
-
-      .slick-dots {
-        bottom: -35px;
-      }
+    .carousel-nav {
+      width: 35px;
+      height: 35px;
     }
   }
 }

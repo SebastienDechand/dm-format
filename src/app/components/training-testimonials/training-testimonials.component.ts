@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  HostListener,
   inject,
   Inject,
   Input,
@@ -16,19 +17,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
+import { RecaptchaComponent } from '../recaptcha/recaptcha.component';
 import { environment } from '../../../environments/environment';
 import { Testimonial } from '../../models/testimonials.model';
 import { TestimonialService } from '../../services/testimonial.service';
-import {
-  SlickCarouselComponent,
-  SlickCarouselModule,
-} from 'ngx-slick-carousel';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { TestimonialDialogComponent } from '../testimonial-dialog/testimonial-dialog.component';
-import { LucideAngularModule, Trash2, ShieldCheck, Shield } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Trash2,
+  ShieldCheck,
+  Shield,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-training-testimonials',
@@ -38,11 +42,18 @@ import { LucideAngularModule, Trash2, ShieldCheck, Shield } from 'lucide-angular
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RecaptchaModule,
-    SlickCarouselModule,
+    RecaptchaComponent,
     LucideAngularModule,
   ],
-  providers: [LucideAngularModule.pick({ Trash2, ShieldCheck, Shield }).providers ?? []],
+  providers: [
+    LucideAngularModule.pick({
+      Trash2,
+      ShieldCheck,
+      Shield,
+      ChevronLeft,
+      ChevronRight,
+    }).providers ?? [],
+  ],
 })
 export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   private toast = inject(ToastService);
@@ -51,30 +62,47 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   @Input() programId!: string;
   @Input() isAdmin: boolean = false;
 
-  // Carousel
-  @ViewChild('slickModal') slickModal!: SlickCarouselComponent;
-  slideConfig = {
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    dots: true,
-    infinite: false,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  // Carousel — native replacement for ngx-slick-carousel (dropped: peer deps
+  // capped it below Angular 21). Mirrors the old slidesToShow: 3/2/1,
+  // slidesToScroll: 1, dots, infinite: false behavior.
+  visibleSlides = 3;
+  currentIndex = 0;
+
+  @HostListener('window:resize')
+  onResize(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.updateVisibleSlides();
+  }
+
+  private updateVisibleSlides(): void {
+    const width = window.innerWidth;
+    this.visibleSlides = width <= 768 ? 1 : width <= 992 ? 2 : 3;
+    this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
+  }
+
+  get maxIndex(): number {
+    return Math.max(0, this.testimonials.length - this.visibleSlides);
+  }
+
+  get dotsArray(): unknown[] {
+    return Array(this.maxIndex + 1);
+  }
+
+  get trackTransform(): string {
+    return `translateX(-${this.currentIndex * (100 / this.visibleSlides)}%)`;
+  }
+
+  prevSlide(): void {
+    this.currentIndex = Math.max(0, this.currentIndex - 1);
+  }
+
+  nextSlide(): void {
+    this.currentIndex = Math.min(this.maxIndex, this.currentIndex + 1);
+  }
+
+  goToSlide(index: number): void {
+    this.currentIndex = Math.min(this.maxIndex, index);
+  }
 
   // ReCAPTCHA
   @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
@@ -102,6 +130,9 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.initForm();
     this.loadTestimonials();
+    if (isPlatformBrowser(this.platformId)) {
+      this.updateVisibleSlides();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -146,6 +177,7 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
           console.warn('Format de réponse inattendu:', response);
           this.testimonials = [];
         }
+        this.currentIndex = 0;
         this.isLoading = false;
       },
       (error) => {
@@ -243,6 +275,7 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
       this.testimonialService.deleteTestimonial(id).subscribe({
         next: () => {
           this.testimonials.splice(index, 1);
+          this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
           this.toast.success('Témoignage supprimé avec succès');
         },
         error: (error) => {

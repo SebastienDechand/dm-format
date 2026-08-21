@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RecaptchaComponent, RecaptchaModule } from 'ng-recaptcha-2';
+import { RecaptchaComponent } from '../../components/recaptcha/recaptcha.component';
 import { environment } from '../../../environments/environment';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
@@ -24,7 +24,7 @@ import {
   standalone: true,
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [FormsModule, CommonModule, RecaptchaModule, LucideAngularModule],
+  imports: [FormsModule, CommonModule, RecaptchaComponent, LucideAngularModule],
   providers: [
     LucideAngularModule.pick({
       Clock,
