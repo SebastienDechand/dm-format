@@ -369,11 +369,19 @@ h4.section-title {
 }
 
 .delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: none;
   border: none;
-  color: red;
+  color: var(--danger);
   font-size: 18px;
   cursor: pointer;
+
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .pdf-upload {

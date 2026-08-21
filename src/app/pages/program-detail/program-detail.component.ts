@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
-import { LucideAngularModule, Clock, Check, Users, Save } from 'lucide-angular';
+import { LucideAngularModule, Clock, Check, Users, Save, Key, Trash2, MessageCircle } from 'lucide-angular';
 
 @Component({
   selector: 'app-program-detail',
@@ -32,7 +32,7 @@ import { LucideAngularModule, Clock, Check, Users, Save } from 'lucide-angular';
     AutoResizeDirective,
     LucideAngularModule,
   ],
-  providers: [LucideAngularModule.pick({ Clock, Check, Users, Save }).providers ?? []],
+  providers: [LucideAngularModule.pick({ Clock, Check, Users, Save, Key, Trash2, MessageCircle }).providers ?? []],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
 })

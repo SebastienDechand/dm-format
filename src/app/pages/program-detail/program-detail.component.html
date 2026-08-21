@@ -26,6 +26,7 @@
             trackBy: trackByIndex
           "
         >
+          <lucide-icon name="check"></lucide-icon>
           <span *ngIf="!editMode['methodology.' + i]">{{ method }}</span>
           <textarea
             autoResize
@@ -141,7 +142,7 @@
             class="delete-btn"
             (click)="deletePdf(pdf)"
           >
-            ❌ Supprimer
+            <lucide-icon name="trash-2"></lucide-icon> Supprimer
           </button>
         </li>
       </ul>
@@ -226,6 +227,7 @@
               trackBy: trackByIndex
             "
           >
+            <lucide-icon name="key"></lucide-icon>
             <span *ngIf="!editMode['details.' + i]">{{ item }}</span>
             <textarea
               autoResize
@@ -244,7 +246,7 @@
               class="delete-detail-btn"
               (click)="deleteDetail(i)"
             >
-              ❌ Supprimer
+              <lucide-icon name="trash-2"></lucide-icon> Supprimer
             </button>
           </li>
         </ul>
@@ -307,7 +309,7 @@
             class="delete-module-btn"
             (click)="deleteModule(i)"
           >
-            ❌ Supprimer
+            <lucide-icon name="trash-2"></lucide-icon> Supprimer
           </button>
         </li>
       </ul>
@@ -325,7 +327,7 @@
 
     <!-- Testimonials section -->
     <div class="testimonials">
-      <h2>💬 <span>Avis</span> des participants</h2>
+      <h2><lucide-icon name="message-circle"></lucide-icon> <span>Avis</span> des participants</h2>
 
       <app-training-testimonials
         [programId]="program._id"

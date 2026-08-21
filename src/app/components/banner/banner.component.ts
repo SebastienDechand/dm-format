@@ -7,6 +7,7 @@ import { AdminService } from '../../services/admin.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { EditableImageComponent } from '../editable-image/editable-image.component';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
+import { LucideAngularModule, Check } from 'lucide-angular';
 
 @Component({
   selector: 'app-banner',
@@ -18,7 +19,9 @@ import { AutoResizeDirective } from '../../directives/auto-resize.directive';
     SafeHtmlPipe,
     EditableImageComponent,
     AutoResizeDirective,
+    LucideAngularModule,
   ],
+  providers: [LucideAngularModule.pick({ Check }).providers ?? []],
   templateUrl: './banner.component.html',
   styleUrl: './banner.component.scss',
 })

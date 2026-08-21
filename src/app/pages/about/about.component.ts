@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { LucideAngularModule, Save } from 'lucide-angular';
+import { LucideAngularModule, Save, Check } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { About } from '../../models/about.models';
@@ -26,7 +26,7 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
     LucideAngularModule,
     DynamicIconComponent,
   ],
-  providers: [LucideAngularModule.pick({ Save }).providers ?? []],
+  providers: [LucideAngularModule.pick({ Save, Check }).providers ?? []],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })

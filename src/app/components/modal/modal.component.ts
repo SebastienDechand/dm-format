@@ -1,10 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
+  providers: [LucideAngularModule.pick({ X }).providers ?? []],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
-import { LucideAngularModule, GraduationCap, Save } from 'lucide-angular';
+import { LucideAngularModule, GraduationCap, Save, Trash2 } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { ConditionsData } from '../../models/organisation.models';
 import { AdminService } from '../../services/admin.service';
@@ -31,7 +31,7 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
     LucideAngularModule,
     DynamicIconComponent,
   ],
-  providers: [LucideAngularModule.pick({ GraduationCap, Save }).providers ?? []],
+  providers: [LucideAngularModule.pick({ GraduationCap, Save, Trash2 }).providers ?? []],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',
 })

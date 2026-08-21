@@ -37,9 +37,23 @@
       gap: 16px;
       font-size: var(--text-size-desktop);
       line-height: 1.5;
+      list-style: none;
 
-      li::marker {
-        content: '✅';
+      li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+
+        lucide-icon {
+          color: var(--success-color);
+          flex-shrink: 0;
+          margin-top: 4px;
+
+          ::ng-deep svg {
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
     }
   }
@@ -104,9 +118,20 @@
       margin-bottom: var(--margin-big);
 
       li {
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
         padding-left: 8px;
-        &::marker {
-          content: '🗝️';
+
+        lucide-icon {
+          color: var(--primary-color);
+          flex-shrink: 0;
+          margin-top: 6px;
+
+          ::ng-deep svg {
+            width: 18px;
+            height: 18px;
+          }
         }
       }
     }
@@ -352,11 +377,24 @@
   padding: var(--padding-big);
 
   h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
     font-size: var(--h2-size-desktop);
     text-transform: uppercase;
     font-weight: bold;
     width: 80%;
     margin: 0 auto var(--margin-medium);
+
+    lucide-icon {
+      color: var(--primary-color);
+
+      ::ng-deep svg {
+        width: 0.85em;
+        height: 0.85em;
+      }
+    }
 
     span {
       color: var(--primary-color);
@@ -526,6 +564,9 @@
 
 /* ❌ Bouton de suppression */
 .delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   background: var(--danger);
   color: white;
   border: none;
@@ -533,6 +574,11 @@
   border-radius: var(--radius-control);
   cursor: pointer;
   transition: background 0.3s ease-in-out;
+
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .delete-btn:hover {
@@ -587,12 +633,21 @@
 }
 
 .delete-module-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   width: 100%;
   background: transparent;
   border: none;
-  color: red;
+  color: var(--danger);
   font-size: 1rem;
   cursor: pointer;
+
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* DETAILS */
@@ -608,12 +663,20 @@
 }
 
 .delete-detail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   margin-left: 1rem;
   background: transparent;
   border: none;
-  color: red;
+  color: var(--danger);
   font-size: 1rem;
   cursor: pointer;
+
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
+  }
 }
 
 /* Responsive - Program Detail */
