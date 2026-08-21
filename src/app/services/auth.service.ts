@@ -1,4 +1,4 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, afterNextRender, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -10,7 +10,17 @@ export class AuthService {
   private http = inject(HttpClient);
 
   private apiUrl = environment.apiUrl;
-  readonly isLoggedIn = signal<boolean>(this.hasToken());
+
+  // Starts false to match SSR (no localStorage server-side); upgraded to
+  // the real value after the first render so hydration doesn't mismatch
+  // and tear down @if(isLoggedIn()) UI. See AdminService for the same fix.
+  readonly isLoggedIn = signal<boolean>(false);
+
+  constructor() {
+    afterNextRender(() => {
+      this.isLoggedIn.set(this.hasToken());
+    });
+  }
 
   login(credentials: { email: string; password: string }) {
     return this.http
