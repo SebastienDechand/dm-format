@@ -20,7 +20,6 @@
     font-size: var(--h2-size-desktop);
     color: var(--primary-color);
     margin-bottom: var(--margin-big);
-    text-transform: uppercase;
   }
 
   .intro {
@@ -62,7 +61,8 @@
         line-height: 1.5;
 
         .phone {
-          font-weight: bold;
+          font-family: var(--font-mono);
+          font-weight: 500;
         }
 
         .contact {
@@ -82,9 +82,13 @@
       text-align: center;
 
       img {
+        width: 220px;
+        height: 220px;
         max-width: 80%;
-        height: auto;
-        border-radius: var(--radius-card);
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid var(--primary-tint);
         box-shadow: var(--shadow-soft);
       }
     }

@@ -2,13 +2,18 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 85vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: auto;
   gap: var(--title-size-desktop);
-  padding: 0 120px;
+  padding: var(--space-16) 120px;
+  background: radial-gradient(
+    ellipse 60% 50% at 80% 20%,
+    var(--primary-tint) 0%,
+    transparent 100%
+  );
 
   /* 📝 Contenu texte */
   .hero-content {
@@ -16,18 +21,38 @@
     color: var(--secondary-color);
     text-align: left;
 
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: var(--small-text-size-desktop);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin: 0 0 var(--space-4);
+
+      .hero-eyebrow-mark {
+        width: 22px;
+        height: 11px;
+        flex-shrink: 0;
+      }
+    }
+
     h1 {
       font-size: var(--subtitle-size-desktop);
-      font-weight: bold;
+      font-weight: 600;
       margin-bottom: var(--margin-medium);
-      text-transform: uppercase;
-      line-height: 1.2;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
     }
 
     .subtitle {
       font-size: var(--text-size-desktop);
+      font-weight: 500;
       margin-bottom: var(--margin-medium);
-      line-height: 1.8;
+      line-height: 1.6;
+      color: var(--primary-color);
     }
 
     .details {
@@ -45,28 +70,60 @@
 
     li {
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
       font-size: var(--text-size-desktop);
-      margin: 0 0 8px var(--margin-medium);
-      line-height: 1.8;
+      margin: 0 0 var(--space-3);
+      line-height: 1.5;
 
-      svg {
-        color: var(--success-color);
+      .highlight-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 26px;
+        height: 26px;
         flex-shrink: 0;
-        margin-top: 4px;
-        width: 20px;
-        height: 20px;
+        border-radius: 50%;
+        background: rgba(31, 157, 107, 0.12);
+
+        svg {
+          color: var(--success-color);
+          width: 15px;
+          height: 15px;
+        }
       }
     }
   }
 
   /* 📸 Image */
   .hero-image {
+    position: relative;
     max-width: 50%;
     flex: 1;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .hero-pulse {
+    width: 55%;
+    max-width: 240px;
+    height: 28px;
+    color: var(--accent);
+
+    .hero-pulse-path {
+      stroke-dasharray: 600;
+      stroke-dashoffset: 600;
+      animation: hero-pulse-draw 1.6s ease-out 0.2s forwards;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-pulse-path {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
   }
 
   /* 🎛️ Mode édition */
@@ -96,6 +153,12 @@
   width: 100%;
   max-height: 70vh;
   border-radius: var(--radius-card);
+}
+
+@keyframes hero-pulse-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 /* RESPONSIVE */

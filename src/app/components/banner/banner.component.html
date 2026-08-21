@@ -1,5 +1,23 @@
 <section class="hero">
   <div class="hero-content">
+    <p class="hero-eyebrow">
+      <svg
+        class="hero-eyebrow-mark"
+        viewBox="0 0 32 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 8H8L11 2L14 14L17 8H32"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      Sauveteur secouriste du travail
+    </p>
+
     <!-- Title -->
     <h1>
       @if (!editMode['title']) {
@@ -71,7 +89,9 @@
         let i = $index
       ) {
         <li>
-          <svg lucideIcon="check"></svg>
+          <span class="highlight-mark"
+            ><svg lucideIcon="check"></svg
+          ></span>
           @if (!editMode['highlights.' + i]) {
             <span>{{ highlight }}</span>
           }
@@ -95,6 +115,22 @@
   </div>
 
   <div class="hero-image">
+    <svg
+      class="hero-pulse"
+      viewBox="0 0 400 60"
+      fill="none"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden="true"
+    >
+      <path
+        class="hero-pulse-path"
+        d="M0 30H150L162 30L172 6L184 54L194 30L206 30H400"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
     @if (imageRefreshTrigger) {
       <app-editable-image
         [pageId]="pageId()"

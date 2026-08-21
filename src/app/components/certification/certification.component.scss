@@ -28,10 +28,10 @@
 
       h2 {
         font-size: var(--subtitle-size-desktop);
-        font-weight: bold;
+        font-weight: 600;
         margin-bottom: var(--margin-medium);
-        text-transform: uppercase;
         line-height: 1.2;
+        letter-spacing: -0.01em;
       }
 
       p {
@@ -71,7 +71,7 @@
   width: fit-content;
   margin: 50px auto;
   padding: 20px;
-  background: var(--background-color);
+  background: var(--background-color-dark);
   border-radius: var(--radius-card);
 }
 
@@ -99,10 +99,16 @@ h4.section-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
-  padding: 10px;
+  gap: 16px;
+  background: var(--light-color);
+  padding: 10px 16px;
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease;
+
+  &:hover {
+    box-shadow: var(--shadow-overlay);
+  }
 }
 
 .pdf-link {
@@ -142,7 +148,8 @@ h4.section-title {
 .pdf-upload {
   text-align: center;
   padding: 20px;
-  background: var(--background-color);
+  background: var(--background-color-dark);
+  border: 1px dashed var(--border-color);
   border-radius: var(--radius-card);
   margin-top: 20px;
 }
