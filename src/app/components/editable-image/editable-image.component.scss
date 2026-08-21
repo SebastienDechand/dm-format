@@ -43,7 +43,7 @@
       lucide-icon {
         margin-bottom: 8px;
 
-        svg {
+        ::ng-deep svg {
           width: 24px;
           height: 24px;
         }
@@ -58,7 +58,7 @@
     .upload-spinner {
       color: white;
 
-      lucide-icon svg {
+      lucide-icon ::ng-deep svg {
         width: 32px;
         height: 32px;
       }

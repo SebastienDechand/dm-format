@@ -15,7 +15,7 @@
     lucide-icon {
       margin-right: 8px;
 
-      svg {
+      ::ng-deep svg {
         width: 16px;
         height: 16px;
       }
@@ -51,7 +51,7 @@
           margin: auto;
           color: var(--light-color);
 
-          svg {
+          ::ng-deep svg {
             width: 18px;
             height: 18px;
           }

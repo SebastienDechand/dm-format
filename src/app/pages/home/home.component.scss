@@ -58,7 +58,7 @@
     .save-icon {
       display: inline-block;
 
-      svg {
+      ::ng-deep svg {
         width: 20px;
         height: 20px;
       }

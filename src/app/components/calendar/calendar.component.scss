@@ -220,7 +220,7 @@
     color: #ff4242;
   }
 
-  lucide-icon svg {
+  lucide-icon ::ng-deep svg {
     width: 16px;
     height: 16px;
   }

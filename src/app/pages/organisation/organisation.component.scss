@@ -129,11 +129,11 @@
       padding: 32px;
       flex: 1;
 
-      lucide-icon {
+      app-dynamic-icon {
         color: var(--primary-color);
         margin-bottom: var(--margin-small);
 
-        svg {
+        ::ng-deep svg {
           width: 36px;
           height: 36px;
         }
@@ -227,11 +227,11 @@
           margin-bottom: 0;
           line-height: 1.5;
         }
-        lucide-icon {
+        app-dynamic-icon {
           color: var(--primary-color);
           margin-bottom: var(--margin-small);
 
-          svg {
+          ::ng-deep svg {
             width: 36px;
             height: 36px;
           }
@@ -301,7 +301,7 @@
     .save-icon {
       display: inline-block;
 
-      svg {
+      ::ng-deep svg {
         width: 20px;
         height: 20px;
       }

@@ -322,7 +322,7 @@
     lucide-icon {
       color: var(--primary-color);
 
-      svg {
+      ::ng-deep svg {
         width: var(--h3-size-desktop);
         height: var(--h3-size-desktop);
       }
@@ -449,7 +449,7 @@
     .save-icon {
       display: inline-block;
 
-      svg {
+      ::ng-deep svg {
         width: 20px;
         height: 20px;
       }

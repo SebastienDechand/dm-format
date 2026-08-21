@@ -52,7 +52,7 @@
       color: var(--primary-color);
       margin-right: 8px;
 
-      svg {
+      ::ng-deep svg {
         width: 20px;
         height: 20px;
       }
@@ -119,7 +119,7 @@
         color: var(--primary-color);
         margin-right: 4px;
 
-        svg {
+        ::ng-deep svg {
           width: 20px;
           height: 20px;
         }
@@ -234,7 +234,7 @@
     label {
       font-size: 16px;
 
-      lucide-icon svg {
+      lucide-icon ::ng-deep svg {
         width: 16px;
         height: 16px;
       }

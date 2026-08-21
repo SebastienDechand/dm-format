@@ -39,7 +39,7 @@
   lucide-icon {
     color: var(--light-color);
 
-    svg {
+    ::ng-deep svg {
       width: 32px;
       height: 32px;
     }
@@ -108,7 +108,7 @@
     lucide-icon {
       color: white;
 
-      svg {
+      ::ng-deep svg {
         width: 16px;
         height: 16px;
       }
@@ -132,7 +132,7 @@
     lucide-icon {
       color: var(--success-color);
 
-      svg {
+      ::ng-deep svg {
         width: 32px;
         height: 32px;
       }
@@ -243,7 +243,7 @@
 
   .contact-item {
     width: 180px;
-    lucide-icon svg {
+    lucide-icon ::ng-deep svg {
       width: 28px;
       height: 28px;
     }
@@ -259,7 +259,7 @@
   .contact-item {
     width: 160px;
 
-    lucide-icon svg {
+    lucide-icon ::ng-deep svg {
       width: 26px;
       height: 26px;
     }
@@ -301,7 +301,7 @@
       font-size: 13px;
     }
 
-    lucide-icon svg {
+    lucide-icon ::ng-deep svg {
       width: 24px;
       height: 24px;
     }
@@ -397,7 +397,7 @@
   }
 
   .contact-item {
-    lucide-icon svg {
+    lucide-icon ::ng-deep svg {
       width: 22px;
       height: 22px;
     }
@@ -419,7 +419,7 @@
     .verified-number {
       font-size: 16px;
 
-      lucide-icon svg {
+      lucide-icon ::ng-deep svg {
         width: 22px;
         height: 22px;
       }
