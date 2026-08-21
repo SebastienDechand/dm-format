@@ -7,18 +7,16 @@ nav {
   color: var(--dark-color);
   z-index: 1000;
   background-color: var(--light-color);
-  box-shadow: var(--shadow-soft);
+  border-bottom: 1px solid var(--border-color);
   transition: height 0.3s ease;
   height: 70px;
   display: flex;
   flex-direction: column;
 
   // Boutons de navigation classiques
-  .nav-links button:not(.contact).nav-active,
-  .sidenav-content button:not(.contact).nav-active {
+  .nav-links button:not(.contact),
+  .sidenav-content button:not(.contact) {
     position: relative;
-    font-weight: bold;
-    color: var(--primary-color);
 
     &::after {
       content: '';
@@ -29,7 +27,23 @@ nav {
       height: 2px;
       background-color: var(--primary-color);
       border-radius: 1px;
-      transition: all 0.3s ease;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.25s ease;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+
+  .nav-links button:not(.contact).nav-active,
+  .sidenav-content button:not(.contact).nav-active {
+    font-weight: 600;
+    color: var(--primary-color);
+
+    &::after {
+      transform: scaleX(1);
     }
   }
 
@@ -70,12 +84,31 @@ nav {
 
   // Logo
   .logo-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: var(--primary-color);
     font-size: var(--h3-size-desktop);
+    font-family: var(--font-display);
     text-decoration: none;
-    font-weight: bold;
     cursor: pointer;
     margin: auto 0;
+
+    .logo-mark {
+      width: 28px;
+      height: 14px;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-weight: 500;
+      letter-spacing: -0.01em;
+
+      strong {
+        font-weight: 700;
+      }
+    }
   }
 
   // Boutons standard
@@ -99,21 +132,27 @@ nav {
   // Navigation desktop
   .nav-links {
     display: flex;
+    align-items: center;
     gap: 10px;
 
     .contact {
       color: var(--light-color);
-      background-color: var(--primary-color);
-      transition: all 0.3s;
+      background-color: var(--accent);
+      border-radius: var(--radius-control);
+      font-weight: 600;
+      transition: background-color 0.2s ease;
+
+      &::after {
+        content: none;
+      }
 
       &:hover {
-        background-color: var(--info-color);
+        background-color: var(--accent-text);
       }
 
       &.nav-active {
-        font-weight: bold;
-        background-color: var(--primary-tint);
-        color: var(--primary-color);
+        background-color: var(--accent-text);
+        color: var(--light-color);
       }
     }
   }
@@ -175,9 +214,16 @@ nav {
 
     .sidenav-header {
       display: flex;
-      justify-content: flex-end;
-      padding: var(--padding-small);
-      box-shadow: var(--shadow-soft);
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--padding-small) var(--padding-medium);
+      border-bottom: 1px solid var(--border-color);
+
+      .sidenav-logo-mark {
+        width: 26px;
+        height: 13px;
+        color: var(--accent);
+      }
     }
 
     .sidenav-content {
@@ -235,12 +281,18 @@ nav {
 
       .contact {
         color: var(--light-color);
-        background-color: var(--primary-color);
-        transition: all 0.3s;
+        background-color: var(--accent);
+        border-radius: var(--radius-control);
+        font-weight: 600;
+        transition: background-color 0.2s ease;
         margin-top: 16px;
 
+        &::after {
+          content: none;
+        }
+
         &:hover {
-          background-color: var(--info-color);
+          background-color: var(--accent-text);
         }
       }
     }

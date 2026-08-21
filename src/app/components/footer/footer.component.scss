@@ -1,46 +1,124 @@
 /* footer.component.scss */
 .footer {
+  position: relative;
   background: var(--primary-dark);
   color: var(--light-color);
   padding: 50px 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Signature de la marque : bande de pouls/ECG en haut du footer, comme un
+   moniteur cardiaque - un motif répété à taille fixe (pas un tracé unique
+   étiré sur toute la largeur, qui l'écraserait et le déformerait). */
+.footer-pulse {
+  display: block;
+  width: 100%;
+  height: 20px;
+  color: var(--accent);
+  opacity: 0.55;
+}
+
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    color: var(--light-color);
+  }
+
+  &.reveal {
+    background: rgba(232, 84, 58, 0.18);
+
+    svg {
+      color: var(--accent);
+    }
+  }
+
+  &.verified {
+    background: rgba(31, 157, 107, 0.18);
+
+    svg {
+      color: var(--success-color);
+    }
+  }
 }
 
 /* Conteneur principal */
 .footer-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
   max-width: 1200px;
   margin: auto;
-  padding: 30px 20px;
+  padding: 40px 20px 30px;
 }
 
-/* Section individuelle */
-.footer-section {
-  margin-bottom: 20px;
+/* Marque */
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 36px;
+}
 
-  .contact-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 25px;
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.footer-logo-mark {
+  width: 26px;
+  height: 13px;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.footer-wordmark {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--light-color);
+
+  strong {
+    font-weight: 700;
   }
 }
 
-/* Contact Item */
+.footer-tagline {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 8px 0 0;
+}
+
+/* Coordonnées */
+.contact-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  width: 100%;
+}
+
 .contact-item {
   color: var(--light-color);
   width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  svg {
-    color: var(--light-color);
-    width: 32px;
-    height: 32px;
-  }
 
   a,
   button,
@@ -59,75 +137,35 @@
       transform 0.2s ease;
     font-size: 14px;
     margin: 0;
+    padding: 0;
 
     &:hover {
       color: var(--accent);
       transform: translateY(-5px);
+
+      .icon-badge {
+        background: rgba(232, 84, 58, 0.16);
+      }
     }
   }
 }
 
-/* Section mentions légales */
-.legal-section {
-  margin-top: 40px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 20px;
-
-  .legal-item {
-    width: auto;
-  }
-}
-
-/* Style du bouton de vérification */
+/* Bouton de vérification du numéro - même gabarit badge + libellé que les
+   autres items pour rester dans le même rythme visuel de la rangée. */
 .captcha-container {
-  text-align: center;
-
-  .captcha-button {
-    background: var(--primary-color);
-    color: var(--light-color);
-    padding: 8px 15px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    display: flex;
-    gap: 10px;
-    border: none;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background: var(--info-color);
-      color: var(--light-color);
-    }
-
-    svg {
-      color: white;
-      width: 16px;
-      height: 16px;
+  .captcha-button,
+  .verified-number {
+    &:hover .icon-badge.reveal {
+      background: rgba(232, 84, 58, 0.3);
     }
   }
 
-  /* Masquer le widget reCAPTCHA */
+  .verified-number {
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
   .hidden-recaptcha {
     display: none;
-  }
-
-  /* Ajout d'une animation de vérification */
-  .verified-number {
-    color: var(--success-color);
-    font-weight: bold;
-    display: flex;
-    gap: 10px;
-    font-size: 20px;
-    animation: fadeIn 0.5s ease-in-out;
-
-    svg {
-      color: var(--success-color);
-      width: 32px;
-      height: 32px;
-    }
   }
 
   @keyframes fadeIn {
@@ -140,86 +178,111 @@
   }
 }
 
-/* Logo */
-.logo {
+/* Copyright et mentions légales */
+.footer-bottom {
   display: flex;
   align-items: center;
-
   justify-content: center;
-  font-size: 24px;
-  color: var(--light-color);
+  gap: 24px;
   width: 100%;
-  margin-bottom: 40px;
-
-  span {
-    color: var(--light-color);
-  }
-
-  img {
-    width: 200px;
-    object-fit: cover;
-  }
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Contact Section */
-.contact {
-  width: 100%;
+.footer-copyright {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
+}
+
+.footer-legal-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 13px;
+  padding: 0;
+  transition: color 0.2s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  &:hover {
+    color: var(--light-color);
+  }
 }
 
 /* Modal Content */
 .modal-content {
-  padding: 32px;
+  padding: 8px 32px 32px;
+}
 
-  hr {
-    width: 50%;
-    margin: 32px auto;
+.legal-block {
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-of-type {
+    border-bottom: none;
+    padding-bottom: 8px;
   }
 
   h3 {
-    font-size: 24px;
-    margin-bottom: 25px;
+    font-family: var(--font-display);
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 12px;
     color: var(--primary-color);
-    font-weight: bold;
-    text-align: center;
     text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
 
   p {
-    font-size: 20px;
-    line-height: 1.8;
+    font-size: 15px;
+    line-height: 1.7;
     color: var(--secondary-color);
-    margin-bottom: 0.75rem;
+    margin: 0 0 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   a {
     color: var(--button-color);
     text-decoration: none;
     font-weight: 500;
+
     &:hover,
     &:focus-visible {
       text-decoration: underline;
     }
   }
+}
 
-  .close-modal-btn {
-    display: block;
-    width: 50%;
-    padding: 15px;
-    background: var(--button-color);
-    color: var(--light-color);
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-    margin: 25px auto;
-    cursor: pointer;
-    transition: background 0.2s ease-in-out;
+.close-modal-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: var(--button-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: var(--radius-control);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+  margin: 24px 0 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 
-    &:hover,
-    &:focus-visible {
-      background: var(--button-color-hover);
-    }
+  &:hover,
+  &:focus-visible {
+    background: var(--button-color-hover);
   }
 }
 
@@ -229,15 +292,11 @@
 @media (max-width: 1400px) {
   .footer-container {
     max-width: 1200px;
-    padding: 25px 15px;
+    padding: 35px 15px 25px;
   }
 
   .contact-item {
     width: 180px;
-    svg {
-      width: 28px;
-      height: 28px;
-    }
   }
 }
 
@@ -250,23 +309,10 @@
   .contact-item {
     width: 160px;
 
-    svg {
-      width: 26px;
-      height: 26px;
-    }
-
     a,
     button,
     p {
       font-size: 13px;
-    }
-  }
-
-  .logo {
-    font-size: 22px;
-
-    img {
-      width: 180px;
     }
   }
 }
@@ -277,10 +323,8 @@
     max-width: 768px;
   }
 
-  .footer-section {
-    .contact-items {
-      gap: 15px;
-    }
+  .contact-items {
+    gap: 15px;
   }
 
   .contact-item {
@@ -291,14 +335,9 @@
     p {
       font-size: 13px;
     }
-
-    svg {
-      width: 24px;
-      height: 24px;
-    }
   }
 
-  .legal-section {
+  .footer-bottom {
     margin-top: 30px;
     padding-top: 15px;
   }
@@ -311,22 +350,15 @@
   }
 
   .footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
+    padding: 25px 15px 15px;
   }
 
-  .footer-section {
-    width: 100%;
-
-    .contact-items {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
+  .contact-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 500px;
+    margin: 0 auto;
   }
 
   .contact-item {
@@ -339,33 +371,19 @@
     }
   }
 
-  .logo {
+  .footer-brand-block {
     margin-bottom: 30px;
-
-    img {
-      width: 160px;
-    }
   }
 
-  .legal-section {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 10px;
     margin-top: 25px;
     padding-top: 15px;
   }
 
   .modal-content {
-    padding: 20px;
-
-    h3 {
-      font-size: 20px;
-    }
-
-    p {
-      font-size: 16px;
-    }
-
-    .close-modal-btn {
-      width: 80%;
-    }
+    padding: 8px 20px 20px;
   }
 }
 
@@ -376,21 +394,24 @@
   }
 
   .footer-container {
-    padding: 10px;
+    padding: 15px 10px 10px;
   }
 
-  .footer-section {
-    .contact-items {
-      grid-template-columns: 1fr;
-      gap: 15px;
-      max-width: 280px;
-    }
+  .contact-items {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    max-width: 280px;
   }
 
   .contact-item {
-    svg {
-      width: 22px;
-      height: 22px;
+    .icon-badge {
+      width: 36px;
+      height: 36px;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
     }
 
     a,
@@ -401,53 +422,19 @@
     }
   }
 
-  .captcha-container {
-    .captcha-button {
-      padding: 6px 12px;
-      font-size: 12px;
-    }
-
-    .verified-number {
-      font-size: 16px;
-
-      svg {
-        width: 22px;
-        height: 22px;
-      }
-    }
-  }
-
-  .legal-section {
+  .footer-bottom {
     margin-top: 20px;
     padding-top: 10px;
   }
 
-  .logo {
-    img {
-      width: 140px;
-    }
+  .modal-content {
+    padding: 8px 15px 15px;
   }
 
-  .modal-content {
-    padding: 15px;
-
-    hr {
-      margin: 20px auto;
-    }
-
-    h3 {
-      font-size: 18px;
-      margin-bottom: 15px;
-    }
+  .legal-block {
+    padding: 18px 0;
 
     p {
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .close-modal-btn {
-      width: 100%;
-      padding: 12px;
       font-size: 14px;
     }
   }

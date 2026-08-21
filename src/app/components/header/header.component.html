@@ -1,7 +1,23 @@
 <!-- header.component.html -->
 <nav [class.expanded]="isSmallScreen && isBrowser && showLoginButton">
   <div class="nav-top-row">
-    <p class="logo-btn" (click)="handleLogoClick($event)">DM FORMAT</p>
+    <p class="logo-btn" (click)="handleLogoClick($event)">
+      <svg
+        class="logo-mark"
+        viewBox="0 0 32 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 8H8L11 2L14 14L17 8H32"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <span class="logo-text">DM <strong>FORMAT</strong></span>
+    </p>
 
     <!-- Affichage pour écrans > 1400px -->
     @if (!isMobileView || !isBrowser) {
@@ -95,12 +111,26 @@
     <div class="sidenav-backdrop" (click)="closeSidenav()"></div>
     <div class="sidenav">
       <div class="sidenav-header">
+        <svg
+          class="sidenav-logo-mark"
+          viewBox="0 0 32 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 8H8L11 2L14 14L17 8H32"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
         <button mat-icon-button (click)="closeSidenav()">
           <svg lucideIcon="x"></svg>
         </button>
       </div>
       <div class="sidenav-content">
-        <h3>Nos formations</h3>
+        <h3 class="eyebrow">Nos formations</h3>
         <div class="mobile-menu-items">
           @for (training of trainings; track training) {
             <button

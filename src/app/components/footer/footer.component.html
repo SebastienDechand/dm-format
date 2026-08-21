@@ -1,71 +1,112 @@
 <!-- footer.component.html -->
 <footer class="footer">
+  <svg class="footer-pulse" aria-hidden="true">
+    <defs>
+      <pattern
+        id="footerPulsePattern"
+        width="320"
+        height="24"
+        patternUnits="userSpaceOnUse"
+      >
+        <path
+          d="M0 12H140L148 12L154 2L162 22L168 12H320"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#footerPulsePattern)" />
+  </svg>
   <div class="footer-container">
-    <!-- Logo et Copyright -->
-    <div class="footer-section logo">
-      <p>
-        <span>&copy; {{ currentYear }}</span> DM FORMAT
+    <!-- Marque -->
+    <div class="footer-brand-block">
+      <p class="footer-brand">
+        <svg
+          class="footer-logo-mark"
+          viewBox="0 0 32 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M0 8H8L11 2L14 14L17 8H32"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span class="footer-wordmark">DM <strong>FORMAT</strong></span>
       </p>
+      <p class="footer-tagline">Formation SST · Bourgogne-Franche-Comté</p>
       <!-- <img src="assets/images/qualiopi.png" alt="Qualiopi" /> -->
     </div>
 
     <!-- Coordonnées -->
-    <div class="footer-section contact">
-      <div class="contact-items">
-        <div class="contact-item">
-          <p>
-            <svg lucideIcon="map-pin"></svg>
-            Bourgogne-Franche-Comté
-          </p>
-        </div>
-        <div class="contact-item">
-          <p>
-            <svg lucideIcon="globe"></svg>
-            Habilitation nationale
-          </p>
-        </div>
-        <div class="contact-item">
-          <div class="captcha-container">
-            <!-- Si reCAPTCHA n'est pas validé -->
-            @if (!captchaVerified) {
-              <button class="captcha-button" (click)="executeRecaptcha()">
-                <svg lucideIcon="lock"></svg> Voir le numéro
-              </button>
-            }
+    <div class="contact-items">
+      <div class="contact-item">
+        <p>
+          <span class="icon-badge"><svg lucideIcon="map-pin"></svg></span>
+          Bourgogne-Franche-Comté
+        </p>
+      </div>
+      <div class="contact-item">
+        <p>
+          <span class="icon-badge"><svg lucideIcon="globe"></svg></span>
+          Habilitation nationale
+        </p>
+      </div>
+      <div class="contact-item">
+        <div class="captcha-container">
+          <!-- Si reCAPTCHA n'est pas validé -->
+          @if (!captchaVerified) {
+            <button class="captcha-button" (click)="executeRecaptcha()">
+              <span class="icon-badge reveal"
+                ><svg lucideIcon="lock"></svg
+              ></span>
+              Voir le numéro
+            </button>
+          }
 
-            <!-- Numéro visible après validation -->
-            @if (captchaVerified) {
-              <a class="verified-number" href="tel:+33681191790">
-                <svg lucideIcon="phone"></svg> 06 81 19 17 90
-              </a>
-            }
+          <!-- Numéro visible après validation -->
+          @if (captchaVerified) {
+            <a class="verified-number" href="tel:+33681191790">
+              <span class="icon-badge verified"
+                ><svg lucideIcon="phone"></svg
+              ></span>
+              06 81 19 17 90
+            </a>
+          }
 
-            <!-- Widget invisible -->
-            <re-captcha
-              #recaptcha
-              [siteKey]="siteKey"
-              size="invisible"
-              (resolved)="onCaptchaResolved($event)"
-              class="hidden-recaptcha"
-            >
-            </re-captcha>
-          </div>
-        </div>
-        <div class="contact-item">
-          <a href="mailto:dm.formatsst&#64;gmail.com">
-            <svg lucideIcon="mail"></svg> dm.formatsst&#64;gmail.com
-          </a>
+          <!-- Widget invisible -->
+          <re-captcha
+            #recaptcha
+            [siteKey]="siteKey"
+            size="invisible"
+            (resolved)="onCaptchaResolved($event)"
+            class="hidden-recaptcha"
+          >
+          </re-captcha>
         </div>
       </div>
-
-      <!-- Mentions légales en bas -->
-      <div class="legal-section">
-        <div class="contact-item legal-item">
-          <button (click)="openModal('mentionsLegales')">
-            <svg lucideIcon="scale"></svg> Mentions légales
-          </button>
-        </div>
+      <div class="contact-item">
+        <a href="mailto:dm.formatsst&#64;gmail.com">
+          <span class="icon-badge"><svg lucideIcon="mail"></svg></span>
+          dm.formatsst&#64;gmail.com
+        </a>
       </div>
+    </div>
+
+    <!-- Copyright et mentions légales -->
+    <div class="footer-bottom">
+      <p class="footer-copyright">
+        <span>&copy; {{ currentYear }}</span> DM FORMAT
+      </p>
+      <button class="footer-legal-link" (click)="openModal('mentionsLegales')">
+        <svg lucideIcon="scale"></svg> Mentions légales
+      </button>
     </div>
   </div>
 
@@ -76,74 +117,78 @@
     (close)="closeModal()"
   >
     <div class="modal-content">
-      <h3>Éditeur du site</h3>
-      <p><strong>DM FORMAT</strong></p>
-      <p>Entreprise individuelle</p>
-      <p>Responsable de publication : <strong>Dominique Masson</strong></p>
-      <p>Siège social : MARNAY - 70150</p>
-      <p>SIRET : 123 456 789 00012</p>
-      <p>Code APE : 8559A (Formation continue d'adultes)</p>
-      <p>
-        Email :
-        <a href="mailto:dm.formatsst&#64;gmail.com"
-          >dm.formatsst&#64;gmail.com</a
-        >
-      </p>
-      <p>Téléphone : 06 81 19 17 90</p>
+      <section class="legal-block">
+        <h3>Éditeur du site</h3>
+        <p><strong>DM FORMAT</strong>, entreprise individuelle</p>
+        <p>Responsable de publication : <strong>Dominique Masson</strong></p>
+        <p>Siège social : <span class="mono">MARNAY - 70150</span></p>
+        <p>SIRET : <span class="mono">123 456 789 00012</span></p>
+        <p>
+          Code APE :
+          <span class="mono">8559A</span> (Formation continue d'adultes)
+        </p>
+        <p>
+          Email :
+          <a href="mailto:dm.formatsst&#64;gmail.com"
+            >dm.formatsst&#64;gmail.com</a
+          >
+        </p>
+        <p>Téléphone : <span class="mono">06 81 19 17 90</span></p>
+      </section>
 
-      <hr />
+      <section class="legal-block">
+        <h3>Hébergement</h3>
+        <p>Le site est hébergé par <strong>Vercel Inc.</strong></p>
+        <p>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</p>
+        <p>
+          Site Web :
+          <a href="https://vercel.com/" target="_blank" rel="noopener"
+            >https://vercel.com/</a
+          >
+        </p>
+      </section>
 
-      <h3>Hébergement</h3>
-      <p>Le site est hébergé par :</p>
-      <p><strong>Vercel Inc.</strong></p>
-      <p>440 N Barranca Ave #4133, Covina, CA 91723, États-Unis</p>
-      <p>
-        Site Web :
-        <a href="https://vercel.com/" target="_blank" rel="noopener"
-          >https://vercel.com/</a
-        >
-      </p>
+      <section class="legal-block">
+        <h3>Propriété intellectuelle</h3>
+        <p>
+          Tout le contenu du site <strong>DM FORMAT</strong> (textes, images,
+          graphismes, logos, vidéos, icônes, etc.) est protégé par le droit
+          d'auteur et la propriété intellectuelle. Toute reproduction ou
+          distribution est interdite sans autorisation préalable.
+        </p>
+      </section>
 
-      <hr />
+      <section class="legal-block">
+        <h3>Protection des données</h3>
+        <p>
+          Aucune donnée personnelle n'est collectée sur ce site. Nous ne
+          stockons aucun cookie ni traceur.
+        </p>
+      </section>
 
-      <h3>Propriété intellectuelle</h3>
-      <p>
-        Tout le contenu du site <strong>DM FORMAT</strong> (textes, images,
-        graphismes, logos, vidéos, icônes, etc.) est protégé par le droit
-        d'auteur et la propriété intellectuelle. Toute reproduction ou
-        distribution est interdite sans autorisation préalable.
-      </p>
+      <section class="legal-block">
+        <h3>Responsabilité</h3>
+        <p>
+          L'éditeur du site ne saurait être tenu responsable des erreurs,
+          omissions ou indisponibilités de certaines informations.
+          L'utilisateur est invité à signaler toute erreur afin qu'elle soit
+          corrigée.
+        </p>
+      </section>
 
-      <hr />
-
-      <h3>Protection des données</h3>
-      <p>
-        Aucune donnée personnelle n'est collectée sur ce site. Nous ne stockons
-        aucun cookie ni traceur.
-      </p>
-
-      <hr />
-
-      <h3>Responsabilité</h3>
-      <p>
-        L'éditeur du site ne saurait être tenu responsable des erreurs,
-        omissions ou indisponibilités de certaines informations. L'utilisateur
-        est invité à signaler toute erreur afin qu'elle soit corrigée.
-      </p>
-
-      <hr />
-
-      <h3>Contact</h3>
-      <p>
-        Pour toute question ou réclamation, vous pouvez nous contacter à
-        l'adresse suivante :
-      </p>
-      <p>
-        Email :
-        <a href="mailto:dm.formatsst&#64;gmail.com"
-          >dm.formatsst&#64;gmail.com</a
-        >
-      </p>
+      <section class="legal-block">
+        <h3>Contact</h3>
+        <p>
+          Pour toute question ou réclamation, vous pouvez nous contacter à
+          l'adresse suivante :
+        </p>
+        <p>
+          Email :
+          <a href="mailto:dm.formatsst&#64;gmail.com"
+            >dm.formatsst&#64;gmail.com</a
+          >
+        </p>
+      </section>
 
       <button class="close-modal-btn" (click)="closeModal()">Fermer</button>
     </div>
