@@ -14,11 +14,10 @@
             [routerLink]="['/trainings', training._id]"
             class="menu-item"
           >
-            <lucide-icon
-              class="icon"
-              [img]="getIconForTraining(training)"
-            ></lucide-icon>
-            {{ stripHtmlTags(training.title) }}
+            <span class="menu-item-icon">
+              <lucide-icon [img]="getIconForTraining(training)"></lucide-icon>
+            </span>
+            <span class="menu-item-text">{{ stripHtmlTags(training.title) }}</span>
           </button>
         </mat-menu>
 
@@ -115,11 +114,10 @@
           class="menu-item"
           (click)="closeSidenav()"
         >
-          <lucide-icon
-            class="icon"
-            [img]="getIconForTraining(training)"
-          ></lucide-icon>
-          {{ stripHtmlTags(training.title) }}
+          <span class="menu-item-icon">
+            <lucide-icon [img]="getIconForTraining(training)"></lucide-icon>
+          </span>
+          <span class="menu-item-text">{{ stripHtmlTags(training.title) }}</span>
         </button>
       </div>
 

@@ -201,17 +201,25 @@ nav {
 
         .menu-item {
           display: flex;
-          flex-direction: column;
-          height: 100%;
-          justify-content: center;
+          flex-direction: row;
           align-items: center;
-          text-align: center;
           gap: 8px;
           text-align: left;
           padding: 8px;
 
-          .icon {
-            margin-right: 8px;
+          .menu-item-icon {
+            display: flex;
+            flex-shrink: 0;
+            color: var(--primary-color);
+
+            ::ng-deep svg {
+              width: 20px;
+              height: 20px;
+            }
+          }
+
+          .menu-item-text {
+            flex: 1;
           }
         }
       }
