@@ -1,21 +1,24 @@
-<app-banner
-  *ngIf="homeData?.banner"
-  [bannerData]="homeData.banner"
-  [pageId]="'home-banner'"
-  (imageUploaded)="onBannerImageUploaded($event)"
-></app-banner>
-<app-certification
-  *ngIf="homeData?.certification"
-  [certificationData]="homeData.certification"
-></app-certification>
+@if (homeData?.banner) {
+  <app-banner
+    [bannerData]="homeData.banner"
+    [pageId]="'home-banner'"
+    (imageUploaded)="onBannerImageUploaded($event)"
+  ></app-banner>
+}
+@if (homeData?.certification) {
+  <app-certification
+    [certificationData]="homeData.certification"
+  ></app-certification>
+}
 <app-programs></app-programs>
-<app-partner
-  *ngIf="homeData?.partner"
-  [partnerData]="homeData.partner"
-></app-partner>
+@if (homeData?.partner) {
+  <app-partner [partnerData]="homeData.partner"></app-partner>
+}
 <app-gallery></app-gallery>
 
-<button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
-  <span class="save-text">Sauvegarder les modifications</span>
-  <lucide-icon name="save" class="save-icon"></lucide-icon>
-</button>
+@if (isAdmin$ | async) {
+  <button class="save-btn" (click)="saveChanges()">
+    <span class="save-text">Sauvegarder les modifications</span>
+    <lucide-icon name="save" class="save-icon"></lucide-icon>
+  </button>
+}

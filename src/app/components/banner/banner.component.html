@@ -2,94 +2,108 @@
   <div class="hero-content">
     <!-- Title -->
     <h1>
-      <span
-        *ngIf="!editMode['title']"
-        [innerHTML]="bannerData?.title | safeHtml"
-      ></span>
-      <textarea
-        autoResize
-        *ngIf="editMode['title']"
-        [(ngModel)]="bannerData.title"
-        (blur)="toggleEditMode('title')"
-        class="edit-textarea"
-      ></textarea>
-      <app-edit-button
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('title')"
-        class="edit-btn"
-      ></app-edit-button>
+      @if (!editMode['title']) {
+        <span [innerHTML]="bannerData?.title | safeHtml"></span>
+      }
+      @if (editMode['title']) {
+        <textarea
+          autoResize
+          [(ngModel)]="bannerData.title"
+          (blur)="toggleEditMode('title')"
+          class="edit-textarea"
+        ></textarea>
+      }
+      @if (isAdmin$ | async) {
+        <app-edit-button
+          (editClicked)="toggleEditMode('title')"
+          class="edit-btn"
+        ></app-edit-button>
+      }
     </h1>
 
     <!-- Subtitle -->
     <h2 class="subtitle">
-      <span *ngIf="!editMode['subtitle']">{{ bannerData?.subtitle }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['subtitle']"
-        [(ngModel)]="bannerData.subtitle"
-        (blur)="toggleEditMode('subtitle')"
-        class="edit-textarea"
-      ></textarea>
-      <app-edit-button
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('subtitle')"
-        class="edit-btn"
-      ></app-edit-button>
+      @if (!editMode['subtitle']) {
+        <span>{{ bannerData?.subtitle }}</span>
+      }
+      @if (editMode['subtitle']) {
+        <textarea
+          autoResize
+          [(ngModel)]="bannerData.subtitle"
+          (blur)="toggleEditMode('subtitle')"
+          class="edit-textarea"
+        ></textarea>
+      }
+      @if (isAdmin$ | async) {
+        <app-edit-button
+          (editClicked)="toggleEditMode('subtitle')"
+          class="edit-btn"
+        ></app-edit-button>
+      }
     </h2>
 
     <!-- Details -->
     <p class="details">
-      <span *ngIf="!editMode['details']">{{ bannerData?.details }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['details']"
-        [(ngModel)]="bannerData.details"
-        (blur)="toggleEditMode('details')"
-        class="edit-textarea"
-      ></textarea>
-      <app-edit-button
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('details')"
-        class="edit-btn"
-      ></app-edit-button>
+      @if (!editMode['details']) {
+        <span>{{ bannerData?.details }}</span>
+      }
+      @if (editMode['details']) {
+        <textarea
+          autoResize
+          [(ngModel)]="bannerData.details"
+          (blur)="toggleEditMode('details')"
+          class="edit-textarea"
+        ></textarea>
+      }
+      @if (isAdmin$ | async) {
+        <app-edit-button
+          (editClicked)="toggleEditMode('details')"
+          class="edit-btn"
+        ></app-edit-button>
+      }
     </p>
 
     <!-- Highlights -->
     <ul class="highlights">
-      <li
-        *ngFor="
-          let highlight of bannerData?.highlights;
-          let i = index;
-          trackBy: trackByIndex
-        "
-      >
-        <lucide-icon name="check"></lucide-icon>
-        <span *ngIf="!editMode['highlights.' + i]">{{ highlight }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['highlights.' + i]"
-          [(ngModel)]="bannerData.highlights[i]"
-          (blur)="toggleEditMode('highlights.' + i)"
-          class="edit-textarea"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('highlights.' + i)"
-          class="edit-btn"
-        ></app-edit-button>
-      </li>
+      @for (
+        highlight of bannerData?.highlights;
+        track trackByIndex(i, highlight);
+        let i = $index
+      ) {
+        <li>
+          <lucide-icon name="check"></lucide-icon>
+          @if (!editMode['highlights.' + i]) {
+            <span>{{ highlight }}</span>
+          }
+          @if (editMode['highlights.' + i]) {
+            <textarea
+              autoResize
+              [(ngModel)]="bannerData.highlights[i]"
+              (blur)="toggleEditMode('highlights.' + i)"
+              class="edit-textarea"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('highlights.' + i)"
+              class="edit-btn"
+            ></app-edit-button>
+          }
+        </li>
+      }
     </ul>
   </div>
 
   <div class="hero-image">
-    <app-editable-image
-      *ngIf="imageRefreshTrigger"
-      [pageId]="pageId"
-      [imageSrc]="bannerData?.image || ''"
-      [altText]="'Exercice de massage cardiaque'"
-      imageClass="hero-banner-image"
-      [isEditable]="(isAdmin$ | async) ?? false"
-      (imageUploaded)="onImageUploaded($event)"
-    ></app-editable-image>
+    @if (imageRefreshTrigger) {
+      <app-editable-image
+        [pageId]="pageId"
+        [imageSrc]="bannerData?.image || ''"
+        [altText]="'Exercice de massage cardiaque'"
+        imageClass="hero-banner-image"
+        [isEditable]="(isAdmin$ | async) ?? false"
+        (imageUploaded)="onImageUploaded($event)"
+      ></app-editable-image>
+    }
   </div>
 </section>

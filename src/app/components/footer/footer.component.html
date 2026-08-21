@@ -27,22 +27,18 @@
         <div class="contact-item">
           <div class="captcha-container">
             <!-- Si reCAPTCHA n'est pas validé -->
-            <button
-              *ngIf="!captchaVerified"
-              class="captcha-button"
-              (click)="executeRecaptcha()"
-            >
-              <lucide-icon name="lock"></lucide-icon> Voir le numéro
-            </button>
+            @if (!captchaVerified) {
+              <button class="captcha-button" (click)="executeRecaptcha()">
+                <lucide-icon name="lock"></lucide-icon> Voir le numéro
+              </button>
+            }
 
             <!-- Numéro visible après validation -->
-            <a
-              *ngIf="captchaVerified"
-              class="verified-number"
-              href="tel:+33681191790"
-            >
-              <lucide-icon name="phone"></lucide-icon> 06 81 19 17 90
-            </a>
+            @if (captchaVerified) {
+              <a class="verified-number" href="tel:+33681191790">
+                <lucide-icon name="phone"></lucide-icon> 06 81 19 17 90
+              </a>
+            }
 
             <!-- Widget invisible -->
             <re-captcha

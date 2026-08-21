@@ -4,34 +4,129 @@
     <p class="logo-btn" (click)="handleLogoClick($event)">DM FORMAT</p>
 
     <!-- Affichage pour écrans > 1400px -->
-    <div class="desktop-nav" *ngIf="!isMobileView || !isBrowser">
-      <div class="nav-links">
-        <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
-        <mat-menu #menu="matMenu" class="menu">
+    @if (!isMobileView || !isBrowser) {
+      <div class="desktop-nav">
+        <div class="nav-links">
+          <button mat-button [matMenuTriggerFor]="menu">Nos formations</button>
+          <mat-menu #menu="matMenu" class="menu">
+            @for (training of trainings; track training) {
+              <button
+                mat-menu-item
+                [routerLink]="['/trainings', training._id]"
+                class="menu-item"
+              >
+                <span class="menu-item-icon">
+                  <lucide-icon
+                    [img]="getIconForTraining(training)"
+                  ></lucide-icon>
+                </span>
+                <span class="menu-item-text">{{
+                  stripHtmlTags(training.title)
+                }}</span>
+              </button>
+            }
+          </mat-menu>
           <button
-            mat-menu-item
-            *ngFor="let training of trainings"
-            [routerLink]="['/trainings', training._id]"
-            class="menu-item"
+            mat-button
+            [routerLink]="['/about']"
+            routerLinkActive="nav-active"
           >
-            <span class="menu-item-icon">
-              <lucide-icon [img]="getIconForTraining(training)"></lucide-icon>
-            </span>
-            <span class="menu-item-text">{{ stripHtmlTags(training.title) }}</span>
+            Qui sommes-nous
           </button>
-        </mat-menu>
+          <button
+            mat-button
+            [routerLink]="['/organisation']"
+            routerLinkActive="nav-active"
+          >
+            Conditions d'organisation
+          </button>
+          <button
+            mat-button
+            [routerLink]="['/contact']"
+            class="contact"
+            routerLinkActive="nav-active"
+          >
+            Contactez-nous !
+          </button>
+        </div>
+      </div>
+    }
 
-        <button
-          mat-button
-          [routerLink]="['/about']"
-          routerLinkActive="nav-active"
-        >
+    <!-- Burger menu pour écrans <= 1400px -->
+    @if (isMobileView && isBrowser) {
+      <div class="mobile-nav">
+        <button mat-icon-button (click)="toggleSidenav()">
+          <lucide-icon name="menu"></lucide-icon>
+        </button>
+      </div>
+    }
+  </div>
+
+  <!-- Deuxième ligne pour les boutons d'authentification sur petits écrans -->
+  @if (isSmallScreen && isBrowser && showLoginButton) {
+    <div class="nav-bottom-row">
+      <div class="auth-buttons-mobile">
+        @if (showLoginButton && !(isLoggedIn$ | async)) {
+          <button mat-button [routerLink]="['/login']">Connexion</button>
+        }
+        @if (isLoggedIn$ | async) {
+          <button mat-button (click)="logout()">Déconnexion</button>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Boutons d'authentification pour grands écrans -->
+  @if (!isSmallScreen && isBrowser) {
+    <div class="auth-buttons">
+      <div class="auth-buttons-desktop">
+        @if (showLoginButton && !(isLoggedIn$ | async)) {
+          <button mat-button [routerLink]="['/login']">Connexion</button>
+        }
+        @if (isLoggedIn$ | async) {
+          <button mat-button (click)="logout()">Déconnexion</button>
+        }
+      </div>
+    </div>
+  }
+</nav>
+
+<!-- Sidenav pour mobile -->
+@if (isMobileView && isBrowser) {
+  <div class="sidenav-container" [class.open]="isSidenavOpen">
+    <div class="sidenav-backdrop" (click)="closeSidenav()"></div>
+    <div class="sidenav">
+      <div class="sidenav-header">
+        <button mat-icon-button (click)="closeSidenav()">
+          <lucide-icon name="x"></lucide-icon>
+        </button>
+      </div>
+      <div class="sidenav-content">
+        <h3>Nos formations</h3>
+        <div class="mobile-menu-items">
+          @for (training of trainings; track training) {
+            <button
+              mat-button
+              [routerLink]="['/trainings', training._id]"
+              class="menu-item"
+              (click)="closeSidenav()"
+            >
+              <span class="menu-item-icon">
+                <lucide-icon [img]="getIconForTraining(training)"></lucide-icon>
+              </span>
+              <span class="menu-item-text">{{
+                stripHtmlTags(training.title)
+              }}</span>
+            </button>
+          }
+        </div>
+        <button mat-button [routerLink]="['/about']" (click)="closeSidenav()">
           Qui sommes-nous
         </button>
         <button
           mat-button
           [routerLink]="['/organisation']"
-          routerLinkActive="nav-active"
+          (click)="closeSidenav()"
         >
           Conditions d'organisation
         </button>
@@ -39,106 +134,11 @@
           mat-button
           [routerLink]="['/contact']"
           class="contact"
-          routerLinkActive="nav-active"
+          (click)="closeSidenav()"
         >
           Contactez-nous !
         </button>
       </div>
     </div>
-
-    <!-- Burger menu pour écrans <= 1400px -->
-    <div class="mobile-nav" *ngIf="isMobileView && isBrowser">
-      <button mat-icon-button (click)="toggleSidenav()">
-        <lucide-icon name="menu"></lucide-icon>
-      </button>
-    </div>
   </div>
-
-  <!-- Deuxième ligne pour les boutons d'authentification sur petits écrans -->
-  <div
-    class="nav-bottom-row"
-    *ngIf="isSmallScreen && isBrowser && showLoginButton"
-  >
-    <div class="auth-buttons-mobile">
-      <button
-        mat-button
-        [routerLink]="['/login']"
-        *ngIf="showLoginButton && !(isLoggedIn$ | async)"
-      >
-        Connexion
-      </button>
-      <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
-        Déconnexion
-      </button>
-    </div>
-  </div>
-
-  <!-- Boutons d'authentification pour grands écrans -->
-  <div class="auth-buttons" *ngIf="!isSmallScreen && isBrowser">
-    <div class="auth-buttons-desktop">
-      <button
-        mat-button
-        [routerLink]="['/login']"
-        *ngIf="showLoginButton && !(isLoggedIn$ | async)"
-      >
-        Connexion
-      </button>
-      <button mat-button (click)="logout()" *ngIf="isLoggedIn$ | async">
-        Déconnexion
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Sidenav pour mobile -->
-<div
-  class="sidenav-container"
-  [class.open]="isSidenavOpen"
-  *ngIf="isMobileView && isBrowser"
->
-  <div class="sidenav-backdrop" (click)="closeSidenav()"></div>
-  <div class="sidenav">
-    <div class="sidenav-header">
-      <button mat-icon-button (click)="closeSidenav()">
-        <lucide-icon name="x"></lucide-icon>
-      </button>
-    </div>
-
-    <div class="sidenav-content">
-      <h3>Nos formations</h3>
-      <div class="mobile-menu-items">
-        <button
-          mat-button
-          *ngFor="let training of trainings"
-          [routerLink]="['/trainings', training._id]"
-          class="menu-item"
-          (click)="closeSidenav()"
-        >
-          <span class="menu-item-icon">
-            <lucide-icon [img]="getIconForTraining(training)"></lucide-icon>
-          </span>
-          <span class="menu-item-text">{{ stripHtmlTags(training.title) }}</span>
-        </button>
-      </div>
-
-      <button mat-button [routerLink]="['/about']" (click)="closeSidenav()">
-        Qui sommes-nous
-      </button>
-      <button
-        mat-button
-        [routerLink]="['/organisation']"
-        (click)="closeSidenav()"
-      >
-        Conditions d'organisation
-      </button>
-      <button
-        mat-button
-        [routerLink]="['/contact']"
-        class="contact"
-        (click)="closeSidenav()"
-      >
-        Contactez-nous !
-      </button>
-    </div>
-  </div>
-</div>
+}

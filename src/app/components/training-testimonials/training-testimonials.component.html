@@ -1,116 +1,120 @@
 <div class="testimonials-section">
   <!-- Témoignages existants -->
-  <div
-    class="testimonials-list"
-    *ngIf="testimonials && testimonials.length > 0"
-  >
-    <div class="testimonial-carousel">
-      <button
-        type="button"
-        class="carousel-nav prev"
-        (click)="prevSlide()"
-        [disabled]="currentIndex === 0"
-        aria-label="Témoignages précédents"
-      >
-        <lucide-icon name="chevron-left"></lucide-icon>
-      </button>
-
-      <div class="carousel-viewport">
-        <div
-          class="carousel-track"
-          [style.transform]="trackTransform"
-          [style.--visible-slides]="visibleSlides"
-        >
-          @for (
-            testimonial of testimonials;
-            track testimonial._id;
-            let i = $index
-          ) {
-            <div class="testimonial-card">
-              <div class="testimonial-content">
-                <p class="feedback">
-                  "{{
-                    testimonial.feedback.length > 200
-                      ? (testimonial.feedback | slice: 0 : 200) + '...'
-                      : testimonial.feedback
-                  }}"
-                </p>
-                <button
-                  *ngIf="testimonial.feedback.length > 200"
-                  (click)="openTestimonialDialog(testimonial)"
-                  class="btn-link"
-                >
-                  Voir plus
-                </button>
-
-                <div class="testimonial-author">
-                  <p class="name">{{ testimonial.name }}</p>
-                  <p class="role">{{ testimonial.role }}</p>
-                </div>
-                <!-- Bouton de suppression pour les admins -->
-                <button
-                  *ngIf="isAdmin"
-                  class="delete-btn"
-                  (click)="deleteTestimonial(testimonial._id, i)"
-                  title="Supprimer ce témoignage"
-                >
-                  <lucide-icon name="trash-2"></lucide-icon>
-                </button>
-              </div>
-            </div>
-          }
-        </div>
-      </div>
-
-      <button
-        type="button"
-        class="carousel-nav next"
-        (click)="nextSlide()"
-        [disabled]="currentIndex >= maxIndex"
-        aria-label="Témoignages suivants"
-      >
-        <lucide-icon name="chevron-right"></lucide-icon>
-      </button>
-    </div>
-
-    <div class="carousel-dots" *ngIf="maxIndex > 0">
-      @for (dot of dotsArray; track $index) {
+  @if (testimonials && testimonials.length > 0) {
+    <div class="testimonials-list">
+      <div class="testimonial-carousel">
         <button
           type="button"
-          class="dot"
-          [class.active]="$index === currentIndex"
-          (click)="goToSlide($index)"
-          [attr.aria-label]="'Aller au témoignage ' + ($index + 1)"
-        ></button>
+          class="carousel-nav prev"
+          (click)="prevSlide()"
+          [disabled]="currentIndex === 0"
+          aria-label="Témoignages précédents"
+        >
+          <lucide-icon name="chevron-left"></lucide-icon>
+        </button>
+        <div class="carousel-viewport">
+          <div
+            class="carousel-track"
+            [style.transform]="trackTransform"
+            [style.--visible-slides]="visibleSlides"
+          >
+            @for (
+              testimonial of testimonials;
+              track testimonial._id;
+              let i = $index
+            ) {
+              <div class="testimonial-card">
+                <div class="testimonial-content">
+                  <p class="feedback">
+                    "{{
+                      testimonial.feedback.length > 200
+                        ? (testimonial.feedback | slice: 0 : 200) + '...'
+                        : testimonial.feedback
+                    }}"
+                  </p>
+                  @if (testimonial.feedback.length > 200) {
+                    <button
+                      (click)="openTestimonialDialog(testimonial)"
+                      class="btn-link"
+                    >
+                      Voir plus
+                    </button>
+                  }
+                  <div class="testimonial-author">
+                    <p class="name">{{ testimonial.name }}</p>
+                    <p class="role">{{ testimonial.role }}</p>
+                  </div>
+                  <!-- Bouton de suppression pour les admins -->
+                  @if (isAdmin) {
+                    <button
+                      class="delete-btn"
+                      (click)="deleteTestimonial(testimonial._id, i)"
+                      title="Supprimer ce témoignage"
+                    >
+                      <lucide-icon name="trash-2"></lucide-icon>
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+        <button
+          type="button"
+          class="carousel-nav next"
+          (click)="nextSlide()"
+          [disabled]="currentIndex >= maxIndex"
+          aria-label="Témoignages suivants"
+        >
+          <lucide-icon name="chevron-right"></lucide-icon>
+        </button>
+      </div>
+      @if (maxIndex > 0) {
+        <div class="carousel-dots">
+          @for (dot of dotsArray; track $index) {
+            <button
+              type="button"
+              class="dot"
+              [class.active]="$index === currentIndex"
+              (click)="goToSlide($index)"
+              [attr.aria-label]="'Aller au témoignage ' + ($index + 1)"
+            ></button>
+          }
+        </div>
       }
     </div>
-  </div>
+  }
 
-  <div *ngIf="isLoading" class="loading-container">
-    <div class="spinner-border text-primary" role="status">
-      <span class="sr-only">Chargement...</span>
+  @if (isLoading) {
+    <div class="loading-container">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Chargement...</span>
+      </div>
     </div>
-  </div>
+  }
 
   <!-- Message si aucun témoignage -->
-  <div
-    *ngIf="!isLoading && (!testimonials || testimonials.length === 0)"
-    class="no-testimonials"
-  >
-    <p>Aucun témoignage n'est disponible pour le moment.</p>
-  </div>
+  @if (!isLoading && (!testimonials || testimonials.length === 0)) {
+    <div class="no-testimonials">
+      <p>Aucun témoignage n'est disponible pour le moment.</p>
+    </div>
+  }
 
   <!-- Formulaire d'ajout de témoignage -->
   <div class="testimonial-form-container">
     <h3>Partagez votre expérience</h3>
 
-    <div *ngIf="successMessage" class="alert alert-success">
-      {{ successMessage }}
-    </div>
+    @if (successMessage) {
+      <div class="alert alert-success">
+        {{ successMessage }}
+      </div>
+    }
 
-    <div *ngIf="errorMessage" class="alert alert-danger">
-      {{ errorMessage }}
-    </div>
+    @if (errorMessage) {
+      <div class="alert alert-danger">
+        {{ errorMessage }}
+      </div>
+    }
 
     <form [formGroup]="testimonialForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
@@ -122,14 +126,16 @@
           class="form-control"
           [ngClass]="{ 'is-invalid': formSubmitted && f['name'].errors }"
         />
-        <div *ngIf="formSubmitted && f['name'].errors" class="invalid-feedback">
-          <div *ngIf="f['name'].errors && f['name'].errors['required']">
-            Le nom est requis
+        @if (formSubmitted && f['name'].errors) {
+          <div class="invalid-feedback">
+            @if (f['name'].errors && f['name'].errors['required']) {
+              <div>Le nom est requis</div>
+            }
+            @if (f['name'].errors && f['name'].errors['minlength']) {
+              <div>Le nom doit comporter au moins 2 caractères</div>
+            }
           </div>
-          <div *ngIf="f['name'].errors && f['name'].errors['minlength']">
-            Le nom doit comporter au moins 2 caractères
-          </div>
-        </div>
+        }
       </div>
 
       <div class="form-group">
@@ -141,11 +147,13 @@
           class="form-control"
           [ngClass]="{ 'is-invalid': formSubmitted && f['role'].errors }"
         />
-        <div *ngIf="formSubmitted && f['role'].errors" class="invalid-feedback">
-          <div *ngIf="f['role'].errors && f['role'].errors['required']">
-            La fonction/le rôle est requis
+        @if (formSubmitted && f['role'].errors) {
+          <div class="invalid-feedback">
+            @if (f['role'].errors && f['role'].errors['required']) {
+              <div>La fonction/le rôle est requis</div>
+            }
           </div>
-        </div>
+        }
       </div>
 
       <div class="form-group">
@@ -157,26 +165,25 @@
           rows="4"
           [ngClass]="{ 'is-invalid': formSubmitted && f['feedback'].errors }"
         ></textarea>
-        <div
-          *ngIf="formSubmitted && f['feedback'].errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="f['feedback'].errors && f['feedback'].errors['required']">
-            Le témoignage est requis
+        @if (formSubmitted && f['feedback'].errors) {
+          <div class="invalid-feedback">
+            @if (f['feedback'].errors && f['feedback'].errors['required']) {
+              <div>Le témoignage est requis</div>
+            }
+            @if (f['feedback'].errors && f['feedback'].errors['minlength']) {
+              <div>Le témoignage doit comporter au moins 10 caractères</div>
+            }
           </div>
-          <div
-            *ngIf="f['feedback'].errors && f['feedback'].errors['minlength']"
-          >
-            Le témoignage doit comporter au moins 10 caractères
-          </div>
-        </div>
+        }
       </div>
 
       <!-- Afficher un indicateur visuel si le CAPTCHA est vérifié -->
-      <div class="captcha-status" *ngIf="captchaVerified">
-        <lucide-icon name="shield-check" class="text-success"></lucide-icon>
-        <span class="text-success">Vérification humaine réussie</span>
-      </div>
+      @if (captchaVerified) {
+        <div class="captcha-status">
+          <lucide-icon name="shield-check" class="text-success"></lucide-icon>
+          <span class="text-success">Vérification humaine réussie</span>
+        </div>
+      }
 
       <!-- Widget invisible reCAPTCHA -->
       <re-captcha
@@ -189,13 +196,14 @@
       </re-captcha>
 
       <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
-        <span
-          *ngIf="isSubmitting"
-          class="spinner-border spinner-border-sm mr-1"
-        ></span>
-        <span *ngIf="!captchaVerified">
-          <lucide-icon name="shield"></lucide-icon>
-        </span>
+        @if (isSubmitting) {
+          <span class="spinner-border spinner-border-sm mr-1"></span>
+        }
+        @if (!captchaVerified) {
+          <span>
+            <lucide-icon name="shield"></lucide-icon>
+          </span>
+        }
         Envoyer mon témoignage
       </button>
     </form>

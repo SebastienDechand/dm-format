@@ -1,561 +1,609 @@
-<section class="conditions-page" *ngIf="organisationData">
-  <div class="container">
-    <!-- 🌟 En-tête de la page -->
-    <div class="header-banner">
-      <div class="banner-content">
-        <h2>
-          <span *ngIf="!editMode['header.title']">{{
-            organisationData.header.title
-          }}</span>
-          <textarea
-            autoResize
-            *ngIf="editMode['header.title']"
-            [(ngModel)]="organisationData.header.title"
-            class="edit-textarea"
-            (blur)="toggleEditMode('header.title')"
-          ></textarea>
-          <app-edit-button
-            *ngIf="isAdmin$ | async"
-            (editClicked)="toggleEditMode('header.title')"
-          ></app-edit-button>
-        </h2>
+@if (organisationData) {
+  <section class="conditions-page">
+    <div class="container">
+      <!-- 🌟 En-tête de la page -->
+      <div class="header-banner">
+        <div class="banner-content">
+          <h2>
+            @if (!editMode['header.title']) {
+              <span>{{ organisationData.header.title }}</span>
+            }
+            @if (editMode['header.title']) {
+              <textarea
+                autoResize
+                [(ngModel)]="organisationData.header.title"
+                class="edit-textarea"
+                (blur)="toggleEditMode('header.title')"
+              ></textarea>
+            }
+            @if (isAdmin$ | async) {
+              <app-edit-button
+                (editClicked)="toggleEditMode('header.title')"
+              ></app-edit-button>
+            }
+          </h2>
+          <p>
+            @if (!editMode['header.description']) {
+              <span>{{ organisationData.header.description }}</span>
+            }
+            @if (editMode['header.description']) {
+              <textarea
+                autoResize
+                [(ngModel)]="organisationData.header.description"
+                class="edit-textarea"
+                (blur)="toggleEditMode('header.description')"
+              ></textarea>
+            }
+            @if (isAdmin$ | async) {
+              <app-edit-button
+                (editClicked)="toggleEditMode('header.description')"
+              ></app-edit-button>
+            }
+          </p>
+        </div>
+        <div class="banner-image">
+          @if (imageRefreshTrigger.header) {
+            <app-editable-image
+              pageId="organisation-header"
+              [imageSrc]="organisationData.header.image.src || ''"
+              [altText]="
+                organisationData.header.image.alt ||
+                'Image d\'en-tête Modalités d\'organisation'
+              "
+              imageClass="organisation-banner-image"
+              [isEditable]="(isAdmin$ | async) ?? false"
+              (imageUploaded)="onHeaderImageUploaded($event)"
+            ></app-editable-image>
+          }
+        </div>
+      </div>
+      <!-- 📌 Introduction -->
+      <div class="intro">
+        <h3>
+          @if (!editMode['intro.title']) {
+            <span>{{ organisationData.intro.title }}</span>
+          }
+          @if (editMode['intro.title']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.intro.title"
+              class="edit-textarea"
+              (blur)="toggleEditMode('intro.title')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('intro.title')"
+            ></app-edit-button>
+          }
+        </h3>
         <p>
-          <span *ngIf="!editMode['header.description']">{{
-            organisationData.header.description
-          }}</span>
-          <textarea
-            autoResize
-            *ngIf="editMode['header.description']"
-            [(ngModel)]="organisationData.header.description"
-            class="edit-textarea"
-            (blur)="toggleEditMode('header.description')"
-          ></textarea>
-          <app-edit-button
-            *ngIf="isAdmin$ | async"
-            (editClicked)="toggleEditMode('header.description')"
-          ></app-edit-button>
+          @if (!editMode['intro.description']) {
+            <span>{{ organisationData.intro.description }}</span>
+          }
+          @if (editMode['intro.description']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.intro.description"
+              class="edit-textarea"
+              (blur)="toggleEditMode('intro.description')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('intro.description')"
+            ></app-edit-button>
+          }
         </p>
       </div>
+      <!-- 📎 Section PDF à télécharger -->
+      @if (hasPdfs) {
+        <h4 class="section-title">Documents à <span>télécharger</span></h4>
+      }
+      @if (hasPdfs) {
+        <div class="uploaded-pdf">
+          <ul class="pdf-list">
+            @for (pdf of filteredPdfs; track pdf) {
+              <li class="pdf-item">
+                <a
+                  [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+                  target="_blank"
+                  class="pdf-link"
+                  rel="noopener noreferrer"
+                  type="application/pdf"
+                >
+                  <img
+                    src="assets/images/pdf-placeholder.png"
+                    alt="PDF"
+                    class="pdf-icon"
+                  />
+                  <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
+                </a>
+                @if (isAdmin$ | async) {
+                  <button class="delete-btn" (click)="deletePdf(pdf)">
+                    <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      }
 
-      <div class="banner-image">
-        <app-editable-image
-          *ngIf="imageRefreshTrigger.header"
-          pageId="organisation-header"
-          [imageSrc]="organisationData.header.image.src || ''"
-          [altText]="
-            organisationData.header.image.alt ||
-            'Image d\'en-tête Modalités d\'organisation'
-          "
-          imageClass="organisation-banner-image"
-          [isEditable]="(isAdmin$ | async) ?? false"
-          (imageUploaded)="onHeaderImageUploaded($event)"
-        ></app-editable-image>
-      </div>
-    </div>
-
-    <!-- 📌 Introduction -->
-    <div class="intro">
-      <h3>
-        <span *ngIf="!editMode['intro.title']">{{
-          organisationData.intro.title
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['intro.title']"
-          [(ngModel)]="organisationData.intro.title"
-          class="edit-textarea"
-          (blur)="toggleEditMode('intro.title')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('intro.title')"
-        ></app-edit-button>
-      </h3>
-      <p>
-        <span *ngIf="!editMode['intro.description']">{{
-          organisationData.intro.description
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['intro.description']"
-          [(ngModel)]="organisationData.intro.description"
-          class="edit-textarea"
-          (blur)="toggleEditMode('intro.description')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('intro.description')"
-        ></app-edit-button>
-      </p>
-    </div>
-
-    <!-- 📎 Section PDF à télécharger -->
-    <h4 *ngIf="hasPdfs" class="section-title">
-      Documents à <span>télécharger</span>
-    </h4>
-    <div *ngIf="hasPdfs" class="uploaded-pdf">
-      <ul class="pdf-list">
-        <li *ngFor="let pdf of filteredPdfs" class="pdf-item">
-          <a
-            [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
-            target="_blank"
-            class="pdf-link"
-            rel="noopener noreferrer"
-            type="application/pdf"
-          >
-            <img
-              src="assets/images/pdf-placeholder.png"
-              alt="PDF"
-              class="pdf-icon"
-            />
-            <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
-          </a>
+      <!-- 📤 Upload PDF -->
+      @if (isAdmin$ | async) {
+        <div class="pdf-upload">
+          <p>Ajouter un PDF à la page</p>
+          <input
+            type="file"
+            accept="application/pdf"
+            (change)="onPdfFileSelected($event)"
+          />
           <button
-            *ngIf="isAdmin$ | async"
-            class="delete-btn"
-            (click)="deletePdf(pdf)"
+            class="upload-btn"
+            (click)="uploadSelectedPdf()"
+            [disabled]="!selectedPdfFile"
           >
-            <lucide-icon name="trash-2"></lucide-icon> Supprimer
+            Uploader le PDF
           </button>
-        </li>
-      </ul>
-    </div>
-
-    <!-- 📤 Upload PDF -->
-    <div class="pdf-upload" *ngIf="isAdmin$ | async">
-      <p>Ajouter un PDF à la page</p>
-      <input
-        type="file"
-        accept="application/pdf"
-        (change)="onPdfFileSelected($event)"
-      />
-      <button
-        class="upload-btn"
-        (click)="uploadSelectedPdf()"
-        [disabled]="!selectedPdfFile"
-      >
-        Uploader le PDF
-      </button>
-    </div>
-
-    <!-- 📚 Conditions générales des formations -->
-    <div class="conditions">
-      <h3>
-        <span *ngIf="!editMode['general_conditions.title']">{{
-          organisationData.general_conditions.title
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['general_conditions.title']"
-          [(ngModel)]="organisationData.general_conditions.title"
-          class="edit-textarea"
-          (blur)="toggleEditMode('general_conditions.title')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('general_conditions.title')"
-        ></app-edit-button>
-      </h3>
-      <p>
-        <span
-          *ngIf="!editMode['general_conditions.description']"
-          [innerHTML]="organisationData.general_conditions.description"
-        ></span>
-        <textarea
-          autoResize
-          *ngIf="editMode['general_conditions.description']"
-          [(ngModel)]="organisationData.general_conditions.description"
-          class="edit-textarea"
-          (blur)="toggleEditMode('general_conditions.description')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('general_conditions.description')"
-        ></app-edit-button>
-      </p>
-      <div class="conditions-grid">
-        <div
-          class="condition-item"
-          *ngFor="
-            let point of organisationData.general_conditions.points;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
-          <p>
-            <strong>
-              <span
-                *ngIf="!editMode['general_conditions.points.' + i + '.title']"
-                >{{ point.title }}</span
-              >
-              <textarea
-                autoResize
-                *ngIf="editMode['general_conditions.points.' + i + '.title']"
-                [(ngModel)]="point.title"
-                class="edit-textarea"
-                (blur)="
-                  toggleEditMode('general_conditions.points.' + i + '.title')
-                "
-              ></textarea>
-              <app-edit-button
-                *ngIf="isAdmin$ | async"
-                (editClicked)="
-                  toggleEditMode('general_conditions.points.' + i + '.title')
-                "
-              ></app-edit-button>
-            </strong>
-          </p>
-          <p>
-            <span
-              *ngIf="
-                !editMode['general_conditions.points.' + i + '.description']
-              "
-              >{{ point.description }}</span
-            >
-            <textarea
-              autoResize
-              *ngIf="
-                editMode['general_conditions.points.' + i + '.description']
-              "
-              [(ngModel)]="point.description"
-              class="edit-textarea"
-              (blur)="
-                toggleEditMode(
-                  'general_conditions.points.' + i + '.description'
-                )
-              "
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="
-                toggleEditMode(
-                  'general_conditions.points.' + i + '.description'
-                )
-              "
-            ></app-edit-button>
-          </p>
         </div>
-      </div>
-    </div>
+      }
 
-    <!-- 🎓 Certification -->
-    <div class="certification">
-      <h3>
-        <span *ngIf="!editMode['certification.title']">{{
-          organisationData.certification.title
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['certification.title']"
-          [(ngModel)]="organisationData.certification.title"
-          class="edit-textarea"
-          (blur)="toggleEditMode('certification.title')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('certification.title')"
-        ></app-edit-button>
-      </h3>
-      <p>
-        <span
-          *ngIf="!editMode['certification.description']"
-          [innerHTML]="organisationData.certification.description"
-        ></span>
-        <textarea
-          autoResize
-          *ngIf="editMode['certification.description']"
-          [(ngModel)]="organisationData.certification.description"
-          class="edit-textarea"
-          (blur)="toggleEditMode('certification.description')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('certification.description')"
-        ></app-edit-button>
-      </p>
-      <ul>
-        <li
-          *ngFor="
-            let detail of organisationData.certification.details;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <span class="badge"><lucide-icon name="graduation-cap"></lucide-icon></span>
-          <span
-            *ngIf="!editMode['certification.details.' + i]"
-            [innerHTML]="detail | safeHtml"
-          ></span>
-          <textarea
-            autoResize
-            *ngIf="editMode['certification.details.' + i]"
-            [(ngModel)]="organisationData.certification.details[i]"
-            class="edit-textarea"
-            (blur)="toggleEditMode('certification.details.' + i)"
-          ></textarea>
-          <app-edit-button
-            *ngIf="isAdmin$ | async"
-            (editClicked)="toggleEditMode('certification.details.' + i)"
-          ></app-edit-button>
-        </li>
-      </ul>
-      <p class="note">
-        <span *ngIf="!editMode['certification.note']">{{
-          organisationData.certification.note
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['certification.note']"
-          [(ngModel)]="organisationData.certification.note"
-          class="edit-textarea"
-          (blur)="toggleEditMode('certification.note')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('certification.note')"
-        ></app-edit-button>
-      </p>
-    </div>
-
-    <!-- 🏆 Engagement des participants -->
-    <div class="obligations">
-      <h3>
-        <span *ngIf="!editMode['obligations.title']">{{
-          organisationData.obligations.title
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['obligations.title']"
-          [(ngModel)]="organisationData.obligations.title"
-          class="edit-textarea"
-          (blur)="toggleEditMode('obligations.title')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('obligations.title')"
-        ></app-edit-button>
-      </h3>
-      <p>
-        <span
-          *ngIf="!editMode['obligations.description']"
-          [innerHTML]="organisationData.obligations.description"
-        ></span>
-        <textarea
-          autoResize
-          *ngIf="editMode['obligations.description']"
-          [(ngModel)]="organisationData.obligations.description"
-          class="edit-textarea"
-          (blur)="toggleEditMode('obligations.description')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('obligations.description')"
-        ></app-edit-button>
-      </p>
-      <div class="obligations-grid">
-        <div
-          class="obligation-item"
-          *ngFor="
-            let point of organisationData.obligations.points;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
-          <p>
-            <strong>
-              <span *ngIf="!editMode['obligations.points.' + i + '.title']">{{
-                point.title
-              }}</span>
-              <textarea
-                autoResize
-                *ngIf="editMode['obligations.points.' + i + '.title']"
-                [(ngModel)]="point.title"
-                class="edit-textarea"
-                (blur)="toggleEditMode('obligations.points.' + i + '.title')"
-              ></textarea>
-              <app-edit-button
-                *ngIf="isAdmin$ | async"
-                (editClicked)="
-                  toggleEditMode('obligations.points.' + i + '.title')
-                "
-              ></app-edit-button>
-            </strong>
-          </p>
-          <p>
-            <span
-              *ngIf="!editMode['obligations.points.' + i + '.description']"
-              >{{ point.description }}</span
-            >
+      <!-- 📚 Conditions générales des formations -->
+      <div class="conditions">
+        <h3>
+          @if (!editMode['general_conditions.title']) {
+            <span>{{ organisationData.general_conditions.title }}</span>
+          }
+          @if (editMode['general_conditions.title']) {
             <textarea
               autoResize
-              *ngIf="editMode['obligations.points.' + i + '.description']"
-              [(ngModel)]="point.description"
+              [(ngModel)]="organisationData.general_conditions.title"
               class="edit-textarea"
-              (blur)="
-                toggleEditMode('obligations.points.' + i + '.description')
-              "
+              (blur)="toggleEditMode('general_conditions.title')"
             ></textarea>
+          }
+          @if (isAdmin$ | async) {
             <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="
-                toggleEditMode('obligations.points.' + i + '.description')
-              "
+              (editClicked)="toggleEditMode('general_conditions.title')"
             ></app-edit-button>
-          </p>
-        </div>
-      </div>
-      <p class="note">
-        <span *ngIf="!editMode['obligations.note']">{{
-          organisationData.obligations.note
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['obligations.note']"
-          [(ngModel)]="organisationData.obligations.note"
-          class="edit-textarea"
-          (blur)="toggleEditMode('obligations.note')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('obligations.note')"
-        ></app-edit-button>
-      </p>
-    </div>
-
-    <!-- 💰 Financement par les OPCO -->
-    <div class="finances">
-      <div class="finance-flex">
-        <div class="finance-description">
-          <h3>
-            <span *ngIf="!editMode['financing.title']">{{
-              organisationData.financing.title
-            }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['financing.title']"
-              [(ngModel)]="organisationData.financing.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('financing.title')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('financing.title')"
-            ></app-edit-button>
-          </h3>
-          <p>
+          }
+        </h3>
+        <p>
+          @if (!editMode['general_conditions.description']) {
             <span
-              *ngIf="!editMode['financing.description']"
-              [innerHTML]="organisationData.financing.description | safeHtml"
+              [innerHTML]="organisationData.general_conditions.description"
             ></span>
+          }
+          @if (editMode['general_conditions.description']) {
             <textarea
               autoResize
-              *ngIf="editMode['financing.description']"
-              [(ngModel)]="organisationData.financing.description"
+              [(ngModel)]="organisationData.general_conditions.description"
               class="edit-textarea"
-              (blur)="toggleEditMode('financing.description')"
+              (blur)="toggleEditMode('general_conditions.description')"
             ></textarea>
+          }
+          @if (isAdmin$ | async) {
             <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('financing.description')"
+              (editClicked)="toggleEditMode('general_conditions.description')"
             ></app-edit-button>
-          </p>
-        </div>
-
-        <div class="finance-opco">
-          <h4>
-            <span *ngIf="!editMode['financing.opco.title']">{{
-              organisationData.financing.opco.title
-            }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['financing.opco.title']"
-              [(ngModel)]="organisationData.financing.opco.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('financing.opco.title')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('financing.opco.title')"
-            ></app-edit-button>
-          </h4>
-          <p class="opco-description">
-            <span
-              *ngIf="!editMode['financing.opco.description']"
-              [innerHTML]="organisationData.financing.opco.description"
-            ></span>
-            <textarea
-              autoResize
-              *ngIf="editMode['financing.opco.description']"
-              [(ngModel)]="organisationData.financing.opco.description"
-              class="edit-textarea"
-              (blur)="toggleEditMode('financing.opco.description')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('financing.opco.description')"
-            ></app-edit-button>
-          </p>
+          }
+        </p>
+        <div class="conditions-grid">
+          @for (
+            point of organisationData.general_conditions.points;
+            track trackByIndex(i, point);
+            let i = $index
+          ) {
+            <div class="condition-item">
+              <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
+              <p>
+                <strong>
+                  @if (!editMode['general_conditions.points.' + i + '.title']) {
+                    <span>{{ point.title }}</span>
+                  }
+                  @if (editMode['general_conditions.points.' + i + '.title']) {
+                    <textarea
+                      autoResize
+                      [(ngModel)]="point.title"
+                      class="edit-textarea"
+                      (blur)="
+                        toggleEditMode(
+                          'general_conditions.points.' + i + '.title'
+                        )
+                      "
+                    ></textarea>
+                  }
+                  @if (isAdmin$ | async) {
+                    <app-edit-button
+                      (editClicked)="
+                        toggleEditMode(
+                          'general_conditions.points.' + i + '.title'
+                        )
+                      "
+                    ></app-edit-button>
+                  }
+                </strong>
+              </p>
+              <p>
+                @if (
+                  !editMode['general_conditions.points.' + i + '.description']
+                ) {
+                  <span>{{ point.description }}</span>
+                }
+                @if (
+                  editMode['general_conditions.points.' + i + '.description']
+                ) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="point.description"
+                    class="edit-textarea"
+                    (blur)="
+                      toggleEditMode(
+                        'general_conditions.points.' + i + '.description'
+                      )
+                    "
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    (editClicked)="
+                      toggleEditMode(
+                        'general_conditions.points.' + i + '.description'
+                      )
+                    "
+                  ></app-edit-button>
+                }
+              </p>
+            </div>
+          }
         </div>
       </div>
-
-      <!-- <h4 class="subtitle">
-        <span *ngIf="!editMode['financing.subtitle']">{{
-          organisationData.financing.subtitle
-        }}</span>
-        <textarea
-        autoResize
-          *ngIf="editMode['financing.subtitle']"
-          [(ngModel)]="organisationData.financing.subtitle"
-          class="edit-textarea"
-          (blur)="toggleEditMode('financing.subtitle')"
-        />
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('financing.subtitle')"
-        ></app-edit-button>
-      </h4>
-
-      <ul class="finance-steps">
-        <li
+      <!-- 🎓 Certification -->
+      <div class="certification">
+        <h3>
+          @if (!editMode['certification.title']) {
+            <span>{{ organisationData.certification.title }}</span>
+          }
+          @if (editMode['certification.title']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.certification.title"
+              class="edit-textarea"
+              (blur)="toggleEditMode('certification.title')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('certification.title')"
+            ></app-edit-button>
+          }
+        </h3>
+        <p>
+          @if (!editMode['certification.description']) {
+            <span
+              [innerHTML]="organisationData.certification.description"
+            ></span>
+          }
+          @if (editMode['certification.description']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.certification.description"
+              class="edit-textarea"
+              (blur)="toggleEditMode('certification.description')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('certification.description')"
+            ></app-edit-button>
+          }
+        </p>
+        <ul>
+          @for (
+            detail of organisationData.certification.details;
+            track trackByIndex(i, detail);
+            let i = $index
+          ) {
+            <li>
+              <span class="badge"
+                ><lucide-icon name="graduation-cap"></lucide-icon
+              ></span>
+              @if (!editMode['certification.details.' + i]) {
+                <span [innerHTML]="detail | safeHtml"></span>
+              }
+              @if (editMode['certification.details.' + i]) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.certification.details[i]"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('certification.details.' + i)"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('certification.details.' + i)"
+                ></app-edit-button>
+              }
+            </li>
+          }
+        </ul>
+        <p class="note">
+          @if (!editMode['certification.note']) {
+            <span>{{ organisationData.certification.note }}</span>
+          }
+          @if (editMode['certification.note']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.certification.note"
+              class="edit-textarea"
+              (blur)="toggleEditMode('certification.note')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('certification.note')"
+            ></app-edit-button>
+          }
+        </p>
+      </div>
+      <!-- 🏆 Engagement des participants -->
+      <div class="obligations">
+        <h3>
+          @if (!editMode['obligations.title']) {
+            <span>{{ organisationData.obligations.title }}</span>
+          }
+          @if (editMode['obligations.title']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.obligations.title"
+              class="edit-textarea"
+              (blur)="toggleEditMode('obligations.title')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('obligations.title')"
+            ></app-edit-button>
+          }
+        </h3>
+        <p>
+          @if (!editMode['obligations.description']) {
+            <span [innerHTML]="organisationData.obligations.description"></span>
+          }
+          @if (editMode['obligations.description']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.obligations.description"
+              class="edit-textarea"
+              (blur)="toggleEditMode('obligations.description')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('obligations.description')"
+            ></app-edit-button>
+          }
+        </p>
+        <div class="obligations-grid">
+          @for (
+            point of organisationData.obligations.points;
+            track trackByIndex(i, point);
+            let i = $index
+          ) {
+            <div class="obligation-item">
+              <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
+              <p>
+                <strong>
+                  @if (!editMode['obligations.points.' + i + '.title']) {
+                    <span>{{ point.title }}</span>
+                  }
+                  @if (editMode['obligations.points.' + i + '.title']) {
+                    <textarea
+                      autoResize
+                      [(ngModel)]="point.title"
+                      class="edit-textarea"
+                      (blur)="
+                        toggleEditMode('obligations.points.' + i + '.title')
+                      "
+                    ></textarea>
+                  }
+                  @if (isAdmin$ | async) {
+                    <app-edit-button
+                      (editClicked)="
+                        toggleEditMode('obligations.points.' + i + '.title')
+                      "
+                    ></app-edit-button>
+                  }
+                </strong>
+              </p>
+              <p>
+                @if (!editMode['obligations.points.' + i + '.description']) {
+                  <span>{{ point.description }}</span>
+                }
+                @if (editMode['obligations.points.' + i + '.description']) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="point.description"
+                    class="edit-textarea"
+                    (blur)="
+                      toggleEditMode('obligations.points.' + i + '.description')
+                    "
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    (editClicked)="
+                      toggleEditMode('obligations.points.' + i + '.description')
+                    "
+                  ></app-edit-button>
+                }
+              </p>
+            </div>
+          }
+        </div>
+        <p class="note">
+          @if (!editMode['obligations.note']) {
+            <span>{{ organisationData.obligations.note }}</span>
+          }
+          @if (editMode['obligations.note']) {
+            <textarea
+              autoResize
+              [(ngModel)]="organisationData.obligations.note"
+              class="edit-textarea"
+              (blur)="toggleEditMode('obligations.note')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('obligations.note')"
+            ></app-edit-button>
+          }
+        </p>
+      </div>
+      <!-- 💰 Financement par les OPCO -->
+      <div class="finances">
+        <div class="finance-flex">
+          <div class="finance-description">
+            <h3>
+              @if (!editMode['financing.title']) {
+                <span>{{ organisationData.financing.title }}</span>
+              }
+              @if (editMode['financing.title']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.financing.title"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('financing.title')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('financing.title')"
+                ></app-edit-button>
+              }
+            </h3>
+            <p>
+              @if (!editMode['financing.description']) {
+                <span
+                  [innerHTML]="
+                    organisationData.financing.description | safeHtml
+                  "
+                ></span>
+              }
+              @if (editMode['financing.description']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.financing.description"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('financing.description')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('financing.description')"
+                ></app-edit-button>
+              }
+            </p>
+          </div>
+          <div class="finance-opco">
+            <h4>
+              @if (!editMode['financing.opco.title']) {
+                <span>{{ organisationData.financing.opco.title }}</span>
+              }
+              @if (editMode['financing.opco.title']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.financing.opco.title"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('financing.opco.title')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('financing.opco.title')"
+                ></app-edit-button>
+              }
+            </h4>
+            <p class="opco-description">
+              @if (!editMode['financing.opco.description']) {
+                <span
+                  [innerHTML]="organisationData.financing.opco.description"
+                ></span>
+              }
+              @if (editMode['financing.opco.description']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.financing.opco.description"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('financing.opco.description')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('financing.opco.description')"
+                ></app-edit-button>
+              }
+            </p>
+          </div>
+        </div>
+        <!-- <h4 class="subtitle">
+                <span *ngIf="!editMode['financing.subtitle']">{{
+                  organisationData.financing.subtitle
+                }}</span>
+                <textarea
+                  autoResize
+                  *ngIf="editMode['financing.subtitle']"
+                  [(ngModel)]="organisationData.financing.subtitle"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('financing.subtitle')"
+                  />
+                  <app-edit-button
+                    *ngIf="isAdmin$ | async"
+                    (editClicked)="toggleEditMode('financing.subtitle')"
+                  ></app-edit-button>
+                </h4>
+                <ul class="finance-steps">
+                  <li
           *ngFor="
             let step of organisationData.financing.steps;
             let i = index;
             trackBy: trackByIndex
           "
-          class="finance-step"
-        >
-          <div>
-            <app-dynamic-icon
-              *ngIf="!editMode['financing.steps.' + i + '.icon']"
-              [faClass]="step.icon"
-            ></app-dynamic-icon>
-          </div>
-          <p>
-            <span *ngIf="!editMode['financing.steps.' + i + '.text']">{{
-              step.text
-            }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['financing.steps.' + i + '.text']"
-              [(ngModel)]="step.text"
-              class="edit-textarea"
-              (blur)="toggleEditMode('financing.steps.' + i + '.text')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('financing.steps.' + i + '.text')"
-            ></app-edit-button>
-          </p>
-        </li>
-      </ul> -->
+                    class="finance-step"
+                    >
+                    <div>
+                      <app-dynamic-icon
+                        *ngIf="!editMode['financing.steps.' + i + '.icon']"
+                        [faClass]="step.icon"
+                      ></app-dynamic-icon>
+                    </div>
+                    <p>
+                      <span *ngIf="!editMode['financing.steps.' + i + '.text']">{{
+                        step.text
+                      }}</span>
+                      <textarea
+                        autoResize
+                        *ngIf="editMode['financing.steps.' + i + '.text']"
+                        [(ngModel)]="step.text"
+                        class="edit-textarea"
+                        (blur)="toggleEditMode('financing.steps.' + i + '.text')"
+                      ></textarea>
+                      <app-edit-button
+                        *ngIf="isAdmin$ | async"
+                        (editClicked)="toggleEditMode('financing.steps.' + i + '.text')"
+                      ></app-edit-button>
+                    </p>
+                  </li>
+                </ul> -->
+      </div>
+      <!-- Bouton de sauvegarde global -->
+      @if (isAdmin$ | async) {
+        <button class="save-btn" (click)="saveChanges()">
+          <span class="save-text">Sauvegarder les modifications</span>
+          <lucide-icon name="save" class="save-icon"></lucide-icon>
+        </button>
+      }
     </div>
-
-    <!-- Bouton de sauvegarde global -->
-    <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
-      <span class="save-text">Sauvegarder les modifications</span>
-      <lucide-icon name="save" class="save-icon"></lucide-icon>
-    </button>
-  </div>
-</section>
+  </section>
+}

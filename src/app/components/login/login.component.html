@@ -12,12 +12,12 @@
             required
             autocomplete="on"
           />
-          <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
-            L'identifiant est requis
-          </mat-error>
-          <mat-error *ngIf="loginForm.controls['email'].hasError('email')">
-            Format invalide
-          </mat-error>
+          @if (loginForm.controls['email'].hasError('required')) {
+            <mat-error> L'identifiant est requis </mat-error>
+          }
+          @if (loginForm.controls['email'].hasError('email')) {
+            <mat-error> Format invalide </mat-error>
+          }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
@@ -35,14 +35,16 @@
             (click)="hidePassword = !hidePassword"
             type="button"
           >
-            <lucide-icon *ngIf="!hidePassword" name="eye"></lucide-icon>
-            <lucide-icon *ngIf="hidePassword" name="eye-off"></lucide-icon>
+            @if (!hidePassword) {
+              <lucide-icon name="eye"></lucide-icon>
+            }
+            @if (hidePassword) {
+              <lucide-icon name="eye-off"></lucide-icon>
+            }
           </button>
-          <mat-error
-            *ngIf="loginForm.controls['password'].hasError('required')"
-          >
-            Le mot de passe est requis
-          </mat-error>
+          @if (loginForm.controls['password'].hasError('required')) {
+            <mat-error> Le mot de passe est requis </mat-error>
+          }
         </mat-form-field>
       </div>
 

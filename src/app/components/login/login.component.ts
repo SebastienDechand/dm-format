@@ -8,7 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -24,7 +24,6 @@ import { ToastService } from '../../services/toast.service';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
     MatButtonModule,
     MatInputModule,
     MatCardModule,

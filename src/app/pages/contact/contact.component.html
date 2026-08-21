@@ -11,7 +11,8 @@
       <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
         <div class="form-group">
           <label for="company"
-            ><lucide-icon name="building-2"></lucide-icon> Raison sociale *</label
+            ><lucide-icon name="building-2"></lucide-icon> Raison sociale
+            *</label
           >
           <input
             type="text"
@@ -23,9 +24,11 @@
             [class.invalid]="company.invalid && company.touched"
             placeholder="ex: DM FORMAT"
           />
-          <div class="error-message" *ngIf="company.invalid && company.touched">
-            Veuillez entrer la raison sociale de votre entreprise.
-          </div>
+          @if (company.invalid && company.touched) {
+            <div class="error-message">
+              Veuillez entrer la raison sociale de votre entreprise.
+            </div>
+          }
         </div>
 
         <div class="form-group">
@@ -42,9 +45,11 @@
             [class.invalid]="name.invalid && name.touched"
             placeholder="ex: Jean Dupont"
           />
-          <div class="error-message" *ngIf="name.invalid && name.touched">
-            Veuillez entrer votre nom et prénom.
-          </div>
+          @if (name.invalid && name.touched) {
+            <div class="error-message">
+              Veuillez entrer votre nom et prénom.
+            </div>
+          }
         </div>
 
         <div class="form-group">
@@ -62,13 +67,17 @@
             [class.invalid]="email.invalid && email.touched"
             placeholder="ex: contact@dm-format.fr"
           />
-          <div class="error-message" *ngIf="email.invalid && email.touched">
-            Veuillez entrer une adresse email valide.
-          </div>
+          @if (email.invalid && email.touched) {
+            <div class="error-message">
+              Veuillez entrer une adresse email valide.
+            </div>
+          }
         </div>
 
         <div class="form-group">
-          <label for="phone"><lucide-icon name="phone"></lucide-icon> Téléphone</label>
+          <label for="phone"
+            ><lucide-icon name="phone"></lucide-icon> Téléphone</label
+          >
           <input
             type="tel"
             id="phone"
@@ -79,9 +88,11 @@
             [class.invalid]="phone.invalid && phone.touched"
             placeholder="ex: 06 12 34 56 78"
           />
-          <div class="error-message" *ngIf="phone.invalid && phone.touched">
-            Veuillez entrer un numéro de téléphone valide.
-          </div>
+          @if (phone.invalid && phone.touched) {
+            <div class="error-message">
+              Veuillez entrer un numéro de téléphone valide.
+            </div>
+          }
         </div>
 
         <div class="form-group">
@@ -98,9 +109,9 @@
             [class.invalid]="message.invalid && message.touched"
             placeholder="Votre message..."
           ></textarea>
-          <div class="error-message" *ngIf="message.invalid && message.touched">
-            Veuillez entrer un message.
-          </div>
+          @if (message.invalid && message.touched) {
+            <div class="error-message">Veuillez entrer un message.</div>
+          }
         </div>
 
         <button type="submit" [disabled]="contactForm.invalid">
@@ -127,21 +138,17 @@
           <strong><lucide-icon name="phone"></lucide-icon> Téléphone :</strong>
         </p>
         <div class="captcha-container">
-          <button
-            *ngIf="!captchaVerified"
-            class="captcha-button"
-            (click)="executeRecaptcha()"
-          >
-            <lucide-icon name="lock"></lucide-icon> Voir le numéro
-          </button>
+          @if (!captchaVerified) {
+            <button class="captcha-button" (click)="executeRecaptcha()">
+              <lucide-icon name="lock"></lucide-icon> Voir le numéro
+            </button>
+          }
 
-          <a
-            *ngIf="captchaVerified"
-            class="verified-number"
-            href="tel:+33681191790"
-          >
-            06 81 19 17 90
-          </a>
+          @if (captchaVerified) {
+            <a class="verified-number" href="tel:+33681191790">
+              06 81 19 17 90
+            </a>
+          }
 
           <re-captcha
             #recaptcha

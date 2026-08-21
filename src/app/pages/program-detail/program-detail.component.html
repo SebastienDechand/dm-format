@@ -1,351 +1,377 @@
-<section *ngIf="program; else noProgram" class="program-detail">
-  <div class="banner-container">
-    <div class="banner-summary">
-      <h2>
-        <span
-          *ngIf="!editMode['title']"
-          [innerHTML]="program.title | safeHtml"
-        ></span>
-        <textarea
-          autoResize
-          *ngIf="editMode['title']"
-          [(ngModel)]="program.title"
-          class="edit-textarea"
-          (blur)="toggleEditMode('title')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('title')"
-        ></app-edit-button>
-      </h2>
-      <ul>
-        <li
-          *ngFor="
-            let method of program.methodology;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <lucide-icon name="check"></lucide-icon>
-          <span *ngIf="!editMode['methodology.' + i]">{{ method }}</span>
-          <textarea
-            autoResize
-            *ngIf="editMode['methodology.' + i]"
-            [(ngModel)]="program.methodology[i]"
-            class="edit-textarea"
-            (blur)="toggleEditMode('methodology.' + i)"
-          ></textarea>
-          <app-edit-button
-            *ngIf="isAdmin$ | async"
-            (editClicked)="toggleEditMode('methodology.' + i)"
-          ></app-edit-button>
-        </li>
-      </ul>
-    </div>
-
-    <div class="image-wrapper">
-      <app-editable-image
-        *ngIf="imageRefreshTrigger && program"
-        [pageId]="'program-' + getIdAsString(program._id)"
-        [imageSrc]="program.banner.src"
-        [altText]="'Bannière ' + program.title"
-        imageClass="program-banner-image"
-        [isEditable]="(isAdmin$ | async) ?? false"
-        (imageUploaded)="onBannerImageUploaded($event)"
-      ></app-editable-image>
-    </div>
-  </div>
-
-  <div class="program-container">
-    <div class="program-info">
-      <h2><span>À propos</span> de cette session</h2>
-      <div class="details">
-        <div class="detail-item">
-          <lucide-icon name="clock"></lucide-icon>
-          <span>
-            <strong>Durée </strong>
-            <div *ngIf="!editMode['duration']">{{ program.duration }}</div>
+@if (program) {
+  <section class="program-detail">
+    <div class="banner-container">
+      <div class="banner-summary">
+        <h2>
+          @if (!editMode['title']) {
+            <span [innerHTML]="program.title | safeHtml"></span>
+          }
+          @if (editMode['title']) {
             <textarea
               autoResize
-              *ngIf="editMode['duration']"
-              [(ngModel)]="program.duration"
+              [(ngModel)]="program.title"
               class="edit-textarea"
-              (blur)="toggleEditMode('duration')"
+              (blur)="toggleEditMode('title')"
             ></textarea>
+          }
+          @if (isAdmin$ | async) {
             <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('duration')"
+              (editClicked)="toggleEditMode('title')"
             ></app-edit-button>
-          </span>
-        </div>
-        <div class="detail-item">
-          <lucide-icon name="check"></lucide-icon>
-          <span>
-            <strong>Pré-requis </strong>
-            <div *ngIf="!editMode['prerequisite']">
-              {{ program.prerequisite }}
-            </div>
-            <textarea
-              autoResize
-              *ngIf="editMode['prerequisite']"
-              [(ngModel)]="program.prerequisite"
-              class="edit-textarea"
-              (blur)="toggleEditMode('prerequisite')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('prerequisite')"
-            ></app-edit-button>
-          </span>
-        </div>
-        <div class="detail-item">
-          <lucide-icon name="users"></lucide-icon>
-          <span>
-            <strong>Public cible </strong>
-            <div *ngIf="!editMode['audience']">{{ program.audience }}</div>
-            <textarea
-              autoResize
-              *ngIf="editMode['audience']"
-              [(ngModel)]="program.audience"
-              class="edit-textarea"
-              (blur)="toggleEditMode('audience')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('audience')"
-            ></app-edit-button>
-          </span>
-        </div>
-      </div>
-    </div>
-
-    <div *ngIf="hasPdfs" class="uploaded-pdf">
-      <h2 class="program-title"><span>documents</span> à télécharger</h2>
-      <ul class="pdf-list">
-        <li *ngFor="let pdf of filteredPdfs" class="pdf-item">
-          <a
-            [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
-            target="_blank"
-            class="pdf-link"
-            rel="noopener noreferrer"
-            type="application/pdf"
-          >
-            <img
-              src="assets/images/pdf-placeholder.png"
-              alt="PDF"
-              class="pdf-icon"
-            />
-            <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
-          </a>
-          <button
-            *ngIf="isAdmin$ | async"
-            class="delete-btn"
-            (click)="deletePdf(pdf)"
-          >
-            <lucide-icon name="trash-2"></lucide-icon> Supprimer
-          </button>
-        </li>
-      </ul>
-    </div>
-
-    <div class="pdf-upload" *ngIf="isAdmin$ | async">
-      <p>Ajouter un PDF à la page</p>
-      <input
-        autoResize
-        type="file"
-        accept="application/pdf"
-        (change)="onPdfFileSelected($event)"
-      />
-      <button
-        class="upload-btn"
-        (click)="uploadSelectedPdf()"
-        [disabled]="!selectedPdfFile"
-      >
-        Uploader le PDF
-      </button>
-    </div>
-
-    <div class="program-description">
-      <h2><span>Informations</span> pratiques concernant la session</h2>
-
-      <p>
-        <span *ngIf="!editMode['information']">{{ program.information }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['information']"
-          [(ngModel)]="program.information"
-          class="edit-textarea"
-          (blur)="toggleEditMode('information')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('information')"
-        ></app-edit-button>
-      </p>
-    </div>
-
-    <div class="program-content">
-      <h2><span>Contenu</span> de la session</h2>
-
-      <p>
-        <span *ngIf="!editMode['summary']">{{ program.summary }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['summary']"
-          [(ngModel)]="program.summary"
-          class="edit-textarea"
-          (blur)="toggleEditMode('summary')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('summary')"
-          class="edit-btn"
-        ></app-edit-button>
-      </p>
-
-      <p>
-        <span *ngIf="!editMode['content']">{{ program.content }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['content']"
-          [(ngModel)]="program.content"
-          class="edit-textarea"
-          (blur)="toggleEditMode('content')"
-        ></textarea>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('content')"
-        ></app-edit-button>
-      </p>
-
-      <div class="content-list">
-        <ul class="content-details">
-          <li
-            *ngFor="
-              let item of program.details;
-              let i = index;
-              trackBy: trackByIndex
-            "
-          >
-            <lucide-icon name="key"></lucide-icon>
-            <span *ngIf="!editMode['details.' + i]">{{ item }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['details.' + i]"
-              [(ngModel)]="program.details[i]"
-              class="edit-textarea"
-              (blur)="toggleEditMode('details.' + i)"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('details.' + i)"
-            ></app-edit-button>
-
-            <button
-              *ngIf="isAdmin$ | async"
-              class="delete-detail-btn"
-              (click)="deleteDetail(i)"
-            >
-              <lucide-icon name="trash-2"></lucide-icon> Supprimer
-            </button>
-          </li>
+          }
+        </h2>
+        <ul>
+          @for (
+            method of program.methodology;
+            track trackByIndex(i, method);
+            let i = $index
+          ) {
+            <li>
+              <lucide-icon name="check"></lucide-icon>
+              @if (!editMode['methodology.' + i]) {
+                <span>{{ method }}</span>
+              }
+              @if (editMode['methodology.' + i]) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="program.methodology[i]"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('methodology.' + i)"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('methodology.' + i)"
+                ></app-edit-button>
+              }
+            </li>
+          }
         </ul>
-
-        <div class="btn-wrapper">
-          <button
-            *ngIf="isAdmin$ | async"
-            class="add-detail-btn"
-            (click)="addDetail()"
-          >
-            Ajouter un détail du contenu
-          </button>
+      </div>
+      <div class="image-wrapper">
+        @if (imageRefreshTrigger && program) {
+          <app-editable-image
+            [pageId]="'program-' + getIdAsString(program._id)"
+            [imageSrc]="program.banner.src"
+            [altText]="'Bannière ' + program.title"
+            imageClass="program-banner-image"
+            [isEditable]="(isAdmin$ | async) ?? false"
+            (imageUploaded)="onBannerImageUploaded($event)"
+          ></app-editable-image>
+        }
+      </div>
+    </div>
+    <div class="program-container">
+      <div class="program-info">
+        <h2><span>À propos</span> de cette session</h2>
+        <div class="details">
+          <div class="detail-item">
+            <lucide-icon name="clock"></lucide-icon>
+            <span>
+              <strong>Durée </strong>
+              @if (!editMode['duration']) {
+                <div>{{ program.duration }}</div>
+              }
+              @if (editMode['duration']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="program.duration"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('duration')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('duration')"
+                ></app-edit-button>
+              }
+            </span>
+          </div>
+          <div class="detail-item">
+            <lucide-icon name="check"></lucide-icon>
+            <span>
+              <strong>Pré-requis </strong>
+              @if (!editMode['prerequisite']) {
+                <div>
+                  {{ program.prerequisite }}
+                </div>
+              }
+              @if (editMode['prerequisite']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="program.prerequisite"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('prerequisite')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('prerequisite')"
+                ></app-edit-button>
+              }
+            </span>
+          </div>
+          <div class="detail-item">
+            <lucide-icon name="users"></lucide-icon>
+            <span>
+              <strong>Public cible </strong>
+              @if (!editMode['audience']) {
+                <div>{{ program.audience }}</div>
+              }
+              @if (editMode['audience']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="program.audience"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('audience')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('audience')"
+                ></app-edit-button>
+              }
+            </span>
+          </div>
         </div>
       </div>
+      @if (hasPdfs) {
+        <div class="uploaded-pdf">
+          <h2 class="program-title"><span>documents</span> à télécharger</h2>
+          <ul class="pdf-list">
+            @for (pdf of filteredPdfs; track pdf) {
+              <li class="pdf-item">
+                <a
+                  [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+                  target="_blank"
+                  class="pdf-link"
+                  rel="noopener noreferrer"
+                  type="application/pdf"
+                >
+                  <img
+                    src="assets/images/pdf-placeholder.png"
+                    alt="PDF"
+                    class="pdf-icon"
+                  />
+                  <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
+                </a>
+                @if (isAdmin$ | async) {
+                  <button class="delete-btn" (click)="deletePdf(pdf)">
+                    <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+      }
 
-      <h3><span>Compétences</span> de la session</h3>
-      <ul class="modules">
-        <li
-          *ngFor="
-            let module of program.modules;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <h4>
-            <span *ngIf="!editMode['modules.' + i + '.title']">{{
-              module.title
-            }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['modules.' + i + '.title']"
-              [(ngModel)]="module.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('modules.' + i + '.title')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('modules.' + i + '.title')"
-            ></app-edit-button>
-          </h4>
-          <p>
-            <span *ngIf="!editMode['modules.' + i + '.description']">{{
-              module.description
-            }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['modules.' + i + '.description']"
-              [(ngModel)]="module.description"
-              class="edit-textarea"
-              (blur)="toggleEditMode('modules.' + i + '.description')"
-            ></textarea>
-            <app-edit-button
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('modules.' + i + '.description')"
-            ></app-edit-button>
-          </p>
-
+      @if (isAdmin$ | async) {
+        <div class="pdf-upload">
+          <p>Ajouter un PDF à la page</p>
+          <input
+            autoResize
+            type="file"
+            accept="application/pdf"
+            (change)="onPdfFileSelected($event)"
+          />
           <button
-            *ngIf="isAdmin$ | async"
-            class="delete-module-btn"
-            (click)="deleteModule(i)"
+            class="upload-btn"
+            (click)="uploadSelectedPdf()"
+            [disabled]="!selectedPdfFile"
           >
-            <lucide-icon name="trash-2"></lucide-icon> Supprimer
+            Uploader le PDF
           </button>
-        </li>
-      </ul>
+        </div>
+      }
 
-      <div class="btn-wrapper">
-        <button
-          *ngIf="isAdmin$ | async"
-          class="add-module-btn"
-          (click)="addModule()"
-        >
-          Ajouter un module de compétence
-        </button>
+      <div class="program-description">
+        <h2><span>Informations</span> pratiques concernant la session</h2>
+
+        <p>
+          @if (!editMode['information']) {
+            <span>{{ program.information }}</span>
+          }
+          @if (editMode['information']) {
+            <textarea
+              autoResize
+              [(ngModel)]="program.information"
+              class="edit-textarea"
+              (blur)="toggleEditMode('information')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('information')"
+            ></app-edit-button>
+          }
+        </p>
       </div>
+      <div class="program-content">
+        <h2><span>Contenu</span> de la session</h2>
+        <p>
+          @if (!editMode['summary']) {
+            <span>{{ program.summary }}</span>
+          }
+          @if (editMode['summary']) {
+            <textarea
+              autoResize
+              [(ngModel)]="program.summary"
+              class="edit-textarea"
+              (blur)="toggleEditMode('summary')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('summary')"
+              class="edit-btn"
+            ></app-edit-button>
+          }
+        </p>
+        <p>
+          @if (!editMode['content']) {
+            <span>{{ program.content }}</span>
+          }
+          @if (editMode['content']) {
+            <textarea
+              autoResize
+              [(ngModel)]="program.content"
+              class="edit-textarea"
+              (blur)="toggleEditMode('content')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('content')"
+            ></app-edit-button>
+          }
+        </p>
+        <div class="content-list">
+          <ul class="content-details">
+            @for (
+              item of program.details;
+              track trackByIndex(i, item);
+              let i = $index
+            ) {
+              <li>
+                <lucide-icon name="key"></lucide-icon>
+                @if (!editMode['details.' + i]) {
+                  <span>{{ item }}</span>
+                }
+                @if (editMode['details.' + i]) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="program.details[i]"
+                    class="edit-textarea"
+                    (blur)="toggleEditMode('details.' + i)"
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    (editClicked)="toggleEditMode('details.' + i)"
+                  ></app-edit-button>
+                }
+                @if (isAdmin$ | async) {
+                  <button class="delete-detail-btn" (click)="deleteDetail(i)">
+                    <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                  </button>
+                }
+              </li>
+            }
+          </ul>
+          <div class="btn-wrapper">
+            @if (isAdmin$ | async) {
+              <button class="add-detail-btn" (click)="addDetail()">
+                Ajouter un détail du contenu
+              </button>
+            }
+          </div>
+        </div>
+        <h3><span>Compétences</span> de la session</h3>
+        <ul class="modules">
+          @for (
+            module of program.modules;
+            track trackByIndex(i, module);
+            let i = $index
+          ) {
+            <li>
+              <h4>
+                @if (!editMode['modules.' + i + '.title']) {
+                  <span>{{ module.title }}</span>
+                }
+                @if (editMode['modules.' + i + '.title']) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="module.title"
+                    class="edit-textarea"
+                    (blur)="toggleEditMode('modules.' + i + '.title')"
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    (editClicked)="toggleEditMode('modules.' + i + '.title')"
+                  ></app-edit-button>
+                }
+              </h4>
+              <p>
+                @if (!editMode['modules.' + i + '.description']) {
+                  <span>{{ module.description }}</span>
+                }
+                @if (editMode['modules.' + i + '.description']) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="module.description"
+                    class="edit-textarea"
+                    (blur)="toggleEditMode('modules.' + i + '.description')"
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    (editClicked)="
+                      toggleEditMode('modules.' + i + '.description')
+                    "
+                  ></app-edit-button>
+                }
+              </p>
+              @if (isAdmin$ | async) {
+                <button class="delete-module-btn" (click)="deleteModule(i)">
+                  <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                </button>
+              }
+            </li>
+          }
+        </ul>
+        <div class="btn-wrapper">
+          @if (isAdmin$ | async) {
+            <button class="add-module-btn" (click)="addModule()">
+              Ajouter un module de compétence
+            </button>
+          }
+        </div>
+      </div>
+      <!-- Testimonials section -->
+      <div class="testimonials">
+        <h2>
+          <lucide-icon name="message-circle"></lucide-icon>
+          <span>Avis</span> des participants
+        </h2>
+        <app-training-testimonials
+          [programId]="program._id"
+          [isAdmin]="(isAdmin$ | async) === true"
+        ></app-training-testimonials>
+      </div>
+      <!-- Save button -->
+      @if (isAdmin$ | async) {
+        <button class="save-btn" (click)="saveChanges()">
+          <span class="save-text">Sauvegarder les modifications</span>
+          <lucide-icon name="save" class="save-icon"></lucide-icon>
+        </button>
+      }
     </div>
-
-    <!-- Testimonials section -->
-    <div class="testimonials">
-      <h2><lucide-icon name="message-circle"></lucide-icon> <span>Avis</span> des participants</h2>
-
-      <app-training-testimonials
-        [programId]="program._id"
-        [isAdmin]="(isAdmin$ | async) === true"
-      ></app-training-testimonials>
-    </div>
-
-    <!-- Save button -->
-    <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
-      <span class="save-text">Sauvegarder les modifications</span>
-      <lucide-icon name="save" class="save-icon"></lucide-icon>
-    </button>
-  </div>
-</section>
-
-<ng-template #noProgram>
+  </section>
+} @else {
   <p>Le programme demandé n'existe pas.</p>
-</ng-template>
+}
 
 <ng-template #noTestimonials>
   <p class="no-testimonials">

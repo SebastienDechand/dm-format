@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Program } from '../../models/programs.models';
 import { RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import { ApiService } from '../../services/api.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-programs',
-  imports: [RouterLink, CommonModule, MatCardModule, MatButtonModule],
+  imports: [RouterLink, MatCardModule, MatButtonModule],
   templateUrl: './programs.component.html',
   styleUrl: './programs.component.scss',
   standalone: true,

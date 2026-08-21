@@ -7,7 +7,7 @@ import {
   OnInit,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ToastService } from '../../services/toast.service';
 import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
@@ -15,7 +15,7 @@ import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
 @Component({
   selector: 'app-editable-image',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [LucideAngularModule],
   providers: [
     LucideAngularModule.pick({ LoaderCircle, Camera }).providers ?? [],
   ],

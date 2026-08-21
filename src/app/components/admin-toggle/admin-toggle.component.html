@@ -1,14 +1,28 @@
-<div class="admin-toggle-container" *ngIf="isLoggedIn$ | async">
-  <button mat-raised-button color="primary" (click)="toggleAdminMode()" class="btn-desktop">
-    <lucide-icon *ngIf="isAdmin$ | async" name="user"></lucide-icon>
-    <lucide-icon *ngIf="!(isAdmin$ | async)" name="shield-user"></lucide-icon>
-    <span class="btn-label">
-      {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
-    </span>
-  </button>
-
-  <button (click)="toggleAdminMode()" class="btn-mobile">
-    <lucide-icon *ngIf="isAdmin$ | async" name="user"></lucide-icon>
-    <lucide-icon *ngIf="!(isAdmin$ | async)" name="shield-user"></lucide-icon>
-  </button>
-</div>
+@if (isLoggedIn$ | async) {
+  <div class="admin-toggle-container">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="toggleAdminMode()"
+      class="btn-desktop"
+    >
+      @if (isAdmin$ | async) {
+        <lucide-icon name="user"></lucide-icon>
+      }
+      @if (!(isAdmin$ | async)) {
+        <lucide-icon name="shield-user"></lucide-icon>
+      }
+      <span class="btn-label">
+        {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+      </span>
+    </button>
+    <button (click)="toggleAdminMode()" class="btn-mobile">
+      @if (isAdmin$ | async) {
+        <lucide-icon name="user"></lucide-icon>
+      }
+      @if (!(isAdmin$ | async)) {
+        <lucide-icon name="shield-user"></lucide-icon>
+      }
+    </button>
+  </div>
+}

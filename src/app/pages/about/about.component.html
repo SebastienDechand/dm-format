@@ -1,402 +1,424 @@
-<section class="about" *ngIf="aboutData">
-  <!-- HEADER -->
-  <div class="about-header">
-    <div class="about-text">
-      <h2>
-        <span *ngIf="!editMode['header.title']">{{
-          aboutData.header.title
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['header.title']"
-          [(ngModel)]="aboutData.header.title"
-          class="edit-textarea"
-          (blur)="toggleEditMode('header.title')"
-        ></textarea>
-        <app-edit-button
-          tabindex="-1"
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('header.title')"
-        ></app-edit-button>
-      </h2>
-
-      <p class="intro">
-        <span *ngIf="!editMode['header.description']">{{
-          aboutData.header.description
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['header.description']"
-          [(ngModel)]="aboutData.header.description"
-          class="edit-textarea"
-          (blur)="toggleEditMode('header.description')"
-        ></textarea>
-        <app-edit-button
-          tabindex="-1"
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('header.description')"
-        ></app-edit-button>
-      </p>
-    </div>
-
-    <video class="header-video" controls controlsList="nodownload">
-      <source src="assets/video/DM FORMAT.mp4" type="video/mp4" />
-      Votre navigateur ne supporte pas la lecture de vidéos.
-    </video>
-  </div>
-
-  <!-- QUI SOMMES-NOUS ? -->
-  <div class="who-we-are">
-    <h3>
-      <span *ngIf="!editMode['who_we_are.title']">{{
-        aboutData.who_we_are.title
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['who_we_are.title']"
-        [(ngModel)]="aboutData.who_we_are.title"
-        class="edit-textarea"
-        (blur)="toggleEditMode('who_we_are.title')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('who_we_are.title')"
-      ></app-edit-button>
-    </h3>
-
-    <div class="who-we-are-content">
-      <div class="who-we-are-text">
-        <p
-          *ngFor="
-            let paragraph of aboutData.who_we_are.content;
-            let i = index;
-            trackBy: trackByIndex
-          "
-        >
-          <span *ngIf="!editMode['who_we_are.content.' + i]">{{
-            paragraph
-          }}</span>
-          <textarea
-            autoResize
-            *ngIf="editMode['who_we_are.content.' + i]"
-            [(ngModel)]="aboutData.who_we_are.content[i]"
-            class="edit-textarea"
-            (blur)="toggleEditMode('who_we_are.content.' + i)"
-          ></textarea>
-          <app-edit-button
-            tabindex="-1"
-            *ngIf="isAdmin$ | async"
-            (editClicked)="toggleEditMode('who_we_are.content.' + i)"
-          ></app-edit-button>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <!-- CONCEPT -->
-  <div class="concept">
-    <h3>
-      <span *ngIf="!editMode['concept.title']">{{
-        aboutData.concept.title
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['concept.title']"
-        [(ngModel)]="aboutData.concept.title"
-        class="edit-textarea"
-        (blur)="toggleEditMode('concept.title')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('concept.title')"
-      ></app-edit-button>
-    </h3>
-
-    <div class="concept-steps">
-      <div
-        class="step"
-        *ngFor="
-          let step of aboutData.concept.steps;
-          let i = index;
-          trackBy: trackByIndex
-        "
-      >
-        <app-dynamic-icon [faClass]="step.icon"></app-dynamic-icon>
-        <p class="step-title">
-          <strong>
-            <span *ngIf="!editMode['concept.steps.' + i + '.title']">{{
-              step.title
-            }}</span>
+@if (aboutData) {
+  <section class="about">
+    <!-- HEADER -->
+    <div class="about-header">
+      <div class="about-text">
+        <h2>
+          @if (!editMode['header.title']) {
+            <span>{{ aboutData.header.title }}</span>
+          }
+          @if (editMode['header.title']) {
             <textarea
               autoResize
-              *ngIf="editMode['concept.steps.' + i + '.title']"
-              [(ngModel)]="step.title"
+              [(ngModel)]="aboutData.header.title"
               class="edit-textarea"
-              (blur)="toggleEditMode('concept.steps.' + i + '.title')"
+              (blur)="toggleEditMode('header.title')"
             ></textarea>
+          }
+          @if (isAdmin$ | async) {
             <app-edit-button
               tabindex="-1"
-              *ngIf="isAdmin$ | async"
-              (editClicked)="toggleEditMode('concept.steps.' + i + '.title')"
+              (editClicked)="toggleEditMode('header.title')"
             ></app-edit-button>
-          </strong>
-        </p>
-        <p>
-          <span *ngIf="!editMode['concept.steps.' + i + '.description']">{{
-            step.description
-          }}</span>
-          <textarea
-            autoResize
-            *ngIf="editMode['concept.steps.' + i + '.description']"
-            [(ngModel)]="step.description"
-            class="edit-textarea"
-            (blur)="toggleEditMode('concept.steps.' + i + '.description')"
-          ></textarea>
-          <app-edit-button
-            tabindex="-1"
-            *ngIf="isAdmin$ | async"
-            (editClicked)="
-              toggleEditMode('concept.steps.' + i + '.description')
-            "
-          ></app-edit-button>
+          }
+        </h2>
+        <p class="intro">
+          @if (!editMode['header.description']) {
+            <span>{{ aboutData.header.description }}</span>
+          }
+          @if (editMode['header.description']) {
+            <textarea
+              autoResize
+              [(ngModel)]="aboutData.header.description"
+              class="edit-textarea"
+              (blur)="toggleEditMode('header.description')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              tabindex="-1"
+              (editClicked)="toggleEditMode('header.description')"
+            ></app-edit-button>
+          }
         </p>
       </div>
+      <video class="header-video" controls controlsList="nodownload">
+        <source src="assets/video/DM FORMAT.mp4" type="video/mp4" />
+        Votre navigateur ne supporte pas la lecture de vidéos.
+      </video>
     </div>
-  </div>
-
-  <!-- FORMATIONS -->
-  <div class="trainings">
-    <h3>
-      <span *ngIf="!editMode['trainings.title']">{{
-        aboutData.trainings.title
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['trainings.title']"
-        [(ngModel)]="aboutData.trainings.title"
-        class="edit-textarea"
-        (blur)="toggleEditMode('trainings.title')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('trainings.title')"
-      ></app-edit-button>
-    </h3>
-
-    <p>
-      <span *ngIf="!editMode['trainings.description']">{{
-        aboutData.trainings.description
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['trainings.description']"
-        [(ngModel)]="aboutData.trainings.description"
-        class="edit-textarea"
-        (blur)="toggleEditMode('trainings.description')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('trainings.description')"
-      ></app-edit-button>
-    </p>
-
-    <ul class="training-list">
-      <li
-        *ngFor="
-          let training of aboutData.trainings.list;
-          let i = index;
-          trackBy: trackByIndex
-        "
-      >
-        <lucide-icon name="check"></lucide-icon>
-        <span *ngIf="!editMode['trainings.list.' + i]">{{ training }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['trainings.list.' + i]"
-          [(ngModel)]="aboutData.trainings.list[i]"
-          class="edit-textarea"
-          (blur)="toggleEditMode('trainings.list.' + i)"
-        ></textarea>
-        <app-edit-button
-          tabindex="-1"
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('trainings.list.' + i)"
-        ></app-edit-button>
-      </li>
-    </ul>
-
-    <p>
-      <span *ngIf="!editMode['trainings.additional_info']">{{
-        aboutData.trainings.additional_info
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['trainings.additional_info']"
-        [(ngModel)]="aboutData.trainings.additional_info"
-        class="edit-textarea"
-        (blur)="toggleEditMode('trainings.additional_info')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('trainings.additional_info')"
-      ></app-edit-button>
-    </p>
-  </div>
-
-  <!-- CERTIFICATIONS -->
-  <div class="certifications">
-    <h3>
-      <span *ngIf="!editMode['certifications.title']">{{
-        aboutData.certifications.title
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['certifications.title']"
-        [(ngModel)]="aboutData.certifications.title"
-        class="edit-textarea"
-        (blur)="toggleEditMode('certifications.title')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('certifications.title')"
-      ></app-edit-button>
-    </h3>
-
-    <div class="certification-flex">
+    <!-- QUI SOMMES-NOUS ? -->
+    <div class="who-we-are">
+      <h3>
+        @if (!editMode['who_we_are.title']) {
+          <span>{{ aboutData.who_we_are.title }}</span>
+        }
+        @if (editMode['who_we_are.title']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.who_we_are.title"
+            class="edit-textarea"
+            (blur)="toggleEditMode('who_we_are.title')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('who_we_are.title')"
+          ></app-edit-button>
+        }
+      </h3>
+      <div class="who-we-are-content">
+        <div class="who-we-are-text">
+          @for (
+            paragraph of aboutData.who_we_are.content;
+            track trackByIndex(i, paragraph);
+            let i = $index
+          ) {
+            <p>
+              @if (!editMode['who_we_are.content.' + i]) {
+                <span>{{ paragraph }}</span>
+              }
+              @if (editMode['who_we_are.content.' + i]) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="aboutData.who_we_are.content[i]"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('who_we_are.content.' + i)"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  tabindex="-1"
+                  (editClicked)="toggleEditMode('who_we_are.content.' + i)"
+                ></app-edit-button>
+              }
+            </p>
+          }
+        </div>
+      </div>
+    </div>
+    <!-- CONCEPT -->
+    <div class="concept">
+      <h3>
+        @if (!editMode['concept.title']) {
+          <span>{{ aboutData.concept.title }}</span>
+        }
+        @if (editMode['concept.title']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.concept.title"
+            class="edit-textarea"
+            (blur)="toggleEditMode('concept.title')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('concept.title')"
+          ></app-edit-button>
+        }
+      </h3>
+      <div class="concept-steps">
+        @for (
+          step of aboutData.concept.steps;
+          track trackByIndex(i, step);
+          let i = $index
+        ) {
+          <div class="step">
+            <app-dynamic-icon [faClass]="step.icon"></app-dynamic-icon>
+            <p class="step-title">
+              <strong>
+                @if (!editMode['concept.steps.' + i + '.title']) {
+                  <span>{{ step.title }}</span>
+                }
+                @if (editMode['concept.steps.' + i + '.title']) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="step.title"
+                    class="edit-textarea"
+                    (blur)="toggleEditMode('concept.steps.' + i + '.title')"
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    tabindex="-1"
+                    (editClicked)="
+                      toggleEditMode('concept.steps.' + i + '.title')
+                    "
+                  ></app-edit-button>
+                }
+              </strong>
+            </p>
+            <p>
+              @if (!editMode['concept.steps.' + i + '.description']) {
+                <span>{{ step.description }}</span>
+              }
+              @if (editMode['concept.steps.' + i + '.description']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="step.description"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('concept.steps.' + i + '.description')"
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  tabindex="-1"
+                  (editClicked)="
+                    toggleEditMode('concept.steps.' + i + '.description')
+                  "
+                ></app-edit-button>
+              }
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+    <!-- FORMATIONS -->
+    <div class="trainings">
+      <h3>
+        @if (!editMode['trainings.title']) {
+          <span>{{ aboutData.trainings.title }}</span>
+        }
+        @if (editMode['trainings.title']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.trainings.title"
+            class="edit-textarea"
+            (blur)="toggleEditMode('trainings.title')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('trainings.title')"
+          ></app-edit-button>
+        }
+      </h3>
       <p>
-        <span *ngIf="!editMode['certifications.description']">{{
-          aboutData.certifications.description
-        }}</span>
-        <textarea
-          autoResize
-          *ngIf="editMode['certifications.description']"
-          [(ngModel)]="aboutData.certifications.description"
-          class="edit-textarea"
-          (blur)="toggleEditMode('certifications.description')"
-        ></textarea>
-        <app-edit-button
-          tabindex="-1"
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('certifications.description')"
-        ></app-edit-button>
-      </p>
-
-      <div
-        class="certification-logo"
-        *ngFor="
-          let logo of aboutData.certifications.logos;
-          let i = index;
-          trackBy: trackByIndex
-        "
-      >
-        <!-- <img [src]="logo.src" [alt]="logo.alt" /> -->
-      </div>
-    </div>
-  </div>
-
-  <!-- PRÉVENTION -->
-  <div class="prevention">
-    <h3>
-      <span *ngIf="!editMode['prevention.title']">{{
-        aboutData.prevention.title
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['prevention.title']"
-        [(ngModel)]="aboutData.prevention.title"
-        class="edit-textarea"
-        (blur)="toggleEditMode('prevention.title')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('prevention.title')"
-      ></app-edit-button>
-    </h3>
-
-    <p>
-      <span *ngIf="!editMode['prevention.description']">{{
-        aboutData.prevention.description
-      }}</span>
-      <textarea
-        autoResize
-        *ngIf="editMode['prevention.description']"
-        [(ngModel)]="aboutData.prevention.description"
-        class="edit-textarea"
-        (blur)="toggleEditMode('prevention.description')"
-      ></textarea>
-      <app-edit-button
-        tabindex="-1"
-        *ngIf="isAdmin$ | async"
-        (editClicked)="toggleEditMode('prevention.description')"
-      ></app-edit-button>
-    </p>
-
-    <div class="risk-prevention">
-      <div
-        class="risk"
-        *ngFor="
-          let risk of aboutData.prevention.points;
-          let i = index;
-          trackBy: trackByIndex
-        "
-      >
-        <app-dynamic-icon [faClass]="risk.icon"></app-dynamic-icon>
-
-        <p>
-          <strong>
-            <span *ngIf="!editMode['prevention.points.' + i + '.title']">{{
-              risk.title
-            }}</span>
-            <textarea
-              autoResize
-              *ngIf="editMode['prevention.points.' + i + '.title']"
-              [(ngModel)]="risk.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('prevention.points.' + i + '.title')"
-            ></textarea>
-            <app-edit-button
-              tabindex="-1"
-              *ngIf="isAdmin$ | async"
-              (editClicked)="
-                toggleEditMode('prevention.points.' + i + '.title')
-              "
-            ></app-edit-button>
-          </strong>
-        </p>
-
-        <p>
-          <span *ngIf="!editMode['prevention.points.' + i + '.description']">{{
-            risk.description
-          }}</span>
+        @if (!editMode['trainings.description']) {
+          <span>{{ aboutData.trainings.description }}</span>
+        }
+        @if (editMode['trainings.description']) {
           <textarea
             autoResize
-            *ngIf="editMode['prevention.points.' + i + '.description']"
-            [(ngModel)]="risk.description"
+            [(ngModel)]="aboutData.trainings.description"
             class="edit-textarea"
-            (blur)="toggleEditMode('prevention.points.' + i + '.description')"
+            (blur)="toggleEditMode('trainings.description')"
           ></textarea>
+        }
+        @if (isAdmin$ | async) {
           <app-edit-button
             tabindex="-1"
-            *ngIf="isAdmin$ | async"
-            (editClicked)="
-              toggleEditMode('prevention.points.' + i + '.description')
-            "
+            (editClicked)="toggleEditMode('trainings.description')"
           ></app-edit-button>
+        }
+      </p>
+      <ul class="training-list">
+        @for (
+          training of aboutData.trainings.list;
+          track trackByIndex(i, training);
+          let i = $index
+        ) {
+          <li>
+            <lucide-icon name="check"></lucide-icon>
+            @if (!editMode['trainings.list.' + i]) {
+              <span>{{ training }}</span>
+            }
+            @if (editMode['trainings.list.' + i]) {
+              <textarea
+                autoResize
+                [(ngModel)]="aboutData.trainings.list[i]"
+                class="edit-textarea"
+                (blur)="toggleEditMode('trainings.list.' + i)"
+              ></textarea>
+            }
+            @if (isAdmin$ | async) {
+              <app-edit-button
+                tabindex="-1"
+                (editClicked)="toggleEditMode('trainings.list.' + i)"
+              ></app-edit-button>
+            }
+          </li>
+        }
+      </ul>
+      <p>
+        @if (!editMode['trainings.additional_info']) {
+          <span>{{ aboutData.trainings.additional_info }}</span>
+        }
+        @if (editMode['trainings.additional_info']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.trainings.additional_info"
+            class="edit-textarea"
+            (blur)="toggleEditMode('trainings.additional_info')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('trainings.additional_info')"
+          ></app-edit-button>
+        }
+      </p>
+    </div>
+    <!-- CERTIFICATIONS -->
+    <div class="certifications">
+      <h3>
+        @if (!editMode['certifications.title']) {
+          <span>{{ aboutData.certifications.title }}</span>
+        }
+        @if (editMode['certifications.title']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.certifications.title"
+            class="edit-textarea"
+            (blur)="toggleEditMode('certifications.title')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('certifications.title')"
+          ></app-edit-button>
+        }
+      </h3>
+      <div class="certification-flex">
+        <p>
+          @if (!editMode['certifications.description']) {
+            <span>{{ aboutData.certifications.description }}</span>
+          }
+          @if (editMode['certifications.description']) {
+            <textarea
+              autoResize
+              [(ngModel)]="aboutData.certifications.description"
+              class="edit-textarea"
+              (blur)="toggleEditMode('certifications.description')"
+            ></textarea>
+          }
+          @if (isAdmin$ | async) {
+            <app-edit-button
+              tabindex="-1"
+              (editClicked)="toggleEditMode('certifications.description')"
+            ></app-edit-button>
+          }
         </p>
+        @for (
+          logo of aboutData.certifications.logos;
+          track trackByIndex(i, logo);
+          let i = $index
+        ) {
+          <div class="certification-logo">
+            <!-- <img [src]="logo.src" [alt]="logo.alt" /> -->
+          </div>
+        }
       </div>
     </div>
-  </div>
-
-  <!-- Bouton de sauvegarde global -->
-  <button *ngIf="isAdmin$ | async" class="save-btn" (click)="saveChanges()">
-    <span class="save-text">Sauvegarder les modifications</span>
-    <lucide-icon name="save" class="save-icon"></lucide-icon>
-  </button>
-</section>
+    <!-- PRÉVENTION -->
+    <div class="prevention">
+      <h3>
+        @if (!editMode['prevention.title']) {
+          <span>{{ aboutData.prevention.title }}</span>
+        }
+        @if (editMode['prevention.title']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.prevention.title"
+            class="edit-textarea"
+            (blur)="toggleEditMode('prevention.title')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('prevention.title')"
+          ></app-edit-button>
+        }
+      </h3>
+      <p>
+        @if (!editMode['prevention.description']) {
+          <span>{{ aboutData.prevention.description }}</span>
+        }
+        @if (editMode['prevention.description']) {
+          <textarea
+            autoResize
+            [(ngModel)]="aboutData.prevention.description"
+            class="edit-textarea"
+            (blur)="toggleEditMode('prevention.description')"
+          ></textarea>
+        }
+        @if (isAdmin$ | async) {
+          <app-edit-button
+            tabindex="-1"
+            (editClicked)="toggleEditMode('prevention.description')"
+          ></app-edit-button>
+        }
+      </p>
+      <div class="risk-prevention">
+        @for (
+          risk of aboutData.prevention.points;
+          track trackByIndex(i, risk);
+          let i = $index
+        ) {
+          <div class="risk">
+            <app-dynamic-icon [faClass]="risk.icon"></app-dynamic-icon>
+            <p>
+              <strong>
+                @if (!editMode['prevention.points.' + i + '.title']) {
+                  <span>{{ risk.title }}</span>
+                }
+                @if (editMode['prevention.points.' + i + '.title']) {
+                  <textarea
+                    autoResize
+                    [(ngModel)]="risk.title"
+                    class="edit-textarea"
+                    (blur)="toggleEditMode('prevention.points.' + i + '.title')"
+                  ></textarea>
+                }
+                @if (isAdmin$ | async) {
+                  <app-edit-button
+                    tabindex="-1"
+                    (editClicked)="
+                      toggleEditMode('prevention.points.' + i + '.title')
+                    "
+                  ></app-edit-button>
+                }
+              </strong>
+            </p>
+            <p>
+              @if (!editMode['prevention.points.' + i + '.description']) {
+                <span>{{ risk.description }}</span>
+              }
+              @if (editMode['prevention.points.' + i + '.description']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="risk.description"
+                  class="edit-textarea"
+                  (blur)="
+                    toggleEditMode('prevention.points.' + i + '.description')
+                  "
+                ></textarea>
+              }
+              @if (isAdmin$ | async) {
+                <app-edit-button
+                  tabindex="-1"
+                  (editClicked)="
+                    toggleEditMode('prevention.points.' + i + '.description')
+                  "
+                ></app-edit-button>
+              }
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+    <!-- Bouton de sauvegarde global -->
+    @if (isAdmin$ | async) {
+      <button class="save-btn" (click)="saveChanges()">
+        <span class="save-text">Sauvegarder les modifications</span>
+        <lucide-icon name="save" class="save-icon"></lucide-icon>
+      </button>
+    }
+  </section>
+}

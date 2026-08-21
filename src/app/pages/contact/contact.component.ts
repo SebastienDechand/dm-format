@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RecaptchaComponent } from '../../components/recaptcha/recaptcha.component';
@@ -24,7 +23,7 @@ import {
   standalone: true,
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [FormsModule, CommonModule, RecaptchaComponent, LucideAngularModule],
+  imports: [FormsModule, RecaptchaComponent, LucideAngularModule],
   providers: [
     LucideAngularModule.pick({
       Clock,

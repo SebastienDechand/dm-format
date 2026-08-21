@@ -4,76 +4,87 @@
     Découvrez quelques moments de nos formations en action.
   </p>
 
-  <div *ngIf="!isLoading && images.length === 0" class="no-images">
-    Aucune image disponible dans la galerie.
-  </div>
+  @if (!isLoading && images.length === 0) {
+    <div class="no-images">Aucune image disponible dans la galerie.</div>
+  }
 
   <!-- Grille pour desktop -->
-  <div class="gallery-grid" *ngIf="isDesktop && images.length">
-    <div
-      class="gallery-item"
-      *ngFor="let image of images"
-      (click)="openLightbox(image)"
-    >
-      <img [src]="image.src" [alt]="image.title" />
-      <div class="gallery-caption">
-        <h3>{{ image.title }}</h3>
-        <p>{{ image.description }}</p>
-      </div>
-      <button
-        *ngIf="isAdmin$ | async"
-        class="delete-btn"
-        (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
-      >
-        <lucide-icon name="trash-2"></lucide-icon>
-      </button>
+  @if (isDesktop && images.length) {
+    <div class="gallery-grid">
+      @for (image of images; track image) {
+        <div class="gallery-item" (click)="openLightbox(image)">
+          <img [src]="image.src" [alt]="image.title" />
+          <div class="gallery-caption">
+            <h3>{{ image.title }}</h3>
+            <p>{{ image.description }}</p>
+          </div>
+          @if (isAdmin$ | async) {
+            <button
+              class="delete-btn"
+              (click)="
+                openDeleteModal(image._id || ''); $event.stopPropagation()
+              "
+            >
+              <lucide-icon name="trash-2"></lucide-icon>
+            </button>
+          }
+        </div>
+      }
     </div>
-  </div>
+  }
 
   <!-- Carousel pour tablette/mobile -->
-  <div class="gallery-carousel" *ngIf="!isDesktop && images.length">
-    <div class="carousel-wrapper">
-      <div
-        class="carousel-slide"
-        *ngFor="let image of images"
-        (click)="openLightbox(image)"
-      >
-        <img [src]="image.src" [alt]="image.title" />
-        <button
-          *ngIf="isAdmin$ | async"
-          class="delete-btn"
-          (click)="openDeleteModal(image._id || ''); $event.stopPropagation()"
-        >
-          <lucide-icon name="trash-2"></lucide-icon>
-        </button>
+  @if (!isDesktop && images.length) {
+    <div class="gallery-carousel">
+      <div class="carousel-wrapper">
+        @for (image of images; track image) {
+          <div class="carousel-slide" (click)="openLightbox(image)">
+            <img [src]="image.src" [alt]="image.title" />
+            @if (isAdmin$ | async) {
+              <button
+                class="delete-btn"
+                (click)="
+                  openDeleteModal(image._id || ''); $event.stopPropagation()
+                "
+              >
+                <lucide-icon name="trash-2"></lucide-icon>
+              </button>
+            }
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 
   <!-- Lightbox -->
-  <div class="lightbox" *ngIf="selectedImage">
-    <div class="lightbox-content">
-      <button class="close-lightbox-btn" (click)="closeLightbox()">
-        <lucide-icon name="x"></lucide-icon>
-      </button>
-      <img [src]="selectedImage.src" [alt]="selectedImage.title" />
+  @if (selectedImage) {
+    <div class="lightbox">
+      <div class="lightbox-content">
+        <button class="close-lightbox-btn" (click)="closeLightbox()">
+          <lucide-icon name="x"></lucide-icon>
+        </button>
+        <img [src]="selectedImage.src" [alt]="selectedImage.title" />
+      </div>
     </div>
-  </div>
+  }
 
   <!-- Upload admin -->
-  <label class="file-upload" *ngIf="isAdmin$ | async">
-    <input type="file" (change)="uploadImage($event)" accept="image/*" />
-    <span class="file-upload-label">
-      <lucide-icon name="upload"></lucide-icon> Ajouter une image
-    </span>
-  </label>
+  @if (isAdmin$ | async) {
+    <label class="file-upload">
+      <input type="file" (change)="uploadImage($event)" accept="image/*" />
+      <span class="file-upload-label">
+        <lucide-icon name="upload"></lucide-icon> Ajouter une image
+      </span>
+    </label>
+  }
 
   <!-- Modal suppression -->
-  <app-confirm-dialog-gallery
-    *ngIf="showDeleteModal"
-    title="Confirmer la suppression"
-    message="Êtes-vous sûr(e) de vouloir supprimer cette image ?"
-    (confirmed)="confirmDelete()"
-    (canceled)="closeDeleteModal()"
-  ></app-confirm-dialog-gallery>
+  @if (showDeleteModal) {
+    <app-confirm-dialog-gallery
+      title="Confirmer la suppression"
+      message="Êtes-vous sûr(e) de vouloir supprimer cette image ?"
+      (confirmed)="confirmDelete()"
+      (canceled)="closeDeleteModal()"
+    ></app-confirm-dialog-gallery>
+  }
 </section>
