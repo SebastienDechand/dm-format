@@ -114,32 +114,39 @@
     </ul>
   </div>
 
-  <div class="hero-image">
-    <svg
-      class="hero-pulse"
-      viewBox="0 0 400 60"
-      fill="none"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden="true"
-    >
-      <path
-        class="hero-pulse-path"
-        d="M0 30H150L162 30L172 6L184 54L194 30L206 30H400"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-    @if (imageRefreshTrigger) {
-      <app-editable-image
-        [pageId]="pageId()"
-        [imageSrc]="bannerData?.image || ''"
-        [altText]="'Exercice de massage cardiaque'"
-        imageClass="hero-banner-image"
-        [isEditable]="isAdmin()"
-        (imageUploaded)="onImageUploaded($event)"
-      ></app-editable-image>
+  <div class="hero-visual">
+    <div class="hero-image-frame">
+      @if (imageRefreshTrigger) {
+        <app-editable-image
+          [pageId]="pageId()"
+          [imageSrc]="bannerData?.image || ''"
+          [altText]="'Exercice de massage cardiaque'"
+          imageClass="hero-banner-image"
+          [isEditable]="isAdmin()"
+          (imageUploaded)="onImageUploaded($event)"
+        ></app-editable-image>
+      }
+    </div>
+
+    @if (bannerData?.highlights?.[0]) {
+      <div class="hero-floating-card">
+        <svg
+          class="hero-pulse"
+          viewBox="0 0 160 32"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            class="hero-pulse-path"
+            d="M0 16H58L64 16L70 4L78 28L84 16H160"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <p>{{ bannerData.highlights[0] }}</p>
+      </div>
     }
   </div>
 </section>

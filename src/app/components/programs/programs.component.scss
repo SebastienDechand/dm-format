@@ -20,26 +20,44 @@
     border-radius: var(--radius-card);
 
     .program-card {
-      text-align: center;
+      text-align: left;
       box-shadow: var(--shadow-soft);
       background: var(--light-color);
       border-radius: var(--radius-card);
-      transition: transform 0.3s ease;
+      overflow: hidden;
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
       height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
       &:hover {
-        transform: translateY(-5px);
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-overlay);
+
+        .program-image-frame img {
+          transform: scale(1.06);
+        }
+
+        mat-card-actions a button svg {
+          transform: translateX(3px);
+        }
       }
 
-      img {
-        width: 100%;
+      .program-image-frame {
+        position: relative;
+        overflow: hidden;
         height: 220px;
-        object-fit: cover;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transition: transform 0.4s ease;
+        }
       }
 
       mat-card-title {
@@ -47,10 +65,10 @@
         font-weight: 600;
         font-size: var(--small-text-size-desktop);
         color: var(--primary-color);
-        padding: var(--padding-medium);
-        min-height: 80px;
+        padding: var(--padding-medium) var(--padding-medium) 0;
+        min-height: 64px;
         display: flex;
-        justify-content: center;
+        align-items: flex-start;
       }
 
       mat-card-content {
@@ -65,7 +83,7 @@
 
       mat-card-actions {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 15px;
         margin: 0;
 
@@ -73,14 +91,23 @@
           text-decoration: none;
 
           button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: var(--button-color);
             color: var(--light-color);
-            padding: 10px 20px;
+            padding: 10px 18px;
             border: none;
             border-radius: var(--radius-control);
             cursor: pointer;
             font-weight: 600;
             transition: background-color 0.2s ease;
+
+            svg {
+              width: 16px;
+              height: 16px;
+              transition: transform 0.2s ease;
+            }
 
             &:hover {
               background: var(--button-color-hover);
@@ -142,14 +169,17 @@
 }
 
 .program-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
   display: inline-block;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: var(--radius-control);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
-  background: var(--accent-tint);
+  background: var(--light-color);
   color: var(--accent-text);
-  margin: 12px 12px 0;
+  box-shadow: var(--shadow-soft);
 }

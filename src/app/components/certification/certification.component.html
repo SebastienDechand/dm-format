@@ -94,36 +94,44 @@
           class="edit-btn"
         ></app-edit-button>
       </div> -->
+    </div>
 
-      <!-- 📎 Section PDF de certification -->
+    <!-- 📎 Panneau des documents de certification -->
+    <div class="certification-documents">
+      <p class="eyebrow">Documents officiels</p>
+
       @if (hasPdfs) {
-        <div class="uploaded-pdf">
-          <ul class="pdf-list">
-            @for (pdf of filteredPdfs; track pdf) {
-              <li class="pdf-item">
-                <a
-                  [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
-                  target="_blank"
-                  class="pdf-link"
-                  rel="noopener noreferrer"
-                  type="application/pdf"
-                >
-                  <img
-                    src="assets/images/pdf-placeholder.png"
-                    alt="PDF"
-                    class="pdf-icon"
-                  />
-                  <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
-                </a>
-                @if (isAdmin()) {
-                  <button class="delete-btn" (click)="deletePdf(pdf)">
-                    <svg lucideIcon="trash-2"></svg> Supprimer
-                  </button>
-                }
-              </li>
-            }
-          </ul>
-        </div>
+        <ul class="pdf-list">
+          @for (pdf of filteredPdfs; track pdf) {
+            <li class="pdf-item">
+              <a
+                [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+                target="_blank"
+                class="pdf-link"
+                rel="noopener noreferrer"
+                type="application/pdf"
+              >
+                <img
+                  src="assets/images/pdf-placeholder.png"
+                  alt="PDF"
+                  class="pdf-icon"
+                />
+                <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
+              </a>
+              @if (isAdmin()) {
+                <button class="delete-btn" (click)="deletePdf(pdf)">
+                  <svg lucideIcon="trash-2"></svg> Supprimer
+                </button>
+              }
+            </li>
+          }
+        </ul>
+      }
+
+      @if (!hasPdfs && !isAdmin()) {
+        <p class="documents-empty">
+          Les documents de certification seront bientôt disponibles ici.
+        </p>
       }
 
       <!-- 📤 Upload PDF -->

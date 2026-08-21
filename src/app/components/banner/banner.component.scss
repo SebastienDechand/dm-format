@@ -2,24 +2,25 @@
 .hero {
   position: relative;
   width: 100%;
-  min-height: 85vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  gap: var(--title-size-desktop);
-  padding: var(--space-16) 120px;
-  background: radial-gradient(
-    ellipse 60% 50% at 80% 20%,
-    var(--primary-tint) 0%,
-    transparent 100%
-  );
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: minmax(360px, 42%) 1fr;
+  align-items: stretch;
+  gap: 0;
 
   /* 📝 Contenu texte */
   .hero-content {
-    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--space-16) var(--space-12) var(--space-16) 120px;
     color: var(--secondary-color);
     text-align: left;
+    background: radial-gradient(
+      ellipse 80% 60% at 20% 10%,
+      var(--primary-tint) 0%,
+      transparent 100%
+    );
 
     .hero-eyebrow {
       display: flex;
@@ -62,60 +63,94 @@
     }
   }
 
-  /* ✅ Liste des avantages */
+  /* ✅ Points forts - rangée de puces compactes */
   .highlights {
     list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
     padding: 0;
-    margin-bottom: var(--margin-big);
+    margin: 0;
 
     li {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-size: var(--text-size-desktop);
-      margin: 0 0 var(--space-3);
-      line-height: 1.5;
+      gap: 8px;
+      background: var(--light-color);
+      border: 1px solid var(--border-color);
+      padding: 6px 16px 6px 6px;
+      border-radius: 999px;
+      font-size: var(--small-text-size-desktop);
+      line-height: 1.3;
+      margin: 0;
 
       .highlight-mark {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 26px;
-        height: 26px;
+        width: 22px;
+        height: 22px;
         flex-shrink: 0;
         border-radius: 50%;
-        background: rgba(31, 157, 107, 0.12);
+        background: rgba(31, 157, 107, 0.14);
 
         svg {
           color: var(--success-color);
-          width: 15px;
-          height: 15px;
+          width: 13px;
+          height: 13px;
         }
       }
     }
   }
 
-  /* 📸 Image */
-  .hero-image {
+  /* 📸 Visuel : la photo déborde jusqu'au bord de l'écran */
+  .hero-visual {
     position: relative;
-    max-width: 50%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-4);
+    overflow: hidden;
+    background: var(--primary-dark);
+  }
+
+  .hero-image-frame {
+    position: absolute;
+    inset: 0;
+
+    ::ng-deep .image-container {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .hero-floating-card {
+    position: absolute;
+    left: -28px;
+    bottom: 56px;
+    z-index: 3;
+    max-width: 260px;
+    background: var(--light-color);
+    padding: 18px 22px;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-overlay);
+
+    p {
+      margin: 10px 0 0;
+      font-size: var(--small-text-size-desktop);
+      font-weight: 500;
+      color: var(--dark-color);
+      line-height: 1.4;
+    }
   }
 
   .hero-pulse {
-    width: 55%;
-    max-width: 240px;
-    height: 28px;
+    display: block;
+    width: 90px;
+    height: 20px;
     color: var(--accent);
 
     .hero-pulse-path {
-      stroke-dasharray: 600;
-      stroke-dashoffset: 600;
-      animation: hero-pulse-draw 1.6s ease-out 0.2s forwards;
+      stroke-dasharray: 260;
+      stroke-dashoffset: 260;
+      animation: hero-pulse-draw 1.3s ease-out 0.3s forwards;
     }
   }
 
@@ -151,8 +186,10 @@
 
 ::ng-deep .hero-banner-image {
   width: 100%;
-  max-height: 70vh;
-  border-radius: var(--radius-card);
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
 }
 
 @keyframes hero-pulse-draw {
@@ -165,33 +202,39 @@
 
 @media (max-width: 1400px) {
   .hero {
-    padding: 0 60px;
-    gap: var(--margin-big);
+    grid-template-columns: minmax(320px, 45%) 1fr;
+
+    .hero-content {
+      padding: var(--space-16) var(--space-8) var(--space-16) 60px;
+    }
   }
 }
 
 @media (max-width: 1200px) {
   .hero {
-    flex-direction: column;
-    width: 90%;
-    height: auto;
-    padding: var(--padding-big);
-    text-align: center;
+    grid-template-columns: 1fr;
+    min-height: auto;
 
     .hero-content {
-      max-width: 100%;
+      padding: var(--padding-big);
       text-align: center;
-
-      .highlights {
-        display: flex;
-        flex-direction: column;
-        margin: auto;
-        width: fit-content;
-        li {
-          text-align: left;
-        }
-      }
+      background: none;
     }
+
+    .hero-eyebrow,
+    .highlights {
+      justify-content: center;
+    }
+  }
+
+  .hero-visual {
+    height: 50vh;
+    min-height: 320px;
+  }
+
+  .hero-floating-card {
+    left: 24px;
+    bottom: 24px;
   }
 }
 
@@ -203,67 +246,59 @@
       }
 
       .subtitle,
-      .details,
-      .highlights li {
+      .details {
         font-size: calc(var(--text-size-desktop) * 0.95);
       }
-    }
-
-    .hero-image {
-      max-width: 100%;
-    }
-
-    ::ng-deep .hero-banner-image {
-      width: 100%;
-      height: auto;
     }
   }
 }
 
 @media (max-width: 768px) {
-  .hero {
-    padding: var(--padding-medium);
-  }
-
   .hero-content {
+    padding: var(--padding-medium) !important;
+
     h1 {
       margin-top: 25px;
       font-size: 24px;
     }
 
-    .subtitle,
-    .details,
-    .highlights li {
-      span {
-        font-size: 18px;
-      }
+    .subtitle span,
+    .details span {
+      font-size: 18px;
     }
+  }
 
-    .highlights li span {
-      padding-left: 8px;
-    }
+  .hero-visual {
+    height: 40vh;
+    min-height: 240px;
+  }
+
+  .hero-floating-card {
+    max-width: calc(100% - 48px);
+    padding: 14px 18px;
   }
 }
 
 @media (max-width: 480px) {
-  .hero {
-    padding: var(--padding-small);
-    position: relative;
-  }
-
   .hero-content {
+    padding: var(--padding-small) !important;
+
     h1 {
       font-size: 20px;
     }
 
     .subtitle span,
-    .details span,
-    .highlights li span {
+    .details span {
       font-size: 16px;
     }
   }
 
   .edit-textarea {
     font-size: 16px;
+  }
+
+  .hero-floating-card {
+    left: 16px;
+    bottom: 16px;
   }
 }

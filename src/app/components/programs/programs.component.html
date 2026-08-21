@@ -4,18 +4,23 @@
   <div class="programs-grid">
     @for (training of trainings; track trackByIndex($index, training)) {
       <mat-card class="program-card">
-        <img
-          mat-card-image
-          [src]="training.banner.src"
-          [alt]="stripHtmlTags(training.title)"
-        />
-        @if (training.duration) {
-          <span class="program-badge">{{ training.duration }}</span>
-        }
+        <div class="program-image-frame">
+          <img
+            mat-card-image
+            [src]="training.banner.src"
+            [alt]="stripHtmlTags(training.title)"
+          />
+          @if (training.duration) {
+            <span class="program-badge">{{ training.duration }}</span>
+          }
+        </div>
         <mat-card-title>{{ stripHtmlTags(training.title) }}</mat-card-title>
         <mat-card-actions>
           <a [routerLink]="['/trainings', training._id]">
-            <button mat-button>En savoir plus</button>
+            <button mat-button>
+              En savoir plus
+              <svg lucideIcon="arrow-right"></svg>
+            </button>
           </a>
         </mat-card-actions>
       </mat-card>

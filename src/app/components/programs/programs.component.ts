@@ -5,10 +5,16 @@ import { RouterLink } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  LucideDynamicIcon,
+  LucideArrowRight,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-programs',
-  imports: [RouterLink, MatCardModule, MatButtonModule],
+  imports: [RouterLink, MatCardModule, MatButtonModule, LucideDynamicIcon],
+  providers: [provideLucideIcons(LucideArrowRight)],
   templateUrl: './programs.component.html',
   styleUrl: './programs.component.scss',
   standalone: true,
