@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, map, tap } from 'rxjs/operators';
@@ -9,12 +9,10 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class ImageUploadService {
-  private apiUrl = environment.apiUrl;
+  private http = inject(HttpClient);
+  private authService = inject(AuthService);
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService
-  ) {}
+  private apiUrl = environment.apiUrl;
 
   uploadPageImage(
     pageId: string,

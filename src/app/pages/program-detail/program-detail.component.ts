@@ -17,7 +17,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
-import { LucideAngularModule, Clock, Check, Users, Save, Key, Trash2, MessageCircle } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  Clock,
+  Check,
+  Users,
+  Save,
+  Key,
+  Trash2,
+  MessageCircle,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-program-detail',
@@ -32,11 +41,23 @@ import { LucideAngularModule, Clock, Check, Users, Save, Key, Trash2, MessageCir
     AutoResizeDirective,
     LucideAngularModule,
   ],
-  providers: [LucideAngularModule.pick({ Clock, Check, Users, Save, Key, Trash2, MessageCircle }).providers ?? []],
+  providers: [
+    LucideAngularModule.pick({
+      Clock,
+      Check,
+      Users,
+      Save,
+      Key,
+      Trash2,
+      MessageCircle,
+    }).providers ?? [],
+  ],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
 })
 export class ProgramDetailComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
@@ -59,8 +80,6 @@ export class ProgramDetailComponent implements OnInit {
 
   imageRefreshTrigger: boolean = true;
   showBannerUpload: boolean = false;
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.editModeService.editMode$

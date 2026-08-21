@@ -16,6 +16,8 @@ import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
   styleUrls: ['./editable-image.component.scss'],
 })
 export class EditableImageComponent implements OnInit {
+  private imageUploadService = inject(ImageUploadService);
+
   private toast = inject(ToastService);
 
   readonly pageId = input<string>('');
@@ -29,8 +31,6 @@ export class EditableImageComponent implements OnInit {
   }>();
 
   isUploading: boolean = false;
-
-  constructor(private imageUploadService: ImageUploadService) {}
 
   ngOnInit(): void {
     // Si aucune image n'est fournie, essayer de la récupérer via le service

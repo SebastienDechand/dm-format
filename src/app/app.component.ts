@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID, DOCUMENT } from '@angular/core';
+import { Component, PLATFORM_ID, DOCUMENT, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import { FooterComponent } from './components/footer/footer.component';
@@ -18,11 +18,11 @@ import { AdminToggleComponent } from './components/admin-toggle/admin-toggle.com
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  constructor(
-    private router: Router,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  private router = inject(Router);
+  private document = inject<Document>(DOCUMENT);
+  private platformId = inject<Object>(PLATFORM_ID);
+
+  constructor() {
     this.router.events
       .pipe(
         filter(

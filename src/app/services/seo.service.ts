@@ -1,5 +1,5 @@
 // seo.service.ts
-import { Injectable, Inject, PLATFORM_ID, DOCUMENT } from '@angular/core';
+import { Injectable, PLATFORM_ID, DOCUMENT, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
@@ -8,13 +8,11 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class SeoService {
-  constructor(
-    private meta: Meta,
-    private title: Title,
-    private router: Router,
-    @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  private meta = inject(Meta);
+  private title = inject(Title);
+  private router = inject(Router);
+  private document = inject<Document>(DOCUMENT);
+  private platformId = inject<Object>(PLATFORM_ID);
 
   updateMetadata({
     title = 'DM-Format',
@@ -50,7 +48,10 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:image', content: absoluteImage });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
 
-    this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
+    this.meta.updateTag({
+      name: 'twitter:card',
+      content: 'summary_large_image',
+    });
     this.meta.updateTag({ name: 'twitter:title', content: title });
     this.meta.updateTag({ name: 'twitter:description', content: description });
     this.meta.updateTag({ name: 'twitter:image', content: absoluteImage });
@@ -59,7 +60,9 @@ export class SeoService {
   }
 
   private updateCanonical(url: string): void {
-    let link: HTMLLinkElement = this.document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
+    let link: HTMLLinkElement = this.document.querySelector(
+      'link[rel="canonical"]'
+    ) as HTMLLinkElement;
     if (!link) {
       link = this.document.createElement('link');
       link.setAttribute('rel', 'canonical');

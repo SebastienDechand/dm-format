@@ -5,7 +5,6 @@ import {
   OnInit,
   HostListener,
   PLATFORM_ID,
-  Inject,
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -59,6 +58,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   standalone: true,
 })
 export class HeaderComponent implements OnInit {
+  private platformId = inject<Object>(PLATFORM_ID);
+  private breakpointObserver = inject(BreakpointObserver);
+
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private authService: AuthService = inject(AuthService);
@@ -77,10 +79,7 @@ export class HeaderComponent implements OnInit {
   private clickCount = 0;
   private clickTimer: any = null;
 
-  constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private breakpointObserver: BreakpointObserver
-  ) {
+  constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 

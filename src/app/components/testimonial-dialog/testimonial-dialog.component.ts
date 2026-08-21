@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { LucideAngularModule, X } from 'lucide-angular';
 
@@ -11,5 +11,5 @@ import { LucideAngularModule, X } from 'lucide-angular';
   providers: [LucideAngularModule.pick({ X }).providers ?? []],
 })
 export class TestimonialDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
+  data = inject(MAT_DIALOG_DATA);
 }

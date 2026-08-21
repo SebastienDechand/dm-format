@@ -31,6 +31,8 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
   styleUrl: './about.component.scss',
 })
 export class AboutComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
@@ -46,8 +48,6 @@ export class AboutComponent implements OnInit {
     'header.image': false,
     'who_we_are.image': false,
   };
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.editModeService.editMode$

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -10,10 +10,8 @@ import { ConditionsData } from '../models/organisation.models';
   providedIn: 'root',
 })
 export class OrganisationResolver implements Resolve<ConditionsData> {
-  constructor(
-    private apiService: ApiService,
-    private seoService: SeoService
-  ) {}
+  private apiService = inject(ApiService);
+  private seoService = inject(SeoService);
 
   resolve(): Observable<ConditionsData> {
     return this.apiService.getOrganisation().pipe(

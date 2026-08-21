@@ -2,13 +2,13 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
-  Inject,
   NgZone,
   OnDestroy,
   OnInit,
   PLATFORM_ID,
   input,
   output,
+  inject,
 } from '@angular/core';
 
 declare global {
@@ -58,17 +58,15 @@ function loadRecaptchaScript(): Promise<void> {
   template: `<div #container></div>`,
 })
 export class RecaptchaComponent implements OnInit, OnDestroy {
+  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private zone = inject(NgZone);
+  private platformId = inject<Object>(PLATFORM_ID);
+
   readonly siteKey = input.required<string>();
   readonly size = input<'invisible' | 'normal' | 'compact'>('invisible');
   readonly resolved = output<string | null>();
 
   private widgetId: number | null = null;
-
-  constructor(
-    private elementRef: ElementRef<HTMLElement>,
-    private zone: NgZone,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
 
   async ngOnInit(): Promise<void> {
     if (!isPlatformBrowser(this.platformId)) {

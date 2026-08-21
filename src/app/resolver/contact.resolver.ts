@@ -1,5 +1,5 @@
 // resolvers/contact.resolver.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -11,10 +11,8 @@ import { ContactData } from '../models/contact.models';
   providedIn: 'root',
 })
 export class ContactResolver implements Resolve<ContactData> {
-  constructor(
-    private apiService: ApiService,
-    private seoService: SeoService
-  ) {}
+  private apiService = inject(ApiService);
+  private seoService = inject(SeoService);
 
   resolve(): Observable<ContactData> {
     return this.apiService.getContact().pipe(

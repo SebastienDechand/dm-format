@@ -29,6 +29,8 @@ import { LucideAngularModule, Save } from 'lucide-angular';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
+  private cdr = inject(ChangeDetectorRef);
+
   private adminService: AdminService = inject(AdminService);
   private seoService: SeoService = inject(SeoService);
   private apiService: ApiService = inject(ApiService);
@@ -37,8 +39,6 @@ export class HomeComponent implements OnInit {
   homeData: any;
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};
-
-  constructor(private cdr: ChangeDetectorRef) {}
 
   toggleEditMode(section: string) {
     this.editMode[section] = !this.editMode[section];

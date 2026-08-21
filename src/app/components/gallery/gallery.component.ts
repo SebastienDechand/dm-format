@@ -7,7 +7,6 @@ import {
   SimpleChanges,
   OnDestroy,
   AfterViewInit,
-  Inject,
   PLATFORM_ID,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
@@ -30,6 +29,9 @@ import { LucideAngularModule, Trash2, X, Upload } from 'lucide-angular';
 export class GalleryComponent
   implements OnInit, OnChanges, AfterViewInit, OnDestroy
 {
+  private galleryService = inject(GalleryService);
+  private platformId = inject<Object>(PLATFORM_ID);
+
   images: GalleryImage[] = [];
   selectedImage: GalleryImage | null = null;
   showDeleteModal: boolean = false;
@@ -45,10 +47,7 @@ export class GalleryComponent
   private adminService: AdminService = inject(AdminService);
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
 
-  constructor(
-    private galleryService: GalleryService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 

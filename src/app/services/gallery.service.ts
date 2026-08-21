@@ -15,6 +15,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class GalleryService {
+  private http = inject(HttpClient);
+
   private imagesSubject = new BehaviorSubject<GalleryImage[]>([]);
   images$ = this.imagesSubject.asObservable();
 
@@ -22,7 +24,7 @@ export class GalleryService {
   private uploadPreset = environment.cloudinary.upload_preset;
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {
+  constructor() {
     // console.log('GalleryService instancié');
     this.loadGallery();
   }

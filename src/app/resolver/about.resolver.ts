@@ -1,5 +1,5 @@
 // resolvers/about.resolver.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -11,10 +11,8 @@ import { About } from '../models/about.models';
   providedIn: 'root',
 })
 export class AboutResolver implements Resolve<About> {
-  constructor(
-    private apiService: ApiService,
-    private seoService: SeoService
-  ) {}
+  private apiService = inject(ApiService);
+  private seoService = inject(SeoService);
 
   resolve(): Observable<About> {
     return this.apiService.getAbout().pipe(

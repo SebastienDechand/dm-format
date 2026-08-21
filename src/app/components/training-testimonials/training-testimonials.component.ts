@@ -3,7 +3,6 @@ import {
   Component,
   HostListener,
   inject,
-  Inject,
   OnChanges,
   OnInit,
   PLATFORM_ID,
@@ -56,6 +55,10 @@ import {
   ],
 })
 export class TrainingTestimonialsComponent implements OnInit, OnChanges {
+  private fb = inject(FormBuilder);
+  private testimonialService = inject(TestimonialService);
+  private platformId = inject<Object>(PLATFORM_ID);
+
   private toast = inject(ToastService);
   private dialog = inject(MatDialog);
 
@@ -120,12 +123,6 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
 
   // Variable pour tracker le dernier programId chargé
   private lastLoadedProgramId: string = '';
-
-  constructor(
-    private fb: FormBuilder,
-    private testimonialService: TestimonialService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
 
   ngOnInit(): void {
     this.initForm();

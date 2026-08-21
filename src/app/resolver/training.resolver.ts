@@ -1,5 +1,5 @@
 // resolvers/training.resolver.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -11,10 +11,8 @@ import { Program } from '../models/programs.models';
   providedIn: 'root',
 })
 export class TrainingResolver implements Resolve<Program> {
-  constructor(
-    private apiService: ApiService,
-    private seoService: SeoService
-  ) {}
+  private apiService = inject(ApiService);
+  private seoService = inject(SeoService);
 
   resolve(route: ActivatedRouteSnapshot): Observable<Program> {
     const id = route.paramMap.get('id') || '';

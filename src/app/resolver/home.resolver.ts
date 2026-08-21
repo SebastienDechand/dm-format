@@ -1,5 +1,5 @@
 // home.resolver.ts
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -10,10 +10,8 @@ import { SeoService } from '../services/seo.service';
   providedIn: 'root',
 })
 export class HomeResolver implements Resolve<any> {
-  constructor(
-    private apiService: ApiService,
-    private seoService: SeoService
-  ) {}
+  private apiService = inject(ApiService);
+  private seoService = inject(SeoService);
 
   resolve(): Observable<any> {
     return this.apiService.getHome().pipe(

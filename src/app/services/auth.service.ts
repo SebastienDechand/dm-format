@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -7,11 +7,11 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class AuthService {
+  private http = inject(HttpClient);
+
   private apiUrl = environment.apiUrl;
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
-
-  constructor(private http: HttpClient) {}
 
   login(credentials: { email: string; password: string }) {
     return this.http
