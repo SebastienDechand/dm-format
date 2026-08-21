@@ -8,10 +8,11 @@
 );
 
 .mat-mdc-menu-item.menu-item {
-  display: flex !important;
-  align-items: center !important;
-  gap: 12px;
-  padding: 12px 16px !important;
+  .mat-mdc-menu-item-text {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px;
+  }
 
   .menu-item-icon {
     display: inline-flex;

@@ -200,12 +200,15 @@ nav {
         margin-bottom: 16px;
 
         .menu-item {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-          gap: 8px;
-          text-align: left;
           padding: 8px;
+
+          ::ng-deep .mdc-button__label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
+            text-align: left;
+          }
 
           .menu-item-icon {
             display: flex;
