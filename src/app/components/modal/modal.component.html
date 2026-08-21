@@ -1,10 +1,10 @@
-@if (isOpen) {
+@if (isOpen()) {
   <div class="modal-overlay" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeModal()">
         <lucide-icon name="x"></lucide-icon>
       </button>
-      <h2>{{ title }}</h2>
+      <h2>{{ title() }}</h2>
       <ng-content></ng-content>
     </div>
   </div>

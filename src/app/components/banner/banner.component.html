@@ -97,7 +97,7 @@
   <div class="hero-image">
     @if (imageRefreshTrigger) {
       <app-editable-image
-        [pageId]="pageId"
+        [pageId]="pageId()"
         [imageSrc]="bannerData?.image || ''"
         [altText]="'Exercice de massage cardiaque'"
         imageClass="hero-banner-image"

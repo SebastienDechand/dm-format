@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, Input, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
@@ -29,9 +29,9 @@ export class BannerComponent {
   private adminService: AdminService = inject(AdminService);
 
   @Input() bannerData: any;
-  @Input() pageId: string = 'home-banner';
-  @Output() editClicked = new EventEmitter<void>();
-  @Output() imageUploaded = new EventEmitter<{
+  readonly pageId = input<string>('home-banner');
+  readonly editClicked = output<void>();
+  readonly imageUploaded = output<{
     url: string;
     altText: string;
   }>();

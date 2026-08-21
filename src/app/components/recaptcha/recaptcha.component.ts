@@ -2,20 +2,22 @@ import { isPlatformBrowser } from '@angular/common';
 import {
   Component,
   ElementRef,
-  EventEmitter,
   Inject,
-  Input,
   NgZone,
   OnDestroy,
   OnInit,
-  Output,
   PLATFORM_ID,
+  input,
+  output,
 } from '@angular/core';
 
 declare global {
   interface Window {
     grecaptcha?: {
-      render: (container: HTMLElement, params: Record<string, unknown>) => number;
+      render: (
+        container: HTMLElement,
+        params: Record<string, unknown>
+      ) => number;
       execute: (widgetId: number) => void;
       reset: (widgetId: number) => void;
     };
@@ -56,9 +58,9 @@ function loadRecaptchaScript(): Promise<void> {
   template: `<div #container></div>`,
 })
 export class RecaptchaComponent implements OnInit, OnDestroy {
-  @Input() siteKey!: string;
-  @Input() size: 'invisible' | 'normal' | 'compact' = 'invisible';
-  @Output() resolved = new EventEmitter<string | null>();
+  readonly siteKey = input.required<string>();
+  readonly size = input<'invisible' | 'normal' | 'compact'>('invisible');
+  readonly resolved = output<string | null>();
 
   private widgetId: number | null = null;
 
@@ -76,9 +78,10 @@ export class RecaptchaComponent implements OnInit, OnDestroy {
     await loadRecaptchaScript();
 
     this.widgetId = window.grecaptcha!.render(this.elementRef.nativeElement, {
-      sitekey: this.siteKey,
-      size: this.size,
-      callback: (token: string) => this.zone.run(() => this.resolved.emit(token)),
+      sitekey: this.siteKey(),
+      size: this.size(),
+      callback: (token: string) =>
+        this.zone.run(() => this.resolved.emit(token)),
       'expired-callback': () => this.zone.run(() => this.resolved.emit(null)),
       'error-callback': () => this.zone.run(() => this.resolved.emit(null)),
     });

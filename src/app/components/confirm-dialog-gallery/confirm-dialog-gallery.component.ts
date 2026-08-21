@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-dialog-gallery',
@@ -7,10 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./confirm-dialog-gallery.component.scss'],
 })
 export class ConfirmDialogGalleryComponent {
-  @Input() title: string = 'Confirmer';
-  @Input() message: string = 'Êtes-vous sûr(e) de vouloir continuer ?';
-  @Output() confirmed = new EventEmitter<void>();
-  @Output() canceled = new EventEmitter<void>();
+  readonly title = input<string>('Confirmer');
+  readonly message = input<string>('Êtes-vous sûr(e) de vouloir continuer ?');
+  readonly confirmed = output<void>();
+  readonly canceled = output<void>();
 
   confirm() {
     this.confirmed.emit();

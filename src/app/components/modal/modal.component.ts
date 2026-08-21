@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 import { LucideAngularModule, X } from 'lucide-angular';
 
@@ -11,9 +11,9 @@ import { LucideAngularModule, X } from 'lucide-angular';
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-  @Input() title: string = 'Titre de la modale';
-  @Input() isOpen: boolean = false;
-  @Output() close = new EventEmitter<void>();
+  readonly title = input<string>('Titre de la modale');
+  readonly isOpen = input<boolean>(false);
+  readonly close = output<void>();
 
   closeModal(): void {
     this.close.emit();

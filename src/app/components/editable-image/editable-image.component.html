@@ -1,14 +1,14 @@
 <!-- src/app/components/editable-image/editable-image.component.html -->
 <div
   class="image-container"
-  [class.editable]="isEditable"
+  [class.editable]="isEditable()"
   (click)="openFileSelector()"
 >
   @if (imageSrc) {
-    <img [src]="imageSrc" [alt]="altText" [class]="imageClass" />
+    <img [src]="imageSrc" [alt]="altText" [class]="imageClass()" />
   }
 
-  @if (isEditable) {
+  @if (isEditable()) {
     <div class="image-overlay" [class.uploading]="isUploading">
       @if (isUploading) {
         <div class="upload-spinner">

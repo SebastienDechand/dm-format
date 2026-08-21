@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { Observable } from 'rxjs';
@@ -22,7 +22,7 @@ export class PartnerComponent {
   private adminService: AdminService = inject(AdminService);
 
   @Input() partnerData: any;
-  @Output() editClicked = new EventEmitter<void>();
+  readonly editClicked = output<void>();
 
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};

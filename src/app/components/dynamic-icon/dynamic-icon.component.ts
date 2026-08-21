@@ -1,4 +1,10 @@
-import { Component, Input, OnChanges, SimpleChanges, isDevMode } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  SimpleChanges,
+  isDevMode,
+  input,
+} from '@angular/core';
 import {
   LucideAngularModule,
   Presentation,
@@ -52,12 +58,12 @@ const FALLBACK_ICON = CircleQuestionMark;
   templateUrl: './dynamic-icon.component.html',
 })
 export class DynamicIconComponent implements OnChanges {
-  @Input() faClass: string = '';
+  readonly faClass = input<string>('');
   resolvedIcon: LucideIconData = FALLBACK_ICON;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes['faClass']) return;
-    this.resolvedIcon = this.resolveIcon(this.faClass);
+    this.resolvedIcon = this.resolveIcon(this.faClass());
   }
 
   private resolveIcon(faClass: string): LucideIconData {
@@ -65,7 +71,12 @@ export class DynamicIconComponent implements OnChanges {
       .split(/\s+/)
       .filter(Boolean)
       .map((part) => part.replace(/^fa-/, ''))
-      .find((part) => !['solid', 'regular', 'brands', 'light', 'thin', 'duotone'].includes(part));
+      .find(
+        (part) =>
+          !['solid', 'regular', 'brands', 'light', 'thin', 'duotone'].includes(
+            part
+          )
+      );
 
     if (!token) {
       return FALLBACK_ICON;
@@ -74,7 +85,9 @@ export class DynamicIconComponent implements OnChanges {
     const resolved = FA_TO_LUCIDE[token];
     if (!resolved) {
       if (isDevMode()) {
-        console.warn(`[DynamicIconComponent] No Lucide mapping for icon "${token}" (raw: "${faClass}")`);
+        console.warn(
+          `[DynamicIconComponent] No Lucide mapping for icon "${token}" (raw: "${faClass}")`
+        );
       }
       return FALLBACK_ICON;
     }

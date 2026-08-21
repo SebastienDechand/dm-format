@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, viewChild } from '@angular/core';
 import { RecaptchaComponent } from '../recaptcha/recaptcha.component';
 import { ModalComponent } from '../modal/modal.component';
 import { environment } from '../../../environments/environment';
@@ -29,10 +29,10 @@ export class FooterComponent {
   captchaVerified = false;
   showMentionsLegales: boolean = false;
 
-  @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
+  readonly recaptcha = viewChild.required(RecaptchaComponent);
 
   executeRecaptcha() {
-    this.recaptcha.execute();
+    this.recaptcha().execute();
   }
 
   onCaptchaResolved(captchaResponse: string | null): void {

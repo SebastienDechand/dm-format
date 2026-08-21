@@ -1,12 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  EventEmitter,
-  inject,
-  Input,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, inject, Input, OnInit, output } from '@angular/core';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { AdminService } from '../../services/admin.service';
 import { Observable } from 'rxjs';
@@ -42,7 +35,7 @@ export class CertificationComponent implements OnInit {
   private dialog = inject(MatDialog);
 
   @Input() certificationData: any;
-  @Output() editClicked = new EventEmitter<void>();
+  readonly editClicked = output<void>();
 
   isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
   editMode: { [key: string]: boolean } = {};

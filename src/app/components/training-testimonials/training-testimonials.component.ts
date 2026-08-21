@@ -4,12 +4,12 @@ import {
   HostListener,
   inject,
   Inject,
-  Input,
   OnChanges,
   OnInit,
   PLATFORM_ID,
   SimpleChanges,
-  ViewChild,
+  input,
+  viewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -59,8 +59,8 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   private toast = inject(ToastService);
   private dialog = inject(MatDialog);
 
-  @Input() programId!: string;
-  @Input() isAdmin: boolean = false;
+  readonly programId = input.required<string>();
+  readonly isAdmin = input<boolean>(false);
 
   // Carousel — native replacement for ngx-slick-carousel (dropped: peer deps
   // capped it below Angular 21). Mirrors the old slidesToShow: 3/2/1,
@@ -105,7 +105,7 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   }
 
   // ReCAPTCHA
-  @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
+  readonly recaptcha = viewChild.required(RecaptchaComponent);
   siteKey: string = environment.recaptcha.siteKey;
   captchaVerified = false;
 
@@ -156,20 +156,21 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   }
 
   loadTestimonials(): void {
-    if (!this.programId) {
+    const programId = this.programId();
+    if (!programId) {
       return;
     }
 
-    if (this.lastLoadedProgramId === this.programId) {
+    if (this.lastLoadedProgramId === programId) {
       return;
     }
 
     this.isLoading = true;
-    this.lastLoadedProgramId = this.programId;
+    this.lastLoadedProgramId = programId;
 
     this.testimonials = [];
 
-    this.testimonialService.getTestimonialsByTraining(this.programId).subscribe(
+    this.testimonialService.getTestimonialsByTraining(programId).subscribe(
       (response) => {
         if (response && response.data) {
           this.testimonials = response.data;
@@ -192,8 +193,9 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
 
   // reCAPTCHA
   executeRecaptcha() {
-    if (isPlatformBrowser(this.platformId) && this.recaptcha) {
-      this.recaptcha.execute();
+    const recaptcha = this.recaptcha();
+    if (isPlatformBrowser(this.platformId) && recaptcha) {
+      recaptcha.execute();
     }
   }
 
@@ -230,7 +232,7 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
 
     const testimonial: Testimonial = {
       ...this.testimonialForm.value,
-      trainingId: this.programId,
+      trainingId: this.programId(),
     };
 
     this.testimonialService.addTestimonial(testimonial).subscribe({
@@ -258,7 +260,7 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   }
 
   deleteTestimonial(testimonialId: any, index: number): void {
-    if (!this.isAdmin) return;
+    if (!this.isAdmin()) return;
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       data: { message: 'Êtes-vous sûr de vouloir supprimer ce témoignage ?' },

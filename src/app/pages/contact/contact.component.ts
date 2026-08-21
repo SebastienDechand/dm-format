@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, inject } from '@angular/core';
+import { Component, OnInit, inject, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RecaptchaComponent } from '../../components/recaptcha/recaptcha.component';
 import { environment } from '../../../environments/environment';
@@ -46,7 +46,7 @@ export class ContactComponent implements OnInit {
   captchaVerified = false;
   isSubmitting = false;
 
-  @ViewChild(RecaptchaComponent) recaptcha!: RecaptchaComponent;
+  readonly recaptcha = viewChild.required(RecaptchaComponent);
 
   contactData = {
     company: '',
@@ -65,7 +65,7 @@ export class ContactComponent implements OnInit {
   }
 
   executeRecaptcha() {
-    this.recaptcha.execute();
+    this.recaptcha().execute();
   }
 
   onCaptchaResolved(captchaResponse: string | null): void {

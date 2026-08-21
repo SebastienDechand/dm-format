@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit, input, output } from '@angular/core';
 import { Program } from '../../models/programs.models';
 import { RouterLink } from '@angular/router';
 
@@ -14,8 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
 })
 export class ProgramsComponent implements OnInit {
-  @Input() editMode: boolean = false;
-  @Output() editClicked = new EventEmitter<void>();
+  readonly editMode = input<boolean>(false);
+  readonly editClicked = output<void>();
 
   trainings: Program[] = [];
 

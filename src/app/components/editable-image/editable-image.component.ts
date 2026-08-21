@@ -1,12 +1,5 @@
 // src/app/components/editable-image/editable-image.component.ts
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  OnInit,
-  inject,
-} from '@angular/core';
+import { Component, Input, OnInit, inject, input, output } from '@angular/core';
 
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ToastService } from '../../services/toast.service';
@@ -25,12 +18,12 @@ import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
 export class EditableImageComponent implements OnInit {
   private toast = inject(ToastService);
 
-  @Input() pageId: string = '';
+  readonly pageId = input<string>('');
   @Input() imageSrc: string = '';
   @Input() altText: string = '';
-  @Input() imageClass: string = '';
-  @Input() isEditable: boolean = false;
-  @Output() imageUploaded = new EventEmitter<{
+  readonly imageClass = input<string>('');
+  readonly isEditable = input<boolean>(false);
+  readonly imageUploaded = output<{
     url: string;
     altText: string;
   }>();
@@ -41,8 +34,9 @@ export class EditableImageComponent implements OnInit {
 
   ngOnInit(): void {
     // Si aucune image n'est fournie, essayer de la récupérer via le service
-    if (!this.imageSrc && this.pageId) {
-      this.imageUploadService.getPageImage(this.pageId).subscribe({
+    const pageId = this.pageId();
+    if (!this.imageSrc && pageId) {
+      this.imageUploadService.getPageImage(pageId).subscribe({
         next: (imageData) => {
           this.imageSrc = imageData.imageUrl;
           this.altText = imageData.altText || this.altText;
@@ -55,7 +49,7 @@ export class EditableImageComponent implements OnInit {
   }
 
   openFileSelector(): void {
-    if (!this.isEditable || this.isUploading) {
+    if (!this.isEditable() || this.isUploading) {
       return;
     }
 
@@ -96,7 +90,7 @@ export class EditableImageComponent implements OnInit {
     this.isUploading = true;
 
     this.imageUploadService
-      .uploadPageImage(this.pageId, file, this.altText)
+      .uploadPageImage(this.pageId(), file, this.altText)
 
       .subscribe({
         next: (response) => {

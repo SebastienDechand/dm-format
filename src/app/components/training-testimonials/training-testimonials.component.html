@@ -45,7 +45,7 @@
                     <p class="role">{{ testimonial.role }}</p>
                   </div>
                   <!-- Bouton de suppression pour les admins -->
-                  @if (isAdmin) {
+                  @if (isAdmin()) {
                     <button
                       class="delete-btn"
                       (click)="deleteTestimonial(testimonial._id, i)"
