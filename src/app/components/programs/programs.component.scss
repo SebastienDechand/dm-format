@@ -13,7 +13,7 @@
 
   .programs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
     padding: 40px;
     background: var(--light-color);
@@ -172,13 +172,19 @@
   position: absolute;
   top: 12px;
   right: 12px;
-  display: inline-block;
+  max-width: 70%;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   padding: 5px 12px;
   border-radius: var(--radius-control);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.02em;
+  line-height: 1.4;
+  text-align: right;
   background: var(--light-color);
   color: var(--accent-text);
   box-shadow: var(--shadow-soft);

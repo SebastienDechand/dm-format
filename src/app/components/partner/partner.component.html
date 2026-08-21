@@ -1,48 +1,51 @@
 <section class="partner">
   <div class="partner-highlight">
-    <!-- Title -->
-    <h2>
-      @if (!editMode['partnerTitle']) {
-        <span>{{ partnerData?.title }}</span>
-      }
-      @if (editMode['partnerTitle']) {
-        <textarea
-          autoResize
-          [(ngModel)]="partnerData.title"
-          (blur)="toggleEditMode('partnerTitle')"
-          class="edit-textarea"
-        ></textarea>
-      }
-      @if (isAdmin()) {
-        <app-edit-button
-          (editClicked)="toggleEditMode('partnerTitle')"
-          class="edit-btn"
-        ></app-edit-button>
-      }
-    </h2>
+    <div class="partner-grid">
+      <div class="partner-intro">
+        <!-- Title -->
+        <h2>
+          @if (!editMode['partnerTitle']) {
+            <span>{{ partnerData?.title }}</span>
+          }
+          @if (editMode['partnerTitle']) {
+            <textarea
+              autoResize
+              [(ngModel)]="partnerData.title"
+              (blur)="toggleEditMode('partnerTitle')"
+              class="edit-textarea"
+            ></textarea>
+          }
+          @if (isAdmin()) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('partnerTitle')"
+              class="edit-btn"
+            ></app-edit-button>
+          }
+        </h2>
 
-    <!-- Description -->
-    <p class="intro">
-      @if (!editMode['partnerDescription']) {
-        <span>{{ partnerData?.description }}</span>
-      }
-      @if (editMode['partnerDescription']) {
-        <textarea
-          autoResize
-          [(ngModel)]="partnerData.description"
-          (blur)="toggleEditMode('partnerDescription')"
-          class="edit-textarea"
-        ></textarea>
-      }
-      @if (isAdmin()) {
-        <app-edit-button
-          (editClicked)="toggleEditMode('partnerDescription')"
-          class="edit-btn"
-        ></app-edit-button>
-      }
-    </p>
+        <!-- Description -->
+        <p class="intro">
+          @if (!editMode['partnerDescription']) {
+            <span>{{ partnerData?.description }}</span>
+          }
+          @if (editMode['partnerDescription']) {
+            <textarea
+              autoResize
+              [(ngModel)]="partnerData.description"
+              (blur)="toggleEditMode('partnerDescription')"
+              class="edit-textarea"
+            ></textarea>
+          }
+          @if (isAdmin()) {
+            <app-edit-button
+              (editClicked)="toggleEditMode('partnerDescription')"
+              class="edit-btn"
+            ></app-edit-button>
+          }
+        </p>
+      </div>
 
-    <div class="partner-profile">
+      <div class="partner-profile">
       <div class="partner-info">
         <!-- Partner Name -->
         <h3>
@@ -161,27 +164,44 @@
       <div class="partner-image">
         <img [src]="partnerData?.profile?.image" alt="Partner Image" />
       </div>
+      </div>
     </div>
 
     <!-- Closing Note -->
-    <p class="closing">
-      @if (!editMode['partnerClosingNote']) {
-        <span>{{ partnerData?.closingNote }}</span>
-      }
-      @if (editMode['partnerClosingNote']) {
-        <textarea
-          autoResize
-          [(ngModel)]="partnerData.closingNote"
-          (blur)="toggleEditMode('partnerClosingNote')"
-          class="edit-textarea"
-        ></textarea>
-      }
-      @if (isAdmin()) {
-        <app-edit-button
-          (editClicked)="toggleEditMode('partnerClosingNote')"
-          class="edit-btn"
-        ></app-edit-button>
-      }
-    </p>
+    <div class="closing">
+      <svg
+        class="closing-pulse"
+        viewBox="0 0 32 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 8H8L11 2L14 14L17 8H32"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <p>
+        @if (!editMode['partnerClosingNote']) {
+          <span>{{ partnerData?.closingNote }}</span>
+        }
+        @if (editMode['partnerClosingNote']) {
+          <textarea
+            autoResize
+            [(ngModel)]="partnerData.closingNote"
+            (blur)="toggleEditMode('partnerClosingNote')"
+            class="edit-textarea"
+          ></textarea>
+        }
+        @if (isAdmin()) {
+          <app-edit-button
+            (editClicked)="toggleEditMode('partnerClosingNote')"
+            class="edit-btn"
+          ></app-edit-button>
+        }
+      </p>
+    </div>
   </div>
 </section>
