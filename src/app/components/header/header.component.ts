@@ -167,10 +167,10 @@ export class HeaderComponent implements OnInit {
   }
 
   getIconForTraining(training: Program): LucideIconData {
-    switch (training.title) {
+    switch (this.stripHtmlTags(training.title)) {
       case 'Acteur Sauveteur Secouriste du Travail (niveau 1)':
         return User;
-      case 'Formateur Sauveteur Secouriste du Travail (niveau 2)':
+      case 'Formateur en Sauvetage et Secourisme au Travail (niveau 2)':
         return School;
       case 'Aide pédagogique et administrative':
         return CircleQuestionMark;
