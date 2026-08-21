@@ -8,6 +8,10 @@
 );
 
 .mat-mdc-menu-item.menu-item {
+  padding: 8px !important;
+  margin: 4px 0;
+  border-radius: var(--radius-control);
+
   .mat-mdc-menu-item-text {
     display: flex !important;
     align-items: center !important;
