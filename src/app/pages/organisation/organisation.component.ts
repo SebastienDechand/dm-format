@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, GraduationCap, Save, Trash2 } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideGraduationCap,
+  LucideSave,
+  LucideTrash2,
+  provideLucideIcons,
+} from '@lucide/angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { ConditionsData } from '../../models/organisation.models';
 import { AdminService } from '../../services/admin.service';
@@ -27,10 +33,12 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
     SafeHtmlPipe,
     EditableImageComponent,
     AutoResizeDirective,
-    LucideAngularModule,
+    LucideDynamicIcon,
     DynamicIconComponent,
   ],
-  providers: [LucideAngularModule.pick({ GraduationCap, Save, Trash2 }).providers ?? []],
+  providers: [
+    provideLucideIcons(LucideGraduationCap, LucideSave, LucideTrash2),
+  ],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',
 })

@@ -95,7 +95,7 @@
     font-size: 16px;
     text-transform: uppercase;
 
-    lucide-icon ::ng-deep svg {
+    svg {
       width: 20px;
       height: 20px;
     }
@@ -113,7 +113,7 @@
   top: 10px;
   right: 10px;
 
-  lucide-icon ::ng-deep svg {
+  svg {
     width: 20px;
     height: 20px;
   }
@@ -155,7 +155,7 @@
       border-radius: 50%;
       transition: background 0.3s ease-in-out;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 24px;
         height: 24px;
       }
@@ -283,7 +283,7 @@
     .delete-btn {
       padding: 6px;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 16px;
         height: 16px;
       }
@@ -297,7 +297,7 @@
     .file-upload-label {
       font-size: 14px;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 18px;
         height: 18px;
       }
@@ -369,7 +369,7 @@
       right: 8px;
       background: var(--light-color);
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 16px;
         height: 16px;
       }

@@ -12,13 +12,10 @@
     box-shadow: var(--shadow-overlay);
     transition: all 0.3s ease;
 
-    lucide-icon {
+    svg {
       margin-right: 8px;
-
-      ::ng-deep svg {
-        width: 16px;
-        height: 16px;
-      }
+      width: 16px;
+      height: 16px;
     }
 
     .btn-label {
@@ -47,14 +44,11 @@
         background-color: var(--button-color);
         border: none;
 
-        lucide-icon {
+        svg {
           margin: auto;
           color: var(--light-color);
-
-          ::ng-deep svg {
-            width: 18px;
-            height: 18px;
-          }
+          width: 18px;
+          height: 18px;
         }
       }
     }

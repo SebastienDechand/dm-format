@@ -18,7 +18,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { LucideAngularModule, X, Calendar, RefreshCw } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideX,
+  LucideCalendar,
+  LucideRefreshCw,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { CalendarService } from '../../services/calendar.service';
@@ -41,11 +47,11 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
     MatInputModule,
     MatListModule,
     MatTooltipModule,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },
-    LucideAngularModule.pick({ X, Calendar, RefreshCw }).providers ?? [],
+    provideLucideIcons(LucideX, LucideCalendar, LucideRefreshCw),
   ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],

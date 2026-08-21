@@ -16,9 +16,7 @@
                 class="menu-item"
               >
                 <span class="menu-item-icon">
-                  <lucide-icon
-                    [img]="getIconForTraining(training)"
-                  ></lucide-icon>
+                  <svg [lucideIcon]="getIconForTraining(training)"></svg>
                 </span>
                 <span class="menu-item-text">{{
                   stripHtmlTags(training.title)
@@ -56,7 +54,7 @@
     @if (isMobileView && isBrowser) {
       <div class="mobile-nav">
         <button mat-icon-button (click)="toggleSidenav()">
-          <lucide-icon name="menu"></lucide-icon>
+          <svg lucideIcon="menu"></svg>
         </button>
       </div>
     }
@@ -98,7 +96,7 @@
     <div class="sidenav">
       <div class="sidenav-header">
         <button mat-icon-button (click)="closeSidenav()">
-          <lucide-icon name="x"></lucide-icon>
+          <svg lucideIcon="x"></svg>
         </button>
       </div>
       <div class="sidenav-content">
@@ -112,7 +110,7 @@
               (click)="closeSidenav()"
             >
               <span class="menu-item-icon">
-                <lucide-icon [img]="getIconForTraining(training)"></lucide-icon>
+                <svg [lucideIcon]="getIconForTraining(training)"></svg>
               </span>
               <span class="menu-item-text">{{
                 stripHtmlTags(training.title)

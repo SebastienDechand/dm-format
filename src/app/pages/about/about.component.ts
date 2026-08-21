@@ -1,7 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LucideAngularModule, Save, Check } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideSave,
+  LucideCheck,
+  provideLucideIcons,
+} from '@lucide/angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { About } from '../../models/about.models';
@@ -22,10 +27,10 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
     EditButtonComponent,
     EditableImageComponent,
     AutoResizeDirective,
-    LucideAngularModule,
+    LucideDynamicIcon,
     DynamicIconComponent,
   ],
-  providers: [LucideAngularModule.pick({ Save, Check }).providers ?? []],
+  providers: [provideLucideIcons(LucideSave, LucideCheck)],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })

@@ -36,10 +36,10 @@
             type="button"
           >
             @if (!hidePassword) {
-              <lucide-icon name="eye"></lucide-icon>
+              <svg lucideIcon="eye"></svg>
             }
             @if (hidePassword) {
-              <lucide-icon name="eye-off"></lucide-icon>
+              <svg lucideIcon="eye-off"></svg>
             }
           </button>
           @if (loginForm.controls['password'].hasError('required')) {

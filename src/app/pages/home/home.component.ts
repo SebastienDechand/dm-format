@@ -9,7 +9,7 @@ import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
-import { LucideAngularModule, Save } from 'lucide-angular';
+import { LucideDynamicIcon, LucideSave, provideLucideIcons } from '@lucide/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +21,9 @@ import { LucideAngularModule, Save } from 'lucide-angular';
     ProgramsComponent,
     PartnerComponent,
     GalleryComponent,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
-  providers: [LucideAngularModule.pick({ Save }).providers ?? []],
+  providers: [provideLucideIcons(LucideSave)],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

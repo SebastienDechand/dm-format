@@ -3,15 +3,18 @@ import { Component, Input, OnInit, inject, input, output } from '@angular/core';
 
 import { ImageUploadService } from '../../services/image-upload.service';
 import { ToastService } from '../../services/toast.service';
-import { LucideAngularModule, LoaderCircle, Camera } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideLoaderCircle,
+  LucideCamera,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-editable-image',
   standalone: true,
-  imports: [LucideAngularModule],
-  providers: [
-    LucideAngularModule.pick({ LoaderCircle, Camera }).providers ?? [],
-  ],
+  imports: [LucideDynamicIcon],
+  providers: [provideLucideIcons(LucideLoaderCircle, LucideCamera)],
   templateUrl: './editable-image.component.html',
   styleUrls: ['./editable-image.component.scss'],
 })

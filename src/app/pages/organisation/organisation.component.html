@@ -121,7 +121,7 @@
                 </a>
                 @if (isAdmin()) {
                   <button class="delete-btn" (click)="deletePdf(pdf)">
-                    <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                    <svg lucideIcon="trash-2"></svg> Supprimer
                   </button>
                 }
               </li>
@@ -307,7 +307,7 @@
           ) {
             <li>
               <span class="badge"
-                ><lucide-icon name="graduation-cap"></lucide-icon
+                ><svg lucideIcon="graduation-cap"></svg
               ></span>
               @if (!editMode()['certification.details.' + i]) {
                 <span [innerHTML]="detail | safeHtml"></span>
@@ -601,7 +601,7 @@
       @if (isAdmin()) {
         <button class="save-btn" (click)="saveChanges()">
           <span class="save-text">Sauvegarder les modifications</span>
-          <lucide-icon name="save" class="save-icon"></lucide-icon>
+          <svg lucideIcon="save" class="save-icon"></svg>
         </button>
       }
     </div>

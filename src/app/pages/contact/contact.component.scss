@@ -48,14 +48,11 @@
     font-size: 20px;
     font-weight: 500;
 
-    lucide-icon {
+    svg {
       color: var(--primary-color);
       margin-right: 8px;
-
-      ::ng-deep svg {
-        width: 20px;
-        height: 20px;
-      }
+      width: 20px;
+      height: 20px;
     }
   }
 
@@ -115,14 +112,11 @@
     p {
       line-height: 1.5;
 
-      lucide-icon {
+      svg {
         color: var(--primary-color);
         margin-right: 4px;
-
-        ::ng-deep svg {
-          width: 20px;
-          height: 20px;
-        }
+        width: 20px;
+        height: 20px;
       }
     }
   }
@@ -234,7 +228,7 @@
     label {
       font-size: 16px;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 16px;
         height: 16px;
       }

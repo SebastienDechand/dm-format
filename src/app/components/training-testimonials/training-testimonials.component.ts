@@ -25,13 +25,14 @@ import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { TestimonialDialogComponent } from '../testimonial-dialog/testimonial-dialog.component';
 import {
-  LucideAngularModule,
-  Trash2,
-  ShieldCheck,
-  Shield,
-  ChevronLeft,
-  ChevronRight,
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideTrash2,
+  LucideShieldCheck,
+  LucideShield,
+  LucideChevronLeft,
+  LucideChevronRight,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-training-testimonials',
@@ -42,16 +43,16 @@ import {
     CommonModule,
     ReactiveFormsModule,
     RecaptchaComponent,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
-    LucideAngularModule.pick({
-      Trash2,
-      ShieldCheck,
-      Shield,
-      ChevronLeft,
-      ChevronRight,
-    }).providers ?? [],
+    provideLucideIcons(
+      LucideTrash2,
+      LucideShieldCheck,
+      LucideShield,
+      LucideChevronLeft,
+      LucideChevronRight
+    ),
   ],
 })
 export class TrainingTestimonialsComponent implements OnInit, OnChanges {

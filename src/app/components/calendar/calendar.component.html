@@ -24,7 +24,7 @@
           class="tooltip-delete-btn"
           (click)="deleteTraining(training._id); $event.stopPropagation()"
         >
-          <lucide-icon name="x"></lucide-icon>
+          <svg lucideIcon="x"></svg>
         </button>
       </div>
 
@@ -46,7 +46,7 @@
     class="toggle-button"
     (click)="toggleCalendar()"
   >
-    <lucide-icon name="calendar"></lucide-icon>
+    <svg lucideIcon="calendar"></svg>
   </button>
 
   <div class="calendar-panel" *ngIf="isCalendarVisible">
@@ -58,10 +58,10 @@
           (click)="refreshCalendar()"
           matTooltip="Rafraîchir"
         >
-          <lucide-icon name="refresh-cw"></lucide-icon>
+          <svg lucideIcon="refresh-cw"></svg>
         </button>
         <button mat-icon-button (click)="toggleCalendar()">
-          <lucide-icon name="x"></lucide-icon>
+          <svg lucideIcon="x"></svg>
         </button>
       </div>
     </div>

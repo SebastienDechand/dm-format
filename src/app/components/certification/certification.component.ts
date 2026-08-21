@@ -17,7 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
-import { LucideAngularModule, Trash2 } from 'lucide-angular';
+import { LucideDynamicIcon, LucideTrash2, provideLucideIcons } from '@lucide/angular';
 
 @Component({
   selector: 'app-certification',
@@ -27,9 +27,9 @@ import { LucideAngularModule, Trash2 } from 'lucide-angular';
     EditButtonComponent,
     FormsModule,
     AutoResizeDirective,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
-  providers: [LucideAngularModule.pick({ Trash2 }).providers ?? []],
+  providers: [provideLucideIcons(LucideTrash2)],
   templateUrl: './certification.component.html',
   styleUrl: './certification.component.scss',
   standalone: true,

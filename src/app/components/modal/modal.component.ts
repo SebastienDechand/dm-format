@@ -1,12 +1,12 @@
 import { Component, input, output } from '@angular/core';
 
-import { LucideAngularModule, X } from 'lucide-angular';
+import { LucideDynamicIcon, LucideX, provideLucideIcons } from '@lucide/angular';
 
 @Component({
   selector: 'app-modal',
   standalone: true,
-  imports: [LucideAngularModule],
-  providers: [LucideAngularModule.pick({ X }).providers ?? []],
+  imports: [LucideDynamicIcon],
+  providers: [provideLucideIcons(LucideX)],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })

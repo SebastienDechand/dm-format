@@ -12,17 +12,18 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import {
-  LucideAngularModule,
-  Menu,
-  X,
-  User,
-  School,
-  CircleQuestionMark,
-  HeartHandshake,
-  Zap,
-  BookOpen,
-} from 'lucide-angular';
-import type { LucideIconData } from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideMenu,
+  LucideX,
+  LucideUser,
+  LucideSchool,
+  LucideCircleQuestionMark,
+  LucideHeartHandshake,
+  LucideZap,
+  LucideBookOpen,
+  provideLucideIcons,
+} from '@lucide/angular';
+import type { LucideIcon } from '@lucide/angular';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
@@ -38,19 +39,19 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
     CommonModule,
     MatSidenavModule,
     RouterLinkActive,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
-    LucideAngularModule.pick({
-      Menu,
-      X,
-      User,
-      School,
-      CircleQuestionMark,
-      HeartHandshake,
-      Zap,
-      BookOpen,
-    }).providers ?? [],
+    provideLucideIcons(
+      LucideMenu,
+      LucideX,
+      LucideUser,
+      LucideSchool,
+      LucideCircleQuestionMark,
+      LucideHeartHandshake,
+      LucideZap,
+      LucideBookOpen
+    ),
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -164,20 +165,20 @@ export class HeaderComponent implements OnInit {
     this.closeSidenav();
   }
 
-  getIconForTraining(training: Program): LucideIconData {
+  getIconForTraining(training: Program): LucideIcon {
     switch (this.stripHtmlTags(training.title)) {
       case 'Acteur Sauveteur Secouriste du Travail (niveau 1)':
-        return User;
+        return LucideUser;
       case 'Formateur en Sauvetage et Secourisme au Travail (niveau 2)':
-        return School;
+        return LucideSchool;
       case 'Aide pédagogique et administrative':
-        return CircleQuestionMark;
+        return LucideCircleQuestionMark;
       case "Sensibilisation aux gestes d'urgence":
-        return HeartHandshake;
+        return LucideHeartHandshake;
       case 'Utilisation du défibrillateur':
-        return Zap;
+        return LucideZap;
       default:
-        return BookOpen;
+        return LucideBookOpen;
     }
   }
 }

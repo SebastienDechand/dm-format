@@ -40,13 +40,10 @@
       align-items: center;
       color: white;
 
-      lucide-icon {
+      svg {
         margin-bottom: 8px;
-
-        ::ng-deep svg {
-          width: 24px;
-          height: 24px;
-        }
+        width: 24px;
+        height: 24px;
       }
 
       span {
@@ -58,7 +55,7 @@
     .upload-spinner {
       color: white;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 32px;
         height: 32px;
       }

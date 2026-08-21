@@ -7,10 +7,10 @@
       class="btn-desktop"
     >
       @if (isAdmin()) {
-        <lucide-icon name="user"></lucide-icon>
+        <svg lucideIcon="user"></svg>
       }
       @if (!isAdmin()) {
-        <lucide-icon name="shield-user"></lucide-icon>
+        <svg lucideIcon="shield-user"></svg>
       }
       <span class="btn-label">
         {{ isAdmin() ? 'Mode utilisateur' : 'Mode administrateur' }}
@@ -18,10 +18,10 @@
     </button>
     <button (click)="toggleAdminMode()" class="btn-mobile">
       @if (isAdmin()) {
-        <lucide-icon name="user"></lucide-icon>
+        <svg lucideIcon="user"></svg>
       }
       @if (!isAdmin()) {
-        <lucide-icon name="shield-user"></lucide-icon>
+        <svg lucideIcon="shield-user"></svg>
       }
     </button>
   </div>

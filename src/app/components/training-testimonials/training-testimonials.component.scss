@@ -70,7 +70,7 @@
       opacity: 0.5;
       transition: opacity 0.3s ease;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 16px;
         height: 16px;
       }
@@ -216,7 +216,7 @@
   background-color: rgba(40, 167, 69, 0.1);
   border-radius: 4px;
 
-  lucide-icon {
+  svg {
     margin-right: 8px;
     color: var(--success-color);
   }

@@ -3,15 +3,20 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminService } from '../../services/admin.service';
 import { AuthService } from '../../services/auth.service';
-import { LucideAngularModule, User, ShieldUser } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideUser,
+  LucideShieldUser,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-admin-toggle',
   templateUrl: './admin-toggle.component.html',
   styleUrl: './admin-toggle.component.scss',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, LucideAngularModule],
-  providers: [LucideAngularModule.pick({ User, ShieldUser }).providers ?? []],
+  imports: [CommonModule, MatButtonModule, LucideDynamicIcon],
+  providers: [provideLucideIcons(LucideUser, LucideShieldUser)],
 })
 export class AdminToggleComponent {
   private adminService = inject(AdminService);

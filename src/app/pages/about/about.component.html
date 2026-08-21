@@ -222,7 +222,7 @@
           let i = $index
         ) {
           <li>
-            <lucide-icon name="check"></lucide-icon>
+            <svg lucideIcon="check"></svg>
             @if (!editMode()['trainings.list.' + i]) {
               <span>{{ training }}</span>
             }
@@ -417,7 +417,7 @@
     @if (isAdmin()) {
       <button class="save-btn" (click)="saveChanges()">
         <span class="save-text">Sauvegarder les modifications</span>
-        <lucide-icon name="save" class="save-icon"></lucide-icon>
+        <svg lucideIcon="save" class="save-icon"></svg>
       </button>
     }
   </section>

@@ -3,21 +3,28 @@ import { RecaptchaComponent } from '../recaptcha/recaptcha.component';
 import { ModalComponent } from '../modal/modal.component';
 import { environment } from '../../../environments/environment';
 import {
-  LucideAngularModule,
-  MapPin,
-  Globe,
-  Lock,
-  Phone,
-  Mail,
-  Scale,
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideMapPin,
+  LucideGlobe,
+  LucideLock,
+  LucidePhone,
+  LucideMail,
+  LucideScale,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-footer',
-  imports: [ModalComponent, RecaptchaComponent, LucideAngularModule],
+  imports: [ModalComponent, RecaptchaComponent, LucideDynamicIcon],
   providers: [
-    LucideAngularModule.pick({ MapPin, Globe, Lock, Phone, Mail, Scale })
-      .providers ?? [],
+    provideLucideIcons(
+      LucideMapPin,
+      LucideGlobe,
+      LucideLock,
+      LucidePhone,
+      LucideMail,
+      LucideScale
+    ),
   ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',

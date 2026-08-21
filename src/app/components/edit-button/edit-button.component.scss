@@ -9,12 +9,9 @@
     color: var(--button-color-hover);
   }
 
-  lucide-icon {
+  svg {
     pointer-events: none;
-
-    ::ng-deep svg {
-      width: 20px;
-      height: 20px;
-    }
+    width: 20px;
+    height: 20px;
   }
 }

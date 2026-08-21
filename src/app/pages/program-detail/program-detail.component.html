@@ -27,7 +27,7 @@
             let i = $index
           ) {
             <li>
-              <lucide-icon name="check"></lucide-icon>
+              <svg lucideIcon="check"></svg>
               @if (!editMode()['methodology.' + i]) {
                 <span>{{ method }}</span>
               }
@@ -66,7 +66,7 @@
         <h2><span>À propos</span> de cette session</h2>
         <div class="details">
           <div class="detail-item">
-            <lucide-icon name="clock"></lucide-icon>
+            <svg lucideIcon="clock"></svg>
             <span>
               <strong>Durée </strong>
               @if (!editMode()['duration']) {
@@ -88,7 +88,7 @@
             </span>
           </div>
           <div class="detail-item">
-            <lucide-icon name="check"></lucide-icon>
+            <svg lucideIcon="check"></svg>
             <span>
               <strong>Pré-requis </strong>
               @if (!editMode()['prerequisite']) {
@@ -112,7 +112,7 @@
             </span>
           </div>
           <div class="detail-item">
-            <lucide-icon name="users"></lucide-icon>
+            <svg lucideIcon="users"></svg>
             <span>
               <strong>Public cible </strong>
               @if (!editMode()['audience']) {
@@ -157,7 +157,7 @@
                 </a>
                 @if (isAdmin()) {
                   <button class="delete-btn" (click)="deletePdf(pdf)">
-                    <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                    <svg lucideIcon="trash-2"></svg> Supprimer
                   </button>
                 }
               </li>
@@ -254,7 +254,7 @@
               let i = $index
             ) {
               <li>
-                <lucide-icon name="key"></lucide-icon>
+                <svg lucideIcon="key"></svg>
                 @if (!editMode()['details.' + i]) {
                   <span>{{ item }}</span>
                 }
@@ -273,7 +273,7 @@
                 }
                 @if (isAdmin()) {
                   <button class="delete-detail-btn" (click)="deleteDetail(i)">
-                    <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                    <svg lucideIcon="trash-2"></svg> Supprimer
                   </button>
                 }
               </li>
@@ -335,7 +335,7 @@
               </p>
               @if (isAdmin()) {
                 <button class="delete-module-btn" (click)="deleteModule(i)">
-                  <lucide-icon name="trash-2"></lucide-icon> Supprimer
+                  <svg lucideIcon="trash-2"></svg> Supprimer
                 </button>
               }
             </li>
@@ -352,7 +352,7 @@
       <!-- Testimonials section -->
       <div class="testimonials">
         <h2>
-          <lucide-icon name="message-circle"></lucide-icon>
+          <svg lucideIcon="message-circle"></svg>
           <span>Avis</span> des participants
         </h2>
         <app-training-testimonials
@@ -364,7 +364,7 @@
       @if (isAdmin()) {
         <button class="save-btn" (click)="saveChanges()">
           <span class="save-text">Sauvegarder les modifications</span>
-          <lucide-icon name="save" class="save-icon"></lucide-icon>
+          <svg lucideIcon="save" class="save-icon"></svg>
         </button>
       }
     </div>

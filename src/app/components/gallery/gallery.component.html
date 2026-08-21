@@ -25,7 +25,7 @@
                 openDeleteModal(image._id || ''); $event.stopPropagation()
               "
             >
-              <lucide-icon name="trash-2"></lucide-icon>
+              <svg lucideIcon="trash-2"></svg>
             </button>
           }
         </div>
@@ -47,7 +47,7 @@
                   openDeleteModal(image._id || ''); $event.stopPropagation()
                 "
               >
-                <lucide-icon name="trash-2"></lucide-icon>
+                <svg lucideIcon="trash-2"></svg>
               </button>
             }
           </div>
@@ -61,7 +61,7 @@
     <div class="lightbox">
       <div class="lightbox-content">
         <button class="close-lightbox-btn" (click)="closeLightbox()">
-          <lucide-icon name="x"></lucide-icon>
+          <svg lucideIcon="x"></svg>
         </button>
         <img [src]="selectedImage.src" [alt]="selectedImage.title" />
       </div>
@@ -73,7 +73,7 @@
     <label class="file-upload">
       <input type="file" (change)="uploadImage($event)" accept="image/*" />
       <span class="file-upload-label">
-        <lucide-icon name="upload"></lucide-icon> Ajouter une image
+        <svg lucideIcon="upload"></svg> Ajouter une image
       </span>
     </label>
   }

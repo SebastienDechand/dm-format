@@ -36,13 +36,10 @@
   align-items: center;
   justify-content: center;
 
-  lucide-icon {
+  svg {
     color: var(--light-color);
-
-    ::ng-deep svg {
-      width: 32px;
-      height: 32px;
-    }
+    width: 32px;
+    height: 32px;
   }
 
   a,
@@ -105,13 +102,10 @@
       color: var(--light-color);
     }
 
-    lucide-icon {
+    svg {
       color: white;
-
-      ::ng-deep svg {
-        width: 16px;
-        height: 16px;
-      }
+      width: 16px;
+      height: 16px;
     }
   }
 
@@ -129,13 +123,10 @@
     font-size: 20px;
     animation: fadeIn 0.5s ease-in-out;
 
-    lucide-icon {
+    svg {
       color: var(--success-color);
-
-      ::ng-deep svg {
-        width: 32px;
-        height: 32px;
-      }
+      width: 32px;
+      height: 32px;
     }
   }
 
@@ -243,7 +234,7 @@
 
   .contact-item {
     width: 180px;
-    lucide-icon ::ng-deep svg {
+    svg {
       width: 28px;
       height: 28px;
     }
@@ -259,7 +250,7 @@
   .contact-item {
     width: 160px;
 
-    lucide-icon ::ng-deep svg {
+    svg {
       width: 26px;
       height: 26px;
     }
@@ -301,7 +292,7 @@
       font-size: 13px;
     }
 
-    lucide-icon ::ng-deep svg {
+    svg {
       width: 24px;
       height: 24px;
     }
@@ -397,7 +388,7 @@
   }
 
   .contact-item {
-    lucide-icon ::ng-deep svg {
+    svg {
       width: 22px;
       height: 22px;
     }
@@ -419,7 +410,7 @@
     .verified-number {
       font-size: 16px;
 
-      lucide-icon ::ng-deep svg {
+      svg {
         width: 22px;
         height: 22px;
       }

@@ -15,14 +15,22 @@ import { ConfirmDialogGalleryComponent } from '../confirm-dialog-gallery/confirm
 import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { LucideAngularModule, Trash2, X, Upload } from 'lucide-angular';
+import {
+  LucideDynamicIcon,
+  LucideTrash2,
+  LucideX,
+  LucideUpload,
+  provideLucideIcons,
+} from '@lucide/angular';
 @Component({
   selector: 'app-gallery',
   standalone: true,
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
-  imports: [CommonModule, ConfirmDialogGalleryComponent, LucideAngularModule],
-  providers: [LucideAngularModule.pick({ Trash2, X, Upload }).providers ?? []],
+  imports: [CommonModule, ConfirmDialogGalleryComponent, LucideDynamicIcon],
+  providers: [
+    provideLucideIcons(LucideTrash2, LucideX, LucideUpload),
+  ],
 })
 export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
   private galleryService = inject(GalleryService);

@@ -14,13 +14,13 @@
       <div class="contact-items">
         <div class="contact-item">
           <p>
-            <lucide-icon name="map-pin"></lucide-icon>
+            <svg lucideIcon="map-pin"></svg>
             Bourgogne-Franche-Comté
           </p>
         </div>
         <div class="contact-item">
           <p>
-            <lucide-icon name="globe"></lucide-icon>
+            <svg lucideIcon="globe"></svg>
             Habilitation nationale
           </p>
         </div>
@@ -29,14 +29,14 @@
             <!-- Si reCAPTCHA n'est pas validé -->
             @if (!captchaVerified) {
               <button class="captcha-button" (click)="executeRecaptcha()">
-                <lucide-icon name="lock"></lucide-icon> Voir le numéro
+                <svg lucideIcon="lock"></svg> Voir le numéro
               </button>
             }
 
             <!-- Numéro visible après validation -->
             @if (captchaVerified) {
               <a class="verified-number" href="tel:+33681191790">
-                <lucide-icon name="phone"></lucide-icon> 06 81 19 17 90
+                <svg lucideIcon="phone"></svg> 06 81 19 17 90
               </a>
             }
 
@@ -53,7 +53,7 @@
         </div>
         <div class="contact-item">
           <a href="mailto:dm.formatsst&#64;gmail.com">
-            <lucide-icon name="mail"></lucide-icon> dm.formatsst&#64;gmail.com
+            <svg lucideIcon="mail"></svg> dm.formatsst&#64;gmail.com
           </a>
         </div>
       </div>
@@ -62,7 +62,7 @@
       <div class="legal-section">
         <div class="contact-item legal-item">
           <button (click)="openModal('mentionsLegales')">
-            <lucide-icon name="scale"></lucide-icon> Mentions légales
+            <svg lucideIcon="scale"></svg> Mentions légales
           </button>
         </div>
       </div>

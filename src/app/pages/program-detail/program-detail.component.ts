@@ -18,15 +18,16 @@ import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 import {
-  LucideAngularModule,
-  Clock,
-  Check,
-  Users,
-  Save,
-  Key,
-  Trash2,
-  MessageCircle,
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideClock,
+  LucideCheck,
+  LucideUsers,
+  LucideSave,
+  LucideKey,
+  LucideTrash2,
+  LucideMessageCircle,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-program-detail',
@@ -39,18 +40,18 @@ import {
     EditableImageComponent,
     SafeHtmlPipe,
     AutoResizeDirective,
-    LucideAngularModule,
+    LucideDynamicIcon,
   ],
   providers: [
-    LucideAngularModule.pick({
-      Clock,
-      Check,
-      Users,
-      Save,
-      Key,
-      Trash2,
-      MessageCircle,
-    }).providers ?? [],
+    provideLucideIcons(
+      LucideClock,
+      LucideCheck,
+      LucideUsers,
+      LucideSave,
+      LucideKey,
+      LucideTrash2,
+      LucideMessageCircle
+    ),
   ],
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],

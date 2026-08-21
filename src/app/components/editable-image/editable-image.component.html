@@ -12,12 +12,12 @@
     <div class="image-overlay" [class.uploading]="isUploading">
       @if (isUploading) {
         <div class="upload-spinner">
-          <lucide-icon name="loader-circle" class="spin-icon"></lucide-icon>
+          <svg lucideIcon="loader-circle" class="spin-icon"></svg>
         </div>
       }
       @if (!isUploading) {
         <div class="upload-prompt">
-          <lucide-icon name="camera"></lucide-icon>
+          <svg lucideIcon="camera"></svg>
           <span>Cliquer pour modifier</span>
         </div>
       }

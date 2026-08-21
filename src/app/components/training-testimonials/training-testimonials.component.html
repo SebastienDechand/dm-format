@@ -10,7 +10,7 @@
           [disabled]="currentIndex === 0"
           aria-label="Témoignages précédents"
         >
-          <lucide-icon name="chevron-left"></lucide-icon>
+          <svg lucideIcon="chevron-left"></svg>
         </button>
         <div class="carousel-viewport">
           <div
@@ -51,7 +51,7 @@
                       (click)="deleteTestimonial(testimonial._id, i)"
                       title="Supprimer ce témoignage"
                     >
-                      <lucide-icon name="trash-2"></lucide-icon>
+                      <svg lucideIcon="trash-2"></svg>
                     </button>
                   }
                 </div>
@@ -66,7 +66,7 @@
           [disabled]="currentIndex >= maxIndex"
           aria-label="Témoignages suivants"
         >
-          <lucide-icon name="chevron-right"></lucide-icon>
+          <svg lucideIcon="chevron-right"></svg>
         </button>
       </div>
       @if (maxIndex > 0) {
@@ -180,7 +180,7 @@
       <!-- Afficher un indicateur visuel si le CAPTCHA est vérifié -->
       @if (captchaVerified) {
         <div class="captcha-status">
-          <lucide-icon name="shield-check" class="text-success"></lucide-icon>
+          <svg lucideIcon="shield-check" class="text-success"></svg>
           <span class="text-success">Vérification humaine réussie</span>
         </div>
       }
@@ -201,7 +201,7 @@
         }
         @if (!captchaVerified) {
           <span>
-            <lucide-icon name="shield"></lucide-icon>
+            <svg lucideIcon="shield"></svg>
           </span>
         }
         Envoyer mon témoignage

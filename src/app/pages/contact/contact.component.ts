@@ -6,36 +6,37 @@ import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
 import emailjs from '@emailjs/browser';
 import {
-  LucideAngularModule,
-  Clock,
-  Building2,
-  User,
-  Mail,
-  Phone,
-  MessageCircle,
-  Send,
-  House,
-  Lock,
-} from 'lucide-angular';
+  LucideDynamicIcon,
+  LucideClock,
+  LucideBuilding2,
+  LucideUser,
+  LucideMail,
+  LucidePhone,
+  LucideMessageCircle,
+  LucideSend,
+  LucideHouse,
+  LucideLock,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
-  imports: [FormsModule, RecaptchaComponent, LucideAngularModule],
+  imports: [FormsModule, RecaptchaComponent, LucideDynamicIcon],
   providers: [
-    LucideAngularModule.pick({
-      Clock,
-      Building2,
-      User,
-      Mail,
-      Phone,
-      MessageCircle,
-      Send,
-      House,
-      Lock,
-    }).providers ?? [],
+    provideLucideIcons(
+      LucideClock,
+      LucideBuilding2,
+      LucideUser,
+      LucideMail,
+      LucidePhone,
+      LucideMessageCircle,
+      LucideSend,
+      LucideHouse,
+      LucideLock
+    ),
   ],
 })
 export class ContactComponent implements OnInit {

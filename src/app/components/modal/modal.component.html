@@ -2,7 +2,7 @@
   <div class="modal-overlay" (click)="closeModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeModal()">
-        <lucide-icon name="x"></lucide-icon>
+        <svg lucideIcon="x"></svg>
       </button>
       <h2>{{ title() }}</h2>
       <ng-content></ng-content>
