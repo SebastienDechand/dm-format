@@ -13,7 +13,7 @@
           class="edit-textarea"
         ></textarea>
       }
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <app-edit-button
           (editClicked)="toggleEditMode('title')"
           class="edit-btn"
@@ -34,7 +34,7 @@
           class="edit-textarea"
         ></textarea>
       }
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <app-edit-button
           (editClicked)="toggleEditMode('subtitle')"
           class="edit-btn"
@@ -55,7 +55,7 @@
           class="edit-textarea"
         ></textarea>
       }
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <app-edit-button
           (editClicked)="toggleEditMode('details')"
           class="edit-btn"
@@ -83,7 +83,7 @@
               class="edit-textarea"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('highlights.' + i)"
               class="edit-btn"
@@ -101,7 +101,7 @@
         [imageSrc]="bannerData?.image || ''"
         [altText]="'Exercice de massage cardiaque'"
         imageClass="hero-banner-image"
-        [isEditable]="(isAdmin$ | async) ?? false"
+        [isEditable]="isAdmin()"
         (imageUploaded)="onImageUploaded($event)"
       ></app-editable-image>
     }

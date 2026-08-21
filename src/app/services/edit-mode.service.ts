@@ -1,5 +1,4 @@
-import { inject, Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest } from 'rxjs';
+import { inject, Injectable, signal } from '@angular/core';
 import { AdminService } from './admin.service';
 
 @Injectable({
@@ -8,23 +7,17 @@ import { AdminService } from './admin.service';
 export class EditModeService {
   private adminService: AdminService = inject(AdminService);
 
-  private editModeSubject = new BehaviorSubject<{ [key: string]: boolean }>({});
-  editMode$ = this.editModeSubject.asObservable();
+  readonly editMode = signal<{ [key: string]: boolean }>({});
 
-  private isAdmin$ = this.adminService.isAdminMode$;
-
-  toggleEditMode(field: string) {
-    this.isAdmin$.subscribe((isAdmin) => {
-      if (!isAdmin) return;
-      const currentEditMode = this.editModeSubject.value;
-      this.editModeSubject.next({
-        ...currentEditMode,
-        [field]: !currentEditMode[field],
-      });
-    });
+  toggleEditMode(field: string): void {
+    if (!this.adminService.isAdmin()) return;
+    this.editMode.update((current) => ({
+      ...current,
+      [field]: !current[field],
+    }));
   }
 
-  resetEditModes() {
-    this.editModeSubject.next({});
+  resetEditModes(): void {
+    this.editMode.set({});
   }
 }

@@ -5,11 +5,9 @@ import {
   OnInit,
   OnChanges,
   SimpleChanges,
-  OnDestroy,
   AfterViewInit,
   PLATFORM_ID,
 } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
 import { GalleryImage } from '../../models/gallery.models';
 import { AdminService } from '../../services/admin.service';
 import { GalleryService } from '../../services/gallery.service';
@@ -26,26 +24,23 @@ import { LucideAngularModule, Trash2, X, Upload } from 'lucide-angular';
   imports: [CommonModule, ConfirmDialogGalleryComponent, LucideAngularModule],
   providers: [LucideAngularModule.pick({ Trash2, X, Upload }).providers ?? []],
 })
-export class GalleryComponent
-  implements OnInit, OnChanges, AfterViewInit, OnDestroy
-{
+export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
   private galleryService = inject(GalleryService);
   private platformId = inject<Object>(PLATFORM_ID);
 
-  images: GalleryImage[] = [];
+  readonly images = this.galleryService.images;
+  readonly isLoading = this.galleryService.loading;
   selectedImage: GalleryImage | null = null;
   showDeleteModal: boolean = false;
   deleteImageId: string | null = null;
   cloudName = environment.cloudinary.cloudName;
   uploadPreset = environment.cloudinary.upload_preset;
-  isLoading: boolean = true;
   isDesktop = false;
   private isBrowser: boolean;
   private breakpointObserver = inject(BreakpointObserver);
 
-  private subscription: Subscription = new Subscription();
   private adminService: AdminService = inject(AdminService);
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  readonly isAdmin = this.adminService.isAdmin;
 
   constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -75,30 +70,8 @@ export class GalleryComponent
     this.loadImages();
   }
 
-  ngOnDestroy(): void {
-    // Nettoyer les souscriptions pour éviter les fuites de mémoire
-    this.subscription.unsubscribe();
-  }
-
   loadImages(): void {
-    this.isLoading = true;
-
-    // Déclencher explicitement le chargement depuis le service
     this.galleryService.loadGallery();
-
-    // Gérer la souscription
-    this.subscription.add(
-      this.galleryService.images$.subscribe({
-        next: (images) => {
-          this.images = images;
-          this.isLoading = false;
-        },
-        error: (error) => {
-          console.error('Erreur lors de la récupération des images:', error);
-          this.isLoading = false;
-        },
-      })
-    );
   }
 
   openLightbox(image: GalleryImage): void {

@@ -1,8 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, output } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  Input,
+  OnInit,
+  output,
+} from '@angular/core';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { AdminService } from '../../services/admin.service';
-import { Observable } from 'rxjs';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
@@ -37,7 +43,7 @@ export class CertificationComponent implements OnInit {
   @Input() certificationData: any;
   readonly editClicked = output<void>();
 
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  readonly isAdmin = this.adminService.isAdmin;
   editMode: { [key: string]: boolean } = {};
   pdfsData: PdfFile[] = [];
   filteredPdfs: PdfFile[] = [];
@@ -45,13 +51,14 @@ export class CertificationComponent implements OnInit {
   pageId = 'certification-documents';
   selectedPdfFile?: File;
 
+  private readonly resetCertLinkEditOnAdmin = effect(() => {
+    if (this.isAdmin()) {
+      this.editMode['certLink'] = false;
+    }
+  });
+
   ngOnInit(): void {
     this.loadPdfsData();
-    this.isAdmin$.subscribe((isAdmin) => {
-      if (isAdmin) {
-        this.editMode['certLink'] = false;
-      }
-    });
   }
 
   toggleEditMode(field: string) {

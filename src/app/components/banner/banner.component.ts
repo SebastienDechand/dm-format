@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
 import { AdminService } from '../../services/admin.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
@@ -36,7 +35,7 @@ export class BannerComponent {
     altText: string;
   }>();
 
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  readonly isAdmin = this.adminService.isAdmin;
   editMode: { [key: string]: boolean } = {};
 
   imageRefreshTrigger: boolean = true;

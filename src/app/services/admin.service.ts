@@ -1,5 +1,4 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, effect, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -7,27 +6,25 @@ import { BehaviorSubject } from 'rxjs';
 export class AdminService {
   private adminKey = 'isAdmin';
 
-  private isAdminSubject = new BehaviorSubject<boolean>(this.isAdminMode());
-  isAdminMode$ = this.isAdminSubject.asObservable();
+  readonly isAdmin = signal<boolean>(this.readAdminMode());
 
-  constructor() {}
-
-  setAdminMode(enabled: boolean) {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem(this.adminKey, JSON.stringify(enabled));
-    }
-    this.isAdminSubject.next(enabled);
+  constructor() {
+    effect(() => {
+      if (typeof window !== 'undefined') {
+        localStorage.setItem(this.adminKey, JSON.stringify(this.isAdmin()));
+      }
+    });
   }
 
-  toggleAdminMode() {
-    if (typeof window !== 'undefined') {
-      const newValue = !this.isAdminSubject.value;
-      this.isAdminSubject.next(newValue);
-      localStorage.setItem(this.adminKey, JSON.stringify(newValue));
-    }
+  setAdminMode(enabled: boolean): void {
+    this.isAdmin.set(enabled);
   }
 
-  private isAdminMode(): boolean {
+  toggleAdminMode(): void {
+    this.isAdmin.update((current) => !current);
+  }
+
+  private readAdminMode(): boolean {
     if (
       typeof window !== 'undefined' &&
       localStorage.getItem(this.adminKey) !== null

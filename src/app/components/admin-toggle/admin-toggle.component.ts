@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { AdminService } from '../../services/admin.service';
 import { AuthService } from '../../services/auth.service';
-import { Observable } from 'rxjs';
 import { LucideAngularModule, User, ShieldUser } from 'lucide-angular';
 
 @Component({
@@ -18,8 +17,8 @@ export class AdminToggleComponent {
   private adminService = inject(AdminService);
   private authService = inject(AuthService);
 
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
-  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+  readonly isAdmin = this.adminService.isAdmin;
+  readonly isLoggedIn = this.authService.isLoggedIn;
 
   toggleAdminMode() {
     this.adminService.toggleAdminMode();

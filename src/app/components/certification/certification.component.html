@@ -17,7 +17,7 @@
             class="edit-textarea"
           ></textarea>
         }
-        @if (isAdmin$ | async) {
+        @if (isAdmin()) {
           <app-edit-button
             (editClicked)="toggleEditMode('certTitle')"
             class="edit-btn"
@@ -38,7 +38,7 @@
             class="edit-textarea"
           ></textarea>
         }
-        @if (isAdmin$ | async) {
+        @if (isAdmin()) {
           <app-edit-button
             (editClicked)="toggleEditMode('certDescription')"
             class="edit-btn"
@@ -59,7 +59,7 @@
             class="edit-textarea"
           ></textarea>
         }
-        @if (isAdmin$ | async) {
+        @if (isAdmin()) {
           <app-edit-button
             (editClicked)="toggleEditMode('certAdditionalInfo')"
             class="edit-btn"
@@ -115,7 +115,7 @@
                   />
                   <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
                 </a>
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <button class="delete-btn" (click)="deletePdf(pdf)">
                     <lucide-icon name="trash-2"></lucide-icon> Supprimer
                   </button>
@@ -127,7 +127,7 @@
       }
 
       <!-- 📤 Upload PDF -->
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <div class="pdf-upload">
           <p>Ajouter un certificat PDF</p>
           <input

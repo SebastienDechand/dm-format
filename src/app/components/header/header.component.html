@@ -66,10 +66,10 @@
   @if (isSmallScreen && isBrowser && showLoginButton) {
     <div class="nav-bottom-row">
       <div class="auth-buttons-mobile">
-        @if (showLoginButton && !(isLoggedIn$ | async)) {
+        @if (showLoginButton && !(isLoggedIn())) {
           <button mat-button [routerLink]="['/login']">Connexion</button>
         }
-        @if (isLoggedIn$ | async) {
+        @if (isLoggedIn()) {
           <button mat-button (click)="logout()">Déconnexion</button>
         }
       </div>
@@ -80,10 +80,10 @@
   @if (!isSmallScreen && isBrowser) {
     <div class="auth-buttons">
       <div class="auth-buttons-desktop">
-        @if (showLoginButton && !(isLoggedIn$ | async)) {
+        @if (showLoginButton && !(isLoggedIn())) {
           <button mat-button [routerLink]="['/login']">Connexion</button>
         }
-        @if (isLoggedIn$ | async) {
+        @if (isLoggedIn()) {
           <button mat-button (click)="logout()">Déconnexion</button>
         }
       </div>

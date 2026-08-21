@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subject, switchMap, takeUntil } from 'rxjs';
+import { Subject, switchMap, takeUntil } from 'rxjs';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { TrainingTestimonialsComponent } from '../../components/training-testimonials/training-testimonials.component';
 import { Program } from '../../models/programs.models';
@@ -68,8 +68,8 @@ export class ProgramDetailComponent implements OnInit {
 
   program?: Program;
 
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
-  editMode: { [key: string]: boolean } = {};
+  readonly isAdmin = this.adminService.isAdmin;
+  readonly editMode = this.editModeService.editMode;
 
   hasPdfs: boolean = false;
   pdfsData?: PdfFile[] = [];
@@ -82,12 +82,6 @@ export class ProgramDetailComponent implements OnInit {
   showBannerUpload: boolean = false;
 
   ngOnInit(): void {
-    this.editModeService.editMode$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((editMode) => {
-        this.editMode = editMode;
-      });
-
     this.route.paramMap
       .pipe(
         switchMap((params) => {

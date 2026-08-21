@@ -4,21 +4,21 @@
     Découvrez quelques moments de nos formations en action.
   </p>
 
-  @if (!isLoading && images.length === 0) {
+  @if (!isLoading() && images().length === 0) {
     <div class="no-images">Aucune image disponible dans la galerie.</div>
   }
 
   <!-- Grille pour desktop -->
-  @if (isDesktop && images.length) {
+  @if (isDesktop && images().length) {
     <div class="gallery-grid">
-      @for (image of images; track image) {
+      @for (image of images(); track image) {
         <div class="gallery-item" (click)="openLightbox(image)">
           <img [src]="image.src" [alt]="image.title" />
           <div class="gallery-caption">
             <h3>{{ image.title }}</h3>
             <p>{{ image.description }}</p>
           </div>
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <button
               class="delete-btn"
               (click)="
@@ -34,13 +34,13 @@
   }
 
   <!-- Carousel pour tablette/mobile -->
-  @if (!isDesktop && images.length) {
+  @if (!isDesktop && images().length) {
     <div class="gallery-carousel">
       <div class="carousel-wrapper">
-        @for (image of images; track image) {
+        @for (image of images(); track image) {
           <div class="carousel-slide" (click)="openLightbox(image)">
             <img [src]="image.src" [alt]="image.title" />
-            @if (isAdmin$ | async) {
+            @if (isAdmin()) {
               <button
                 class="delete-btn"
                 (click)="
@@ -69,7 +69,7 @@
   }
 
   <!-- Upload admin -->
-  @if (isAdmin$ | async) {
+  @if (isAdmin()) {
     <label class="file-upload">
       <input type="file" (change)="uploadImage($event)" accept="image/*" />
       <span class="file-upload-label">

@@ -13,7 +13,7 @@
           class="edit-textarea"
         ></textarea>
       }
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <app-edit-button
           (editClicked)="toggleEditMode('partnerTitle')"
           class="edit-btn"
@@ -34,7 +34,7 @@
           class="edit-textarea"
         ></textarea>
       }
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <app-edit-button
           (editClicked)="toggleEditMode('partnerDescription')"
           class="edit-btn"
@@ -57,7 +57,7 @@
               class="edit-textarea"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('partnerName')"
               class="edit-btn"
@@ -80,7 +80,7 @@
               class="edit-textarea"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('partnerContactPerson')"
               class="edit-btn"
@@ -101,7 +101,7 @@
               class="edit-textarea"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('partnerAddress')"
               class="edit-btn"
@@ -125,7 +125,7 @@
               type="email"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('partnerEmail')"
               class="edit-btn"
@@ -149,7 +149,7 @@
               type="tel"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('partnerPhone')"
               class="edit-btn"
@@ -176,7 +176,7 @@
           class="edit-textarea"
         ></textarea>
       }
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <app-edit-button
           (editClicked)="toggleEditMode('partnerClosingNote')"
           class="edit-btn"

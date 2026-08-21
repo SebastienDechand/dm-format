@@ -23,7 +23,6 @@ import { LucideAngularModule, X, Calendar, RefreshCw } from 'lucide-angular';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { CalendarService } from '../../services/calendar.service';
 import { Training } from '../../models/calendar.model';
-import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
@@ -73,7 +72,7 @@ export class CalendarComponent implements OnInit {
   tooltipText: string = '';
   hoveredDate: Date | null = null;
 
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  readonly isAdmin = this.adminService.isAdmin;
 
   constructor(
     private trainingService: CalendarService,

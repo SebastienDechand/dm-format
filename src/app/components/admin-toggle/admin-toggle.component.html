@@ -1,4 +1,4 @@
-@if (isLoggedIn$ | async) {
+@if (isLoggedIn()) {
   <div class="admin-toggle-container">
     <button
       mat-raised-button
@@ -6,21 +6,21 @@
       (click)="toggleAdminMode()"
       class="btn-desktop"
     >
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <lucide-icon name="user"></lucide-icon>
       }
-      @if (!(isAdmin$ | async)) {
+      @if (!isAdmin()) {
         <lucide-icon name="shield-user"></lucide-icon>
       }
       <span class="btn-label">
-        {{ (isAdmin$ | async) ? 'Mode utilisateur' : 'Mode administrateur' }}
+        {{ isAdmin() ? 'Mode utilisateur' : 'Mode administrateur' }}
       </span>
     </button>
     <button (click)="toggleAdminMode()" class="btn-mobile">
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <lucide-icon name="user"></lucide-icon>
       }
-      @if (!(isAdmin$ | async)) {
+      @if (!isAdmin()) {
         <lucide-icon name="shield-user"></lucide-icon>
       }
     </button>

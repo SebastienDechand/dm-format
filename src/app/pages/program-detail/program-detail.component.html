@@ -3,10 +3,10 @@
     <div class="banner-container">
       <div class="banner-summary">
         <h2>
-          @if (!editMode['title']) {
+          @if (!editMode()['title']) {
             <span [innerHTML]="program.title | safeHtml"></span>
           }
-          @if (editMode['title']) {
+          @if (editMode()['title']) {
             <textarea
               autoResize
               [(ngModel)]="program.title"
@@ -14,7 +14,7 @@
               (blur)="toggleEditMode('title')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('title')"
             ></app-edit-button>
@@ -28,10 +28,10 @@
           ) {
             <li>
               <lucide-icon name="check"></lucide-icon>
-              @if (!editMode['methodology.' + i]) {
+              @if (!editMode()['methodology.' + i]) {
                 <span>{{ method }}</span>
               }
-              @if (editMode['methodology.' + i]) {
+              @if (editMode()['methodology.' + i]) {
                 <textarea
                   autoResize
                   [(ngModel)]="program.methodology[i]"
@@ -39,7 +39,7 @@
                   (blur)="toggleEditMode('methodology.' + i)"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('methodology.' + i)"
                 ></app-edit-button>
@@ -55,7 +55,7 @@
             [imageSrc]="program.banner.src"
             [altText]="'Bannière ' + program.title"
             imageClass="program-banner-image"
-            [isEditable]="(isAdmin$ | async) ?? false"
+            [isEditable]="isAdmin()"
             (imageUploaded)="onBannerImageUploaded($event)"
           ></app-editable-image>
         }
@@ -69,10 +69,10 @@
             <lucide-icon name="clock"></lucide-icon>
             <span>
               <strong>Durée </strong>
-              @if (!editMode['duration']) {
+              @if (!editMode()['duration']) {
                 <div>{{ program.duration }}</div>
               }
-              @if (editMode['duration']) {
+              @if (editMode()['duration']) {
                 <textarea
                   autoResize
                   [(ngModel)]="program.duration"
@@ -80,7 +80,7 @@
                   (blur)="toggleEditMode('duration')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('duration')"
                 ></app-edit-button>
@@ -91,12 +91,12 @@
             <lucide-icon name="check"></lucide-icon>
             <span>
               <strong>Pré-requis </strong>
-              @if (!editMode['prerequisite']) {
+              @if (!editMode()['prerequisite']) {
                 <div>
                   {{ program.prerequisite }}
                 </div>
               }
-              @if (editMode['prerequisite']) {
+              @if (editMode()['prerequisite']) {
                 <textarea
                   autoResize
                   [(ngModel)]="program.prerequisite"
@@ -104,7 +104,7 @@
                   (blur)="toggleEditMode('prerequisite')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('prerequisite')"
                 ></app-edit-button>
@@ -115,10 +115,10 @@
             <lucide-icon name="users"></lucide-icon>
             <span>
               <strong>Public cible </strong>
-              @if (!editMode['audience']) {
+              @if (!editMode()['audience']) {
                 <div>{{ program.audience }}</div>
               }
-              @if (editMode['audience']) {
+              @if (editMode()['audience']) {
                 <textarea
                   autoResize
                   [(ngModel)]="program.audience"
@@ -126,7 +126,7 @@
                   (blur)="toggleEditMode('audience')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('audience')"
                 ></app-edit-button>
@@ -155,7 +155,7 @@
                   />
                   <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
                 </a>
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <button class="delete-btn" (click)="deletePdf(pdf)">
                     <lucide-icon name="trash-2"></lucide-icon> Supprimer
                   </button>
@@ -166,7 +166,7 @@
         </div>
       }
 
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <div class="pdf-upload">
           <p>Ajouter un PDF à la page</p>
           <input
@@ -189,10 +189,10 @@
         <h2><span>Informations</span> pratiques concernant la session</h2>
 
         <p>
-          @if (!editMode['information']) {
+          @if (!editMode()['information']) {
             <span>{{ program.information }}</span>
           }
-          @if (editMode['information']) {
+          @if (editMode()['information']) {
             <textarea
               autoResize
               [(ngModel)]="program.information"
@@ -200,7 +200,7 @@
               (blur)="toggleEditMode('information')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('information')"
             ></app-edit-button>
@@ -210,10 +210,10 @@
       <div class="program-content">
         <h2><span>Contenu</span> de la session</h2>
         <p>
-          @if (!editMode['summary']) {
+          @if (!editMode()['summary']) {
             <span>{{ program.summary }}</span>
           }
-          @if (editMode['summary']) {
+          @if (editMode()['summary']) {
             <textarea
               autoResize
               [(ngModel)]="program.summary"
@@ -221,7 +221,7 @@
               (blur)="toggleEditMode('summary')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('summary')"
               class="edit-btn"
@@ -229,10 +229,10 @@
           }
         </p>
         <p>
-          @if (!editMode['content']) {
+          @if (!editMode()['content']) {
             <span>{{ program.content }}</span>
           }
-          @if (editMode['content']) {
+          @if (editMode()['content']) {
             <textarea
               autoResize
               [(ngModel)]="program.content"
@@ -240,7 +240,7 @@
               (blur)="toggleEditMode('content')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('content')"
             ></app-edit-button>
@@ -255,10 +255,10 @@
             ) {
               <li>
                 <lucide-icon name="key"></lucide-icon>
-                @if (!editMode['details.' + i]) {
+                @if (!editMode()['details.' + i]) {
                   <span>{{ item }}</span>
                 }
-                @if (editMode['details.' + i]) {
+                @if (editMode()['details.' + i]) {
                   <textarea
                     autoResize
                     [(ngModel)]="program.details[i]"
@@ -266,12 +266,12 @@
                     (blur)="toggleEditMode('details.' + i)"
                   ></textarea>
                 }
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <app-edit-button
                     (editClicked)="toggleEditMode('details.' + i)"
                   ></app-edit-button>
                 }
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <button class="delete-detail-btn" (click)="deleteDetail(i)">
                     <lucide-icon name="trash-2"></lucide-icon> Supprimer
                   </button>
@@ -280,7 +280,7 @@
             }
           </ul>
           <div class="btn-wrapper">
-            @if (isAdmin$ | async) {
+            @if (isAdmin()) {
               <button class="add-detail-btn" (click)="addDetail()">
                 Ajouter un détail du contenu
               </button>
@@ -296,10 +296,10 @@
           ) {
             <li>
               <h4>
-                @if (!editMode['modules.' + i + '.title']) {
+                @if (!editMode()['modules.' + i + '.title']) {
                   <span>{{ module.title }}</span>
                 }
-                @if (editMode['modules.' + i + '.title']) {
+                @if (editMode()['modules.' + i + '.title']) {
                   <textarea
                     autoResize
                     [(ngModel)]="module.title"
@@ -307,17 +307,17 @@
                     (blur)="toggleEditMode('modules.' + i + '.title')"
                   ></textarea>
                 }
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <app-edit-button
                     (editClicked)="toggleEditMode('modules.' + i + '.title')"
                   ></app-edit-button>
                 }
               </h4>
               <p>
-                @if (!editMode['modules.' + i + '.description']) {
+                @if (!editMode()['modules.' + i + '.description']) {
                   <span>{{ module.description }}</span>
                 }
-                @if (editMode['modules.' + i + '.description']) {
+                @if (editMode()['modules.' + i + '.description']) {
                   <textarea
                     autoResize
                     [(ngModel)]="module.description"
@@ -325,7 +325,7 @@
                     (blur)="toggleEditMode('modules.' + i + '.description')"
                   ></textarea>
                 }
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <app-edit-button
                     (editClicked)="
                       toggleEditMode('modules.' + i + '.description')
@@ -333,7 +333,7 @@
                   ></app-edit-button>
                 }
               </p>
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <button class="delete-module-btn" (click)="deleteModule(i)">
                   <lucide-icon name="trash-2"></lucide-icon> Supprimer
                 </button>
@@ -342,7 +342,7 @@
           }
         </ul>
         <div class="btn-wrapper">
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <button class="add-module-btn" (click)="addModule()">
               Ajouter un module de compétence
             </button>
@@ -357,11 +357,11 @@
         </h2>
         <app-training-testimonials
           [programId]="program._id"
-          [isAdmin]="(isAdmin$ | async) === true"
+          [isAdmin]="isAdmin()"
         ></app-training-testimonials>
       </div>
       <!-- Save button -->
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <button class="save-btn" (click)="saveChanges()">
           <span class="save-text">Sauvegarder les modifications</span>
           <lucide-icon name="save" class="save-icon"></lucide-icon>

@@ -1,7 +1,6 @@
 import { Component, inject, Input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { EditButtonComponent } from '../edit-button/edit-button.component';
-import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { CommonModule } from '@angular/common';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
@@ -24,7 +23,7 @@ export class PartnerComponent {
   @Input() partnerData: any;
   readonly editClicked = output<void>();
 
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  readonly isAdmin = this.adminService.isAdmin;
   editMode: { [key: string]: boolean } = {};
 
   toggleEditMode(field: string) {

@@ -26,7 +26,6 @@ import type { LucideIconData } from 'lucide-angular';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
@@ -67,8 +66,8 @@ export class HeaderComponent implements OnInit {
   private router: Router = inject(Router);
 
   trainings: Program[] = [];
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
-  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+  readonly isAdmin = this.adminService.isAdmin;
+  readonly isLoggedIn = this.authService.isLoggedIn;
   showLoginButton: boolean = false;
   isMobileView: boolean = false;
   isSmallScreen: boolean = false;

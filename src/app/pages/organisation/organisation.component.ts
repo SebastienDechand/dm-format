@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Observable, Subject, takeUntil } from 'rxjs';
 import { LucideAngularModule, GraduationCap, Save, Trash2 } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { ConditionsData } from '../../models/organisation.models';
@@ -44,11 +43,10 @@ export class OrganisationComponent implements OnInit {
   private dialog = inject(MatDialog);
 
   private pageId = 'organisation-documents';
-  private destroy$ = new Subject<void>();
 
   organisationData!: ConditionsData;
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
-  editMode: { [key: string]: boolean } = {};
+  readonly isAdmin = this.adminService.isAdmin;
+  readonly editMode = this.editModeService.editMode;
 
   hasPdfs: boolean = false;
   pdfsData: PdfFile[] = [];
@@ -64,12 +62,6 @@ export class OrganisationComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPdfsData();
-
-    this.editModeService.editMode$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((editMode) => {
-        this.editMode = editMode;
-      });
 
     this.apiService.getOrganisation().subscribe(
       (data) => {
@@ -185,18 +177,13 @@ export class OrganisationComponent implements OnInit {
   }
 
   toggleEditMode(field: string) {
-    if (this.isAdmin$) {
+    if (this.isAdmin()) {
       this.editModeService.toggleEditMode(field);
     }
   }
 
   trackByIndex(index: number, item: any): number {
     return index;
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   private updateSeo(data: ConditionsData): void {

@@ -20,7 +20,7 @@
       <div class="tooltip-training-header">
         <span class="tooltip-training-title">{{ training.title }}</span>
         <button
-          *ngIf="isAdmin$ | async"
+          *ngIf="isAdmin()"
           class="tooltip-delete-btn"
           (click)="deleteTraining(training._id); $event.stopPropagation()"
         >
@@ -74,12 +74,12 @@
     >
     </mat-calendar>
 
-    <div class="calendar-footer" *ngIf="isAdmin$ | async">
+    <div class="calendar-footer" *ngIf="isAdmin()">
       <button
         mat-raised-button
         color="primary"
         (click)="toggleAddForm()"
-        *ngIf="isAdmin$ | async"
+        *ngIf="isAdmin()"
       >
         Ajouter une formation
       </button>

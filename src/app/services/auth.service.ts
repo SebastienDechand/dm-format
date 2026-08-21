@@ -1,6 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,8 +10,7 @@ export class AuthService {
   private http = inject(HttpClient);
 
   private apiUrl = environment.apiUrl;
-  private isLoggedInSubject = new BehaviorSubject<boolean>(this.isLoggedIn());
-  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  readonly isLoggedIn = signal<boolean>(this.hasToken());
 
   login(credentials: { email: string; password: string }) {
     return this.http
@@ -19,19 +18,19 @@ export class AuthService {
       .pipe(
         tap((res) => {
           this.saveToken(res.token);
-          this.isLoggedInSubject.next(true);
+          this.isLoggedIn.set(true);
         })
       );
   }
 
-  logout() {
+  logout(): void {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('token');
     }
-    this.isLoggedInSubject.next(false);
+    this.isLoggedIn.set(false);
   }
 
-  saveToken(token: string) {
+  saveToken(token: string): void {
     if (typeof window !== 'undefined') {
       localStorage.setItem('token', token);
     }
@@ -44,7 +43,7 @@ export class AuthService {
     return null;
   }
 
-  isLoggedIn() {
+  private hasToken(): boolean {
     return !!this.getToken();
   }
 }

@@ -6,7 +6,6 @@ import { GalleryComponent } from '../../components/gallery/gallery.component';
 import { ProgramsComponent } from '../../components/programs/programs.component';
 import { PartnerComponent } from '../../components/partner/partner.component';
 import { ApiService } from '../../services/api.service';
-import { Observable } from 'rxjs';
 import { AdminService } from '../../services/admin.service';
 import { SeoService } from '../../services/seo.service';
 import { ToastService } from '../../services/toast.service';
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
   private toast = inject(ToastService);
 
   homeData: any;
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
+  readonly isAdmin = this.adminService.isAdmin;
   editMode: { [key: string]: boolean } = {};
 
   toggleEditMode(section: string) {

@@ -1,13 +1,6 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {
-  BehaviorSubject,
-  Observable,
-  catchError,
-  of,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { Observable, catchError, of, switchMap, tap } from 'rxjs';
 import { GalleryImage } from '../models/gallery.models';
 import { environment } from '../../environments/environment';
 
@@ -17,8 +10,8 @@ import { environment } from '../../environments/environment';
 export class GalleryService {
   private http = inject(HttpClient);
 
-  private imagesSubject = new BehaviorSubject<GalleryImage[]>([]);
-  images$ = this.imagesSubject.asObservable();
+  readonly images = signal<GalleryImage[]>([]);
+  readonly loading = signal<boolean>(false);
 
   private cloudName = environment.cloudinary.cloudName;
   private uploadPreset = environment.cloudinary.upload_preset;
@@ -30,19 +23,18 @@ export class GalleryService {
   }
 
   public loadGallery(): void {
-    // console.log("Chargement de la galerie depuis l'API");
+    this.loading.set(true);
     this.http
       .get<GalleryImage[]>(`${this.apiUrl}/gallery`)
       .pipe(
-        // tap((images) => console.log('API: Images reçues:', images)),
         catchError((error) => {
           console.error("Erreur lors du chargement depuis l'API:", error);
           return of([]);
         })
       )
       .subscribe((images) => {
-        // console.log('Images mises à jour dans le subject');
-        this.imagesSubject.next(images);
+        this.images.set(images);
+        this.loading.set(false);
       });
   }
 
@@ -73,9 +65,7 @@ export class GalleryService {
           );
         }),
         tap((createdImage) => {
-          // console.log("Image créée dans l'API:", createdImage);
-          const currentImages = this.imagesSubject.getValue();
-          this.imagesSubject.next([...currentImages, createdImage]);
+          this.images.update((current) => [...current, createdImage]);
         }),
         catchError((error) => {
           console.error("Erreur lors de l'upload:", error);
@@ -88,12 +78,9 @@ export class GalleryService {
     // console.log("Suppression de l'image:", imageId);
     this.http.delete(`${this.apiUrl}/gallery/${imageId}`).subscribe(
       () => {
-        // console.log('Image supprimée avec succès');
-        const currentImages = this.imagesSubject.getValue();
-        const updatedImages = currentImages.filter(
-          (img) => img._id !== imageId
+        this.images.update((current) =>
+          current.filter((img) => img._id !== imageId)
         );
-        this.imagesSubject.next(updatedImages);
       },
       (error) => {
         console.error("Erreur lors de la suppression de l'image:", error);
@@ -115,15 +102,15 @@ export class GalleryService {
       })
       .pipe(
         tap((updatedImage) => {
-          // console.log("Image mise à jour dans l'API:", updatedImage);
-          const currentImages = this.imagesSubject.getValue();
-          const index = currentImages.findIndex(
-            (img) => img._id === updatedImage._id
-          );
-          if (index !== -1) {
-            currentImages[index] = updatedImage;
-            this.imagesSubject.next([...currentImages]);
-          }
+          this.images.update((current) => {
+            const index = current.findIndex(
+              (img) => img._id === updatedImage._id
+            );
+            if (index === -1) return current;
+            const next = [...current];
+            next[index] = updatedImage;
+            return next;
+          });
         }),
         catchError((error) => {
           console.error("Erreur lors de la mise à jour de l'image:", error);

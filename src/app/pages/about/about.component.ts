@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Observable, Subject, takeUntil } from 'rxjs';
 import { LucideAngularModule, Save, Check } from 'lucide-angular';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
@@ -40,9 +39,8 @@ export class AboutComponent implements OnInit {
   private toast = inject(ToastService);
 
   aboutData!: About;
-  isAdmin$: Observable<boolean> = this.adminService.isAdminMode$;
-  editMode: { [key: string]: boolean } = {};
-  private destroy$ = new Subject<void>();
+  readonly isAdmin = this.adminService.isAdmin;
+  readonly editMode = this.editModeService.editMode;
 
   uploadingImages: { [key: string]: boolean } = {
     'header.image': false,
@@ -50,12 +48,6 @@ export class AboutComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.editModeService.editMode$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((editMode) => {
-        this.editMode = editMode;
-      });
-
     this.apiService.getAbout().subscribe(
       (data) => {
         this.aboutData = data;
@@ -141,7 +133,7 @@ export class AboutComponent implements OnInit {
   }
 
   toggleEditMode(field: string) {
-    if (this.isAdmin$) {
+    if (this.isAdmin()) {
       this.editModeService.toggleEditMode(field);
     }
   }
@@ -203,8 +195,4 @@ export class AboutComponent implements OnInit {
     );
   }
 
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 }

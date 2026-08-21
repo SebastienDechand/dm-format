@@ -5,10 +5,10 @@
       <div class="header-banner">
         <div class="banner-content">
           <h2>
-            @if (!editMode['header.title']) {
+            @if (!editMode()['header.title']) {
               <span>{{ organisationData.header.title }}</span>
             }
-            @if (editMode['header.title']) {
+            @if (editMode()['header.title']) {
               <textarea
                 autoResize
                 [(ngModel)]="organisationData.header.title"
@@ -16,17 +16,17 @@
                 (blur)="toggleEditMode('header.title')"
               ></textarea>
             }
-            @if (isAdmin$ | async) {
+            @if (isAdmin()) {
               <app-edit-button
                 (editClicked)="toggleEditMode('header.title')"
               ></app-edit-button>
             }
           </h2>
           <p>
-            @if (!editMode['header.description']) {
+            @if (!editMode()['header.description']) {
               <span>{{ organisationData.header.description }}</span>
             }
-            @if (editMode['header.description']) {
+            @if (editMode()['header.description']) {
               <textarea
                 autoResize
                 [(ngModel)]="organisationData.header.description"
@@ -34,7 +34,7 @@
                 (blur)="toggleEditMode('header.description')"
               ></textarea>
             }
-            @if (isAdmin$ | async) {
+            @if (isAdmin()) {
               <app-edit-button
                 (editClicked)="toggleEditMode('header.description')"
               ></app-edit-button>
@@ -51,7 +51,7 @@
                 'Image d\'en-tête Modalités d\'organisation'
               "
               imageClass="organisation-banner-image"
-              [isEditable]="(isAdmin$ | async) ?? false"
+              [isEditable]="isAdmin()"
               (imageUploaded)="onHeaderImageUploaded($event)"
             ></app-editable-image>
           }
@@ -60,10 +60,10 @@
       <!-- 📌 Introduction -->
       <div class="intro">
         <h3>
-          @if (!editMode['intro.title']) {
+          @if (!editMode()['intro.title']) {
             <span>{{ organisationData.intro.title }}</span>
           }
-          @if (editMode['intro.title']) {
+          @if (editMode()['intro.title']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.intro.title"
@@ -71,17 +71,17 @@
               (blur)="toggleEditMode('intro.title')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('intro.title')"
             ></app-edit-button>
           }
         </h3>
         <p>
-          @if (!editMode['intro.description']) {
+          @if (!editMode()['intro.description']) {
             <span>{{ organisationData.intro.description }}</span>
           }
-          @if (editMode['intro.description']) {
+          @if (editMode()['intro.description']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.intro.description"
@@ -89,7 +89,7 @@
               (blur)="toggleEditMode('intro.description')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('intro.description')"
             ></app-edit-button>
@@ -119,7 +119,7 @@
                   />
                   <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
                 </a>
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <button class="delete-btn" (click)="deletePdf(pdf)">
                     <lucide-icon name="trash-2"></lucide-icon> Supprimer
                   </button>
@@ -131,7 +131,7 @@
       }
 
       <!-- 📤 Upload PDF -->
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <div class="pdf-upload">
           <p>Ajouter un PDF à la page</p>
           <input
@@ -152,10 +152,10 @@
       <!-- 📚 Conditions générales des formations -->
       <div class="conditions">
         <h3>
-          @if (!editMode['general_conditions.title']) {
+          @if (!editMode()['general_conditions.title']) {
             <span>{{ organisationData.general_conditions.title }}</span>
           }
-          @if (editMode['general_conditions.title']) {
+          @if (editMode()['general_conditions.title']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.general_conditions.title"
@@ -163,19 +163,19 @@
               (blur)="toggleEditMode('general_conditions.title')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('general_conditions.title')"
             ></app-edit-button>
           }
         </h3>
         <p>
-          @if (!editMode['general_conditions.description']) {
+          @if (!editMode()['general_conditions.description']) {
             <span
               [innerHTML]="organisationData.general_conditions.description"
             ></span>
           }
-          @if (editMode['general_conditions.description']) {
+          @if (editMode()['general_conditions.description']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.general_conditions.description"
@@ -183,7 +183,7 @@
               (blur)="toggleEditMode('general_conditions.description')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('general_conditions.description')"
             ></app-edit-button>
@@ -199,10 +199,10 @@
               <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
               <p>
                 <strong>
-                  @if (!editMode['general_conditions.points.' + i + '.title']) {
+                  @if (!editMode()['general_conditions.points.' + i + '.title']) {
                     <span>{{ point.title }}</span>
                   }
-                  @if (editMode['general_conditions.points.' + i + '.title']) {
+                  @if (editMode()['general_conditions.points.' + i + '.title']) {
                     <textarea
                       autoResize
                       [(ngModel)]="point.title"
@@ -214,7 +214,7 @@
                       "
                     ></textarea>
                   }
-                  @if (isAdmin$ | async) {
+                  @if (isAdmin()) {
                     <app-edit-button
                       (editClicked)="
                         toggleEditMode(
@@ -227,12 +227,12 @@
               </p>
               <p>
                 @if (
-                  !editMode['general_conditions.points.' + i + '.description']
+                  !editMode()['general_conditions.points.' + i + '.description']
                 ) {
                   <span>{{ point.description }}</span>
                 }
                 @if (
-                  editMode['general_conditions.points.' + i + '.description']
+                  editMode()['general_conditions.points.' + i + '.description']
                 ) {
                   <textarea
                     autoResize
@@ -245,7 +245,7 @@
                     "
                   ></textarea>
                 }
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <app-edit-button
                     (editClicked)="
                       toggleEditMode(
@@ -262,10 +262,10 @@
       <!-- 🎓 Certification -->
       <div class="certification">
         <h3>
-          @if (!editMode['certification.title']) {
+          @if (!editMode()['certification.title']) {
             <span>{{ organisationData.certification.title }}</span>
           }
-          @if (editMode['certification.title']) {
+          @if (editMode()['certification.title']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.certification.title"
@@ -273,19 +273,19 @@
               (blur)="toggleEditMode('certification.title')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('certification.title')"
             ></app-edit-button>
           }
         </h3>
         <p>
-          @if (!editMode['certification.description']) {
+          @if (!editMode()['certification.description']) {
             <span
               [innerHTML]="organisationData.certification.description"
             ></span>
           }
-          @if (editMode['certification.description']) {
+          @if (editMode()['certification.description']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.certification.description"
@@ -293,7 +293,7 @@
               (blur)="toggleEditMode('certification.description')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('certification.description')"
             ></app-edit-button>
@@ -309,10 +309,10 @@
               <span class="badge"
                 ><lucide-icon name="graduation-cap"></lucide-icon
               ></span>
-              @if (!editMode['certification.details.' + i]) {
+              @if (!editMode()['certification.details.' + i]) {
                 <span [innerHTML]="detail | safeHtml"></span>
               }
-              @if (editMode['certification.details.' + i]) {
+              @if (editMode()['certification.details.' + i]) {
                 <textarea
                   autoResize
                   [(ngModel)]="organisationData.certification.details[i]"
@@ -320,7 +320,7 @@
                   (blur)="toggleEditMode('certification.details.' + i)"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('certification.details.' + i)"
                 ></app-edit-button>
@@ -329,10 +329,10 @@
           }
         </ul>
         <p class="note">
-          @if (!editMode['certification.note']) {
+          @if (!editMode()['certification.note']) {
             <span>{{ organisationData.certification.note }}</span>
           }
-          @if (editMode['certification.note']) {
+          @if (editMode()['certification.note']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.certification.note"
@@ -340,7 +340,7 @@
               (blur)="toggleEditMode('certification.note')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('certification.note')"
             ></app-edit-button>
@@ -350,10 +350,10 @@
       <!-- 🏆 Engagement des participants -->
       <div class="obligations">
         <h3>
-          @if (!editMode['obligations.title']) {
+          @if (!editMode()['obligations.title']) {
             <span>{{ organisationData.obligations.title }}</span>
           }
-          @if (editMode['obligations.title']) {
+          @if (editMode()['obligations.title']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.obligations.title"
@@ -361,17 +361,17 @@
               (blur)="toggleEditMode('obligations.title')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('obligations.title')"
             ></app-edit-button>
           }
         </h3>
         <p>
-          @if (!editMode['obligations.description']) {
+          @if (!editMode()['obligations.description']) {
             <span [innerHTML]="organisationData.obligations.description"></span>
           }
-          @if (editMode['obligations.description']) {
+          @if (editMode()['obligations.description']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.obligations.description"
@@ -379,7 +379,7 @@
               (blur)="toggleEditMode('obligations.description')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('obligations.description')"
             ></app-edit-button>
@@ -395,10 +395,10 @@
               <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
               <p>
                 <strong>
-                  @if (!editMode['obligations.points.' + i + '.title']) {
+                  @if (!editMode()['obligations.points.' + i + '.title']) {
                     <span>{{ point.title }}</span>
                   }
-                  @if (editMode['obligations.points.' + i + '.title']) {
+                  @if (editMode()['obligations.points.' + i + '.title']) {
                     <textarea
                       autoResize
                       [(ngModel)]="point.title"
@@ -408,7 +408,7 @@
                       "
                     ></textarea>
                   }
-                  @if (isAdmin$ | async) {
+                  @if (isAdmin()) {
                     <app-edit-button
                       (editClicked)="
                         toggleEditMode('obligations.points.' + i + '.title')
@@ -418,10 +418,10 @@
                 </strong>
               </p>
               <p>
-                @if (!editMode['obligations.points.' + i + '.description']) {
+                @if (!editMode()['obligations.points.' + i + '.description']) {
                   <span>{{ point.description }}</span>
                 }
-                @if (editMode['obligations.points.' + i + '.description']) {
+                @if (editMode()['obligations.points.' + i + '.description']) {
                   <textarea
                     autoResize
                     [(ngModel)]="point.description"
@@ -431,7 +431,7 @@
                     "
                   ></textarea>
                 }
-                @if (isAdmin$ | async) {
+                @if (isAdmin()) {
                   <app-edit-button
                     (editClicked)="
                       toggleEditMode('obligations.points.' + i + '.description')
@@ -443,10 +443,10 @@
           }
         </div>
         <p class="note">
-          @if (!editMode['obligations.note']) {
+          @if (!editMode()['obligations.note']) {
             <span>{{ organisationData.obligations.note }}</span>
           }
-          @if (editMode['obligations.note']) {
+          @if (editMode()['obligations.note']) {
             <textarea
               autoResize
               [(ngModel)]="organisationData.obligations.note"
@@ -454,7 +454,7 @@
               (blur)="toggleEditMode('obligations.note')"
             ></textarea>
           }
-          @if (isAdmin$ | async) {
+          @if (isAdmin()) {
             <app-edit-button
               (editClicked)="toggleEditMode('obligations.note')"
             ></app-edit-button>
@@ -466,10 +466,10 @@
         <div class="finance-flex">
           <div class="finance-description">
             <h3>
-              @if (!editMode['financing.title']) {
+              @if (!editMode()['financing.title']) {
                 <span>{{ organisationData.financing.title }}</span>
               }
-              @if (editMode['financing.title']) {
+              @if (editMode()['financing.title']) {
                 <textarea
                   autoResize
                   [(ngModel)]="organisationData.financing.title"
@@ -477,21 +477,21 @@
                   (blur)="toggleEditMode('financing.title')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('financing.title')"
                 ></app-edit-button>
               }
             </h3>
             <p>
-              @if (!editMode['financing.description']) {
+              @if (!editMode()['financing.description']) {
                 <span
                   [innerHTML]="
                     organisationData.financing.description | safeHtml
                   "
                 ></span>
               }
-              @if (editMode['financing.description']) {
+              @if (editMode()['financing.description']) {
                 <textarea
                   autoResize
                   [(ngModel)]="organisationData.financing.description"
@@ -499,7 +499,7 @@
                   (blur)="toggleEditMode('financing.description')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('financing.description')"
                 ></app-edit-button>
@@ -508,10 +508,10 @@
           </div>
           <div class="finance-opco">
             <h4>
-              @if (!editMode['financing.opco.title']) {
+              @if (!editMode()['financing.opco.title']) {
                 <span>{{ organisationData.financing.opco.title }}</span>
               }
-              @if (editMode['financing.opco.title']) {
+              @if (editMode()['financing.opco.title']) {
                 <textarea
                   autoResize
                   [(ngModel)]="organisationData.financing.opco.title"
@@ -519,19 +519,19 @@
                   (blur)="toggleEditMode('financing.opco.title')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('financing.opco.title')"
                 ></app-edit-button>
               }
             </h4>
             <p class="opco-description">
-              @if (!editMode['financing.opco.description']) {
+              @if (!editMode()['financing.opco.description']) {
                 <span
                   [innerHTML]="organisationData.financing.opco.description"
                 ></span>
               }
-              @if (editMode['financing.opco.description']) {
+              @if (editMode()['financing.opco.description']) {
                 <textarea
                   autoResize
                   [(ngModel)]="organisationData.financing.opco.description"
@@ -539,7 +539,7 @@
                   (blur)="toggleEditMode('financing.opco.description')"
                 ></textarea>
               }
-              @if (isAdmin$ | async) {
+              @if (isAdmin()) {
                 <app-edit-button
                   (editClicked)="toggleEditMode('financing.opco.description')"
                 ></app-edit-button>
@@ -548,18 +548,18 @@
           </div>
         </div>
         <!-- <h4 class="subtitle">
-                <span *ngIf="!editMode['financing.subtitle']">{{
+                <span *ngIf="!editMode()['financing.subtitle']">{{
                   organisationData.financing.subtitle
                 }}</span>
                 <textarea
                   autoResize
-                  *ngIf="editMode['financing.subtitle']"
+                  *ngIf="editMode()['financing.subtitle']"
                   [(ngModel)]="organisationData.financing.subtitle"
                   class="edit-textarea"
                   (blur)="toggleEditMode('financing.subtitle')"
                   />
                   <app-edit-button
-                    *ngIf="isAdmin$ | async"
+                    *ngIf="isAdmin()"
                     (editClicked)="toggleEditMode('financing.subtitle')"
                   ></app-edit-button>
                 </h4>
@@ -574,23 +574,23 @@
                     >
                     <div>
                       <app-dynamic-icon
-                        *ngIf="!editMode['financing.steps.' + i + '.icon']"
+                        *ngIf="!editMode()['financing.steps.' + i + '.icon']"
                         [faClass]="step.icon"
                       ></app-dynamic-icon>
                     </div>
                     <p>
-                      <span *ngIf="!editMode['financing.steps.' + i + '.text']">{{
+                      <span *ngIf="!editMode()['financing.steps.' + i + '.text']">{{
                         step.text
                       }}</span>
                       <textarea
                         autoResize
-                        *ngIf="editMode['financing.steps.' + i + '.text']"
+                        *ngIf="editMode()['financing.steps.' + i + '.text']"
                         [(ngModel)]="step.text"
                         class="edit-textarea"
                         (blur)="toggleEditMode('financing.steps.' + i + '.text')"
                       ></textarea>
                       <app-edit-button
-                        *ngIf="isAdmin$ | async"
+                        *ngIf="isAdmin()"
                         (editClicked)="toggleEditMode('financing.steps.' + i + '.text')"
                       ></app-edit-button>
                     </p>
@@ -598,7 +598,7 @@
                 </ul> -->
       </div>
       <!-- Bouton de sauvegarde global -->
-      @if (isAdmin$ | async) {
+      @if (isAdmin()) {
         <button class="save-btn" (click)="saveChanges()">
           <span class="save-text">Sauvegarder les modifications</span>
           <lucide-icon name="save" class="save-icon"></lucide-icon>
