@@ -41,26 +41,33 @@
 }
 
 :root {
-  /* Colors */
-  --primary-color: #316095;
-  --primary-dark: #0f2942;
-  --primary-tint: #e7eef5;
-  --accent: #e07856;
-  --accent-tint: #fdece5;
-  --accent-text: #9c4227;
-  --secondary-color: #5a6a78;
-  --border-color: #e0e0e0;
-  --success-color: #2f9e5c;
+  /* Colors — deep-navy trust anchor + coral-red signal accent (the "pulse"
+     color, used sparingly for CTAs and the ECG signature motif) + a cool
+     clinical off-white rather than a warm cream background. */
+  --primary-color: #1d4e7a;
+  --primary-dark: #0b1f33;
+  --primary-tint: #eaf0f5;
+  --accent: #e8543a;
+  --accent-tint: #fbe7e2;
+  --accent-text: #a63a22;
+  --secondary-color: #4b5d6e;
+  --border-color: #e2e6ea;
+  --success-color: #1f9d6b;
   --info-color: #0c498f;
   --warning-color: #e0a13c;
   --danger: #c9503f;
   --danger-tint: #f7e6e3;
   --light-color: white;
-  --dark-color: #0f2942;
-  --background-color: #f9f9f9;
-  --background-color-dark: #f4f4f4;
-  --button-color: #316095;
-  --button-color-hover: #24476f;
+  --dark-color: #0b1f33;
+  --background-color: #f7f8fa;
+  --background-color-dark: #eef0f3;
+  --button-color: #1d4e7a;
+  --button-color-hover: #163d61;
+
+  /* Type */
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
 
   /* Shape */
   --radius-card: 10px;
@@ -113,7 +120,7 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-body);
   margin: 0;
   padding: 70px 0 0 0;
   background: var(--background-color);
@@ -126,9 +133,27 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-display);
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--dark-color);
+}
+
+/* Utility for data-like content — dates, session refs, certification
+   levels — that should read as precise/official rather than editorial. */
+.mono,
+.eyebrow {
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--small-text-size-desktop);
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
 }
 
 ul {
