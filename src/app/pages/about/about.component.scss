@@ -5,14 +5,14 @@
 
   h2,
   h3 {
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 75px;
+    font-weight: 600;
+    margin-bottom: var(--space-8);
   }
 
   h2 {
     font-size: var(--title-size-desktop);
-    line-height: 1.2;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
 
     span {
       color: var(--primary-color);
@@ -30,50 +30,98 @@
   }
 
   /* 📌 Conteneurs généraux */
-  .about-header,
+  .about-header-band,
   .who-we-are,
-  .concept,
+  .concept-band,
   .trainings,
   .certifications,
   .prevention {
     margin-bottom: 75px;
   }
 
+  /* En-tête : bandeau teinté pour distinguer la section d'ouverture du
+     reste de la page, plutôt qu'un simple bloc blanc parmi d'autres. */
+  .about-header-band {
+    background: var(--primary-tint);
+    border-radius: var(--radius-card);
+    padding: 60px;
+  }
+
+  .eyebrow-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--small-text-size-desktop);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 var(--space-4);
+
+    .eyebrow-mark {
+      width: 22px;
+      height: 11px;
+      flex-shrink: 0;
+    }
+  }
+
   .header-video {
     width: 35vw;
     border-radius: var(--radius-card);
-    box-shadow: var(--shadow-soft);
+    box-shadow: var(--shadow-overlay);
     flex-shrink: 0;
   }
 
   .about-header {
-    margin-top: 75px;
     display: flex;
-    align-items: center;
-    .about-text .intro {
-      width: 90%;
-    }
-  }
-
-  .who-we-are-content {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     gap: 50px;
 
-    .about-img {
-      height: 300px;
-      border-radius: var(--radius-card);
-      box-shadow: var(--shadow-soft);
+    .about-text {
+      text-align: left;
+
+      h2 {
+        margin-bottom: var(--margin-medium);
+      }
+    }
+
+    .about-text .intro {
+      width: 90%;
+      margin-bottom: 0;
     }
   }
 
-  /* 📌 Sections avec icônes */
+  /* 📖 Qui sommes-nous : texte en deux colonnes façon magazine plutôt
+     qu'une seule colonne étroite et centrée. */
+  .who-we-are-content {
+    .who-we-are-text {
+      column-count: 2;
+      column-gap: 50px;
+      text-align: left;
+
+      p {
+        break-inside: avoid;
+      }
+    }
+  }
+
+  /* 📌 Concept : bandeau sombre pour marquer une vraie rupture de rythme
+     dans la page, les étapes ont un vrai ordre donc sont numérotées. */
+  .concept-band {
+    background: var(--primary-dark);
+    border-radius: var(--radius-card);
+    padding: 60px 40px;
+
+    h3 {
+      color: var(--light-color);
+    }
+  }
+
   .concept-steps,
   .risk-prevention {
     display: flex;
     justify-content: space-around;
-    margin: 75px 0;
+    margin: 75px 0 0;
     gap: 50px;
 
     .step {
@@ -88,6 +136,7 @@
 
     .step,
     .risk {
+      position: relative;
       text-align: center;
       background-color: var(--light-color);
       padding: 32px;
@@ -116,6 +165,24 @@
         height: 80px;
       }
     }
+
+    .step .step-number {
+      position: absolute;
+      top: -14px;
+      left: -14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--light-color);
+      font-family: var(--font-mono);
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: var(--shadow-soft);
+    }
   }
 
   /* 🎓 Formations */
@@ -126,18 +193,28 @@
 
     li {
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      gap: 12px;
       font-size: var(--text-size-desktop);
       padding-left: var(--padding-small);
-      line-height: 2;
+      line-height: 1.5;
+      margin-bottom: var(--space-3);
 
-      svg {
-        color: var(--success-color);
+      .check-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
         flex-shrink: 0;
-        margin-top: 6px;
-        width: 20px;
-        height: 20px;
+        border-radius: 50%;
+        background: rgba(31, 157, 107, 0.14);
+
+        svg {
+          color: var(--success-color);
+          width: 14px;
+          height: 14px;
+        }
       }
     }
   }
@@ -199,8 +276,8 @@
     border-radius: 50px;
     cursor: pointer;
     font-size: 16px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    transition: background 0.3s ease-in-out;
+    box-shadow: var(--shadow-overlay);
+    transition: background-color 0.3s ease-in-out;
     padding: 12px 18px;
     display: flex;
     align-items: center;
@@ -261,9 +338,17 @@
 
   /* ✅ Responsive 1024px (tablette paysage) */
   @media (max-width: 1024px) {
+    .about-header-band {
+      padding: 40px 30px;
+    }
+
     .about-header {
       flex-direction: column;
       text-align: center;
+
+      .about-text {
+        text-align: center;
+      }
 
       .about-text .intro {
         width: 100%;
@@ -274,10 +359,12 @@
       width: 100%;
     }
 
-    .who-we-are-content {
-      .about-img {
-        height: 250px;
-      }
+    .who-we-are-content .who-we-are-text {
+      column-count: 1;
+    }
+
+    .concept-band {
+      padding: 40px 24px;
     }
 
     .certification-logo img {
@@ -297,10 +384,6 @@
       font-size: calc(var(--h3-size-desktop) * 0.9);
     }
 
-    .who-we-are-content .about-img {
-      height: 200px;
-    }
-
     .training-list li {
       font-size: calc(var(--text-size-desktop) * 0.9);
       line-height: 1.8;
@@ -309,6 +392,8 @@
     .concept-steps,
     .risk-prevention {
       grid-template-columns: repeat(1, 1fr);
+      margin-top: 40px;
+
       .step,
       .risk {
         .step-title {
@@ -325,6 +410,10 @@
   /* ✅ Responsive 480px (mobile) */
   @media (max-width: 480px) {
     padding: var(--padding-small);
+
+    .about-header-band {
+      padding: var(--padding-medium);
+    }
 
     .who-we-are-text {
       text-align: center;
@@ -358,6 +447,7 @@
 
       li {
         text-align: center;
+        justify-content: center;
         font-size: 16px;
         line-height: 1.6;
         padding-left: var(--padding-small);

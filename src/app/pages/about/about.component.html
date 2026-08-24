@@ -1,8 +1,26 @@
 @if (aboutData) {
   <section class="about">
     <!-- HEADER -->
-    <div class="about-header">
+    <div class="about-header-band">
+      <div class="about-header">
       <div class="about-text">
+        <p class="eyebrow-inline">
+          <svg
+            class="eyebrow-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Qui sommes-nous
+        </p>
         <h2>
           @if (!editMode()['header.title']) {
             <span>{{ aboutData.header.title }}</span>
@@ -46,6 +64,7 @@
         <source src="assets/video/DM FORMAT.mp4" type="video/mp4" />
         Votre navigateur ne supporte pas la lecture de vidéos.
       </video>
+      </div>
     </div>
     <!-- QUI SOMMES-NOUS ? -->
     <div class="who-we-are">
@@ -99,7 +118,8 @@
       </div>
     </div>
     <!-- CONCEPT -->
-    <div class="concept">
+    <div class="concept-band">
+      <div class="concept">
       <h3>
         @if (!editMode()['concept.title']) {
           <span>{{ aboutData.concept.title }}</span>
@@ -126,6 +146,7 @@
           let i = $index
         ) {
           <div class="step">
+            <span class="step-number">{{ i + 1 }}</span>
             <app-dynamic-icon [faClass]="step.icon"></app-dynamic-icon>
             <p class="step-title">
               <strong>
@@ -173,6 +194,7 @@
             </p>
           </div>
         }
+      </div>
       </div>
     </div>
     <!-- FORMATIONS -->
@@ -222,7 +244,7 @@
           let i = $index
         ) {
           <li>
-            <svg lucideIcon="check"></svg>
+            <span class="check-mark"><svg lucideIcon="check"></svg></span>
             @if (!editMode()['trainings.list.' + i]) {
               <span>{{ training }}</span>
             }
