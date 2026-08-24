@@ -1,18 +1,106 @@
 <section class="contact">
-  <div class="container">
+  <div class="contact-header">
+    <p class="eyebrow-inline">
+      <svg
+        class="eyebrow-mark"
+        viewBox="0 0 32 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 8H8L11 2L14 14L17 8H32"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      Contact
+    </p>
     <h2>Contactez <span>DM FORMAT</span></h2>
     <p class="intro">
       Vous souhaitez obtenir des informations sur nos formations ou un devis
       personnalisé ? Remplissez le formulaire ci-dessous, et nous reviendrons
       vers vous rapidement.
     </p>
+  </div>
 
-    <div class="contact-wrapper">
+  <div class="contact-wrapper">
+    <div class="contact-info">
+      <h3>Nos coordonnées</h3>
+      <div class="contact-items">
+        <div class="contact-item">
+          <span class="icon-badge"><svg lucideIcon="house"></svg></span>
+          <span
+            >32 Avenue de Marnay la ville, 70150 Marnay,
+            Bourgogne-Franche-Comté, France</span
+          >
+        </div>
+
+        <div class="contact-item">
+          <div class="captcha-container">
+            @if (!captchaVerified) {
+              <button class="captcha-button" (click)="executeRecaptcha()">
+                <span class="icon-badge reveal"
+                  ><svg lucideIcon="lock"></svg
+                ></span>
+                Voir le numéro
+              </button>
+            }
+
+            @if (captchaVerified) {
+              <a class="verified-number" href="tel:+33681191790">
+                <span class="icon-badge verified"
+                  ><svg lucideIcon="phone"></svg
+                ></span>
+                06 81 19 17 90
+              </a>
+            }
+
+            <re-captcha
+              #recaptcha
+              [siteKey]="siteKey"
+              size="invisible"
+              (resolved)="onCaptchaResolved($event)"
+              class="hidden-recaptcha"
+            >
+            </re-captcha>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <a href="mailto:dm.formatsst&#64;gmail.com">
+            <span class="icon-badge"><svg lucideIcon="mail"></svg></span>
+            dm.formatsst&#64;gmail.com
+          </a>
+        </div>
+
+        <div class="contact-item">
+          <span class="icon-badge"><svg lucideIcon="clock"></svg></span>
+          <span>Lundi - Vendredi : 9h - 18h</span>
+        </div>
+      </div>
+
+      <h3>Localisation</h3>
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2706.308908944498!2d5.761845076038842!3d47.288762609872286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478d58b99df4f21d%3A0xd790f80d32ec47b7!2s32%20Av.%20de%20Marnay%20la%20ville%2C%2070150%20Marnay!5e0!3m2!1sfr!2sfr!4v1738424891884!5m2!1sfr!2sfr"
+          width="100%"
+          height="220"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="contact-form-panel">
       <form (ngSubmit)="onSubmit()" #contactForm="ngForm">
         <div class="form-group">
           <label for="company"
-            ><svg lucideIcon="building-2"></svg> Raison sociale
-            *</label
+            ><span class="label-icon"
+              ><svg lucideIcon="building-2"></svg></span
+            >Raison sociale *</label
           >
           <input
             type="text"
@@ -33,7 +121,8 @@
 
         <div class="form-group">
           <label for="name"
-            ><svg lucideIcon="user"></svg> Nom et Prénom *</label
+            ><span class="label-icon"><svg lucideIcon="user"></svg></span
+            >Nom et Prénom *</label
           >
           <input
             type="text"
@@ -54,7 +143,8 @@
 
         <div class="form-group">
           <label for="email"
-            ><svg lucideIcon="mail"></svg> Email *</label
+            ><span class="label-icon"><svg lucideIcon="mail"></svg></span
+            >Email *</label
           >
           <input
             type="email"
@@ -76,7 +166,8 @@
 
         <div class="form-group">
           <label for="phone"
-            ><svg lucideIcon="phone"></svg> Téléphone</label
+            ><span class="label-icon"><svg lucideIcon="phone"></svg></span
+            >Téléphone</label
           >
           <input
             type="tel"
@@ -97,7 +188,9 @@
 
         <div class="form-group">
           <label for="message"
-            ><svg lucideIcon="message-circle"></svg> Message *</label
+            ><span class="label-icon"
+              ><svg lucideIcon="message-circle"></svg></span
+            >Message *</label
           >
           <textarea
             id="message"
@@ -123,65 +216,6 @@
           formulaire.
         </p>
       </form>
-
-      <div class="contact-info">
-        <h3>Nos coordonnées</h3>
-        <p>
-          <strong><svg lucideIcon="house"></svg> Adresse :</strong>
-        </p>
-        <p>
-          32 Avenue de Marnay la ville, 70150 Marnay, Bourgogne-Franche-Comté,
-          France
-        </p>
-
-        <p>
-          <strong><svg lucideIcon="phone"></svg> Téléphone :</strong>
-        </p>
-        <div class="captcha-container">
-          @if (!captchaVerified) {
-            <button class="captcha-button" (click)="executeRecaptcha()">
-              <svg lucideIcon="lock"></svg> Voir le numéro
-            </button>
-          }
-
-          @if (captchaVerified) {
-            <a class="verified-number" href="tel:+33681191790">
-              06 81 19 17 90
-            </a>
-          }
-
-          <re-captcha
-            #recaptcha
-            [siteKey]="siteKey"
-            size="invisible"
-            (resolved)="onCaptchaResolved($event)"
-            class="hidden-recaptcha"
-          >
-          </re-captcha>
-        </div>
-
-        <p>
-          <strong><svg lucideIcon="mail"></svg> Email :</strong>
-        </p>
-        <p>dm.formatsst&#64;gmail.com</p>
-
-        <p>
-          <strong><svg lucideIcon="clock"></svg> Horaires :</strong>
-        </p>
-        <p>Lundi - Vendredi : 9h - 18h</p>
-
-        <h3>Localisation</h3>
-        <div class="map-container">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2706.308908944498!2d5.761845076038842!3d47.288762609872286!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x478d58b99df4f21d%3A0xd790f80d32ec47b7!2s32%20Av.%20de%20Marnay%20la%20ville%2C%2070150%20Marnay!5e0!3m2!1sfr!2sfr!4v1738424891884!5m2!1sfr!2sfr"
-            width="100%"
-            height="250"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-          ></iframe>
-        </div>
-      </div>
     </div>
   </div>
 </section>
