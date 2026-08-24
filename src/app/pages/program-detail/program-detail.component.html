@@ -19,7 +19,7 @@
           </svg>
           Formation
         </p>
-        <h2>
+        <h1>
           @if (!editMode()['title']) {
             <span [innerHTML]="program.title | safeHtml"></span>
           }
@@ -36,7 +36,7 @@
               (editClicked)="toggleEditMode('title')"
             ></app-edit-button>
           }
-        </h2>
+        </h1>
         <ul class="highlights">
           @for (
             method of program.methodology;
@@ -195,6 +195,7 @@
                         src="assets/images/pdf-placeholder.png"
                         alt="PDF"
                         class="pdf-icon"
+                        loading="lazy"
                       />
                       <span class="pdf-title">{{
                         pdf.title | slice: 0 : -4

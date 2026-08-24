@@ -9,7 +9,7 @@
     font-size: var(--small-text-size-desktop);
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     margin: 0 0 var(--space-4);
 
     .eyebrow-mark {
@@ -24,7 +24,7 @@
     margin: 0 auto var(--margin-big);
     text-align: center;
 
-    h2 {
+    h1 {
       font-size: var(--title-size-desktop);
       font-weight: 600;
       margin-bottom: var(--margin-medium);
@@ -105,7 +105,7 @@
       transition: color 0.2s ease;
 
       &:hover {
-        color: var(--accent);
+        color: var(--accent-text);
 
         .icon-badge {
           background: rgba(232, 84, 58, 0.28);
@@ -326,7 +326,7 @@
   .contact {
     padding: var(--padding-medium);
 
-    .contact-header h2 {
+    .contact-header h1 {
       font-size: calc(var(--title-size-desktop) * 0.8);
     }
   }
@@ -337,7 +337,7 @@
     padding: var(--padding-small);
 
     .contact-header {
-      h2 {
+      h1 {
         font-size: 22px;
         margin-bottom: var(--margin-medium);
       }

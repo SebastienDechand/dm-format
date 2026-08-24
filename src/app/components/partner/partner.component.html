@@ -162,7 +162,11 @@
       </div>
 
       <div class="partner-image">
-        <img [src]="partnerData?.profile?.image" alt="Partner Image" />
+        <img
+          [src]="partnerData?.profile?.image"
+          [alt]="partnerData?.profile?.name || 'Photo du formateur'"
+          loading="lazy"
+        />
       </div>
       </div>
     </div>

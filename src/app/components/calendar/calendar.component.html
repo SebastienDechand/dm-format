@@ -45,6 +45,7 @@
     color="primary"
     class="toggle-button"
     (click)="toggleCalendar()"
+    aria-label="Ouvrir le calendrier des formations"
   >
     <svg lucideIcon="calendar"></svg>
   </button>
@@ -57,10 +58,15 @@
           mat-icon-button
           (click)="refreshCalendar()"
           matTooltip="Rafraîchir"
+          aria-label="Rafraîchir le calendrier"
         >
           <svg lucideIcon="refresh-cw"></svg>
         </button>
-        <button mat-icon-button (click)="toggleCalendar()">
+        <button
+          mat-icon-button
+          (click)="toggleCalendar()"
+          aria-label="Fermer le calendrier"
+        >
           <svg lucideIcon="x"></svg>
         </button>
       </div>

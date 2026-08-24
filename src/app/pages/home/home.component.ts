@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
     let description =
       'Centre de formation spécialisé en Sauveteur Secouriste du Travail (SST) et formation de formateurs SST. Formations certifiantes pour professionnels et entreprises.';
 
-    let image = 'https://dm-format.fr/assets/images/massage1.webp';
+    let image = 'https://dm-format.fr/assets/images/dominique.webp';
     if (data?.banner?.image) {
       image = data.banner.image;
     }
@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
         '@type': 'Organization',
         name: 'DM-Format',
         url: 'https://dm-format.fr',
-        logo: 'https://dm-format.fr/assets/images/logo.webp',
+        logo: 'https://dm-format.fr/assets/images/logo.png',
         description: description,
       },
       {

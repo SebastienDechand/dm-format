@@ -66,7 +66,7 @@ export class AboutComponent implements OnInit {
 
         if (!this.aboutData.who_we_are.image) {
           this.aboutData.who_we_are.image = {
-            src: 'assets/images/dominique.jpg',
+            src: 'assets/images/dominique.webp',
             alt: 'Image Qui sommes-nous',
           };
         }
@@ -93,7 +93,7 @@ export class AboutComponent implements OnInit {
     this.seoService.updateMetadata({
       title: 'À propos | DM-Format',
       description: description,
-      image: data.header.image?.src || '/assets/images/massage4.webp',
+      image: data.header.image?.src || '/assets/images/dominique.webp',
       url: 'https://dm-format.fr/about',
       keywords:
         'à propos, centre formation SST, formateurs SST, notre équipe, notre histoire, expérience secourisme, formateurs certifiés',
@@ -108,7 +108,7 @@ export class AboutComponent implements OnInit {
         publisher: {
           '@type': 'Organization',
           name: 'DM-Format',
-          logo: 'https://dm-format.fr/assets/images/logo.webp',
+          logo: 'https://dm-format.fr/assets/images/logo.png',
           url: 'https://dm-format.fr',
         },
       },

@@ -3,13 +3,13 @@
   margin: auto;
   padding: var(--padding-big);
 
-  h2,
+  h1,
   h3 {
     font-weight: 600;
     margin-bottom: var(--space-8);
   }
 
-  h2 {
+  h1 {
     font-size: var(--title-size-desktop);
     line-height: 1.15;
     letter-spacing: -0.01em;
@@ -55,7 +55,7 @@
     font-size: var(--small-text-size-desktop);
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-text);
     margin: 0 0 var(--space-4);
 
     .eyebrow-mark {
@@ -80,7 +80,7 @@
     .about-text {
       text-align: left;
 
-      h2 {
+      h1 {
         margin-bottom: var(--margin-medium);
       }
     }
@@ -472,7 +472,7 @@
   @media (max-width: 768px) {
     width: 90%;
 
-    h2 {
+    h1 {
       font-size: calc(var(--title-size-desktop) * 0.8);
     }
 
@@ -515,7 +515,7 @@
       text-align: center;
     }
 
-    h2 span,
+    h1 span,
     h3 span {
       margin-bottom: 50px;
     }

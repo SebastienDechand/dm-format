@@ -20,7 +20,7 @@ export class HomeResolver implements Resolve<any> {
           title: 'DM-Format',
           description:
             'DM-Format, votre centre spécialisé dans les formations SST (Sauveteur Secouriste du Travail) et formation de formateurs SST. Formations certifiantes pour entreprises et professionnels.',
-          image: '/assets/images/sst-formation.webp',
+          image: '/assets/images/dominique.webp',
         });
 
         this.seoService.setSchemaMarkup({

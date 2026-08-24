@@ -1,8 +1,7 @@
 // seo.service.ts
-import { Injectable, PLATFORM_ID, DOCUMENT, inject } from '@angular/core';
+import { Injectable, DOCUMENT, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +11,11 @@ export class SeoService {
   private title = inject(Title);
   private router = inject(Router);
   private document = inject<Document>(DOCUMENT);
-  private platformId = inject<Object>(PLATFORM_ID);
 
   updateMetadata({
     title = 'DM-Format',
     description = 'Centre de formation spécialisé en Sauveteur Secouriste du Travail (SST) et formation de formateurs SST. Formations certifiantes pour professionnels et entreprises.',
-    image = 'https://dm-format.fr/assets/images/dominique.jpg',
+    image = 'https://dm-format.fr/assets/images/dominique.webp',
     url = '',
     keywords = 'formation SST, sauveteur secouriste du travail, formation formateur SST, secourisme entreprise, certification SST, prévention risques professionnels',
   }: {
@@ -82,18 +80,20 @@ export class SeoService {
   }
 
   setSchemaMarkup(schema: any) {
-    if (isPlatformBrowser(this.platformId)) {
-      const existingScript = this.document.querySelector(
-        'script[type="application/ld+json"]'
-      );
-      if (existingScript) {
-        existingScript.remove();
-      }
-
-      const script = this.document.createElement('script');
-      script.type = 'application/ld+json';
-      script.textContent = JSON.stringify(schema);
-      this.document.head.appendChild(script);
+    // No isPlatformBrowser guard here: this must also run during SSR/
+    // prerendering, otherwise crawlers only ever see the static
+    // LocalBusiness schema hardcoded in index.html, never the
+    // per-page Course/BreadcrumbList/AboutPage/etc. markup.
+    const existingScript = this.document.querySelector(
+      'script[type="application/ld+json"]'
+    );
+    if (existingScript) {
+      existingScript.remove();
     }
+
+    const script = this.document.createElement('script');
+    script.type = 'application/ld+json';
+    script.textContent = JSON.stringify(schema);
+    this.document.head.appendChild(script);
   }
 }

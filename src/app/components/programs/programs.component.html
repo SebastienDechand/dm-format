@@ -9,6 +9,7 @@
             mat-card-image
             [src]="training.banner.src"
             [alt]="stripHtmlTags(training.title)"
+            loading="lazy"
           />
           @if (training.duration) {
             <span class="program-badge">{{ training.duration }}</span>

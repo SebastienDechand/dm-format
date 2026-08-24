@@ -1,6 +1,6 @@
 <div class="login-container">
   <mat-card class="login-card">
-    <h2>Accès Administrateur</h2>
+    <h1>Accès Administrateur</h1>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form-group">
         <mat-form-field appearance="outline">
@@ -34,6 +34,9 @@
             matSuffix
             (click)="hidePassword = !hidePassword"
             type="button"
+            [attr.aria-label]="
+              hidePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe'
+            "
           >
             @if (!hidePassword) {
               <svg lucideIcon="eye"></svg>

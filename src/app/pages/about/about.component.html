@@ -21,7 +21,7 @@
           </svg>
           Qui sommes-nous
         </p>
-        <h2>
+        <h1>
           @if (!editMode()['header.title']) {
             <span>{{ aboutData.header.title }}</span>
           }
@@ -39,7 +39,7 @@
               (editClicked)="toggleEditMode('header.title')"
             ></app-edit-button>
           }
-        </h2>
+        </h1>
         <p class="intro">
           @if (!editMode()['header.description']) {
             <span>{{ aboutData.header.description }}</span>

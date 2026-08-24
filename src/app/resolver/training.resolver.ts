@@ -34,7 +34,7 @@ export class TrainingResolver implements Resolve<Program> {
           this.seoService.updateMetadata({
             title: seoTitle,
             description: seoDescription,
-            image: program.banner.src || '/assets/images/formation-sst.webp',
+            image: program.banner.src || '/assets/images/dominique.webp',
             url: `https://dm-format.fr/trainings/${program._id}`,
           });
 

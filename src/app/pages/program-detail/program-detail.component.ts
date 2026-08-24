@@ -218,7 +218,7 @@ export class ProgramDetailComponent implements OnInit {
     this.seoService.updateMetadata({
       title: seoTitle,
       description: seoDescription,
-      image: program.banner?.src || '/assets/images/formation-sst.webp',
+      image: program.banner?.src || '/assets/images/dominique.webp',
       url: `https://dm-format.fr/trainings/${program._id}`,
       keywords: `formation ${plainTitle}, certification SST, secourisme, sauveteur secouriste, entreprise, prévention risques`,
     });
@@ -253,12 +253,6 @@ export class ProgramDetailComponent implements OnInit {
           {
             '@type': 'ListItem',
             position: 2,
-            name: 'Formations',
-            item: 'https://dm-format.fr/trainings',
-          },
-          {
-            '@type': 'ListItem',
-            position: 3,
             name: plainTitle,
             item: `https://dm-format.fr/trainings/${program._id}`,
           },

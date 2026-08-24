@@ -21,7 +21,7 @@
             </svg>
             Modalités
           </p>
-          <h2>
+          <h1>
             @if (!editMode()['header.title']) {
               <span>{{ organisationData.header.title }}</span>
             }
@@ -38,7 +38,7 @@
                 (editClicked)="toggleEditMode('header.title')"
               ></app-edit-button>
             }
-          </h2>
+          </h1>
           <p>
             @if (!editMode()['header.description']) {
               <span>{{ organisationData.header.description }}</span>
@@ -151,6 +151,7 @@
                       src="assets/images/pdf-placeholder.png"
                       alt="PDF"
                       class="pdf-icon"
+                      loading="lazy"
                     />
                     <span class="pdf-title">{{
                       pdf.title | slice: 0 : -4

@@ -1,7 +1,12 @@
 <!-- header.component.html -->
 <nav [class.expanded]="isSmallScreen && isBrowser && showLoginButton">
   <div class="nav-top-row">
-    <p class="logo-btn" (click)="handleLogoClick($event)">
+    <button
+      type="button"
+      class="logo-btn"
+      (click)="handleLogoClick($event)"
+      aria-label="Retour à l'accueil"
+    >
       <svg
         class="logo-mark"
         viewBox="0 0 32 16"
@@ -17,7 +22,7 @@
         />
       </svg>
       <span class="logo-text">DM <strong>FORMAT</strong></span>
-    </p>
+    </button>
 
     <!-- Affichage pour écrans > 1400px -->
     @if (!isMobileView || !isBrowser) {
@@ -69,7 +74,11 @@
     <!-- Burger menu pour écrans <= 1400px -->
     @if (isMobileView && isBrowser) {
       <div class="mobile-nav">
-        <button mat-icon-button (click)="toggleSidenav()">
+        <button
+          mat-icon-button
+          (click)="toggleSidenav()"
+          aria-label="Ouvrir le menu"
+        >
           <svg lucideIcon="menu"></svg>
         </button>
       </div>
@@ -125,7 +134,11 @@
             stroke-linejoin="round"
           />
         </svg>
-        <button mat-icon-button (click)="closeSidenav()">
+        <button
+          mat-icon-button
+          (click)="closeSidenav()"
+          aria-label="Fermer le menu"
+        >
           <svg lucideIcon="x"></svg>
         </button>
       </div>

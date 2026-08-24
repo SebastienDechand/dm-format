@@ -17,7 +17,7 @@
   font-size: var(--small-text-size-desktop);
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin: 0 0 var(--space-4);
 
   .eyebrow-mark {
@@ -37,7 +37,7 @@
   margin-bottom: 75px;
 
   .banner-summary {
-    h2 {
+    h1 {
       font-size: var(--title-size-desktop);
       font-weight: 600;
       line-height: 1.2;
@@ -542,7 +542,7 @@
     text-align: center;
 
     .banner-summary {
-      h2 {
+      h1 {
         font-size: calc(var(--title-size-desktop) * 0.75);
       }
 
@@ -621,7 +621,7 @@
     padding: var(--padding-medium);
   }
 
-  .banner-container .banner-summary h2 {
+  .banner-container .banner-summary h1 {
     font-size: 26px;
   }
 
