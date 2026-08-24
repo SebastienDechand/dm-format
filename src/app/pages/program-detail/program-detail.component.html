@@ -2,6 +2,23 @@
   <section class="program-detail">
     <div class="banner-container">
       <div class="banner-summary">
+        <p class="eyebrow-inline">
+          <svg
+            class="eyebrow-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Formation
+        </p>
         <h2>
           @if (!editMode()['title']) {
             <span [innerHTML]="program.title | safeHtml"></span>
@@ -20,14 +37,14 @@
             ></app-edit-button>
           }
         </h2>
-        <ul>
+        <ul class="highlights">
           @for (
             method of program.methodology;
             track trackByIndex(i, method);
             let i = $index
           ) {
             <li>
-              <svg lucideIcon="check"></svg>
+              <span class="highlight-mark"><svg lucideIcon="check"></svg></span>
               @if (!editMode()['methodology.' + i]) {
                 <span>{{ method }}</span>
               }
@@ -63,10 +80,10 @@
     </div>
     <div class="program-container">
       <div class="program-info">
-        <h2><span>À propos</span> de cette session</h2>
+        <p class="eyebrow">À propos de cette session</p>
         <div class="details">
           <div class="detail-item">
-            <svg lucideIcon="clock"></svg>
+            <span class="detail-icon"><svg lucideIcon="clock"></svg></span>
             <span>
               <strong>Durée </strong>
               @if (!editMode()['duration']) {
@@ -88,7 +105,7 @@
             </span>
           </div>
           <div class="detail-item">
-            <svg lucideIcon="check"></svg>
+            <span class="detail-icon"><svg lucideIcon="check"></svg></span>
             <span>
               <strong>Pré-requis </strong>
               @if (!editMode()['prerequisite']) {
@@ -112,7 +129,7 @@
             </span>
           </div>
           <div class="detail-item">
-            <svg lucideIcon="users"></svg>
+            <span class="detail-icon"><svg lucideIcon="users"></svg></span>
             <span>
               <strong>Public cible </strong>
               @if (!editMode()['audience']) {
@@ -135,80 +152,94 @@
           </div>
         </div>
       </div>
-      @if (hasPdfs) {
-        <div class="uploaded-pdf">
-          <h2 class="program-title"><span>documents</span> à télécharger</h2>
-          <ul class="pdf-list">
-            @for (pdf of filteredPdfs; track pdf) {
-              <li class="pdf-item">
-                <a
-                  [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
-                  target="_blank"
-                  class="pdf-link"
-                  rel="noopener noreferrer"
-                  type="application/pdf"
-                >
-                  <img
-                    src="assets/images/pdf-placeholder.png"
-                    alt="PDF"
-                    class="pdf-icon"
-                  />
-                  <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
-                </a>
-                @if (isAdmin()) {
-                  <button class="delete-btn" (click)="deletePdf(pdf)">
-                    <svg lucideIcon="trash-2"></svg> Supprimer
-                  </button>
-                }
-              </li>
+      <div class="info-container">
+        <div class="program-description">
+          <p class="eyebrow">Informations pratiques</p>
+          <h2>Informations concernant la session</h2>
+
+          <p>
+            @if (!editMode()['information']) {
+              <span>{{ program.information }}</span>
             }
-          </ul>
+            @if (editMode()['information']) {
+              <textarea
+                autoResize
+                [(ngModel)]="program.information"
+                class="edit-textarea"
+                (blur)="toggleEditMode('information')"
+              ></textarea>
+            }
+            @if (isAdmin()) {
+              <app-edit-button
+                (editClicked)="toggleEditMode('information')"
+              ></app-edit-button>
+            }
+          </p>
         </div>
-      }
 
-      @if (isAdmin()) {
-        <div class="pdf-upload">
-          <p>Ajouter un PDF à la page</p>
-          <input
-            autoResize
-            type="file"
-            accept="application/pdf"
-            (change)="onPdfFileSelected($event)"
-          />
-          <button
-            class="upload-btn"
-            (click)="uploadSelectedPdf()"
-            [disabled]="!selectedPdfFile"
-          >
-            Uploader le PDF
-          </button>
-        </div>
-      }
+        @if (hasPdfs || isAdmin()) {
+          <div class="uploaded-pdf">
+            <p class="eyebrow">Documents à télécharger</p>
+            @if (hasPdfs) {
+              <ul class="pdf-list">
+                @for (pdf of filteredPdfs; track pdf) {
+                  <li class="pdf-item">
+                    <a
+                      [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+                      target="_blank"
+                      class="pdf-link"
+                      rel="noopener noreferrer"
+                      type="application/pdf"
+                    >
+                      <img
+                        src="assets/images/pdf-placeholder.png"
+                        alt="PDF"
+                        class="pdf-icon"
+                      />
+                      <span class="pdf-title">{{
+                        pdf.title | slice: 0 : -4
+                      }}</span>
+                    </a>
+                    @if (isAdmin()) {
+                      <button class="delete-btn" (click)="deletePdf(pdf)">
+                        <svg lucideIcon="trash-2"></svg> Supprimer
+                      </button>
+                    }
+                  </li>
+                }
+              </ul>
+            }
 
-      <div class="program-description">
-        <h2><span>Informations</span> pratiques concernant la session</h2>
+            @if (!hasPdfs && !isAdmin()) {
+              <p class="documents-empty">
+                Les documents seront bientôt disponibles ici.
+              </p>
+            }
 
-        <p>
-          @if (!editMode()['information']) {
-            <span>{{ program.information }}</span>
-          }
-          @if (editMode()['information']) {
-            <textarea
-              autoResize
-              [(ngModel)]="program.information"
-              class="edit-textarea"
-              (blur)="toggleEditMode('information')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('information')"
-            ></app-edit-button>
-          }
-        </p>
+            @if (isAdmin()) {
+              <div class="pdf-upload">
+                <p>Ajouter un PDF à la page</p>
+                <input
+                  autoResize
+                  type="file"
+                  accept="application/pdf"
+                  (change)="onPdfFileSelected($event)"
+                />
+                <button
+                  class="upload-btn"
+                  (click)="uploadSelectedPdf()"
+                  [disabled]="!selectedPdfFile"
+                >
+                  Uploader le PDF
+                </button>
+              </div>
+            }
+          </div>
+        }
       </div>
       <div class="program-content">
-        <h2><span>Contenu</span> de la session</h2>
+        <p class="eyebrow">Contenu</p>
+        <h2>Le contenu de la session</h2>
         <p>
           @if (!editMode()['summary']) {
             <span>{{ program.summary }}</span>
@@ -254,7 +285,7 @@
               let i = $index
             ) {
               <li>
-                <svg lucideIcon="key"></svg>
+                <span class="detail-key"><svg lucideIcon="key"></svg></span>
                 @if (!editMode()['details.' + i]) {
                   <span>{{ item }}</span>
                 }
@@ -287,7 +318,8 @@
             }
           </div>
         </div>
-        <h3><span>Compétences</span> de la session</h3>
+        <p class="eyebrow">Compétences</p>
+        <h3>Ce que vous saurez faire</h3>
         <ul class="modules">
           @for (
             module of program.modules;
@@ -351,9 +383,10 @@
       </div>
       <!-- Testimonials section -->
       <div class="testimonials">
+        <p class="eyebrow">Témoignages</p>
         <h2>
           <svg lucideIcon="message-circle"></svg>
-          <span>Avis</span> des participants
+          Avis des participants
         </h2>
         <app-training-testimonials
           [programId]="program._id"

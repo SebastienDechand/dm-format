@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
+  ElementRef,
   HostListener,
   inject,
   OnChanges,
@@ -66,10 +67,10 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   readonly programId = input.required<string>();
   readonly isAdmin = input<boolean>(false);
 
-  // Carousel — native replacement for ngx-slick-carousel (dropped: peer deps
-  // capped it below Angular 21). Mirrors the old slidesToShow: 3/2/1,
-  // slidesToScroll: 1, dots, infinite: false behavior.
-  visibleSlides = 3;
+  // Carousel "vitrine" : deux témoignages affichés en grand à la fois
+  // (un seul sur mobile), avec un aperçu défilant des autres en
+  // dessous pour y accéder directement plutôt qu'un point par témoignage.
+  visibleSlides = 2;
   currentIndex = 0;
 
   @HostListener('window:resize')
@@ -79,33 +80,83 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   }
 
   private updateVisibleSlides(): void {
-    const width = window.innerWidth;
-    this.visibleSlides = width <= 768 ? 1 : width <= 992 ? 2 : 3;
+    this.visibleSlides = window.innerWidth <= 768 ? 1 : 2;
     this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
   }
 
-  get maxIndex(): number {
-    return Math.max(0, this.testimonials.length - this.visibleSlides);
+  // Regroupées en pages plutôt qu'un flux plat avec un gap uniforme :
+  // le décalage translateX(-100%) par page reste exact quel que soit
+  // le nombre de témoignages, sans dérive cumulée sur les pages tardives.
+  get pages(): Testimonial[][] {
+    const chunks: Testimonial[][] = [];
+    for (let i = 0; i < this.testimonials.length; i += this.visibleSlides) {
+      chunks.push(this.testimonials.slice(i, i + this.visibleSlides));
+    }
+    return chunks;
   }
 
-  get dotsArray(): unknown[] {
-    return Array(this.maxIndex + 1);
+  get maxIndex(): number {
+    return Math.max(0, this.pages.length - 1);
   }
 
   get trackTransform(): string {
-    return `translateX(-${this.currentIndex * (100 / this.visibleSlides)}%)`;
+    return `translateX(-${this.currentIndex * 100}%)`;
   }
 
   prevSlide(): void {
     this.currentIndex = Math.max(0, this.currentIndex - 1);
+    this.scrollPreviewIntoView();
   }
 
   nextSlide(): void {
     this.currentIndex = Math.min(this.maxIndex, this.currentIndex + 1);
+    this.scrollPreviewIntoView();
   }
 
-  goToSlide(index: number): void {
-    this.currentIndex = Math.min(this.maxIndex, index);
+  goToTestimonial(index: number): void {
+    this.currentIndex = Math.min(
+      this.maxIndex,
+      Math.floor(index / this.visibleSlides)
+    );
+    this.scrollPreviewIntoView();
+  }
+
+  isActivePreview(index: number): boolean {
+    return Math.floor(index / this.visibleSlides) === this.currentIndex;
+  }
+
+  // Fait défiler l'aperçu du bas pour garder la vignette active visible,
+  // que le changement vienne des flèches ou d'un clic sur une vignette.
+  readonly previewStrip = viewChild<ElementRef<HTMLElement>>('previewStrip');
+
+  private scrollPreviewIntoView(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    setTimeout(() => {
+      const container = this.previewStrip()?.nativeElement;
+      const active = container?.querySelector(
+        '.preview-item.active'
+      ) as HTMLElement | null;
+      active?.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center',
+        block: 'nearest',
+      });
+    });
+  }
+
+  scrollPreviewBy(direction: 1 | -1): void {
+    const container = this.previewStrip()?.nativeElement;
+    if (!container) return;
+    container.scrollBy({ left: direction * 220, behavior: 'smooth' });
+  }
+
+  formatDate(dateStr?: string): string {
+    if (!dateStr) return '';
+    return new Intl.DateTimeFormat('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(new Date(dateStr));
   }
 
   // ReCAPTCHA

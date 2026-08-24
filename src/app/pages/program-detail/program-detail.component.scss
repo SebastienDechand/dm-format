@@ -1,424 +1,476 @@
+/* Une seule colonne à 80%, comme About/Organisation/Contact - tout le
+   reste (bandeaux, cartes) vit dans cette colonne au lieu d'avoir
+   chacun sa propre largeur, pour que la page s'aligne avec le reste
+   du site plutôt que de flotter à des largeurs différentes. */
 .program-detail {
-  font-family: 'Arial', sans-serif;
+  width: 80%;
+  margin: 0 auto;
+  padding: var(--space-16) 0 var(--padding-big);
   color: var(--dark-color);
 }
 
-/* Bannière */
-.banner-container {
-  display: flex;
-  justify-content: space-between;
+.eyebrow-inline {
+  display: inline-flex;
   align-items: center;
-  height: 70vh;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--small-text-size-desktop);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 var(--space-4);
 
-  .image-wrapper {
-    min-width: 50%;
-    height: 100%;
+  .eyebrow-mark {
+    width: 22px;
+    height: 11px;
+    flex-shrink: 0;
   }
+}
+
+/* 🌟 Bannière : même langage que le hero de l'accueil - texte à gauche,
+   photo naturelle à droite, plutôt qu'un split 50/50 forcé en 70vh. */
+.banner-container {
+  display: grid;
+  grid-template-columns: minmax(320px, 45%) 1fr;
+  align-items: center;
+  gap: var(--space-12);
+  margin-bottom: 75px;
+
   .banner-summary {
-    min-width: 50%;
     h2 {
       font-size: var(--title-size-desktop);
-      padding: var(--padding-medium) var(--padding-big);
-      margin: 0;
-      line-height: 1.5;
-      width: 100%;
-      text-align: center;
+      font-weight: 600;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin: 0 0 var(--margin-medium);
 
       span {
         color: var(--primary-color);
       }
     }
 
-    ul {
-      padding: var(--padding-medium) var(--padding-big);
-      margin: 0 0 0 var(--margin-medium);
+    .highlights {
+      list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      font-size: var(--text-size-desktop);
-      line-height: 1.5;
-      list-style: none;
+      line-height: 1.6;
+      gap: 12px;
+      padding: 0;
+      margin: 0;
 
       li {
         display: flex;
-        align-items: flex-start;
-        gap: 8px;
+        align-items: center;
+        gap: 10px;
+        font-size: var(--text-size-desktop);
+        font-weight: 500;
+      }
+
+      .highlight-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: rgba(31, 157, 107, 0.14);
 
         svg {
           color: var(--success-color);
-          flex-shrink: 0;
-          margin-top: 4px;
-          width: 20px;
-          height: 20px;
+          width: 13px;
+          height: 13px;
         }
       }
     }
   }
+
+  .image-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+::ng-deep .program-banner-image {
+  width: 100%;
+  height: auto;
+  max-height: 480px;
+  object-fit: cover;
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
+  display: block;
 }
 
 /* Conteneur principal */
 .program-container {
   display: flex;
   flex-direction: column;
-  gap: 50px;
-  margin: 0 auto;
+  gap: 75px;
+}
 
-  .program-description {
-    width: 80%;
-    margin: 0 auto;
-    h2 {
-      font-size: var(--h2-size-desktop);
-      text-transform: uppercase;
-      margin-bottom: var(--margin-big);
-      text-align: center;
+/* 📌 À propos de cette session : un seul panneau divisé en colonnes,
+   plutôt que 3 cartes séparées. La durée et le public tiennent en une
+   ligne, le pré-requis peut faire un paragraphe entier - forcer ça
+   dans 3 cartes de même hauteur laissait les courtes avec un grand
+   vide. Des filets verticaux transforment cet écart en mise en page
+   volontaire (façon fiche technique) au lieu d'un bug visuel. */
+.program-info {
+  background: var(--primary-tint);
+  border-radius: var(--radius-card);
+  padding: 60px 40px;
 
-      span {
-        color: var(--primary-color);
-      }
+  .details {
+    display: flex;
+    align-items: stretch;
+    background: var(--light-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    margin-top: var(--margin-medium);
+  }
+
+  .detail-item {
+    flex: 1;
+    text-align: left;
+    padding: 28px 32px;
+    border-left: 1px solid var(--border-color);
+
+    &:first-child {
+      border-left: none;
     }
-    p {
-      margin: auto;
+
+    strong {
+      display: block;
+      font-family: var(--font-display);
       font-size: var(--text-size-desktop);
-      line-height: 2;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    span {
+      color: var(--secondary-color);
+    }
+
+    div {
+      color: var(--dark-color);
+      line-height: 1.6;
+    }
+  }
+
+  .detail-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-bottom: var(--margin-small);
+    border-radius: 50%;
+    background: var(--primary-tint);
+
+    svg {
+      color: var(--primary-color);
+      width: 20px;
+      height: 20px;
     }
   }
 }
 
-/* Description du programme */
-.program-content {
+.info-container {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  align-items: start;
+
+  .uploaded-pdf {
+    justify-self: end;
+    background: var(--light-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--padding-big);
+
+    .eyebrow {
+      display: block;
+    }
+
+    .documents-empty {
+      color: var(--secondary-color);
+      font-size: var(--small-text-size-desktop);
+      margin: 0;
+    }
+  }
+}
+
+.pdf-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pdf-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   background: var(--background-color);
-  padding: var(--padding-big) 0 0;
-  width: 80%;
-  margin: 0 auto;
+  padding: 10px 16px;
+  border-radius: var(--radius-control);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: var(--primary-tint);
+  }
+}
+
+.pdf-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--dark-color);
+  min-width: 0;
+}
+
+.pdf-icon {
+  width: 32px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.pdf-title {
+  font-weight: 600;
+  font-size: var(--small-text-size-desktop);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.delete-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 13px;
+  cursor: pointer;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.pdf-upload {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+}
+
+.pdf-upload input {
+  display: block;
+  margin: 10px auto;
+}
+
+.upload-btn {
+  background: var(--button-color);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+
+  &:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--button-color-hover);
+  }
+}
+
+/* 📄 Informations pratiques */
+.program-description {
+  h2 {
+    font-family: var(--font-display);
+    font-size: var(--h2-size-desktop);
+    font-weight: 600;
+    margin-bottom: var(--margin-medium);
+  }
 
   p {
-    line-height: 2;
+    line-height: 1.8;
+    font-size: var(--text-size-desktop);
+  }
+}
+
+/* 📚 Contenu de la session */
+.program-content {
+  p {
+    line-height: 1.8;
     margin-bottom: var(--margin-medium);
   }
 
   h2 {
+    font-family: var(--font-display);
     font-size: var(--h2-size-desktop);
-    text-transform: uppercase;
-    margin-bottom: var(--margin-big);
-    text-align: center;
+    font-weight: 600;
+    margin-bottom: var(--margin-medium);
+  }
 
-    span {
-      color: var(--primary-color);
-    }
+  h3 {
+    font-family: var(--font-display);
+    font-size: var(--h3-size-desktop);
+    font-weight: 600;
+    margin-bottom: var(--margin-medium);
   }
 
   .content-list {
     .content-details {
-      font-size: var(--text-size-desktop);
-      padding-left: var(--padding-medium);
-      line-height: 2;
+      list-style: none;
+      padding: 0;
       margin-bottom: var(--margin-big);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
 
       li {
         display: flex;
-        align-items: flex-start;
-        gap: 8px;
-        padding-left: 8px;
-
-        svg {
-          color: var(--primary-color);
-          flex-shrink: 0;
-          margin-top: 6px;
-          width: 18px;
-          height: 18px;
-        }
+        align-items: center;
+        gap: 14px;
+        background: var(--light-color);
+        border-radius: var(--radius-control);
+        box-shadow: var(--shadow-soft);
+        padding: 16px 20px;
+        font-size: var(--text-size-desktop);
       }
     }
-  }
 
-  h3 {
-    font-size: var(--h2-size-desktop);
-    margin-bottom: var(--margin-big);
-    text-transform: uppercase;
-    font-weight: 500;
-    text-align: center;
+    .detail-key {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary-tint);
 
-    span {
-      color: var(--primary-color);
+      svg {
+        color: var(--primary-color);
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .delete-detail-btn {
+      margin-left: auto;
     }
   }
 
   .modules {
+    list-style: none;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 50px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
     li {
-      border: 1px solid var(--primary-color);
-      border-radius: var(--radius-card);
-      padding: 32px;
-      background-color: var(--light-color);
       display: flex;
       flex-direction: column;
-      justify-content: start;
-      text-align: center;
-      h4 {
-        font-size: var(--text-size-desktop);
-        margin-bottom: var(--margin-medium);
-        text-transform: uppercase;
-        font-weight: bold;
-        text-align: center;
-        span {
-          color: var(--primary-color);
-        }
-      }
-    }
-  }
-}
-
-/* 🌟 Section Programmes */
-.certification-program {
-  display: flex;
-  gap: 50px;
-  justify-content: center;
-  margin-top: 20px;
-
-  .certification-button {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    text-align: center;
-    padding: 15px;
-    border-radius: var(--radius-card);
-    width: fit-content;
-    cursor: pointer;
-  }
-
-  .pdf-title {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    max-width: 400px;
-  }
-
-  .image-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-card);
-    display: inline-block;
-    transition: all 0.3s ease-in-out;
-
-    &:hover .overlay {
-      opacity: 1;
-    }
-
-    &:hover {
-      transform: scale(1.05);
-    }
-  }
-
-  .pdf-preview {
-    height: 300px;
-    display: block;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .pdf-content {
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 10px 15px;
-    border-radius: var(--radius-control);
-    transition: background 0.3s ease-in-out;
-
-    &:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
-  }
-}
-
-/* 🎯 Titre de la section */
-.program-title {
-  font-size: var(--h2-size-desktop);
-  margin-bottom: var(--margin-big);
-  text-transform: uppercase;
-  font-weight: 500;
-
-  span {
-    color: var(--primary-color);
-  }
-}
-
-/* Images du programme */
-.program-images {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  margin: 0 auto 50px;
-  width: 80%;
-  height: 350px;
-
-  .image-container {
-    width: 50%;
-    img {
-      width: 100%;
-      height: 350px;
-      object-fit: cover;
+      background-color: var(--light-color);
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-soft);
-    }
-  }
+      padding: 28px;
+      text-align: left;
 
-  .image-container {
-    position: relative;
-
-    .image-edit {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
-      right: 10px;
-      display: flex;
-      gap: 10px;
-      align-items: center;
-      justify-content: center;
-      background: var(--light-color);
-      padding: 5px;
-      border-radius: var(--radius-control);
-      width: fit-content;
-
-      app-edit-button {
-        margin: 0;
-        .edit-icon {
-          margin: 0;
-        }
-      }
-    }
-  }
-}
-
-/* Informations du programme */
-.program-info {
-  background: var(--primary-tint);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 25px;
-  padding: var(--margin-medium);
-
-  h2 {
-    font-size: var(--h2-size-desktop);
-    margin-bottom: var(--margin-small);
-    text-transform: uppercase;
-    font-weight: bold;
-
-    span {
-      color: var(--primary-color);
-    }
-  }
-
-  .details {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    width: 100%;
-
-    svg {
-      color: var(--primary-color);
-      width: var(--h3-size-desktop);
-      height: var(--h3-size-desktop);
-    }
-
-    .detail-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 3;
-      text-align: center;
-      font-size: var(--small-text-size-desktop);
-      gap: 16px;
-      strong {
+      h4 {
+        font-family: var(--font-display);
         font-size: var(--text-size-desktop);
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: var(--margin-small);
       }
-      div {
-        margin-top: 16px;
+
+      p {
+        margin-bottom: var(--margin-small);
       }
     }
   }
 }
 
-/* Témoignages */
+.btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.add-module-btn,
+.add-detail-btn {
+  padding: 10px 20px;
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--button-color-hover);
+  }
+}
+
+.delete-module-btn,
+.delete-detail-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  font-size: var(--small-text-size-desktop);
+  cursor: pointer;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.delete-module-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: var(--margin-small);
+}
+
+/* 💬 Témoignages : même bandeau teinté contenu que .program-info. */
 .testimonials {
   background: var(--primary-tint);
-  padding: var(--padding-big);
+  border-radius: var(--radius-card);
+  padding: 60px 40px;
+
+  .eyebrow {
+    display: block;
+  }
 
   h2 {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
+    font-family: var(--font-display);
     font-size: var(--h2-size-desktop);
-    text-transform: uppercase;
-    font-weight: bold;
-    width: 80%;
-    margin: 0 auto var(--margin-medium);
+    font-weight: 600;
+    margin: 0 0 var(--margin-medium);
 
     svg {
       color: var(--primary-color);
       width: 0.85em;
       height: 0.85em;
     }
-
-    span {
-      color: var(--primary-color);
-    }
   }
-
-  .testimonial {
-    font-style: italic;
-    margin-bottom: var(--margin-medium);
-    width: 80%;
-    margin: 0 auto var(--margin-medium);
-
-    span {
-      font-size: var(--small-text-size-desktop);
-      font-weight: 200;
-    }
-  }
-}
-
-/* Bouton d'inscription */
-.cta-button {
-  display: inline-block;
-  margin-top: var(--margin-medium);
-  padding: var(--padding-medium) var(--padding-big);
-  background-color: var(--button-color);
-  color: white;
-  text-decoration: none;
-  border-radius: var(--radius-control);
-  text-align: center;
-  &:hover {
-    background-color: var(--button-color-hover);
-  }
-}
-
-.no-testimonials {
-  margin-left: 150px;
 }
 
 .edit-textarea {
@@ -426,9 +478,6 @@
   padding: 5px;
   font-size: var(--text-size-desktop);
   border-radius: var(--radius-control);
-}
-
-.edit-textarea {
   min-width: 100%;
 }
 
@@ -442,8 +491,8 @@
   border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  transition: background 0.3s ease-in-out;
+  box-shadow: var(--shadow-overlay);
+  transition: background-color 0.3s ease-in-out;
   padding: 12px 18px;
   display: flex;
   align-items: center;
@@ -480,304 +529,81 @@
   }
 }
 
-::ng-deep .program-banner-image {
-  width: 50vw;
-  height: 70vh;
-  overflow: hidden;
-  object-fit: cover;
-  padding: 0;
-  margin: 0;
-}
-
-/* 📂 Section des PDFs */
-.uploaded-pdf {
-  width: 80%;
-  margin: auto;
-  padding: 20px;
-  background: var(--background-color);
-  border-radius: var(--radius-card);
-  text-align: center;
-}
-
-/* 📜 Liste des PDFs */
-.pdf-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-}
-
-/* 📌 Éléments de la liste */
-.pdf-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  background: var(--light-color);
-  padding: 15px;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
-  transition: transform 0.3s ease-in-out;
-}
-
-.pdf-item:hover {
-  transform: scale(1.05);
-}
-
-/* 📎 Lien vers le PDF */
-.pdf-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  text-decoration: none;
-  color: var(--dark-color);
-  font-size: var(--text-size-desktop);
-  font-weight: bold;
-}
-
-/* 🖼 Icône du PDF */
-.pdf-icon {
-  width: 40px;
-  height: 40px;
-  transition: transform 0.3s ease-in-out;
-}
-
-.pdf-item:hover .pdf-icon {
-  transform: scale(1.2);
-}
-
-/* ❌ Bouton de suppression */
-.delete-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--danger);
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-.delete-btn:hover {
-  background: darkred;
-}
-
-/* 📤 Upload de PDF */
-.pdf-upload {
-  text-align: center;
-  background: var(--background-color);
-  border-radius: var(--radius-card);
-}
-
-.pdf-upload input {
-  display: block;
-  margin: 10px auto;
-}
-
-.upload-btn {
-  background: var(--button-color);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.upload-btn:disabled {
-  background: gray;
-  cursor: not-allowed;
-}
-
-.upload-btn:hover:not(:disabled) {
-  background: var(--button-color-hover);
-}
-
-.btn-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 25px;
-}
-/* MODULES */
-.add-module-btn {
-  padding: 0.5rem 1rem;
-  background-color: #3f51b5;
-  color: white;
-  border: none;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  margin-top: 50px;
-}
-
-.delete-module-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  width: 100%;
-  background: transparent;
-  border: none;
-  color: var(--danger);
-  font-size: 1rem;
-  cursor: pointer;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-/* DETAILS */
-.add-detail-btn {
-  padding: 0.5rem 1rem;
-  background-color: #3f51b5;
-  color: white;
-  border: none;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.delete-detail-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: 1rem;
-  background: transparent;
-  border: none;
-  color: var(--danger);
-  font-size: 1rem;
-  cursor: pointer;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
-
 /* Responsive - Program Detail */
 
 @media (max-width: 1024px) {
-  .banner-container {
-    .banner-summary {
-      h2 {
-        font-size: calc(var(--title-size-desktop) * 0.7);
-      }
-
-      ul span {
-        font-size: 16px;
-      }
-    }
-  }
-
-  .program-content,
-  .program-container .program-description,
-  .uploaded-pdf {
+  .program-detail {
     width: 90%;
-    margin: auto;
   }
 
-  .modules {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
-  }
-
-  .program-container {
-    .program-title,
-    .program-info h2,
-    .program-description h2,
-    .program-content h2,
-    .program-content h3,
-    .testimonials h2 {
-      font-size: calc(var(--h2-size-desktop) * 0.85);
-    }
-
-    .program-info .detail-item {
-      flex: 1;
-    }
-
-    .program-info .detail-item strong {
-      font-size: calc(var(--text-size-desktop) * 0.95);
-    }
-  }
-}
-
-@media (max-width: 768px) {
   .banner-container {
-    flex-direction: column;
-    height: auto;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    text-align: center;
 
     .banner-summary {
-      min-width: 100%;
       h2 {
-        font-size: calc(var(--title-size-desktop) * 0.5);
+        font-size: calc(var(--title-size-desktop) * 0.75);
       }
 
-      ul {
-        margin-bottom: 25px;
-        span {
-          font-size: 16px;
-        }
+      .eyebrow-inline {
+        justify-content: center;
       }
+
+      .highlights {
+        align-items: center;
+      }
+    }
+
+    .image-wrapper {
+      order: -1;
     }
   }
 
   ::ng-deep .program-banner-image {
-    width: 100vw;
-    height: 40vh;
-    overflow: hidden;
-    object-fit: cover;
-    padding: 0;
-    margin: 0;
+    max-height: 360px;
+  }
+
+  .info-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+
+    .uploaded-pdf {
+      max-width: 100%;
+      justify-self: stretch;
+    }
+  }
+
+  .modules {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .program-container {
+    gap: 50px;
+  }
+
+  .program-info .details {
+    flex-direction: column;
+  }
+
+  .program-info .detail-item {
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+
+    &:first-child {
+      border-top: none;
+    }
   }
 
   .modules {
     grid-template-columns: 1fr;
   }
 
-  .program-container {
-    .program-info {
-      h2 {
-        font-size: calc(var(--h2-size-desktop) * 0.6);
-      }
-      .details {
-        .detail-item {
-          strong {
-            font-size: 16px;
-          }
-        }
-      }
-    }
-
-    .program-content {
-      .content-list {
-        .content-details {
-          font-size: 16px;
-        }
-      }
-    }
-  }
-
-  .program-container .program-description p,
-  .program-content p {
-    font-size: 16px;
-  }
-
-  .program-info {
-    padding: var(--margin-small);
-  }
-
-  .program-info .details {
-    gap: 20px;
+  .program-info,
+  .testimonials {
+    padding: 40px 24px;
   }
 
   .edit-textarea {
@@ -786,79 +612,34 @@
 }
 
 @media (max-width: 480px) {
-  .banner-summary ul {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding-bottom: 50px;
-    margin: 0;
-    li {
-      padding-left: 8px;
-    }
-    span {
-      font-size: 16px;
-    }
+  .program-detail {
+    width: 95%;
   }
 
-  .program-container {
-    .program-info {
-      h2 {
-        margin-top: 25px;
-      }
-      .details {
-        padding-bottom: 25px;
-        flex-direction: column;
-        gap: 20px;
-      }
-    }
+  .program-info,
+  .testimonials {
+    padding: var(--padding-medium);
+  }
 
-    .program-content {
-      .content-details {
-        margin: 25px 0;
-      }
-    }
-    .program-title,
-    .program-info,
-    .program-description,
-    .program-content,
-    .testimonials {
-      padding: 0;
-      h2,
-      h3 {
-        font-size: 20px;
-        text-align: center;
-      }
-      p {
-        text-align: center;
-      }
-    }
+  .banner-container .banner-summary h2 {
+    font-size: 26px;
+  }
 
-    .testimonials h2 {
-      margin: 25px auto;
-    }
+  .program-description h2,
+  .program-content h2,
+  .testimonials h2 {
+    font-size: 22px;
+  }
+
+  .program-content h3 {
+    font-size: 20px;
   }
 
   .pdf-title {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .pdf-icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .pdf-link {
-    font-size: 16px;
-  }
-
-  .delete-btn {
-    font-size: 16px;
-    padding: 6px 10px;
-  }
-
-  .add-detail-btn,
-  .add-module-btn {
-    padding: 8px 12px;
-    font-size: 16px;
+    width: 28px;
   }
 }

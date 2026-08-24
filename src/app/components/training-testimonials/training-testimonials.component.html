@@ -1,211 +1,272 @@
 <div class="testimonials-section">
-  <!-- Témoignages existants -->
-  @if (testimonials && testimonials.length > 0) {
-    <div class="testimonials-list">
-      <div class="testimonial-carousel">
-        <button
-          type="button"
-          class="carousel-nav prev"
-          (click)="prevSlide()"
-          [disabled]="currentIndex === 0"
-          aria-label="Témoignages précédents"
-        >
-          <svg lucideIcon="chevron-left"></svg>
-        </button>
-        <div class="carousel-viewport">
-          <div
-            class="carousel-track"
-            [style.transform]="trackTransform"
-            [style.--visible-slides]="visibleSlides"
-          >
-            @for (
-              testimonial of testimonials;
-              track testimonial._id;
-              let i = $index
-            ) {
-              <div class="testimonial-card">
-                <div class="testimonial-content">
-                  <p class="feedback">
-                    "{{
-                      testimonial.feedback.length > 200
-                        ? (testimonial.feedback | slice: 0 : 200) + '...'
-                        : testimonial.feedback
-                    }}"
-                  </p>
-                  @if (testimonial.feedback.length > 200) {
-                    <button
-                      (click)="openTestimonialDialog(testimonial)"
-                      class="btn-link"
+  <div class="testimonials-layout">
+    <!-- Avis clients : un témoignage affiché en grand, navigation en dessous -->
+    <div class="testimonials-showcase">
+      @if (testimonials && testimonials.length > 0) {
+        <div class="showcase-viewport">
+          <div class="showcase-track" [style.transform]="trackTransform">
+            @for (page of pages; track $index; let pageIndex = $index) {
+              <div class="showcase-page">
+                @for (
+                  testimonial of page;
+                  track testimonial._id;
+                  let localIndex = $index
+                ) {
+                  <div class="showcase-card">
+                    <!-- Bouton de suppression pour les admins -->
+                    @if (isAdmin()) {
+                      <button
+                        class="delete-btn"
+                        (click)="
+                          deleteTestimonial(
+                            testimonial._id,
+                            pageIndex * visibleSlides + localIndex
+                          )
+                        "
+                        title="Supprimer ce témoignage"
+                      >
+                        <svg lucideIcon="trash-2"></svg>
+                      </button>
+                    }
+                    <svg
+                      class="quote-mark"
+                      viewBox="0 0 32 24"
+                      fill="none"
+                      aria-hidden="true"
                     >
-                      Voir plus
-                    </button>
-                  }
-                  <div class="testimonial-author">
-                    <p class="name">{{ testimonial.name }}</p>
-                    <p class="role">{{ testimonial.role }}</p>
+                      <path
+                        d="M13 0C6 2 1 8 1 15c0 5 3.5 8.5 7.5 8.5 3.5 0 6-2.5 6-6 0-3-2-5.2-4.7-5.6C10.3 8.4 12.2 4.8 16 2.5L13 0Zm16 0c-7 2-12 8-12 15 0 5 3.5 8.5 7.5 8.5 3.5 0 6-2.5 6-6 0-3-2-5.2-4.7-5.6C26.3 8.4 28.2 4.8 32 2.5L29 0Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                    <p class="feedback">
+                      {{
+                        testimonial.feedback.length > 320
+                          ? (testimonial.feedback | slice: 0 : 320) + '...'
+                          : testimonial.feedback
+                      }}
+                    </p>
+                    @if (testimonial.feedback.length > 320) {
+                      <button
+                        (click)="openTestimonialDialog(testimonial)"
+                        class="btn-link"
+                      >
+                        Voir plus
+                      </button>
+                    }
+                    <div class="testimonial-author">
+                      <div class="author-identity">
+                        <p class="name">{{ testimonial.name }}</p>
+                        <p class="role" [title]="testimonial.role">
+                          {{ testimonial.role }}
+                        </p>
+                      </div>
+                      @if (testimonial.createdAt) {
+                        <p class="date">
+                          {{ formatDate(testimonial.createdAt) }}
+                        </p>
+                      }
+                    </div>
                   </div>
-                  <!-- Bouton de suppression pour les admins -->
-                  @if (isAdmin()) {
-                    <button
-                      class="delete-btn"
-                      (click)="deleteTestimonial(testimonial._id, i)"
-                      title="Supprimer ce témoignage"
-                    >
-                      <svg lucideIcon="trash-2"></svg>
-                    </button>
-                  }
-                </div>
+                }
               </div>
             }
           </div>
         </div>
-        <button
-          type="button"
-          class="carousel-nav next"
-          (click)="nextSlide()"
-          [disabled]="currentIndex >= maxIndex"
-          aria-label="Témoignages suivants"
-        >
-          <svg lucideIcon="chevron-right"></svg>
-        </button>
-      </div>
-      @if (maxIndex > 0) {
-        <div class="carousel-dots">
-          @for (dot of dotsArray; track $index) {
+
+        @if (maxIndex > 0) {
+          <div class="showcase-nav">
             <button
               type="button"
-              class="dot"
-              [class.active]="$index === currentIndex"
-              (click)="goToSlide($index)"
-              [attr.aria-label]="'Aller au témoignage ' + ($index + 1)"
-            ></button>
+              class="carousel-nav prev"
+              (click)="prevSlide()"
+              [disabled]="currentIndex === 0"
+              aria-label="Témoignage précédent"
+            >
+              <svg lucideIcon="chevron-left"></svg>
+            </button>
+            <span class="showcase-count"
+              >{{ currentIndex + 1 }} / {{ maxIndex + 1 }}</span
+            >
+            <button
+              type="button"
+              class="carousel-nav next"
+              (click)="nextSlide()"
+              [disabled]="currentIndex >= maxIndex"
+              aria-label="Témoignage suivant"
+            >
+              <svg lucideIcon="chevron-right"></svg>
+            </button>
+          </div>
+        }
+
+        @if (testimonials.length > visibleSlides) {
+          <div class="preview-row">
+            <button
+              type="button"
+              class="carousel-nav preview-nav"
+              (click)="scrollPreviewBy(-1)"
+              aria-label="Voir les aperçus précédents"
+            >
+              <svg lucideIcon="chevron-left"></svg>
+            </button>
+            <div class="testimonials-preview" #previewStrip>
+              @for (
+                testimonial of testimonials;
+                track testimonial._id;
+                let i = $index
+              ) {
+                <button
+                  type="button"
+                  class="preview-item"
+                  [class.active]="isActivePreview(i)"
+                  (click)="goToTestimonial(i)"
+                >
+                  <span class="preview-name">{{ testimonial.name }}</span>
+                  <span class="preview-snippet">{{
+                    testimonial.feedback | slice: 0 : 60
+                  }}...</span>
+                </button>
+              }
+            </div>
+            <button
+              type="button"
+              class="carousel-nav preview-nav"
+              (click)="scrollPreviewBy(1)"
+              aria-label="Voir les aperçus suivants"
+            >
+              <svg lucideIcon="chevron-right"></svg>
+            </button>
+          </div>
+        }
+      }
+
+      @if (isLoading) {
+        <div class="loading-container">
+          <div class="spinner-border text-primary" role="status">
+            <span class="sr-only">Chargement...</span>
+          </div>
+        </div>
+      }
+
+      <!-- Message si aucun témoignage -->
+      @if (!isLoading && (!testimonials || testimonials.length === 0)) {
+        <div class="no-testimonials">
+          <p>Aucun témoignage n'est disponible pour le moment.</p>
+        </div>
+      }
+    </div>
+
+    <!-- Formulaire d'ajout de témoignage -->
+    <div class="testimonial-form-container">
+      <p class="eyebrow">Votre avis</p>
+      <h3>Partagez votre expérience</h3>
+
+      @if (successMessage) {
+        <div class="alert alert-success">
+          {{ successMessage }}
+        </div>
+      }
+
+      @if (errorMessage) {
+        <div class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <form [formGroup]="testimonialForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Votre nom *</label>
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': formSubmitted && f['name'].errors }"
+            />
+            @if (formSubmitted && f['name'].errors) {
+              <div class="invalid-feedback">
+                @if (f['name'].errors && f['name'].errors['required']) {
+                  <div>Le nom est requis</div>
+                }
+                @if (f['name'].errors && f['name'].errors['minlength']) {
+                  <div>Le nom doit comporter au moins 2 caractères</div>
+                }
+              </div>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="role">Votre fonction / rôle *</label>
+            <input
+              type="text"
+              id="role"
+              formControlName="role"
+              class="form-control"
+              [ngClass]="{ 'is-invalid': formSubmitted && f['role'].errors }"
+            />
+            @if (formSubmitted && f['role'].errors) {
+              <div class="invalid-feedback">
+                @if (f['role'].errors && f['role'].errors['required']) {
+                  <div>La fonction/le rôle est requis</div>
+                }
+              </div>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="feedback">Votre témoignage *</label>
+          <textarea
+            id="feedback"
+            formControlName="feedback"
+            class="form-control"
+            rows="4"
+            [ngClass]="{ 'is-invalid': formSubmitted && f['feedback'].errors }"
+          ></textarea>
+          @if (formSubmitted && f['feedback'].errors) {
+            <div class="invalid-feedback">
+              @if (f['feedback'].errors && f['feedback'].errors['required']) {
+                <div>Le témoignage est requis</div>
+              }
+              @if (f['feedback'].errors && f['feedback'].errors['minlength']) {
+                <div>Le témoignage doit comporter au moins 10 caractères</div>
+              }
+            </div>
           }
         </div>
-      }
-    </div>
-  }
 
-  @if (isLoading) {
-    <div class="loading-container">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Chargement...</span>
-      </div>
-    </div>
-  }
-
-  <!-- Message si aucun témoignage -->
-  @if (!isLoading && (!testimonials || testimonials.length === 0)) {
-    <div class="no-testimonials">
-      <p>Aucun témoignage n'est disponible pour le moment.</p>
-    </div>
-  }
-
-  <!-- Formulaire d'ajout de témoignage -->
-  <div class="testimonial-form-container">
-    <h3>Partagez votre expérience</h3>
-
-    @if (successMessage) {
-      <div class="alert alert-success">
-        {{ successMessage }}
-      </div>
-    }
-
-    @if (errorMessage) {
-      <div class="alert alert-danger">
-        {{ errorMessage }}
-      </div>
-    }
-
-    <form [formGroup]="testimonialForm" (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="name">Votre nom *</label>
-        <input
-          type="text"
-          id="name"
-          formControlName="name"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': formSubmitted && f['name'].errors }"
-        />
-        @if (formSubmitted && f['name'].errors) {
-          <div class="invalid-feedback">
-            @if (f['name'].errors && f['name'].errors['required']) {
-              <div>Le nom est requis</div>
-            }
-            @if (f['name'].errors && f['name'].errors['minlength']) {
-              <div>Le nom doit comporter au moins 2 caractères</div>
-            }
+        <!-- Afficher un indicateur visuel si le CAPTCHA est vérifié -->
+        @if (captchaVerified) {
+          <div class="captcha-status">
+            <svg lucideIcon="shield-check" class="text-success"></svg>
+            <span class="text-success">Vérification humaine réussie</span>
           </div>
         }
-      </div>
 
-      <div class="form-group">
-        <label for="role">Votre fonction / rôle *</label>
-        <input
-          type="text"
-          id="role"
-          formControlName="role"
-          class="form-control"
-          [ngClass]="{ 'is-invalid': formSubmitted && f['role'].errors }"
-        />
-        @if (formSubmitted && f['role'].errors) {
-          <div class="invalid-feedback">
-            @if (f['role'].errors && f['role'].errors['required']) {
-              <div>La fonction/le rôle est requis</div>
-            }
-          </div>
-        }
-      </div>
+        <!-- Widget invisible reCAPTCHA -->
+        <re-captcha
+          #recaptcha
+          [siteKey]="siteKey"
+          size="invisible"
+          (resolved)="onCaptchaResolved($event)"
+          class="hidden-recaptcha"
+        >
+        </re-captcha>
 
-      <div class="form-group">
-        <label for="feedback">Votre témoignage *</label>
-        <textarea
-          id="feedback"
-          formControlName="feedback"
-          class="form-control"
-          rows="4"
-          [ngClass]="{ 'is-invalid': formSubmitted && f['feedback'].errors }"
-        ></textarea>
-        @if (formSubmitted && f['feedback'].errors) {
-          <div class="invalid-feedback">
-            @if (f['feedback'].errors && f['feedback'].errors['required']) {
-              <div>Le témoignage est requis</div>
-            }
-            @if (f['feedback'].errors && f['feedback'].errors['minlength']) {
-              <div>Le témoignage doit comporter au moins 10 caractères</div>
-            }
-          </div>
-        }
-      </div>
-
-      <!-- Afficher un indicateur visuel si le CAPTCHA est vérifié -->
-      @if (captchaVerified) {
-        <div class="captcha-status">
-          <svg lucideIcon="shield-check" class="text-success"></svg>
-          <span class="text-success">Vérification humaine réussie</span>
-        </div>
-      }
-
-      <!-- Widget invisible reCAPTCHA -->
-      <re-captcha
-        #recaptcha
-        [siteKey]="siteKey"
-        size="invisible"
-        (resolved)="onCaptchaResolved($event)"
-        class="hidden-recaptcha"
-      >
-      </re-captcha>
-
-      <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
-        @if (isSubmitting) {
-          <span class="spinner-border spinner-border-sm mr-1"></span>
-        }
-        @if (!captchaVerified) {
-          <span>
-            <svg lucideIcon="shield"></svg>
-          </span>
-        }
-        Envoyer mon témoignage
-      </button>
-    </form>
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+          @if (isSubmitting) {
+            <span class="spinner-border spinner-border-sm mr-1"></span>
+          }
+          @if (!captchaVerified) {
+            <span>
+              <svg lucideIcon="shield"></svg>
+            </span>
+          }
+          Envoyer mon témoignage
+        </button>
+      </form>
+    </div>
   </div>
 </div>
