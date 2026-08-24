@@ -6,7 +6,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
+    gap: 50px;
+    margin: 60px 0 75px;
 
     .banner-image {
       width: 50%;
@@ -24,11 +25,12 @@
       flex-direction: column;
 
       h2 {
+        font-family: var(--font-display);
         font-size: var(--title-size-desktop);
-        margin: 100px 0 var(--title-size-desktop);
-        font-weight: 700;
-        text-transform: uppercase;
-        line-height: 1.5;
+        margin: 0 0 var(--margin-medium);
+        font-weight: 600;
+        line-height: 1.2;
+        letter-spacing: -0.01em;
 
         span {
           color: var(--primary-color);
@@ -39,9 +41,57 @@
         font-size: var(--h3-size-desktop);
         font-weight: 500;
         line-height: 1.5;
-        margin-bottom: 100px;
-        width: 75%;
+        color: var(--secondary-color);
+        margin: 0;
+        width: 90%;
       }
+    }
+  }
+
+  .eyebrow-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: var(--small-text-size-desktop);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 var(--space-4);
+
+    .eyebrow-mark {
+      width: 22px;
+      height: 11px;
+      flex-shrink: 0;
+    }
+  }
+
+  /* 📌 Présentation + documents à télécharger : même grille que le
+     panneau Certification de la page d'accueil. */
+  .intro-container {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    align-items: start;
+    gap: 60px;
+    margin-bottom: 75px;
+
+    .intro {
+      p:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .intro-documents {
+    background: var(--light-color);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: var(--padding-big);
+
+    .documents-empty {
+      color: var(--secondary-color);
+      font-size: var(--small-text-size-desktop);
+      margin: 0;
     }
   }
 
@@ -51,102 +101,129 @@
   .obligations,
   .finances {
     h3 {
+      font-family: var(--font-display);
       font-size: var(--h3-size-desktop);
-      font-weight: 700;
-      margin-bottom: 75px;
-      text-transform: uppercase;
-      text-align: center;
+      font-weight: 600;
+      margin-bottom: var(--space-6);
+      text-align: left;
     }
 
     p {
-      line-height: 2;
-      margin-bottom: 75px;
+      line-height: 1.7;
+      margin-bottom: var(--margin-medium);
 
       strong {
         color: var(--primary-color);
       }
     }
+  }
 
-    ul {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      line-height: 2;
-      text-align: center;
-      width: 100%;
-      gap: 100px;
-      margin: 0 auto;
+  .certification {
+    margin-bottom: 75px;
+  }
 
-      li {
-        position: relative;
-        font-size: var(--text-size-desktop);
-        margin-bottom: 75px;
-        border-radius: var(--radius-card);
-        background-color: var(--light-color);
-        padding: 32px;
-        box-shadow: var(--shadow-soft);
-        flex: 1;
-        strong {
-          color: var(--primary-color);
-        }
+  /* 🎓 Certification : 3 colonnes - l'intro (repère/titre/texte) suivie
+     des deux repères de durée, plutôt qu'un titre centré au-dessus
+     d'une liste. */
+  .certification-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: stretch;
+    gap: 24px;
+    margin-bottom: var(--margin-big);
 
-        .badge {
-          position: absolute;
-          top: -15px;
-          right: -15px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 40px;
-          height: 40px;
-          background-color: var(--primary-color);
-          color: var(--light-color);
-          border-radius: 50%;
-          line-height: 0;
-
-          svg {
-            display: block;
-            width: 20px;
-            height: 20px;
-          }
-        }
-      }
+    h3,
+    p {
+      text-align: left;
     }
 
-    p.note {
-      font-size: var(text-size-desktop);
-      font-weight: 500;
-      color: var(--primary-color);
-      text-align: center;
+    .certification-intro p:last-child {
+      margin-bottom: 0;
     }
   }
 
-  .conditions-grid,
-  .obligations-grid,
-  .finances-grid {
+  .detail-card {
+    position: relative;
+    text-align: left;
+    font-size: var(--text-size-desktop);
+    border: 1px solid var(--border-color);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-control);
+    background-color: var(--light-color);
+    padding: 24px;
+    line-height: 1.6;
+
+    strong {
+      color: var(--primary-color);
+    }
+
+    .badge {
+      position: absolute;
+      top: -14px;
+      right: -14px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: var(--light-color);
+      color: var(--primary-color);
+      border-radius: 50%;
+      box-shadow: var(--shadow-soft);
+
+      svg {
+        display: block;
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  /* 💬 Encart de synthèse, même traitement que le bandeau de clôture
+     de la section Partenaire sur la page d'accueil. */
+  .note-panel {
     display: flex;
-    gap: 50px;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px var(--padding-big);
+    background: var(--primary-tint);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--radius-control);
+
+    .note-pulse {
+      width: 28px;
+      height: 14px;
+      flex-shrink: 0;
+      margin-top: 6px;
+      color: var(--accent);
+    }
+
+    .note {
+      margin: 0;
+      color: var(--primary-dark);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+  }
+
+  /* 📋 Points de conditions/engagements : mêmes cartes que les étapes
+     et points de prévention de la page À propos. */
+  .conditions-grid,
+  .obligations-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-bottom: var(--margin-big);
 
     .condition-item,
-    .obligation-item,
-    .finance-item {
-      margin-bottom: 75px;
+    .obligation-item {
+      margin: 0;
       background: var(--primary-tint);
       border: none;
       box-shadow: var(--shadow-soft);
       border-radius: var(--radius-card);
       padding: 32px;
-      flex: 1;
-
-      app-dynamic-icon {
-        color: var(--primary-color);
-        margin-bottom: var(--margin-small);
-
-        ::ng-deep svg {
-          width: 36px;
-          height: 36px;
-        }
-      }
 
       p {
         margin-bottom: 0;
@@ -156,94 +233,88 @@
         }
       }
     }
+
+    .point-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--light-color);
+      margin-bottom: var(--margin-small);
+
+      app-dynamic-icon {
+        color: var(--primary-color);
+
+        ::ng-deep svg {
+          width: 26px;
+          height: 26px;
+        }
+      }
+    }
   }
 
-  .conditions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+  /* Engagement des participants a 3 points, pas 4 : 3 colonnes évite
+     la 3e carte isolée seule sur sa ligne. */
+  .obligations-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* 🎨 Bandeau teinté avec cartes blanches, pour les deux grilles de
+     points - Certification (3 colonnes) les sépare visuellement donc
+     elles peuvent partager le même traitement sans se répéter. */
+  .conditions,
+  .obligations {
+    background: var(--primary-tint);
+    border-radius: var(--radius-card);
+    padding: 60px 40px;
     margin-bottom: 75px;
-    .condition-item {
-      margin: 0;
+
+    .condition-item,
+    .obligation-item {
+      background: var(--light-color);
+    }
+
+    .point-icon {
+      background: var(--primary-tint);
     }
   }
 
   .finances {
-    margin-top: var(--margin-big);
-
-    .subtitle {
-      margin-bottom: 50px;
-      font-weight: bold;
-      text-align: center;
-
-      span {
-        font-size: var(--h4-size-desktop);
-        margin-bottom: var(--margin-big);
-        color: var(--primary-color);
-      }
-    }
+    margin-bottom: 75px;
 
     .finance-flex {
       display: flex;
+      align-items: stretch;
       width: 100%;
       gap: 50px;
-      margin-bottom: var(--margin-big);
+
+      .finance-description {
+        flex: 1.1;
+      }
 
       .finance-opco {
-        width: 100%;
+        flex: 0.9;
         padding: 32px;
-        background-color: var(--light-color);
-        border-radius: var(--radius-card);
-        box-shadow: var(--shadow-soft);
-        i {
-          font-size: var(--h2-size-desktop);
-          color: var(--primary-color);
-          margin-right: 8px;
-        }
+        background-color: var(--primary-tint);
+        border-left: 3px solid var(--accent);
+        border-radius: var(--radius-control);
+        align-self: flex-start;
 
         p {
           margin-bottom: 0;
+          color: var(--primary-dark);
         }
       }
 
       h4 {
-        margin-bottom: 25px;
-        font-weight: bold;
+        font-family: var(--font-display);
+        font-weight: 600;
+        margin-bottom: var(--space-3);
 
         span {
-          font-size: var(--h4-size-desktop);
-          margin-bottom: var(--margin-big);
           color: var(--primary-color);
-        }
-      }
-    }
-
-    .finance-steps {
-      list-style: none;
-      padding: 0;
-      display: flex;
-      gap: 25px;
-      width: 100%;
-
-      .finance-step {
-        font-size: 20px;
-        flex: 5;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        box-shadow: var(--shadow-soft);
-        p {
-          margin-bottom: 0;
-          line-height: 1.5;
-        }
-        app-dynamic-icon {
-          color: var(--primary-color);
-          margin-bottom: var(--margin-small);
-
-          ::ng-deep svg {
-            width: 36px;
-            height: 36px;
-          }
         }
       }
     }
@@ -277,7 +348,7 @@
   border-radius: 50px;
   cursor: pointer;
   font-size: 16px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-overlay);
   transition: background 0.3s ease-in-out;
   padding: 12px 18px;
   display: flex;
@@ -319,23 +390,8 @@
   width: 100%;
   max-height: 50vh;
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-overlay);
   margin: 0;
-}
-
-.uploaded-pdf {
-  width: fit-content;
-  margin: 50px auto;
-  padding: 20px;
-  background: var(--background-color);
-  border-radius: var(--radius-card);
-}
-
-h4.section-title {
-  margin: 0 auto 50px;
-  text-align: center;
-  font-size: 28px;
-  text-transform: uppercase;
-  font-weight: bold;
 }
 
 .pdf-list {
@@ -350,10 +406,15 @@ h4.section-title {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: white;
-  padding: 10px;
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-soft);
+  gap: 16px;
+  background: var(--background-color);
+  padding: 10px 16px;
+  border-radius: var(--radius-control);
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: var(--primary-tint);
+  }
 }
 
 .pdf-link {
@@ -361,32 +422,38 @@ h4.section-title {
   align-items: center;
   text-decoration: none;
   color: inherit;
+  min-width: 0;
 }
 
 .pdf-icon {
-  width: 40px;
+  width: 32px;
   height: auto;
   margin-right: 10px;
+  flex-shrink: 0;
 }
 
 .pdf-title {
-  font-weight: bold;
-  font-size: 20px;
+  font-weight: 600;
+  font-size: var(--small-text-size-desktop);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .delete-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
   background: none;
   border: none;
   color: var(--danger);
-  font-size: 18px;
+  font-size: 13px;
   cursor: pointer;
 
   svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -394,6 +461,7 @@ h4.section-title {
   text-align: center;
   padding: 20px;
   background: var(--background-color);
+  border: 1px dashed var(--border-color);
   border-radius: var(--radius-card);
   margin-top: 20px;
 }
@@ -429,11 +497,10 @@ h4.section-title {
     .finances {
       .finance-flex {
         flex-direction: column;
-        gap: 0;
+        gap: 24px;
+
         .finance-opco {
-          text-align: center;
-          width: 50vw;
-          margin: 0 auto;
+          width: 100%;
         }
       }
     }
@@ -446,88 +513,119 @@ h4.section-title {
 
     .header-banner {
       flex-direction: column;
+      text-align: center;
 
       .banner-content,
       .banner-image {
-        width: 80%;
-        text-align: center;
-        margin-bottom: 50px;
+        width: 100%;
+      }
+
+      .banner-content {
+        align-items: center;
+      }
+
+      .eyebrow-inline {
+        justify-content: center;
       }
 
       .banner-content p {
         width: 100%;
         font-size: calc(var(--h3-size-desktop) * 0.9);
-        margin: 0;
       }
     }
 
-    .conditions-grid {
-      grid-template-columns: repeat(2, 1fr);
+    .conditions,
+    .obligations {
+      padding: 40px 24px;
     }
 
     .obligations-grid {
-      display: grid;
       grid-template-columns: repeat(2, 1fr);
-      .obligation-item {
-        margin: 0;
+    }
+
+    .intro-container {
+      grid-template-columns: 1fr;
+      text-align: center;
+
+      .eyebrow-inline {
+        justify-content: center;
       }
+    }
+
+    .intro-documents {
+      text-align: left;
     }
   }
 }
 
 @media (max-width: 768px) {
   .conditions-page {
-    .header-banner h2 span {
+    .header-banner h2 {
       font-size: calc(var(--title-size-desktop) * 0.8);
-      margin: 50px 0;
     }
 
-    h3 span {
-      font-size: calc(var(--h3-size-desktop) * 0.9);
+    .intro,
+    .conditions,
+    .certification,
+    .obligations,
+    .finances {
+      h3 {
+        font-size: calc(var(--h3-size-desktop) * 0.9);
+        text-align: center;
+      }
+
+      .eyebrow-inline {
+        justify-content: center;
+      }
+    }
+
+    .certification-columns {
+      grid-template-columns: 1fr;
+
+      h3,
+      p {
+        text-align: center;
+      }
+
+      .eyebrow-inline {
+        justify-content: center;
+      }
+    }
+
+    .detail-card {
+      text-align: center;
+    }
+
+    .note-panel {
+      flex-direction: column;
+      text-align: center;
     }
 
     .conditions-grid,
-    .obligations-grid,
-    .certification ul {
-      display: grid;
+    .obligations-grid {
       grid-template-columns: 1fr;
-      gap: 50px;
-      margin-bottom: 50px;
+
       .condition-item,
       .obligation-item {
         text-align: center;
       }
-    }
 
-    ul li {
-      font-size: 16px;
-      padding: 24px;
-    }
-
-    .certification ul li {
-      margin: 0;
-    }
-
-    .finances {
-      .finance-steps {
-        flex-direction: column;
-
-        .finance-step {
-          width: 100%;
-        }
-      }
-
-      .finance-flex {
-        text-align: center;
-        .finance-opco {
-          width: 80vw;
-          margin: 0 auto;
-        }
+      .point-icon {
+        margin-left: auto;
+        margin-right: auto;
       }
     }
 
     .edit-textarea {
       width: 100%;
+    }
+
+    .intro-container {
+      gap: 30px;
+    }
+
+    .intro-documents {
+      padding: var(--padding-medium);
     }
   }
 }
@@ -537,19 +635,8 @@ h4.section-title {
     width: 95%;
     padding: 0 10px;
 
-    .header-banner h2 span {
+    .header-banner h2 {
       font-size: 28px;
-    }
-
-    .container .header-banner .banner-content h2 {
-      margin: 50px 0;
-    }
-
-    h3 span,
-    h4,
-    h4 span {
-      margin-bottom: 50px;
-      font-size: 20px;
     }
 
     .intro,
@@ -559,46 +646,16 @@ h4.section-title {
     .finances {
       h3 {
         font-size: 24px;
-        margin-bottom: 50px;
+        margin-bottom: var(--margin-medium);
       }
       p {
         font-size: 16px;
-        margin-bottom: 50px;
         text-align: center;
       }
     }
 
-    p span {
-      font-size: 16px;
-      margin-bottom: 30px;
-    }
-
     .banner-content p {
       font-size: 16px;
-    }
-
-    ul {
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    .certification ul li {
-      font-size: 14px;
-      padding: 20px;
-    }
-
-    .finances {
-      .finance-flex {
-        gap: 50px;
-        .finance-description {
-          h3 {
-            margin-bottom: 50px;
-          }
-          p {
-            margin: 0;
-          }
-        }
-      }
     }
 
     .edit-input,
@@ -616,10 +673,6 @@ h4.section-title {
 
     .pdf-icon {
       width: 30px;
-    }
-
-    .uploaded-pdf {
-      padding: 0;
     }
   }
 }

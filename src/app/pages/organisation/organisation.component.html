@@ -4,6 +4,23 @@
       <!-- 🌟 En-tête de la page -->
       <div class="header-banner">
         <div class="banner-content">
+          <p class="eyebrow-inline">
+            <svg
+              class="eyebrow-mark"
+              viewBox="0 0 32 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 8H8L11 2L14 14L17 8H32"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Modalités
+          </p>
           <h2>
             @if (!editMode()['header.title']) {
               <span>{{ organisationData.header.title }}</span>
@@ -57,100 +74,144 @@
           }
         </div>
       </div>
-      <!-- 📌 Introduction -->
-      <div class="intro">
-        <h3>
-          @if (!editMode()['intro.title']) {
-            <span>{{ organisationData.intro.title }}</span>
-          }
-          @if (editMode()['intro.title']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.intro.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('intro.title')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('intro.title')"
-            ></app-edit-button>
-          }
-        </h3>
-        <p>
-          @if (!editMode()['intro.description']) {
-            <span>{{ organisationData.intro.description }}</span>
-          }
-          @if (editMode()['intro.description']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.intro.description"
-              class="edit-textarea"
-              (blur)="toggleEditMode('intro.description')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('intro.description')"
-            ></app-edit-button>
-          }
-        </p>
-      </div>
-      <!-- 📎 Section PDF à télécharger -->
-      @if (hasPdfs) {
-        <h4 class="section-title">Documents à <span>télécharger</span></h4>
-      }
-      @if (hasPdfs) {
-        <div class="uploaded-pdf">
-          <ul class="pdf-list">
-            @for (pdf of filteredPdfs; track pdf) {
-              <li class="pdf-item">
-                <a
-                  [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
-                  target="_blank"
-                  class="pdf-link"
-                  rel="noopener noreferrer"
-                  type="application/pdf"
-                >
-                  <img
-                    src="assets/images/pdf-placeholder.png"
-                    alt="PDF"
-                    class="pdf-icon"
-                  />
-                  <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
-                </a>
-                @if (isAdmin()) {
-                  <button class="delete-btn" (click)="deletePdf(pdf)">
-                    <svg lucideIcon="trash-2"></svg> Supprimer
-                  </button>
-                }
-              </li>
+      <!-- 📌 Introduction + documents -->
+      <div class="intro-container">
+        <div class="intro">
+          <p class="eyebrow-inline">
+            <svg
+              class="eyebrow-mark"
+              viewBox="0 0 32 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 8H8L11 2L14 14L17 8H32"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            Présentation
+          </p>
+          <h3>
+            @if (!editMode()['intro.title']) {
+              <span>{{ organisationData.intro.title }}</span>
             }
-          </ul>
+            @if (editMode()['intro.title']) {
+              <textarea
+                autoResize
+                [(ngModel)]="organisationData.intro.title"
+                class="edit-textarea"
+                (blur)="toggleEditMode('intro.title')"
+              ></textarea>
+            }
+            @if (isAdmin()) {
+              <app-edit-button
+                (editClicked)="toggleEditMode('intro.title')"
+              ></app-edit-button>
+            }
+          </h3>
+          <p>
+            @if (!editMode()['intro.description']) {
+              <span>{{ organisationData.intro.description }}</span>
+            }
+            @if (editMode()['intro.description']) {
+              <textarea
+                autoResize
+                [(ngModel)]="organisationData.intro.description"
+                class="edit-textarea"
+                (blur)="toggleEditMode('intro.description')"
+              ></textarea>
+            }
+            @if (isAdmin()) {
+              <app-edit-button
+                (editClicked)="toggleEditMode('intro.description')"
+              ></app-edit-button>
+            }
+          </p>
         </div>
-      }
 
-      <!-- 📤 Upload PDF -->
-      @if (isAdmin()) {
-        <div class="pdf-upload">
-          <p>Ajouter un PDF à la page</p>
-          <input
-            type="file"
-            accept="application/pdf"
-            (change)="onPdfFileSelected($event)"
-          />
-          <button
-            class="upload-btn"
-            (click)="uploadSelectedPdf()"
-            [disabled]="!selectedPdfFile"
-          >
-            Uploader le PDF
-          </button>
+        <!-- 📎 Panneau des documents -->
+        <div class="intro-documents">
+          <p class="eyebrow">Documents à télécharger</p>
+
+          @if (hasPdfs) {
+            <ul class="pdf-list">
+              @for (pdf of filteredPdfs; track pdf) {
+                <li class="pdf-item">
+                  <a
+                    [href]="'https://docs.google.com/viewer?url=' + pdf.pdfUrl"
+                    target="_blank"
+                    class="pdf-link"
+                    rel="noopener noreferrer"
+                    type="application/pdf"
+                  >
+                    <img
+                      src="assets/images/pdf-placeholder.png"
+                      alt="PDF"
+                      class="pdf-icon"
+                    />
+                    <span class="pdf-title">{{
+                      pdf.title | slice: 0 : -4
+                    }}</span>
+                  </a>
+                  @if (isAdmin()) {
+                    <button class="delete-btn" (click)="deletePdf(pdf)">
+                      <svg lucideIcon="trash-2"></svg> Supprimer
+                    </button>
+                  }
+                </li>
+              }
+            </ul>
+          }
+
+          @if (!hasPdfs && !isAdmin()) {
+            <p class="documents-empty">
+              Les documents seront bientôt disponibles ici.
+            </p>
+          }
+
+          <!-- 📤 Upload PDF -->
+          @if (isAdmin()) {
+            <div class="pdf-upload">
+              <p>Ajouter un PDF à la page</p>
+              <input
+                type="file"
+                accept="application/pdf"
+                (change)="onPdfFileSelected($event)"
+              />
+              <button
+                class="upload-btn"
+                (click)="uploadSelectedPdf()"
+                [disabled]="!selectedPdfFile"
+              >
+                Uploader le PDF
+              </button>
+            </div>
+          }
         </div>
-      }
+      </div>
 
       <!-- 📚 Conditions générales des formations -->
       <div class="conditions">
+        <p class="eyebrow-inline">
+          <svg
+            class="eyebrow-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Conditions générales
+        </p>
         <h3>
           @if (!editMode()['general_conditions.title']) {
             <span>{{ organisationData.general_conditions.title }}</span>
@@ -196,7 +257,9 @@
             let i = $index
           ) {
             <div class="condition-item">
-              <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
+              <span class="point-icon">
+                <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
+              </span>
               <p>
                 <strong>
                   @if (!editMode()['general_conditions.points.' + i + '.title']) {
@@ -261,51 +324,70 @@
       </div>
       <!-- 🎓 Certification -->
       <div class="certification">
-        <h3>
-          @if (!editMode()['certification.title']) {
-            <span>{{ organisationData.certification.title }}</span>
-          }
-          @if (editMode()['certification.title']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.certification.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('certification.title')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('certification.title')"
-            ></app-edit-button>
-          }
-        </h3>
-        <p>
-          @if (!editMode()['certification.description']) {
-            <span
-              [innerHTML]="organisationData.certification.description"
-            ></span>
-          }
-          @if (editMode()['certification.description']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.certification.description"
-              class="edit-textarea"
-              (blur)="toggleEditMode('certification.description')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('certification.description')"
-            ></app-edit-button>
-          }
-        </p>
-        <ul>
+        <div class="certification-columns">
+          <div class="certification-intro">
+            <p class="eyebrow-inline">
+              <svg
+                class="eyebrow-mark"
+                viewBox="0 0 32 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0 8H8L11 2L14 14L17 8H32"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Certification
+            </p>
+            <h3>
+              @if (!editMode()['certification.title']) {
+                <span>{{ organisationData.certification.title }}</span>
+              }
+              @if (editMode()['certification.title']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.certification.title"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('certification.title')"
+                ></textarea>
+              }
+              @if (isAdmin()) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('certification.title')"
+                ></app-edit-button>
+              }
+            </h3>
+            <p>
+              @if (!editMode()['certification.description']) {
+                <span
+                  [innerHTML]="organisationData.certification.description"
+                ></span>
+              }
+              @if (editMode()['certification.description']) {
+                <textarea
+                  autoResize
+                  [(ngModel)]="organisationData.certification.description"
+                  class="edit-textarea"
+                  (blur)="toggleEditMode('certification.description')"
+                ></textarea>
+              }
+              @if (isAdmin()) {
+                <app-edit-button
+                  (editClicked)="toggleEditMode('certification.description')"
+                ></app-edit-button>
+              }
+            </p>
+          </div>
           @for (
             detail of organisationData.certification.details;
             track trackByIndex(i, detail);
             let i = $index
           ) {
-            <li>
+            <div class="detail-card">
               <span class="badge"
                 ><svg lucideIcon="graduation-cap"></svg
               ></span>
@@ -325,30 +407,63 @@
                   (editClicked)="toggleEditMode('certification.details.' + i)"
                 ></app-edit-button>
               }
-            </li>
+            </div>
           }
-        </ul>
-        <p class="note">
-          @if (!editMode()['certification.note']) {
-            <span>{{ organisationData.certification.note }}</span>
-          }
-          @if (editMode()['certification.note']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.certification.note"
-              class="edit-textarea"
-              (blur)="toggleEditMode('certification.note')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('certification.note')"
-            ></app-edit-button>
-          }
-        </p>
+        </div>
+        <div class="note-panel">
+          <svg
+            class="note-pulse"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <p class="note">
+            @if (!editMode()['certification.note']) {
+              <span>{{ organisationData.certification.note }}</span>
+            }
+            @if (editMode()['certification.note']) {
+              <textarea
+                autoResize
+                [(ngModel)]="organisationData.certification.note"
+                class="edit-textarea"
+                (blur)="toggleEditMode('certification.note')"
+              ></textarea>
+            }
+            @if (isAdmin()) {
+              <app-edit-button
+                (editClicked)="toggleEditMode('certification.note')"
+              ></app-edit-button>
+            }
+          </p>
+        </div>
       </div>
       <!-- 🏆 Engagement des participants -->
       <div class="obligations">
+        <p class="eyebrow-inline">
+          <svg
+            class="eyebrow-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Engagement des participants
+        </p>
         <h3>
           @if (!editMode()['obligations.title']) {
             <span>{{ organisationData.obligations.title }}</span>
@@ -392,7 +507,9 @@
             let i = $index
           ) {
             <div class="obligation-item">
-              <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
+              <span class="point-icon">
+                <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
+              </span>
               <p>
                 <strong>
                   @if (!editMode()['obligations.points.' + i + '.title']) {
@@ -465,6 +582,23 @@
       <div class="finances">
         <div class="finance-flex">
           <div class="finance-description">
+            <p class="eyebrow-inline">
+              <svg
+                class="eyebrow-mark"
+                viewBox="0 0 32 16"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path
+                  d="M0 8H8L11 2L14 14L17 8H32"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              Financement
+            </p>
             <h3>
               @if (!editMode()['financing.title']) {
                 <span>{{ organisationData.financing.title }}</span>
