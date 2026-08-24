@@ -91,16 +91,41 @@
     }
   }
 
-  /* 📖 Qui sommes-nous : texte en deux colonnes façon magazine plutôt
-     qu'une seule colonne étroite et centrée. */
-  .who-we-are-content {
-    .who-we-are-text {
-      column-count: 2;
-      column-gap: 50px;
-      text-align: left;
+  /* 📖 Qui sommes-nous : photo de Dominique à côté du texte, plutôt
+     qu'un titre centré au-dessus d'un bloc de texte sans visage. */
+  .who-we-are {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.85fr) 2fr;
+    gap: 60px;
+    align-items: center;
+  }
 
-      p {
-        break-inside: avoid;
+  .who-we-are-visual {
+    ::ng-deep .who-we-are-image {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-overlay);
+      display: block;
+    }
+  }
+
+  .who-we-are-body {
+    h3 {
+      text-align: left;
+      margin-bottom: var(--space-4);
+    }
+  }
+
+  .who-we-are-text {
+    text-align: left;
+
+    p {
+      margin-bottom: var(--margin-medium);
+
+      &:last-child {
+        margin-bottom: 0;
       }
     }
   }
@@ -142,6 +167,14 @@
       padding: 32px;
       border-radius: var(--radius-card);
       box-shadow: var(--shadow-soft);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-overlay);
+      }
 
       app-dynamic-icon {
         color: var(--primary-color);
@@ -166,6 +199,26 @@
       }
     }
 
+    .risk-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--primary-tint);
+      margin-bottom: var(--margin-small);
+
+      app-dynamic-icon {
+        margin-bottom: 0;
+
+        ::ng-deep svg {
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+
     .step .step-number {
       position: absolute;
       top: -14px;
@@ -185,20 +238,31 @@
     }
   }
 
-  /* 🎓 Formations */
+  /* 🎓 Formations : grille de cartes plutôt qu'une liste empilée. */
   .training-list {
     list-style: none;
     padding: 0;
-    margin: var(--margin-big) var(--margin-medium);
+    margin: var(--margin-big) 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
 
     li {
       display: flex;
       align-items: center;
       gap: 12px;
       font-size: var(--text-size-desktop);
-      padding-left: var(--padding-small);
-      line-height: 1.5;
-      margin-bottom: var(--space-3);
+      line-height: 1.4;
+      margin-bottom: 0;
+      background: var(--light-color);
+      padding: 18px 20px;
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
 
       .check-mark {
         display: inline-flex;
@@ -219,14 +283,17 @@
     }
   }
 
-  /* 🏅 Certifications */
+  /* 🏅 Certifications : bandeau distinct, pour ne pas se fondre dans les
+     Formations juste au-dessus. */
   .certifications {
     .certification-flex {
-      display: flex;
-      flex-direction: column;
-      gap: 50px;
+      background: var(--primary-tint);
+      border-left: 3px solid var(--primary-color);
+      border-radius: var(--radius-control);
+      padding: var(--padding-big);
       p {
         margin: 0;
+        color: var(--primary-dark);
       }
       .certification-logo {
         display: flex;
@@ -359,8 +426,37 @@
       width: 100%;
     }
 
-    .who-we-are-content .who-we-are-text {
-      column-count: 1;
+    .who-we-are {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .who-we-are-visual {
+      ::ng-deep .who-we-are-image {
+        aspect-ratio: 16 / 9;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+    }
+
+    .who-we-are-body {
+      text-align: center;
+
+      h3 {
+        text-align: center;
+      }
+
+      .eyebrow-inline {
+        justify-content: center;
+      }
+    }
+
+    .who-we-are-text {
+      text-align: center;
+    }
+
+    .training-list {
+      grid-template-columns: 1fr;
     }
 
     .concept-band {

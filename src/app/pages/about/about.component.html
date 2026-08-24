@@ -68,26 +68,55 @@
     </div>
     <!-- QUI SOMMES-NOUS ? -->
     <div class="who-we-are">
-      <h3>
-        @if (!editMode()['who_we_are.title']) {
-          <span>{{ aboutData.who_we_are.title }}</span>
+      <div class="who-we-are-visual">
+        @if (aboutData.who_we_are.image && imageRefreshTrigger.whoWeAre) {
+          <app-editable-image
+            pageId="about-who-we-are"
+            [imageSrc]="aboutData.who_we_are.image.src || ''"
+            [altText]="aboutData.who_we_are.image.alt || 'Qui sommes-nous'"
+            imageClass="who-we-are-image"
+            [isEditable]="isAdmin()"
+            (imageUploaded)="onWhoWeAreImageUploaded($event)"
+          ></app-editable-image>
         }
-        @if (editMode()['who_we_are.title']) {
-          <textarea
-            autoResize
-            [(ngModel)]="aboutData.who_we_are.title"
-            class="edit-textarea"
-            (blur)="toggleEditMode('who_we_are.title')"
-          ></textarea>
-        }
-        @if (isAdmin()) {
-          <app-edit-button
-            tabindex="-1"
-            (editClicked)="toggleEditMode('who_we_are.title')"
-          ></app-edit-button>
-        }
-      </h3>
-      <div class="who-we-are-content">
+      </div>
+      <div class="who-we-are-body">
+        <p class="eyebrow-inline">
+          <svg
+            class="eyebrow-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Présentation
+        </p>
+        <h3>
+          @if (!editMode()['who_we_are.title']) {
+            <span>{{ aboutData.who_we_are.title }}</span>
+          }
+          @if (editMode()['who_we_are.title']) {
+            <textarea
+              autoResize
+              [(ngModel)]="aboutData.who_we_are.title"
+              class="edit-textarea"
+              (blur)="toggleEditMode('who_we_are.title')"
+            ></textarea>
+          }
+          @if (isAdmin()) {
+            <app-edit-button
+              tabindex="-1"
+              (editClicked)="toggleEditMode('who_we_are.title')"
+            ></app-edit-button>
+          }
+        </h3>
         <div class="who-we-are-text">
           @for (
             paragraph of aboutData.who_we_are.content;
@@ -384,7 +413,9 @@
           let i = $index
         ) {
           <div class="risk">
-            <app-dynamic-icon [faClass]="risk.icon"></app-dynamic-icon>
+            <span class="risk-icon">
+              <app-dynamic-icon [faClass]="risk.icon"></app-dynamic-icon>
+            </span>
             <p>
               <strong>
                 @if (!editMode()['prevention.points.' + i + '.title']) {
