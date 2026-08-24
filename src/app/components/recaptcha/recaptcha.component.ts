@@ -9,6 +9,7 @@ import {
   input,
   output,
   inject,
+  viewChild,
 } from '@angular/core';
 
 declare global {
@@ -58,7 +59,8 @@ function loadRecaptchaScript(): Promise<void> {
   template: `<div #container></div>`,
 })
 export class RecaptchaComponent implements OnInit, OnDestroy {
-  private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private readonly container =
+    viewChild.required<ElementRef<HTMLElement>>('container');
   private zone = inject(NgZone);
   private platformId = inject<Object>(PLATFORM_ID);
 
@@ -75,7 +77,7 @@ export class RecaptchaComponent implements OnInit, OnDestroy {
 
     await loadRecaptchaScript();
 
-    this.widgetId = window.grecaptcha!.render(this.elementRef.nativeElement, {
+    this.widgetId = window.grecaptcha!.render(this.container().nativeElement, {
       sitekey: this.siteKey(),
       size: this.size(),
       callback: (token: string) =>
