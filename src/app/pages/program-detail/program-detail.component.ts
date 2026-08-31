@@ -1,30 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
-import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { TrainingTestimonialsComponent } from '../../components/training-testimonials/training-testimonials.component';
 import { Program } from '../../models/programs.models';
 import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
-import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
-import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { RichTextEditorComponent } from '../../components/rich-text-editor/rich-text-editor.component';
 import { PdfFile } from '../../models/pdf.models';
-import { MatDialog } from '@angular/material/dialog';
-import { ToastService } from '../../services/toast.service';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 import {
   LucideDynamicIcon,
   LucideClock,
   LucideCheck,
   LucideUsers,
-  LucideSave,
   LucideKey,
-  LucideTrash2,
   LucideMessageCircle,
   provideLucideIcons,
 } from '@lucide/angular';
@@ -35,11 +26,8 @@ import {
   imports: [
     CommonModule,
     FormsModule,
-    EditButtonComponent,
     TrainingTestimonialsComponent,
-    EditableImageComponent,
     RichTextEditorComponent,
-    AutoResizeDirective,
     LucideDynamicIcon,
   ],
   providers: [
@@ -47,9 +35,7 @@ import {
       LucideClock,
       LucideCheck,
       LucideUsers,
-      LucideSave,
       LucideKey,
-      LucideTrash2,
       LucideMessageCircle
     ),
   ],
@@ -57,30 +43,23 @@ import {
   styleUrls: ['./program-detail.component.scss'],
 })
 export class ProgramDetailComponent implements OnInit {
-  private cdr = inject(ChangeDetectorRef);
-
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
-  private editModeService: EditModeService = inject(EditModeService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private seoService: SeoService = inject(SeoService);
-  private toast = inject(ToastService);
-  private dialog = inject(MatDialog);
 
   program?: Program;
 
+  // Only used to gate the testimonials moderation UI, a separate
+  // concern (approval workflow on its own collection) not covered by
+  // the admin training form.
   readonly isAdmin = this.adminService.isAdmin;
-  readonly editMode = this.editModeService.editMode;
 
   hasPdfs: boolean = false;
   pdfsData?: PdfFile[] = [];
   filteredPdfs: PdfFile[] = [];
-  selectedPdfFile?: File;
 
   private destroy$ = new Subject<void>();
-
-  imageRefreshTrigger: boolean = true;
-  showBannerUpload: boolean = false;
 
   ngOnInit(): void {
     this.route.paramMap
@@ -106,57 +85,7 @@ export class ProgramDetailComponent implements OnInit {
       );
   }
 
-  filterPdfsByPageId(pageId: string): void {
-    if (!this.pdfsData || !Array.isArray(this.pdfsData)) {
-      this.filteredPdfs = [];
-      return;
-    }
-
-    this.filteredPdfs = this.pdfsData.filter((pdf) => pdf.pageId === pageId);
-  }
-
-  onBannerImageUploaded(imageData: { url: string; altText: string }): void {
-    if (this.program) {
-      this.program.banner = { src: imageData.url, alt: imageData.altText };
-
-      this.saveChanges(() => {
-        this.imageRefreshTrigger = false;
-        setTimeout(() => {
-          this.imageRefreshTrigger = true;
-          this.cdr.detectChanges();
-        }, 50);
-      });
-    }
-  }
-
-  onPdfFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedPdfFile = input.files[0];
-    }
-  }
-
-  uploadSelectedPdf() {
-    if (!this.selectedPdfFile || !this.program?._id) return;
-
-    const pageId = `program-${this.getIdAsString(this.program._id)}`;
-    const formData = new FormData();
-    formData.append('pdf', this.selectedPdfFile);
-    formData.append('title', this.selectedPdfFile.name);
-
-    this.apiService.uploadPagePdf(pageId, formData).subscribe({
-      next: () => {
-        this.toast.success('PDF uploadé avec succès !');
-        this.loadPdfsData();
-      },
-      error: (err) => {
-        console.error('Erreur upload PDF :', err);
-        this.toast.error(`Erreur : ${err.message}`);
-      },
-    });
-  }
-
-  loadPdfsData() {
+  private loadPdfsData() {
     if (!this.program?._id) return;
 
     const pageId = `program-${this.getIdAsString(this.program._id)}`;
@@ -175,29 +104,6 @@ export class ProgramDetailComponent implements OnInit {
         console.error('Erreur chargement PDFs', err);
         this.hasPdfs = false;
       },
-    });
-  }
-
-  deletePdf(pdf: PdfFile) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        message: `Êtes-vous sûr de vouloir supprimer le PDF "${pdf.title}" ?`,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
-          next: () => {
-            this.toast.success('PDF supprimé avec succès !');
-            this.loadPdfsData();
-          },
-          error: (err) => {
-            console.error('Erreur suppression PDF :', err);
-            this.toast.error('Erreur lors de la suppression du PDF.');
-          },
-        });
-      }
     });
   }
 
@@ -265,37 +171,6 @@ export class ProgramDetailComponent implements OnInit {
     return index;
   }
 
-  toggleEditMode(field: string) {
-    this.editModeService.toggleEditMode(field);
-  }
-
-  saveChanges(callback?: () => void) {
-    if (this.program) {
-      const id = this.route.snapshot.paramMap.get('id');
-      if (id) {
-        this.apiService.patchProgramById(id, this.program).subscribe(
-          (data) => {
-            this.program = data;
-            this.editModeService.resetEditModes();
-            this.updateSeo(data);
-
-            if (!callback) {
-              this.toast.success('Modifications enregistrées avec succès !');
-            }
-
-            if (callback) {
-              callback();
-            }
-          },
-          (error) => {
-            console.error('Error saving program data', error);
-            this.toast.error("Erreur lors de l'enregistrement.");
-          }
-        );
-      }
-    }
-  }
-
   getIdAsString(id: any): string {
     if (!id) {
       return '';
@@ -310,51 +185,6 @@ export class ProgramDetailComponent implements OnInit {
     }
 
     return String(id);
-  }
-
-  /* MODULES */
-  addModule() {
-    if (!this.program) return;
-
-    this.program.modules.push({ title: '', description: '' });
-    this.saveChanges();
-  }
-
-  deleteModule(index: number) {
-    if (!this.program) return;
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { message: 'Êtes-vous sûr de vouloir supprimer ce module ?' },
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.program!.modules.splice(index, 1);
-        this.saveChanges();
-      }
-    });
-  }
-
-  /* DETAILS */
-  addDetail() {
-    if (!this.program) return;
-    this.program.details.push('');
-    this.saveChanges();
-  }
-
-  deleteDetail(index: number) {
-    if (!this.program) return;
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { message: 'Êtes-vous sûr de vouloir supprimer cette ligne ?' },
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.program!.details.splice(index, 1);
-        this.saveChanges();
-      }
-    });
   }
 
   ngOnDestroy() {

@@ -190,11 +190,6 @@
       display: block;
     }
 
-    .documents-empty {
-      color: var(--secondary-color);
-      font-size: var(--small-text-size-desktop);
-      margin: 0;
-    }
   }
 }
 
@@ -242,54 +237,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.delete-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  color: var(--danger);
-  font-size: 13px;
-  cursor: pointer;
-
-  svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-.pdf-upload {
-  text-align: center;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid var(--border-color);
-}
-
-.pdf-upload input {
-  display: block;
-  margin: 10px auto;
-}
-
-.upload-btn {
-  background: var(--button-color);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-
-  &:disabled {
-    background: gray;
-    cursor: not-allowed;
-  }
-
-  &:hover:not(:disabled) {
-    background: var(--button-color-hover);
-  }
 }
 
 /* 📄 Informations pratiques */
@@ -366,10 +313,6 @@
         height: 16px;
       }
     }
-
-    .delete-detail-btn {
-      margin-left: auto;
-    }
   }
 
   .modules {
@@ -404,50 +347,6 @@
   }
 }
 
-.btn-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.add-module-btn,
-.add-detail-btn {
-  padding: 10px 20px;
-  background-color: var(--button-color);
-  color: white;
-  border: none;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
-
-  &:hover {
-    background-color: var(--button-color-hover);
-  }
-}
-
-.delete-module-btn,
-.delete-detail-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: transparent;
-  border: none;
-  color: var(--danger);
-  font-size: var(--small-text-size-desktop);
-  cursor: pointer;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-}
-
-.delete-module-btn {
-  width: 100%;
-  justify-content: center;
-  margin-top: var(--margin-small);
-}
-
 /* 💬 Témoignages : même bandeau teinté contenu que .program-info. */
 .testimonials {
   background: var(--primary-tint);
@@ -471,62 +370,6 @@
       color: var(--primary-color);
       width: 0.85em;
       height: 0.85em;
-    }
-  }
-}
-
-.edit-textarea {
-  border: 2px solid var(--primary-color);
-  padding: 5px;
-  font-size: var(--text-size-desktop);
-  border-radius: var(--radius-control);
-  min-width: 100%;
-}
-
-.save-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: var(--button-color);
-  color: white;
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  font-size: 16px;
-  box-shadow: var(--shadow-overlay);
-  transition: background-color 0.3s ease-in-out;
-  padding: 12px 18px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  &:hover {
-    background: var(--button-color-hover);
-  }
-
-  .save-icon {
-    display: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .save-btn {
-    bottom: 75px;
-    right: 15px;
-    width: 50px;
-    height: 50px;
-    padding: 0;
-    border-radius: 50%;
-    justify-content: center;
-
-    .save-text {
-      display: none;
-    }
-
-    .save-icon {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
     }
   }
 }
@@ -606,10 +449,6 @@
   .program-info,
   .testimonials {
     padding: 40px 24px;
-  }
-
-  .edit-textarea {
-    font-size: 16px;
   }
 }
 
