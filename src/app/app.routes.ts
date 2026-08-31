@@ -63,6 +63,14 @@ export const routes: Routes = [
             './pages/admin/admin-gallery-form/admin-gallery-form.component'
           ).then((m) => m.AdminGalleryFormComponent),
       },
+      {
+        path: 'about',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-about-form/admin-about-form.component'
+          ).then((m) => m.AdminAboutFormComponent),
+        resolve: { aboutData: AboutResolver },
+      },
     ],
   },
   {

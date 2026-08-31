@@ -1,56 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import {
-  LucideDynamicIcon,
-  LucideSave,
-  LucideCheck,
-  provideLucideIcons,
-} from '@lucide/angular';
-import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
-import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
+import { Component, inject, OnInit } from '@angular/core';
+import { LucideDynamicIcon, LucideCheck, provideLucideIcons } from '@lucide/angular';
 import { About } from '../../models/about.models';
-import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
-import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
-import { ToastService } from '../../services/toast.service';
-import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    EditButtonComponent,
-    EditableImageComponent,
-    AutoResizeDirective,
-    LucideDynamicIcon,
-    DynamicIconComponent,
-  ],
-  providers: [provideLucideIcons(LucideSave, LucideCheck)],
+  imports: [CommonModule, LucideDynamicIcon, DynamicIconComponent],
+  providers: [provideLucideIcons(LucideCheck)],
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
 export class AboutComponent implements OnInit {
-  private cdr = inject(ChangeDetectorRef);
-
   private apiService: ApiService = inject(ApiService);
-  private adminService: AdminService = inject(AdminService);
-  private editModeService: EditModeService = inject(EditModeService);
   private seoService: SeoService = inject(SeoService);
-  private toast = inject(ToastService);
 
   aboutData!: About;
-  readonly isAdmin = this.adminService.isAdmin;
-  readonly editMode = this.editModeService.editMode;
-
-  uploadingImages: { [key: string]: boolean } = {
-    'header.image': false,
-    'who_we_are.image': false,
-  };
 
   ngOnInit(): void {
     this.apiService.getAbout().subscribe(
@@ -136,68 +104,4 @@ export class AboutComponent implements OnInit {
   trackByIndex(index: number, item: any): number {
     return index;
   }
-
-  toggleEditMode(field: string) {
-    if (this.isAdmin()) {
-      this.editModeService.toggleEditMode(field);
-    }
-  }
-
-  imageRefreshTrigger = {
-    header: true,
-    whoWeAre: true,
-  };
-
-  onHeaderImageUploaded(imageData: { url: string; altText: string }): void {
-    if (!this.aboutData.header.image) {
-      this.aboutData.header.image = { src: '', alt: '' };
-    }
-    this.aboutData.header.image.src = imageData.url;
-    if (imageData.altText) {
-      this.aboutData.header.image.alt = imageData.altText;
-    }
-
-    this.saveChanges(() => {
-      this.imageRefreshTrigger.header = false;
-      setTimeout(() => (this.imageRefreshTrigger.header = true), 50);
-    });
-  }
-
-  onWhoWeAreImageUploaded(imageData: { url: string; altText: string }): void {
-    if (!this.aboutData.who_we_are.image) {
-      this.aboutData.who_we_are.image = { src: '', alt: '' };
-    }
-    this.aboutData.who_we_are.image.src = imageData.url;
-    if (imageData.altText) {
-      this.aboutData.who_we_are.image.alt = imageData.altText;
-    }
-
-    this.saveChanges(() => {
-      this.imageRefreshTrigger.whoWeAre = false;
-      setTimeout(() => (this.imageRefreshTrigger.whoWeAre = true), 50);
-    });
-  }
-
-  saveChanges(callback?: () => void) {
-    this.apiService.patchAbout(this.aboutData).subscribe(
-      (data) => {
-        this.aboutData = data;
-        this.editModeService.resetEditModes();
-        this.updateSeo(data);
-
-        if (!callback) {
-          this.toast.success('Modifications enregistrées avec succès !');
-        }
-
-        if (callback) {
-          callback();
-        }
-      },
-      (error) => {
-        console.error('Error saving about page data', error);
-        this.toast.error("Erreur lors de l'enregistrement.");
-      }
-    );
-  }
-
 }

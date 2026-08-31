@@ -1,0 +1,279 @@
+<div class="admin-form-header">
+  <h1>À propos</h1>
+  <button
+    type="button"
+    class="btn-primary"
+    [disabled]="saving"
+    (click)="save()"
+  >
+    {{ saving ? 'Enregistrement…' : 'Enregistrer les modifications' }}
+  </button>
+</div>
+
+<form class="admin-form" (ngSubmit)="save()">
+  <section class="form-card">
+    <h2>En-tête</h2>
+    <label>
+      Titre
+      <input type="text" name="header-title" [(ngModel)]="about.header.title" />
+    </label>
+    <label>
+      Mot mis en avant
+      <input
+        type="text"
+        name="header-highlight"
+        [(ngModel)]="about.header.highlight"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="header-description"
+        [(ngModel)]="about.header.description"
+        rows="3"
+      ></textarea>
+    </label>
+  </section>
+
+  <section class="form-card">
+    <h2>Qui sommes-nous</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="who-title"
+        [(ngModel)]="about.who_we_are.title"
+      />
+    </label>
+
+    <label class="field-label">Image</label>
+    <app-editable-image
+      pageId="about-who-we-are"
+      [imageSrc]="about.who_we_are.image.src"
+      [altText]="about.who_we_are.image.alt"
+      imageClass="admin-image-preview"
+      [isEditable]="true"
+      (imageUploaded)="onWhoWeAreImageUploaded($event)"
+    ></app-editable-image>
+
+    <div class="form-card-header">
+      <span class="field-label">Paragraphes</span>
+      <button type="button" class="btn-secondary" (click)="addContentParagraph()">
+        <svg lucideIcon="plus"></svg>
+        Ajouter
+      </button>
+    </div>
+    @for (paragraph of about.who_we_are.content; track $index; let i = $index) {
+      <div class="list-row">
+        <textarea
+          autoResize
+          [(ngModel)]="about.who_we_are.content[i]"
+          [name]="'who-content-' + i"
+          rows="2"
+        ></textarea>
+        <button
+          type="button"
+          class="icon-btn danger"
+          (click)="removeContentParagraph(i)"
+          aria-label="Supprimer"
+        >
+          <svg lucideIcon="trash-2"></svg>
+        </button>
+      </div>
+    }
+  </section>
+
+  <section class="form-card">
+    <h2>Concept</h2>
+    <label>
+      Titre
+      <input type="text" name="concept-title" [(ngModel)]="about.concept.title" />
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Étapes</span>
+      <button type="button" class="btn-secondary" (click)="addStep()">
+        <svg lucideIcon="plus"></svg>
+        Ajouter une étape
+      </button>
+    </div>
+    @for (step of about.concept.steps; track $index; let i = $index) {
+      <div class="sub-item">
+        <div class="sub-item-header">
+          <input
+            type="text"
+            placeholder="Icône (ex: shield-check)"
+            [(ngModel)]="about.concept.steps[i].icon"
+            [name]="'step-icon-' + i"
+            class="icon-input"
+          />
+          <input
+            type="text"
+            placeholder="Titre"
+            [(ngModel)]="about.concept.steps[i].title"
+            [name]="'step-title-' + i"
+          />
+          <button
+            type="button"
+            class="icon-btn danger"
+            (click)="removeStep(i)"
+            aria-label="Supprimer"
+          >
+            <svg lucideIcon="trash-2"></svg>
+          </button>
+        </div>
+        <textarea
+          autoResize
+          placeholder="Description"
+          [(ngModel)]="about.concept.steps[i].description"
+          [name]="'step-description-' + i"
+          rows="2"
+        ></textarea>
+      </div>
+    }
+  </section>
+
+  <section class="form-card">
+    <h2>Nos formations</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="trainings-title"
+        [(ngModel)]="about.trainings.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="trainings-description"
+        [(ngModel)]="about.trainings.description"
+        rows="3"
+      ></textarea>
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Liste</span>
+      <button type="button" class="btn-secondary" (click)="addTrainingItem()">
+        <svg lucideIcon="plus"></svg>
+        Ajouter
+      </button>
+    </div>
+    @for (item of about.trainings.list; track $index; let i = $index) {
+      <div class="list-row">
+        <input
+          type="text"
+          [(ngModel)]="about.trainings.list[i]"
+          [name]="'training-item-' + i"
+        />
+        <button
+          type="button"
+          class="icon-btn danger"
+          (click)="removeTrainingItem(i)"
+          aria-label="Supprimer"
+        >
+          <svg lucideIcon="trash-2"></svg>
+        </button>
+      </div>
+    }
+
+    <label>
+      Informations complémentaires
+      <textarea
+        autoResize
+        name="trainings-additional-info"
+        [(ngModel)]="about.trainings.additional_info"
+        rows="2"
+      ></textarea>
+    </label>
+  </section>
+
+  <section class="form-card">
+    <h2>Certifications</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="certifications-title"
+        [(ngModel)]="about.certifications.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="certifications-description"
+        [(ngModel)]="about.certifications.description"
+        rows="3"
+      ></textarea>
+    </label>
+    <p class="admin-hint">
+      Les logos de certification ne sont pas modifiables ici pour le moment.
+    </p>
+  </section>
+
+  <section class="form-card">
+    <h2>Prévention</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="prevention-title"
+        [(ngModel)]="about.prevention.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="prevention-description"
+        [(ngModel)]="about.prevention.description"
+        rows="3"
+      ></textarea>
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Points</span>
+      <button type="button" class="btn-secondary" (click)="addPreventionPoint()">
+        <svg lucideIcon="plus"></svg>
+        Ajouter un point
+      </button>
+    </div>
+    @for (point of about.prevention.points; track $index; let i = $index) {
+      <div class="sub-item">
+        <div class="sub-item-header">
+          <input
+            type="text"
+            placeholder="Icône (ex: shield-check)"
+            [(ngModel)]="about.prevention.points[i].icon"
+            [name]="'prevention-icon-' + i"
+            class="icon-input"
+          />
+          <input
+            type="text"
+            placeholder="Titre"
+            [(ngModel)]="about.prevention.points[i].title"
+            [name]="'prevention-title-' + i"
+          />
+          <button
+            type="button"
+            class="icon-btn danger"
+            (click)="removePreventionPoint(i)"
+            aria-label="Supprimer"
+          >
+            <svg lucideIcon="trash-2"></svg>
+          </button>
+        </div>
+        <textarea
+          autoResize
+          placeholder="Description"
+          [(ngModel)]="about.prevention.points[i].description"
+          [name]="'prevention-description-' + i"
+          rows="2"
+        ></textarea>
+      </div>
+    }
+  </section>
+</form>

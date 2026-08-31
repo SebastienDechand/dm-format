@@ -5,6 +5,7 @@ import {
   LucideDynamicIcon,
   LucideGraduationCap,
   LucideImages,
+  LucideInfo,
   LucideLogOut,
   provideLucideIcons,
 } from '@lucide/angular';
@@ -14,7 +15,12 @@ import {
   standalone: true,
   imports: [RouterLink, RouterOutlet, LucideDynamicIcon],
   providers: [
-    provideLucideIcons(LucideGraduationCap, LucideImages, LucideLogOut),
+    provideLucideIcons(
+      LucideGraduationCap,
+      LucideImages,
+      LucideInfo,
+      LucideLogOut
+    ),
   ],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss',
