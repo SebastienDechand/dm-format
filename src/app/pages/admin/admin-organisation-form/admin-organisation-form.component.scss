@@ -117,6 +117,7 @@ label {
 }
 
 input[type='text'],
+select,
 textarea {
   width: 100%;
   padding: 10px 12px;
@@ -170,7 +171,26 @@ textarea {
   }
 
   .icon-input {
-    flex: 0 0 180px;
+    flex: 0 0 190px;
+  }
+}
+
+.icon-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--primary-tint);
+  color: var(--primary-color);
+
+  // app-dynamic-icon renders its own <svg> in its own template - emulated
+  // encapsulation means a plain descendant selector never reaches it.
+  ::ng-deep svg {
+    width: 16px;
+    height: 16px;
   }
 }
 
@@ -232,10 +252,39 @@ textarea {
   }
 }
 
+.mobile-save-bar {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .admin-form-header {
     flex-direction: column;
     align-items: stretch;
+
+    .btn-primary {
+      display: none;
+    }
+  }
+
+  .admin-form {
+    padding-bottom: 76px;
+  }
+
+  .mobile-save-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--light-color);
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-overlay);
+    z-index: 20;
+
+    .btn-primary {
+      width: 100%;
+    }
   }
 
   .sub-item-header,

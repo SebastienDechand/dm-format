@@ -79,6 +79,13 @@
   gap: var(--space-6);
 }
 
+// Hidden on desktop - the header's own Enregistrer button is reachable
+// enough there. On mobile it becomes the only save action (see media
+// query below), always reachable without scrolling back to the top.
+.mobile-save-bar {
+  display: none;
+}
+
 .form-card {
   background: var(--light-color);
   border-radius: var(--radius-card);
@@ -246,6 +253,34 @@ textarea {
   .admin-form-header {
     flex-direction: column;
     align-items: stretch;
+
+    // Replaced by .mobile-save-bar, fixed to the bottom of the screen -
+    // this one scrolls away with the header and would otherwise need a
+    // trip back to the top to reach.
+    .btn-primary {
+      display: none;
+    }
+  }
+
+  .admin-form {
+    padding-bottom: 76px;
+  }
+
+  .mobile-save-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--light-color);
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-overlay);
+    z-index: 20;
+
+    .btn-primary {
+      width: 100%;
+    }
   }
 
   .form-row {

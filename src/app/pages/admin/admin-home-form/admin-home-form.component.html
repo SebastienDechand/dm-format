@@ -156,6 +156,10 @@
       </label>
 
       <h3 class="sub-heading">Profil</h3>
+      <p class="admin-hint">
+        Les 4 lignes ci-dessous s'affichent telles quelles sous le nom, dans
+        l'ordre - texte libre, pas forcément une adresse ou un numéro.
+      </p>
       <label>
         Nom
         <input
@@ -165,7 +169,7 @@
         />
       </label>
       <label>
-        Contact
+        Ligne 1 (ex: nom du contact)
         <input
           type="text"
           name="partner-contact-person"
@@ -173,7 +177,7 @@
         />
       </label>
       <label>
-        Adresse
+        Ligne 2
         <input
           type="text"
           name="partner-address"
@@ -181,17 +185,17 @@
         />
       </label>
       <label>
-        Email
+        Ligne 3
         <input
-          type="email"
+          type="text"
           name="partner-email"
           [(ngModel)]="homeData.partner.profile.contact.email"
         />
       </label>
       <label>
-        Téléphone
+        Ligne 4
         <input
-          type="tel"
+          type="text"
           name="partner-phone"
           [(ngModel)]="homeData.partner.profile.contact.phone"
         />
@@ -208,4 +212,10 @@
       </label>
     </section>
   </form>
+
+  <div class="mobile-save-bar">
+    <button type="button" class="btn-primary" [disabled]="saving" (click)="save()">
+      {{ saving ? 'Enregistrement…' : 'Enregistrer' }}
+    </button>
+  </div>
 }

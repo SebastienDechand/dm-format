@@ -9,6 +9,8 @@ import { ApiService } from '../../../services/api.service';
 import { ToastService } from '../../../services/toast.service';
 import { ConditionsData } from '../../../models/organisation.models';
 import { PdfFile } from '../../../models/pdf.models';
+import { ICON_OPTIONS } from '../../../constants/icon-options';
+import { DynamicIconComponent } from '../../../components/dynamic-icon/dynamic-icon.component';
 import {
   LucideDynamicIcon,
   LucidePlus,
@@ -26,6 +28,7 @@ const ORGANISATION_PDF_PAGE_ID = 'organisation-documents';
     FormsModule,
     AutoResizeDirective,
     EditableImageComponent,
+    DynamicIconComponent,
     LucideDynamicIcon,
   ],
   providers: [
@@ -35,6 +38,8 @@ const ORGANISATION_PDF_PAGE_ID = 'organisation-documents';
   styleUrl: './admin-organisation-form.component.scss',
 })
 export class AdminOrganisationFormComponent implements OnInit {
+  readonly iconOptions = ICON_OPTIONS;
+
   private apiService = inject(ApiService);
   private route = inject(ActivatedRoute);
   private toast = inject(ToastService);

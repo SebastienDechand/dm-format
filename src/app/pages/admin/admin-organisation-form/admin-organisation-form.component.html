@@ -122,13 +122,20 @@
     @for (point of data.general_conditions.points; track $index; let i = $index) {
       <div class="sub-item">
         <div class="sub-item-header">
-          <input
-            type="text"
-            placeholder="Icône (ex: shield-check)"
+          <span class="icon-preview">
+            <app-dynamic-icon
+              [faClass]="data.general_conditions.points[i].icon"
+            ></app-dynamic-icon>
+          </span>
+          <select
             [(ngModel)]="data.general_conditions.points[i].icon"
             [name]="'gc-icon-' + i"
             class="icon-input"
-          />
+          >
+            @for (option of iconOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
           <input
             type="text"
             placeholder="Titre"
@@ -245,13 +252,20 @@
     @for (point of data.obligations.points; track $index; let i = $index) {
       <div class="sub-item">
         <div class="sub-item-header">
-          <input
-            type="text"
-            placeholder="Icône (ex: shield-check)"
+          <span class="icon-preview">
+            <app-dynamic-icon
+              [faClass]="data.obligations.points[i].icon"
+            ></app-dynamic-icon>
+          </span>
+          <select
             [(ngModel)]="data.obligations.points[i].icon"
             [name]="'obl-icon-' + i"
             class="icon-input"
-          />
+          >
+            @for (option of iconOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
           <input
             type="text"
             placeholder="Titre"
@@ -345,13 +359,20 @@
     </div>
     @for (step of data.financing.steps; track $index; let i = $index) {
       <div class="sub-item-header">
-        <input
-          type="text"
-          placeholder="Icône (ex: check)"
+        <span class="icon-preview">
+          <app-dynamic-icon
+            [faClass]="data.financing.steps[i].icon"
+          ></app-dynamic-icon>
+        </span>
+        <select
           [(ngModel)]="data.financing.steps[i].icon"
           [name]="'fin-step-icon-' + i"
           class="icon-input"
-        />
+        >
+          @for (option of iconOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
         <input
           type="text"
           placeholder="Texte de l'étape"
@@ -370,3 +391,9 @@
     }
   </section>
 </form>
+
+<div class="mobile-save-bar">
+  <button type="button" class="btn-primary" [disabled]="saving" (click)="save()">
+    {{ saving ? 'Enregistrement…' : 'Enregistrer' }}
+  </button>
+</div>

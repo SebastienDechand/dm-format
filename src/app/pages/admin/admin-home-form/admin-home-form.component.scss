@@ -101,6 +101,12 @@
   margin: var(--space-4) 0;
 }
 
+.admin-hint {
+  color: var(--secondary-color);
+  font-size: 0.88rem;
+  margin: 0 0 var(--space-4);
+}
+
 .field-label {
   font-size: 0.85rem;
   font-weight: 600;
@@ -212,10 +218,39 @@ textarea {
   }
 }
 
+.mobile-save-bar {
+  display: none;
+}
+
 @media (max-width: 640px) {
   .admin-form-header {
     flex-direction: column;
     align-items: stretch;
+
+    .btn-primary {
+      display: none;
+    }
+  }
+
+  .admin-form {
+    padding-bottom: 76px;
+  }
+
+  .mobile-save-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    background: var(--light-color);
+    border-top: 1px solid var(--border-color);
+    box-shadow: var(--shadow-overlay);
+    z-index: 20;
+
+    .btn-primary {
+      width: 100%;
+    }
   }
 
   .pdf-upload-row {

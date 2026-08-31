@@ -6,6 +6,8 @@ import { EditableImageComponent } from '../../../components/editable-image/edita
 import { ApiService } from '../../../services/api.service';
 import { ToastService } from '../../../services/toast.service';
 import { About } from '../../../models/about.models';
+import { ICON_OPTIONS } from '../../../constants/icon-options';
+import { DynamicIconComponent } from '../../../components/dynamic-icon/dynamic-icon.component';
 import {
   LucideDynamicIcon,
   LucidePlus,
@@ -20,6 +22,7 @@ import {
     FormsModule,
     AutoResizeDirective,
     EditableImageComponent,
+    DynamicIconComponent,
     LucideDynamicIcon,
   ],
   providers: [provideLucideIcons(LucidePlus, LucideTrash2)],
@@ -27,6 +30,8 @@ import {
   styleUrl: './admin-about-form.component.scss',
 })
 export class AdminAboutFormComponent implements OnInit {
+  readonly iconOptions = ICON_OPTIONS;
+
   private apiService = inject(ApiService);
   private route = inject(ActivatedRoute);
   private toast = inject(ToastService);
