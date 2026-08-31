@@ -149,6 +149,25 @@ textarea {
   }
 }
 
+// The rich text editor deliberately has no font-size/color of its own -
+// it inherits from wherever it's placed, correct for the public h1/h2
+// title contexts it also renders in. Full-toolbar fields wrap their text
+// in a <p>, and styles.scss has a global `p { font-size: ... }` rule that
+// targets that <p> directly - a direct rule always beats inheritance from
+// .rte-surface below, no matter what's set there, so the <p> needs its
+// own override too. Inline-toolbar fields have no <p> and just inherit.
+app-rich-text-editor {
+  ::ng-deep .rte-surface {
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--dark-color);
+
+    p {
+      font-size: inherit;
+    }
+  }
+}
+
 .list-row {
   display: flex;
   align-items: flex-start;
