@@ -75,6 +75,14 @@ export class ApiService {
     return this.http.patch<Program>(`${this.apiUrl}/trainings/${id}`, data);
   }
 
+  createProgram(data: Partial<Program>): Observable<Program> {
+    return this.http.post<Program>(`${this.apiUrl}/trainings`, data);
+  }
+
+  deleteProgram(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/trainings/${id}`);
+  }
+
   uploadPagePdf(pageId: string, formData: FormData): Observable<any> {
     return this.http.put(`${this.apiUrl}/pdfs/${pageId}`, formData);
   }

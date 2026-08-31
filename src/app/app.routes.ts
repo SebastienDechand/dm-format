@@ -7,6 +7,7 @@ import { TrainingResolver } from './resolver/training.resolver';
 import { AboutResolver } from './resolver/about.resolver';
 import { OrganisationResolver } from './resolver/organisation.resolver';
 import { ContactResolver } from './resolver/contact.resolver';
+import { adminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -17,6 +18,39 @@ export const routes: Routes = [
     },
   },
   { path: 'login', component: LoginComponent },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () =>
+      import('./pages/admin/admin-layout/admin-layout.component').then(
+        (m) => m.AdminLayoutComponent
+      ),
+    children: [
+      { path: '', redirectTo: 'trainings', pathMatch: 'full' },
+      {
+        path: 'trainings',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-trainings-list/admin-trainings-list.component'
+          ).then((m) => m.AdminTrainingsListComponent),
+      },
+      {
+        path: 'trainings/new',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-training-form/admin-training-form.component'
+          ).then((m) => m.AdminTrainingFormComponent),
+      },
+      {
+        path: 'trainings/:id',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-training-form/admin-training-form.component'
+          ).then((m) => m.AdminTrainingFormComponent),
+        resolve: { program: TrainingResolver },
+      },
+    ],
+  },
   {
     path: 'about',
     loadComponent: () =>

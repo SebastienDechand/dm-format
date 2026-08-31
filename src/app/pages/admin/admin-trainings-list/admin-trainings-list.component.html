@@ -1,0 +1,54 @@
+<div class="admin-list-header">
+  <h1>Formations</h1>
+  <a routerLink="/admin/trainings/new" class="btn-primary">
+    <svg lucideIcon="plus"></svg>
+    Nouvelle formation
+  </a>
+</div>
+
+@if (loading()) {
+  <p class="admin-hint">Chargement…</p>
+} @else if (trainings().length === 0) {
+  <p class="admin-hint">Aucune formation pour le moment.</p>
+} @else {
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Titre</th>
+          <th>Durée</th>
+          <th class="actions-col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (program of trainings(); track program._id) {
+          <tr>
+            <td>{{ program.title }}</td>
+            <td>{{ program.duration }}</td>
+            <td class="actions-col">
+              <span class="row-actions">
+                <a
+                  [routerLink]="['/admin/trainings', program._id]"
+                  class="icon-btn"
+                  aria-label="Modifier"
+                  title="Modifier"
+                >
+                  <svg lucideIcon="pencil"></svg>
+                </a>
+                <button
+                  type="button"
+                  class="icon-btn danger"
+                  (click)="deleteTraining(program)"
+                  aria-label="Supprimer"
+                  title="Supprimer"
+                >
+                  <svg lucideIcon="trash-2"></svg>
+                </button>
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+}

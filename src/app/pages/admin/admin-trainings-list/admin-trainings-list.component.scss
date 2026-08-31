@@ -1,0 +1,118 @@
+.admin-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--h4-size-desktop);
+    color: var(--dark-color);
+    margin: 0;
+  }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--button-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background: var(--button-color-hover);
+  }
+}
+
+.admin-hint {
+  color: var(--secondary-color);
+}
+
+.admin-table-wrap {
+  background: var(--light-color);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.92rem;
+  }
+
+  th {
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
+
+.actions-col {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--primary-tint);
+  color: var(--primary-color);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  &:hover {
+    background: var(--background-color-dark);
+  }
+
+  &.danger {
+    background: var(--danger-tint);
+    color: var(--danger);
+
+    &:hover {
+      background: var(--danger);
+      color: var(--light-color);
+    }
+  }
+}

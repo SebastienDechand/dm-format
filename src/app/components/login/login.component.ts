@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -39,6 +39,7 @@ import { ToastService } from '../../services/toast.service';
 })
 export class LoginComponent {
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   private authService = inject(AuthService);
   private toast = inject(ToastService);
   private fb = inject(FormBuilder);
@@ -63,7 +64,10 @@ export class LoginComponent {
 
     this.authService.login({ email, password }).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        const returnUrl =
+          this.route.snapshot.queryParamMap.get('returnUrl') ||
+          '/admin/trainings';
+        this.router.navigateByUrl(returnUrl);
         this.toast.success('Connexion réussie !');
       },
       error: () => {
