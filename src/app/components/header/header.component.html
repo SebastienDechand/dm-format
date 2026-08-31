@@ -93,6 +93,7 @@
           <button mat-button [routerLink]="['/login']">Connexion</button>
         }
         @if (isLoggedIn()) {
+          <button mat-button [routerLink]="['/admin']">Administration</button>
           <button mat-button (click)="logout()">Déconnexion</button>
         }
       </div>
@@ -107,6 +108,7 @@
           <button mat-button [routerLink]="['/login']">Connexion</button>
         }
         @if (isLoggedIn()) {
+          <button mat-button [routerLink]="['/admin']">Administration</button>
           <button mat-button (click)="logout()">Déconnexion</button>
         }
       </div>
