@@ -41,7 +41,7 @@
 }
 
 :root {
-  /* Colors — deep-navy trust anchor + coral-red signal accent (the "pulse"
+  /* Colors - deep-navy trust anchor + coral-red signal accent (the "pulse"
      color, used sparingly for CTAs and the ECG signature motif) + a cool
      clinical off-white rather than a warm cream background. */
   --primary-color: #1d4e7a;
@@ -75,7 +75,7 @@
   --shadow-soft: 0 4px 16px rgba(15, 41, 66, 0.08);
   --shadow-overlay: 0 8px 24px rgba(15, 41, 66, 0.28);
 
-  /* Sizes — fluid rem clamps instead of fixed px, so they scale between the
+  /* Sizes - fluid rem clamps instead of fixed px, so they scale between the
      current mobile and desktop values and respect the browser's zoom/root
      font size (accessibility requirement from the spec) */
   --title-size-desktop: clamp(1.75rem, 1.2rem + 2.5vw, 3.125rem);
@@ -96,7 +96,7 @@
   --padding-medium: 16px;
   --padding-small: 8px;
 
-  /* Finer spacing scale (base 4/8px) — additive, for new/touched components
+  /* Finer spacing scale (base 4/8px) - additive, for new/touched components
      going forward. These do not replace existing margin and padding tokens;
      see the scope note at the end of Task 1. */
   --space-1: 0.25rem;
@@ -138,8 +138,8 @@ h4 {
   color: var(--dark-color);
 }
 
-/* Utility for data-like content — dates, session refs, certification
-   levels — that should read as precise/official rather than editorial. */
+/* Utility for data-like content - dates, session refs, certification
+   levels - that should read as precise/official rather than editorial. */
 .mono,
 .eyebrow {
   font-family: var(--font-mono);

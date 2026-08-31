@@ -25,290 +25,294 @@
 </div>
 
 <div class="admin-form-layout" [class.preview-open]="previewOpen()">
-<form class="admin-form" (ngSubmit)="save()">
-  <section class="form-card">
-    <h2>Informations générales</h2>
+  <form class="admin-form" (ngSubmit)="save()">
+    <section class="form-card">
+      <h2>Informations générales</h2>
 
-    <label>
-      Titre
-      <app-rich-text-editor
-        [(ngModel)]="program.title"
-        name="title"
-        [editable]="true"
-        toolbar="inline"
-      ></app-rich-text-editor>
-    </label>
-
-    <label>
-      Description courte (SEO)
-      <textarea
-        autoResize
-        name="description"
-        [(ngModel)]="program.description"
-        rows="2"
-      ></textarea>
-    </label>
-
-    <div class="form-row">
       <label>
-        Durée
-        <input type="text" name="duration" [(ngModel)]="program.duration" />
-      </label>
-      <label>
-        Public concerné
-        <input type="text" name="audience" [(ngModel)]="program.audience" />
-      </label>
-    </div>
-
-    <label>
-      Prérequis
-      <textarea
-        autoResize
-        name="prerequisite"
-        [(ngModel)]="program.prerequisite"
-        rows="2"
-      ></textarea>
-    </label>
-  </section>
-
-  <section class="form-card">
-    <h2>Bannière</h2>
-    @if (isCreateMode()) {
-      <p class="admin-hint">
-        Disponible une fois la formation créée — enregistrez d'abord.
-      </p>
-    } @else {
-      <app-editable-image
-        [pageId]="pageId"
-        [imageSrc]="program.banner?.src ?? ''"
-        [altText]="'Bannière ' + program.title"
-        imageClass="admin-banner-preview"
-        [isEditable]="true"
-        (imageUploaded)="onBannerUploaded($event)"
-      ></app-editable-image>
-    }
-  </section>
-
-  <section class="form-card">
-    <h2>Contenu</h2>
-
-    <label>
-      Résumé
-      <app-rich-text-editor
-        [(ngModel)]="program.summary"
-        name="summary"
-        [editable]="true"
-        toolbar="full"
-      ></app-rich-text-editor>
-    </label>
-
-    <label>
-      Contenu détaillé
-      <app-rich-text-editor
-        [(ngModel)]="program.content"
-        name="content"
-        [editable]="true"
-        toolbar="full"
-      ></app-rich-text-editor>
-    </label>
-
-    <label>
-      Informations complémentaires
-      <app-rich-text-editor
-        [(ngModel)]="program.information"
-        name="information"
-        [editable]="true"
-        toolbar="full"
-      ></app-rich-text-editor>
-    </label>
-  </section>
-
-  <section class="form-card">
-    <div class="form-card-header">
-      <h2>Points clés</h2>
-      <button type="button" class="btn-secondary" (click)="addDetail()">
-        <svg lucideIcon="plus"></svg>
-        Ajouter
-      </button>
-    </div>
-
-    @for (detail of program.details; track $index; let i = $index) {
-      <div class="list-row">
-        <textarea
-          autoResize
-          [(ngModel)]="program.details[i]"
-          [name]="'detail-' + i"
-          rows="1"
-        ></textarea>
-        <button
-          type="button"
-          class="icon-btn danger"
-          (click)="removeDetail(i)"
-          aria-label="Supprimer"
-        >
-          <svg lucideIcon="trash-2"></svg>
-        </button>
-      </div>
-    }
-  </section>
-
-  <section class="form-card">
-    <div class="form-card-header">
-      <h2>Méthodologie</h2>
-      <button type="button" class="btn-secondary" (click)="addMethodology()">
-        <svg lucideIcon="plus"></svg>
-        Ajouter
-      </button>
-    </div>
-
-    @for (item of program.methodology; track $index; let i = $index) {
-      <div class="list-row">
-        <textarea
-          autoResize
-          [(ngModel)]="program.methodology[i]"
-          [name]="'methodology-' + i"
-          rows="1"
-        ></textarea>
-        <button
-          type="button"
-          class="icon-btn danger"
-          (click)="removeMethodology(i)"
-          aria-label="Supprimer"
-        >
-          <svg lucideIcon="trash-2"></svg>
-        </button>
-      </div>
-    }
-  </section>
-
-  <section class="form-card">
-    <div class="form-card-header">
-      <h2>Modules</h2>
-      <button type="button" class="btn-secondary" (click)="addModule()">
-        <svg lucideIcon="plus"></svg>
-        Ajouter un module
-      </button>
-    </div>
-
-    @for (module of program.modules; track $index; let i = $index) {
-      <div class="module-row">
-        <div class="module-row-header">
-          <input
-            type="text"
-            placeholder="Titre du module"
-            [(ngModel)]="program.modules[i].title"
-            [name]="'module-title-' + i"
-          />
-          <button
-            type="button"
-            class="icon-btn danger"
-            (click)="removeModule(i)"
-            aria-label="Supprimer le module"
-          >
-            <svg lucideIcon="trash-2"></svg>
-          </button>
-        </div>
+        Titre
         <app-rich-text-editor
-          [(ngModel)]="program.modules[i].description"
-          [name]="'module-description-' + i"
+          [(ngModel)]="program.title"
+          name="title"
+          [editable]="true"
+          toolbar="inline"
+        ></app-rich-text-editor>
+      </label>
+
+      <label>
+        Description courte (SEO)
+        <textarea
+          autoResize
+          name="description"
+          [(ngModel)]="program.description"
+          rows="2"
+        ></textarea>
+      </label>
+
+      <div class="form-row">
+        <label>
+          Durée
+          <input type="text" name="duration" [(ngModel)]="program.duration" />
+        </label>
+        <label>
+          Public concerné
+          <input type="text" name="audience" [(ngModel)]="program.audience" />
+        </label>
+      </div>
+
+      <label>
+        Prérequis
+        <textarea
+          autoResize
+          name="prerequisite"
+          [(ngModel)]="program.prerequisite"
+          rows="2"
+        ></textarea>
+      </label>
+    </section>
+
+    <section class="form-card">
+      <h2>Bannière</h2>
+      @if (isCreateMode()) {
+        <p class="admin-hint">
+          Disponible une fois la formation créée - enregistrez d'abord.
+        </p>
+      } @else {
+        <app-editable-image
+          [pageId]="pageId"
+          [imageSrc]="program.banner?.src ?? ''"
+          [altText]="'Bannière ' + program.title"
+          imageClass="admin-banner-preview"
+          [isEditable]="true"
+          (imageUploaded)="onBannerUploaded($event)"
+        ></app-editable-image>
+      }
+    </section>
+
+    <section class="form-card">
+      <h2>Contenu</h2>
+
+      <label>
+        Résumé
+        <app-rich-text-editor
+          [(ngModel)]="program.summary"
+          name="summary"
           [editable]="true"
           toolbar="full"
         ></app-rich-text-editor>
-      </div>
-    }
-  </section>
+      </label>
 
-  <section class="form-card">
-    <h2>Documents PDF</h2>
-    @if (isCreateMode()) {
-      <p class="admin-hint">
-        Disponible une fois la formation créée — enregistrez d'abord.
-      </p>
-    } @else {
-      <div class="pdf-upload-row">
-        <input type="file" accept="application/pdf" (change)="onPdfFileSelected($event)" />
-        <button
-          type="button"
-          class="btn-secondary"
-          [disabled]="!selectedPdfFile"
-          (click)="uploadSelectedPdf()"
-        >
-          <svg lucideIcon="upload"></svg>
+      <label>
+        Contenu détaillé
+        <app-rich-text-editor
+          [(ngModel)]="program.content"
+          name="content"
+          [editable]="true"
+          toolbar="full"
+        ></app-rich-text-editor>
+      </label>
+
+      <label>
+        Informations complémentaires
+        <app-rich-text-editor
+          [(ngModel)]="program.information"
+          name="information"
+          [editable]="true"
+          toolbar="full"
+        ></app-rich-text-editor>
+      </label>
+    </section>
+
+    <section class="form-card">
+      <div class="form-card-header">
+        <h2>Points clés</h2>
+        <button type="button" class="btn-secondary" (click)="addDetail()">
+          <svg lucideIcon="plus"></svg>
           Ajouter
         </button>
       </div>
 
-      @if (pdfs().length > 0) {
-        <ul class="pdf-list">
-          @for (pdf of pdfs(); track pdf.publicId) {
-            <li>
-              <span>{{ pdf.title }}</span>
-              <button
-                type="button"
-                class="icon-btn danger"
-                (click)="deletePdf(pdf)"
-                aria-label="Supprimer"
-              >
-                <svg lucideIcon="trash-2"></svg>
-              </button>
-            </li>
-          }
-        </ul>
-      }
-    }
-  </section>
-</form>
-
-@if (previewOpen()) {
-  <aside class="preview-panel">
-    <div class="preview-panel-header">
-      <div class="preview-device-switch">
-        @for (device of previewDevices; track device.id) {
+      @for (detail of program.details; track $index; let i = $index) {
+        <div class="list-row">
+          <textarea
+            autoResize
+            [(ngModel)]="program.details[i]"
+            [name]="'detail-' + i"
+            rows="1"
+          ></textarea>
           <button
             type="button"
-            class="preview-device-btn"
-            [class.active]="previewDevice() === device.id"
-            [title]="device.label"
-            [attr.aria-label]="device.label"
-            (click)="previewDevice.set(device.id)"
+            class="icon-btn danger"
+            (click)="removeDetail(i)"
+            aria-label="Supprimer"
           >
-            <svg [lucideIcon]="device.icon"></svg>
+            <svg lucideIcon="trash-2"></svg>
           </button>
+        </div>
+      }
+    </section>
+
+    <section class="form-card">
+      <div class="form-card-header">
+        <h2>Méthodologie</h2>
+        <button type="button" class="btn-secondary" (click)="addMethodology()">
+          <svg lucideIcon="plus"></svg>
+          Ajouter
+        </button>
+      </div>
+
+      @for (item of program.methodology; track $index; let i = $index) {
+        <div class="list-row">
+          <textarea
+            autoResize
+            [(ngModel)]="program.methodology[i]"
+            [name]="'methodology-' + i"
+            rows="1"
+          ></textarea>
+          <button
+            type="button"
+            class="icon-btn danger"
+            (click)="removeMethodology(i)"
+            aria-label="Supprimer"
+          >
+            <svg lucideIcon="trash-2"></svg>
+          </button>
+        </div>
+      }
+    </section>
+
+    <section class="form-card">
+      <div class="form-card-header">
+        <h2>Modules</h2>
+        <button type="button" class="btn-secondary" (click)="addModule()">
+          <svg lucideIcon="plus"></svg>
+          Ajouter un module
+        </button>
+      </div>
+
+      @for (module of program.modules; track $index; let i = $index) {
+        <div class="module-row">
+          <div class="module-row-header">
+            <input
+              type="text"
+              placeholder="Titre du module"
+              [(ngModel)]="program.modules[i].title"
+              [name]="'module-title-' + i"
+            />
+            <button
+              type="button"
+              class="icon-btn danger"
+              (click)="removeModule(i)"
+              aria-label="Supprimer le module"
+            >
+              <svg lucideIcon="trash-2"></svg>
+            </button>
+          </div>
+          <app-rich-text-editor
+            [(ngModel)]="program.modules[i].description"
+            [name]="'module-description-' + i"
+            [editable]="true"
+            toolbar="full"
+          ></app-rich-text-editor>
+        </div>
+      }
+    </section>
+
+    <section class="form-card">
+      <h2>Documents PDF</h2>
+      @if (isCreateMode()) {
+        <p class="admin-hint">
+          Disponible une fois la formation créée - enregistrez d'abord.
+        </p>
+      } @else {
+        <div class="pdf-upload-row">
+          <input
+            type="file"
+            accept="application/pdf"
+            (change)="onPdfFileSelected($event)"
+          />
+          <button
+            type="button"
+            class="btn-secondary"
+            [disabled]="!selectedPdfFile"
+            (click)="uploadSelectedPdf()"
+          >
+            <svg lucideIcon="upload"></svg>
+            Ajouter
+          </button>
+        </div>
+
+        @if (pdfs().length > 0) {
+          <ul class="pdf-list">
+            @for (pdf of pdfs(); track pdf.publicId) {
+              <li>
+                <span>{{ pdf.title }}</span>
+                <button
+                  type="button"
+                  class="icon-btn danger"
+                  (click)="deletePdf(pdf)"
+                  aria-label="Supprimer"
+                >
+                  <svg lucideIcon="trash-2"></svg>
+                </button>
+              </li>
+            }
+          </ul>
+        }
+      }
+    </section>
+  </form>
+
+  @if (previewOpen()) {
+    <aside class="preview-panel">
+      <div class="preview-panel-header">
+        <div class="preview-device-switch">
+          @for (device of previewDevices; track device.id) {
+            <button
+              type="button"
+              class="preview-device-btn"
+              [class.active]="previewDevice() === device.id"
+              [title]="device.label"
+              [attr.aria-label]="device.label"
+              (click)="previewDevice.set(device.id)"
+            >
+              <svg [lucideIcon]="device.icon"></svg>
+            </button>
+          }
+        </div>
+        @if (!isCreateMode()) {
+          <a
+            [routerLink]="['/trainings', trainingId()]"
+            target="_blank"
+            class="preview-panel-link"
+          >
+            Voir en ligne ↗
+          </a>
         }
       </div>
-      @if (!isCreateMode()) {
-        <a
-          [routerLink]="['/trainings', trainingId()]"
-          target="_blank"
-          class="preview-panel-link"
+      <div class="preview-panel-body" #previewPanelBody>
+        <div
+          class="preview-frame-scale"
+          [style.width.px]="previewDeviceWidth * previewScale"
+          [style.height.px]="previewFrameHeight() * previewScale"
         >
-          Voir en ligne ↗
-        </a>
-      }
-    </div>
-    <div class="preview-panel-body" #previewPanelBody>
-      <div
-        class="preview-frame-scale"
-        [style.width.px]="previewDeviceWidth * previewScale"
-        [style.height.px]="previewFrameHeight() * previewScale"
-      >
-        <iframe
-          #previewIframe
-          [src]="previewFrameUrl"
-          [style.width.px]="previewDeviceWidth"
-          [style.height.px]="previewFrameHeight()"
-          [style.transform]="'scale(' + previewScale + ')'"
-          class="preview-frame"
-          title="Aperçu de la formation"
-        ></iframe>
+          <iframe
+            #previewIframe
+            [src]="previewFrameUrl"
+            [style.width.px]="previewDeviceWidth"
+            [style.height.px]="previewFrameHeight()"
+            [style.transform]="'scale(' + previewScale + ')'"
+            class="preview-frame"
+            title="Aperçu de la formation"
+          ></iframe>
+        </div>
+        <p class="preview-panel-note">
+          - Les témoignages ne sont pas affichés ici (gérés séparément dans «
+          Témoignages »).
+        </p>
       </div>
-      <p class="preview-panel-note">
-        — Les témoignages ne sont pas affichés ici (gérés séparément dans
-        « Témoignages »).
-      </p>
-    </div>
-  </aside>
-}
+    </aside>
+  }
 </div>
 
 <div class="mobile-save-bar">
