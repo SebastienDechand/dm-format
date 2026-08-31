@@ -97,6 +97,18 @@ export const routes: Routes = [
     ],
   },
   {
+    // Sibling of the `admin` route above, not nested in its `children` -
+    // it must render bare (no AdminLayoutComponent sidebar), only ever
+    // loaded inside an iframe by the admin form's device preview panel.
+    // `admin/...` prefix still hides the public header/footer (see
+    // app.component's isAdminRoute), which is what we want here too.
+    path: 'admin/preview-frame/training',
+    loadComponent: () =>
+      import('./pages/admin/preview-frame/preview-frame.component').then(
+        (m) => m.PreviewFrameComponent
+      ),
+  },
+  {
     path: 'about',
     loadComponent: () =>
       import('./pages/about/about.component').then((m) => m.AboutComponent),

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
@@ -48,6 +48,13 @@ export class ProgramDetailComponent implements OnInit {
 
   program?: Program;
 
+  // Set by the admin form to embed this component as a live preview of
+  // unsaved edits, instead of routing/fetching its own data - `program`
+  // is the same object reference the form mutates, so it just re-renders
+  // on every change detection tick with no extra plumbing needed.
+  readonly previewMode = input(false);
+  readonly previewProgram = input<Program>();
+
   hasPdfs: boolean = false;
   pdfsData?: PdfFile[] = [];
   filteredPdfs: PdfFile[] = [];
@@ -55,6 +62,14 @@ export class ProgramDetailComponent implements OnInit {
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
+    if (this.previewMode()) {
+      this.program = this.previewProgram();
+      if (this.program?._id) {
+        this.loadPdfsData();
+      }
+      return;
+    }
+
     this.route.paramMap
       .pipe(
         switchMap((params) => {
