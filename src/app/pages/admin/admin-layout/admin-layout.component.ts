@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import {
   LucideDynamicIcon,
   LucideGraduationCap,
+  LucideHouse,
   LucideImages,
   LucideInfo,
   LucideLogOut,
@@ -18,6 +19,7 @@ import {
   providers: [
     provideLucideIcons(
       LucideGraduationCap,
+      LucideHouse,
       LucideImages,
       LucideInfo,
       LucideLogOut,

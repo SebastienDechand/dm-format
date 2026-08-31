@@ -79,6 +79,14 @@ export const routes: Routes = [
           ).then((m) => m.AdminOrganisationFormComponent),
         resolve: { organisationData: OrganisationResolver },
       },
+      {
+        path: 'home',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-home-form/admin-home-form.component'
+          ).then((m) => m.AdminHomeFormComponent),
+        resolve: { homeData: HomeResolver },
+      },
     ],
   },
   {

@@ -149,27 +149,6 @@
     }
   }
 
-  /* 🎛️ Mode édition */
-  .edit-textarea {
-    border: 2px solid var(--primary-color);
-    padding: 5px;
-    font-size: var(--text-size-desktop);
-    border-radius: var(--radius-control);
-  }
-
-  .edit-textarea {
-    min-width: 100%;
-  }
-
-  /* ✏️ Bouton d'édition */
-  .edit-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    margin-left: 8px;
-    color: var(--primary-color);
-  }
 }
 
 ::ng-deep .hero-banner-image {
@@ -279,10 +258,6 @@
     .details span {
       font-size: 16px;
     }
-  }
-
-  .edit-textarea {
-    font-size: 16px;
   }
 
   .hero-floating-card {

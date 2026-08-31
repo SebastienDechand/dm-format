@@ -18,70 +18,14 @@
       Sauveteur secouriste du travail
     </p>
 
-    <!-- Title -->
     <h1>
-      @if (!editMode['title']) {
-        <span [innerHTML]="bannerData?.title | safeHtml"></span>
-      }
-      @if (editMode['title']) {
-        <textarea
-          autoResize
-          [(ngModel)]="bannerData.title"
-          (blur)="toggleEditMode('title')"
-          class="edit-textarea"
-        ></textarea>
-      }
-      @if (isAdmin()) {
-        <app-edit-button
-          (editClicked)="toggleEditMode('title')"
-          class="edit-btn"
-        ></app-edit-button>
-      }
+      <span [innerHTML]="bannerData?.title | safeHtml"></span>
     </h1>
 
-    <!-- Subtitle -->
-    <h2 class="subtitle">
-      @if (!editMode['subtitle']) {
-        <span>{{ bannerData?.subtitle }}</span>
-      }
-      @if (editMode['subtitle']) {
-        <textarea
-          autoResize
-          [(ngModel)]="bannerData.subtitle"
-          (blur)="toggleEditMode('subtitle')"
-          class="edit-textarea"
-        ></textarea>
-      }
-      @if (isAdmin()) {
-        <app-edit-button
-          (editClicked)="toggleEditMode('subtitle')"
-          class="edit-btn"
-        ></app-edit-button>
-      }
-    </h2>
+    <h2 class="subtitle">{{ bannerData?.subtitle }}</h2>
 
-    <!-- Details -->
-    <p class="details">
-      @if (!editMode['details']) {
-        <span>{{ bannerData?.details }}</span>
-      }
-      @if (editMode['details']) {
-        <textarea
-          autoResize
-          [(ngModel)]="bannerData.details"
-          (blur)="toggleEditMode('details')"
-          class="edit-textarea"
-        ></textarea>
-      }
-      @if (isAdmin()) {
-        <app-edit-button
-          (editClicked)="toggleEditMode('details')"
-          class="edit-btn"
-        ></app-edit-button>
-      }
-    </p>
+    <p class="details">{{ bannerData?.details }}</p>
 
-    <!-- Highlights -->
     <ul class="highlights">
       @for (
         highlight of bannerData?.highlights;
@@ -92,23 +36,7 @@
           <span class="highlight-mark"
             ><svg lucideIcon="check"></svg
           ></span>
-          @if (!editMode['highlights.' + i]) {
-            <span>{{ highlight }}</span>
-          }
-          @if (editMode['highlights.' + i]) {
-            <textarea
-              autoResize
-              [(ngModel)]="bannerData.highlights[i]"
-              (blur)="toggleEditMode('highlights.' + i)"
-              class="edit-textarea"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('highlights.' + i)"
-              class="edit-btn"
-            ></app-edit-button>
-          }
+          <span>{{ highlight }}</span>
         </li>
       }
     </ul>
@@ -116,16 +44,12 @@
 
   <div class="hero-visual">
     <div class="hero-image-frame">
-      @if (imageRefreshTrigger) {
-        <app-editable-image
-          [pageId]="pageId()"
-          [imageSrc]="bannerData?.image || ''"
-          [altText]="'Exercice de massage cardiaque'"
-          imageClass="hero-banner-image"
-          [isEditable]="isAdmin()"
-          (imageUploaded)="onImageUploaded($event)"
-        ></app-editable-image>
-      }
+      <img
+        [src]="bannerData?.image"
+        alt="Exercice de massage cardiaque"
+        class="hero-banner-image"
+        loading="lazy"
+      />
 
       @if (bannerData?.highlights?.[0]) {
         <div class="hero-floating-card">

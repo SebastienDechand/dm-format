@@ -1,9 +1,5 @@
 @if (homeData?.banner) {
-  <app-banner
-    [bannerData]="homeData.banner"
-    [pageId]="'home-banner'"
-    (imageUploaded)="onBannerImageUploaded($event)"
-  ></app-banner>
+  <app-banner [bannerData]="homeData.banner"></app-banner>
 }
 @if (homeData?.certification) {
   <app-certification
@@ -15,10 +11,3 @@
   <app-partner [partnerData]="homeData.partner"></app-partner>
 }
 <app-gallery></app-gallery>
-
-@if (isAdmin()) {
-  <button class="save-btn" (click)="saveChanges()">
-    <span class="save-text">Sauvegarder les modifications</span>
-    <svg lucideIcon="save" class="save-icon"></svg>
-  </button>
-}

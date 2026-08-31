@@ -4,18 +4,6 @@
   display: flex;
   justify-content: center;
 
-  /* 🎛️ Mode édition */
-  .edit-textarea {
-    border: 2px solid var(--primary-color);
-    padding: 5px;
-    font-size: var(--text-size-desktop);
-    border-radius: var(--radius-control);
-  }
-
-  .edit-textarea {
-    min-width: 100%;
-  }
-
   .certification-container {
     display: grid;
     grid-template-columns: 1.3fr 1fr;
@@ -118,56 +106,6 @@
   white-space: nowrap;
 }
 
-.delete-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  color: var(--danger);
-  font-size: 13px;
-  cursor: pointer;
-
-  ::ng-deep svg {
-    width: 14px;
-    height: 14px;
-  }
-}
-
-.pdf-upload {
-  text-align: center;
-  padding: 20px;
-  background: var(--background-color-dark);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius-card);
-  margin-top: 20px;
-}
-
-.pdf-upload input {
-  display: block;
-  margin: 10px auto;
-}
-
-.upload-btn {
-  background: var(--button-color);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: var(--radius-control);
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.upload-btn:disabled {
-  background: gray;
-  cursor: not-allowed;
-}
-
-.upload-btn:hover:not(:disabled) {
-  background: var(--button-color-hover);
-}
-
 @media (max-width: 1200px) {
   .certification {
     padding: var(--padding-big);
@@ -223,9 +161,6 @@
           padding: 12px 24px;
           font-size: 18px;
         }
-      }
-      .edit-textarea {
-        font-size: 16px;
       }
     }
   }

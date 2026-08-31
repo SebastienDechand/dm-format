@@ -2,162 +2,34 @@
   <div class="partner-highlight">
     <div class="partner-grid">
       <div class="partner-intro">
-        <!-- Title -->
-        <h2>
-          @if (!editMode['partnerTitle']) {
-            <span>{{ partnerData?.title }}</span>
-          }
-          @if (editMode['partnerTitle']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.title"
-              (blur)="toggleEditMode('partnerTitle')"
-              class="edit-textarea"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerTitle')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
-        </h2>
-
-        <!-- Description -->
-        <p class="intro">
-          @if (!editMode['partnerDescription']) {
-            <span>{{ partnerData?.description }}</span>
-          }
-          @if (editMode['partnerDescription']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.description"
-              (blur)="toggleEditMode('partnerDescription')"
-              class="edit-textarea"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerDescription')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
-        </p>
+        <h2>{{ partnerData?.title }}</h2>
+        <p class="intro">{{ partnerData?.description }}</p>
       </div>
 
       <div class="partner-profile">
       <div class="partner-info">
-        <!-- Partner Name -->
-        <h3>
-          @if (!editMode['partnerName']) {
-            <span>{{ partnerData?.profile?.name }}</span>
-          }
-          @if (editMode['partnerName']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.profile.name"
-              (blur)="toggleEditMode('partnerName')"
-              class="edit-textarea"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerName')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
-        </h3>
+        <h3>{{ partnerData?.profile?.name }}</h3>
 
-        <!-- Contact Person -->
         <p>
-          @if (!editMode['partnerContactPerson']) {
-            <span class="contact">{{
-              partnerData?.profile?.contact?.person
-            }}</span>
-          }
-          @if (editMode['partnerContactPerson']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.profile.contact.person"
-              (blur)="toggleEditMode('partnerContactPerson')"
-              class="edit-textarea"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerContactPerson')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
+          <span class="contact">{{
+            partnerData?.profile?.contact?.person
+          }}</span>
         </p>
 
-        <!-- Address -->
         <p>
-          @if (!editMode['partnerAddress']) {
-            <span>{{ partnerData?.profile?.contact?.address }}</span>
-          }
-          @if (editMode['partnerAddress']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.profile.contact.address"
-              (blur)="toggleEditMode('partnerAddress')"
-              class="edit-textarea"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerAddress')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
+          <span>{{ partnerData?.profile?.contact?.address }}</span>
         </p>
 
-        <!-- Email -->
         <p>
-          @if (!editMode['partnerEmail']) {
-            <span>
-              {{ partnerData?.profile?.contact?.email }}
-            </span>
-          }
-          @if (editMode['partnerEmail']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.profile.contact.email"
-              (blur)="toggleEditMode('partnerEmail')"
-              class="edit-textarea"
-              type="email"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerEmail')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
+          <span>
+            {{ partnerData?.profile?.contact?.email }}
+          </span>
         </p>
 
-        <!-- Phone -->
         <p>
-          @if (!editMode['partnerPhone']) {
-            <span class="phone">{{
-              partnerData?.profile?.contact?.phone
-            }}</span>
-          }
-          @if (editMode['partnerPhone']) {
-            <textarea
-              autoResize
-              [(ngModel)]="partnerData.profile.contact.phone"
-              (blur)="toggleEditMode('partnerPhone')"
-              class="edit-textarea"
-              type="tel"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('partnerPhone')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
+          <span class="phone">{{
+            partnerData?.profile?.contact?.phone
+          }}</span>
         </p>
       </div>
 
@@ -187,25 +59,7 @@
           stroke-linejoin="round"
         />
       </svg>
-      <p>
-        @if (!editMode['partnerClosingNote']) {
-          <span>{{ partnerData?.closingNote }}</span>
-        }
-        @if (editMode['partnerClosingNote']) {
-          <textarea
-            autoResize
-            [(ngModel)]="partnerData.closingNote"
-            (blur)="toggleEditMode('partnerClosingNote')"
-            class="edit-textarea"
-          ></textarea>
-        }
-        @if (isAdmin()) {
-          <app-edit-button
-            (editClicked)="toggleEditMode('partnerClosingNote')"
-            class="edit-btn"
-          ></app-edit-button>
-        }
-      </p>
+      <p>{{ partnerData?.closingNote }}</p>
     </div>
   </div>
 </section>

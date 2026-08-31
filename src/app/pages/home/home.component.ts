@@ -1,15 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BannerComponent } from '../../components/banner/banner.component';
 import { CertificationComponent } from '../../components/certification/certification.component';
 import { GalleryComponent } from '../../components/gallery/gallery.component';
 import { ProgramsComponent } from '../../components/programs/programs.component';
 import { PartnerComponent } from '../../components/partner/partner.component';
 import { ApiService } from '../../services/api.service';
-import { AdminService } from '../../services/admin.service';
 import { SeoService } from '../../services/seo.service';
-import { ToastService } from '../../services/toast.service';
-import { LucideDynamicIcon, LucideSave, provideLucideIcons } from '@lucide/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,54 +18,15 @@ import { LucideDynamicIcon, LucideSave, provideLucideIcons } from '@lucide/angul
     ProgramsComponent,
     PartnerComponent,
     GalleryComponent,
-    LucideDynamicIcon,
   ],
-  providers: [provideLucideIcons(LucideSave)],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  private cdr = inject(ChangeDetectorRef);
-
-  private adminService: AdminService = inject(AdminService);
   private seoService: SeoService = inject(SeoService);
   private apiService: ApiService = inject(ApiService);
-  private toast = inject(ToastService);
 
   homeData: any;
-  readonly isAdmin = this.adminService.isAdmin;
-  editMode: { [key: string]: boolean } = {};
-
-  toggleEditMode(section: string) {
-    this.editMode[section] = !this.editMode[section];
-  }
-
-  onBannerImageUploaded(imageData: { url: string; altText: string }): void {
-    if (this.homeData && this.homeData.banner) {
-      this.homeData.banner.image = imageData.url;
-    }
-  }
-
-  saveChanges(callback?: () => void) {
-    this.apiService.patchHome(this.homeData).subscribe(
-      (data) => {
-        this.homeData = data;
-        this.updateSeo(data);
-
-        if (!callback) {
-          this.toast.success('Modifications enregistrées avec succès !');
-        }
-
-        if (callback) {
-          callback();
-        }
-      },
-      (error) => {
-        console.error('Error saving home page data', error);
-        this.toast.error("Erreur lors de l'enregistrement.");
-      }
-    );
-  }
 
   ngOnInit() {
     this.apiService.getHome().subscribe((data) => {

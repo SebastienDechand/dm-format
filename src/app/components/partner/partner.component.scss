@@ -2,18 +2,6 @@
   background: var(--background-color);
   padding: 100px 0;
 
-  /* 🎛️ Mode édition */
-  .edit-textarea {
-    border: 2px solid var(--primary-color);
-    padding: 5px;
-    font-size: var(--text-size-desktop);
-    border-radius: var(--radius-control);
-  }
-
-  .edit-textarea {
-    min-width: 75%;
-  }
-
   .partner-grid {
     display: grid;
     grid-template-columns: 0.9fr 1.1fr;
@@ -157,10 +145,6 @@
             font-size: 16px;
           }
         }
-
-        .edit-textarea {
-          width: 100%;
-        }
       }
     }
 
@@ -226,9 +210,6 @@
           font-size: 14px;
         }
 
-        .edit-textarea {
-          font-size: 14px;
-        }
       }
 
       .partner-image img {

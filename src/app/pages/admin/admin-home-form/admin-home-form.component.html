@@ -1,0 +1,211 @@
+@if (homeData) {
+  <div class="admin-form-header">
+    <h1>Accueil</h1>
+    <button
+      type="button"
+      class="btn-primary"
+      [disabled]="saving"
+      (click)="save()"
+    >
+      {{ saving ? 'Enregistrement…' : 'Enregistrer les modifications' }}
+    </button>
+  </div>
+
+  <form class="admin-form" (ngSubmit)="save()">
+    <section class="form-card">
+      <h2>Bandeau d'accueil</h2>
+      <label>
+        Titre
+        <input type="text" name="banner-title" [(ngModel)]="homeData.banner.title" />
+      </label>
+      <label>
+        Sous-titre
+        <input
+          type="text"
+          name="banner-subtitle"
+          [(ngModel)]="homeData.banner.subtitle"
+        />
+      </label>
+      <label>
+        Détails
+        <textarea
+          autoResize
+          name="banner-details"
+          [(ngModel)]="homeData.banner.details"
+          rows="2"
+        ></textarea>
+      </label>
+
+      <div class="form-card-header">
+        <span class="field-label">Points forts</span>
+        <button type="button" class="btn-secondary" (click)="addHighlight()">
+          <svg lucideIcon="plus"></svg>
+          Ajouter
+        </button>
+      </div>
+      @for (highlight of homeData.banner.highlights; track $index; let i = $index) {
+        <div class="list-row">
+          <input
+            type="text"
+            [(ngModel)]="homeData.banner.highlights[i]"
+            [name]="'highlight-' + i"
+          />
+          <button
+            type="button"
+            class="icon-btn danger"
+            (click)="removeHighlight(i)"
+            aria-label="Supprimer"
+          >
+            <svg lucideIcon="trash-2"></svg>
+          </button>
+        </div>
+      }
+
+      <label class="field-label">Image</label>
+      <app-editable-image
+        pageId="home-banner"
+        [imageSrc]="homeData.banner.image"
+        altText="Bandeau d'accueil"
+        imageClass="admin-image-preview"
+        [isEditable]="true"
+        (imageUploaded)="onBannerImageUploaded($event)"
+      ></app-editable-image>
+    </section>
+
+    <section class="form-card">
+      <h2>Certification Qualiopi</h2>
+      <label>
+        Titre
+        <input
+          type="text"
+          name="cert-title"
+          [(ngModel)]="homeData.certification.title"
+        />
+      </label>
+      <label>
+        Description
+        <textarea
+          autoResize
+          name="cert-description"
+          [(ngModel)]="homeData.certification.description"
+          rows="3"
+        ></textarea>
+      </label>
+      <label>
+        Information complémentaire
+        <textarea
+          autoResize
+          name="cert-additional-info"
+          [(ngModel)]="homeData.certification.additionalInfo"
+          rows="2"
+        ></textarea>
+      </label>
+
+      <div class="form-card-header">
+        <span class="field-label">Documents PDF</span>
+      </div>
+      <div class="pdf-upload-row">
+        <input type="file" accept="application/pdf" (change)="onPdfFileSelected($event)" />
+        <button
+          type="button"
+          class="btn-secondary"
+          [disabled]="!selectedPdfFile"
+          (click)="uploadSelectedPdf()"
+        >
+          <svg lucideIcon="upload"></svg>
+          Ajouter
+        </button>
+      </div>
+      @if (pdfs.length > 0) {
+        <ul class="pdf-list">
+          @for (pdf of pdfs; track pdf.publicId) {
+            <li>
+              <span>{{ pdf.title }}</span>
+              <button
+                type="button"
+                class="icon-btn danger"
+                (click)="deletePdf(pdf)"
+                aria-label="Supprimer"
+              >
+                <svg lucideIcon="trash-2"></svg>
+              </button>
+            </li>
+          }
+        </ul>
+      }
+    </section>
+
+    <section class="form-card">
+      <h2>Formateur partenaire</h2>
+      <label>
+        Titre
+        <input
+          type="text"
+          name="partner-title"
+          [(ngModel)]="homeData.partner.title"
+        />
+      </label>
+      <label>
+        Description
+        <textarea
+          autoResize
+          name="partner-description"
+          [(ngModel)]="homeData.partner.description"
+          rows="3"
+        ></textarea>
+      </label>
+
+      <h3 class="sub-heading">Profil</h3>
+      <label>
+        Nom
+        <input
+          type="text"
+          name="partner-name"
+          [(ngModel)]="homeData.partner.profile.name"
+        />
+      </label>
+      <label>
+        Contact
+        <input
+          type="text"
+          name="partner-contact-person"
+          [(ngModel)]="homeData.partner.profile.contact.person"
+        />
+      </label>
+      <label>
+        Adresse
+        <input
+          type="text"
+          name="partner-address"
+          [(ngModel)]="homeData.partner.profile.contact.address"
+        />
+      </label>
+      <label>
+        Email
+        <input
+          type="email"
+          name="partner-email"
+          [(ngModel)]="homeData.partner.profile.contact.email"
+        />
+      </label>
+      <label>
+        Téléphone
+        <input
+          type="tel"
+          name="partner-phone"
+          [(ngModel)]="homeData.partner.profile.contact.phone"
+        />
+      </label>
+
+      <label>
+        Note de clôture
+        <textarea
+          autoResize
+          name="partner-closing-note"
+          [(ngModel)]="homeData.partner.closingNote"
+          rows="2"
+        ></textarea>
+      </label>
+    </section>
+  </form>
+}

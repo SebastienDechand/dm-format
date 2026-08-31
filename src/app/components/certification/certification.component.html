@@ -1,99 +1,13 @@
 <section class="certification">
   <div class="certification-container">
-    <!-- <div class="certification-logo">
-    <img [src]="certificationData?.certificateImage" alt="Qualiopi" />
-  </div> -->
     <div class="certification-content">
-      <!-- Title -->
       <h2>
-        @if (!editMode['certTitle']) {
-          <span [innerHTML]="certificationData?.title | safeHtml"></span>
-        }
-        @if (editMode['certTitle']) {
-          <textarea
-            autoResize
-            [(ngModel)]="certificationData.title"
-            (blur)="toggleEditMode('certTitle')"
-            class="edit-textarea"
-          ></textarea>
-        }
-        @if (isAdmin()) {
-          <app-edit-button
-            (editClicked)="toggleEditMode('certTitle')"
-            class="edit-btn"
-          ></app-edit-button>
-        }
+        <span [innerHTML]="certificationData?.title | safeHtml"></span>
       </h2>
 
-      <!-- Description -->
-      <p>
-        @if (!editMode['certDescription']) {
-          <span>{{ certificationData?.description }}</span>
-        }
-        @if (editMode['certDescription']) {
-          <textarea
-            autoResize
-            [(ngModel)]="certificationData.description"
-            (blur)="toggleEditMode('certDescription')"
-            class="edit-textarea"
-          ></textarea>
-        }
-        @if (isAdmin()) {
-          <app-edit-button
-            (editClicked)="toggleEditMode('certDescription')"
-            class="edit-btn"
-          ></app-edit-button>
-        }
-      </p>
+      <p>{{ certificationData?.description }}</p>
 
-      <!-- Additional Info -->
-      <p>
-        @if (!editMode['certAdditionalInfo']) {
-          <span>{{ certificationData?.additionalInfo }}</span>
-        }
-        @if (editMode['certAdditionalInfo']) {
-          <textarea
-            autoResize
-            [(ngModel)]="certificationData.additionalInfo"
-            (blur)="toggleEditMode('certAdditionalInfo')"
-            class="edit-textarea"
-          ></textarea>
-        }
-        @if (isAdmin()) {
-          <app-edit-button
-            (editClicked)="toggleEditMode('certAdditionalInfo')"
-            class="edit-btn"
-          ></app-edit-button>
-        }
-      </p>
-
-      <!-- Certificate Link
-    <div>
-      <a
-        *ngIf="certificationData?.certificateLink && !editMode['certLink']"
-        [href]="certificationData?.certificateLink"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="certification-button"
-        type="application/pdf"
-        >
-        Voir le certificat
-      </a>
-
-      <div *ngIf="editMode['certLink']" class="link-editor">
-        <input
-          [(ngModel)]="certificationData.certificateLink"
-          (blur)="toggleEditMode('certLink')"
-          class="edit-input"
-          placeholder="URL du certificat"
-          />
-        </div>
-        <app-edit-button
-          *ngIf="isAdmin$ | async"
-          (editClicked)="toggleEditMode('certLink')"
-          class="edit-btn"
-        ></app-edit-button>
-      </div> -->
+      <p>{{ certificationData?.additionalInfo }}</p>
     </div>
 
     <!-- 📎 Panneau des documents de certification -->
@@ -119,39 +33,15 @@
                 />
                 <span class="pdf-title">{{ pdf.title | slice: 0 : -4 }}</span>
               </a>
-              @if (isAdmin()) {
-                <button class="delete-btn" (click)="deletePdf(pdf)">
-                  <svg lucideIcon="trash-2"></svg> Supprimer
-                </button>
-              }
             </li>
           }
         </ul>
       }
 
-      @if (!hasPdfs && !isAdmin()) {
+      @if (!hasPdfs) {
         <p class="documents-empty">
           Les documents de certification seront bientôt disponibles ici.
         </p>
-      }
-
-      <!-- 📤 Upload PDF -->
-      @if (isAdmin()) {
-        <div class="pdf-upload">
-          <p>Ajouter un certificat PDF</p>
-          <input
-            type="file"
-            accept="application/pdf"
-            (change)="onPdfFileSelected($event)"
-          />
-          <button
-            class="upload-btn"
-            (click)="uploadSelectedPdf()"
-            [disabled]="!selectedPdfFile"
-          >
-            Uploader le PDF
-          </button>
-        </div>
       }
     </div>
   </div>
