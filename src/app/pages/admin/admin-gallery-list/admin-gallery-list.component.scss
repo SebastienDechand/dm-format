@@ -1,0 +1,124 @@
+.admin-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--h4-size-desktop);
+    color: var(--dark-color);
+    margin: 0;
+  }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--button-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: var(--radius-control);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  &:hover {
+    background: var(--button-color-hover);
+  }
+
+  &.disabled {
+    background: var(--secondary-color);
+    cursor: not-allowed;
+  }
+}
+
+.admin-hint {
+  color: var(--secondary-color);
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-6);
+}
+
+.gallery-card {
+  background: var(--light-color);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.gallery-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+}
+
+.gallery-card-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--primary-tint);
+  color: var(--primary-color);
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  &:hover {
+    background: var(--background-color-dark);
+  }
+
+  &.danger {
+    background: var(--danger-tint);
+    color: var(--danger);
+
+    &:hover {
+      background: var(--danger);
+      color: var(--light-color);
+    }
+  }
+}

@@ -22,6 +22,14 @@ export class GalleryService {
     this.loadGallery();
   }
 
+  getImageById(id: string): Observable<GalleryImage> {
+    const cached = this.images().find((img) => img._id === id);
+    if (cached) {
+      return of(cached);
+    }
+    return this.http.get<GalleryImage>(`${this.apiUrl}/gallery/${id}`);
+  }
+
   public loadGallery(): void {
     this.loading.set(true);
     this.http

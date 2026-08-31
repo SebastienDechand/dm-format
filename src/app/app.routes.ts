@@ -49,6 +49,20 @@ export const routes: Routes = [
           ).then((m) => m.AdminTrainingFormComponent),
         resolve: { program: TrainingResolver },
       },
+      {
+        path: 'gallery',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-gallery-list/admin-gallery-list.component'
+          ).then((m) => m.AdminGalleryListComponent),
+      },
+      {
+        path: 'gallery/:id',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-gallery-form/admin-gallery-form.component'
+          ).then((m) => m.AdminGalleryFormComponent),
+      },
     ],
   },
   {

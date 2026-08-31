@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import {
   LucideDynamicIcon,
   LucideGraduationCap,
+  LucideImages,
   LucideLogOut,
   provideLucideIcons,
 } from '@lucide/angular';
@@ -12,7 +13,9 @@ import {
   selector: 'app-admin-layout',
   standalone: true,
   imports: [RouterLink, RouterOutlet, LucideDynamicIcon],
-  providers: [provideLucideIcons(LucideGraduationCap, LucideLogOut)],
+  providers: [
+    provideLucideIcons(LucideGraduationCap, LucideImages, LucideLogOut),
+  ],
   templateUrl: './admin-layout.component.html',
   styleUrl: './admin-layout.component.scss',
 })

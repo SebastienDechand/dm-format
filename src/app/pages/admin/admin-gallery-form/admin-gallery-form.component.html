@@ -1,0 +1,45 @@
+@if (image) {
+  <div class="admin-form-header">
+    <div>
+      <a routerLink="/admin/gallery" class="back-link">← Galerie</a>
+      <h1>{{ image.title }}</h1>
+    </div>
+    <button
+      type="button"
+      class="btn-primary"
+      [disabled]="saving"
+      (click)="save()"
+    >
+      {{ saving ? 'Enregistrement…' : 'Enregistrer' }}
+    </button>
+  </div>
+
+  <form class="admin-form" (ngSubmit)="save()">
+    <section class="form-card">
+      <img [src]="image.src" [alt]="image.title" class="image-preview" />
+
+      <label>
+        Titre
+        <input type="text" name="title" [(ngModel)]="image.title" />
+      </label>
+
+      <label>
+        Description
+        <textarea
+          name="description"
+          [(ngModel)]="image.description"
+          rows="3"
+        ></textarea>
+      </label>
+    </section>
+
+    <button
+      type="button"
+      class="delete-link"
+      (click)="deleteImage()"
+    >
+      <svg lucideIcon="trash-2"></svg>
+      Supprimer cette image
+    </button>
+  </form>
+}

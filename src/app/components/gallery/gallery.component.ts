@@ -9,28 +9,18 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { GalleryImage } from '../../models/gallery.models';
-import { AdminService } from '../../services/admin.service';
 import { GalleryService } from '../../services/gallery.service';
-import { ConfirmDialogGalleryComponent } from '../confirm-dialog-gallery/confirm-dialog-gallery.component';
-import { environment } from '../../../environments/environment';
 import { isPlatformBrowser } from '@angular/common';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import {
-  LucideDynamicIcon,
-  LucideTrash2,
-  LucideX,
-  LucideUpload,
-  provideLucideIcons,
-} from '@lucide/angular';
+import { LucideDynamicIcon, LucideX, provideLucideIcons } from '@lucide/angular';
+
 @Component({
   selector: 'app-gallery',
   standalone: true,
   templateUrl: './gallery.component.html',
   styleUrls: ['./gallery.component.scss'],
-  imports: [CommonModule, ConfirmDialogGalleryComponent, LucideDynamicIcon],
-  providers: [
-    provideLucideIcons(LucideTrash2, LucideX, LucideUpload),
-  ],
+  imports: [CommonModule, LucideDynamicIcon],
+  providers: [provideLucideIcons(LucideX)],
 })
 export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
   private galleryService = inject(GalleryService);
@@ -39,16 +29,9 @@ export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
   readonly images = this.galleryService.images;
   readonly isLoading = this.galleryService.loading;
   selectedImage: GalleryImage | null = null;
-  showDeleteModal: boolean = false;
-  deleteImageId: string | null = null;
-  cloudName = environment.cloudinary.cloudName;
-  uploadPreset = environment.cloudinary.upload_preset;
   isDesktop = false;
   private isBrowser: boolean;
   private breakpointObserver = inject(BreakpointObserver);
-
-  private adminService: AdminService = inject(AdminService);
-  readonly isAdmin = this.adminService.isAdmin;
 
   constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
@@ -88,35 +71,6 @@ export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
 
   closeLightbox(): void {
     this.selectedImage = null;
-  }
-
-  uploadImage(event: any): void {
-    const file = event.target.files[0];
-    if (!file) {
-      return;
-    }
-
-    this.galleryService.uploadImage(file).subscribe({
-      next: (image) => console.log('Image uploadée avec succès:', image),
-      error: (error) => console.error("Erreur lors de l'upload:", error),
-    });
-  }
-
-  openDeleteModal(imageId: string) {
-    this.deleteImageId = imageId;
-    this.showDeleteModal = true;
-  }
-
-  closeDeleteModal() {
-    this.showDeleteModal = false;
-    this.deleteImageId = null;
-  }
-
-  confirmDelete() {
-    if (this.deleteImageId) {
-      this.galleryService.deleteImage(this.deleteImageId);
-    }
-    this.closeDeleteModal();
   }
 
   // Méthode pour forcer le rechargement des images

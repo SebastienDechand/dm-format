@@ -1,0 +1,50 @@
+<div class="admin-list-header">
+  <h1>Galerie</h1>
+  <label class="btn-primary" [class.disabled]="uploading">
+    <svg lucideIcon="upload"></svg>
+    {{ uploading ? 'Envoi…' : 'Ajouter une image' }}
+    <input
+      type="file"
+      accept="image/*"
+      hidden
+      [disabled]="uploading"
+      (change)="onFileSelected($event)"
+    />
+  </label>
+</div>
+
+@if (loading()) {
+  <p class="admin-hint">Chargement…</p>
+} @else if (images().length === 0) {
+  <p class="admin-hint">Aucune image pour le moment.</p>
+} @else {
+  <div class="gallery-grid">
+    @for (image of images(); track image._id) {
+      <div class="gallery-card">
+        <img [src]="image.src" [alt]="image.title" loading="lazy" />
+        <div class="gallery-card-footer">
+          <span class="gallery-card-title">{{ image.title }}</span>
+          <span class="row-actions">
+            <a
+              [routerLink]="['/admin/gallery', image._id]"
+              class="icon-btn"
+              aria-label="Modifier"
+              title="Modifier"
+            >
+              <svg lucideIcon="pencil"></svg>
+            </a>
+            <button
+              type="button"
+              class="icon-btn danger"
+              (click)="deleteImage(image)"
+              aria-label="Supprimer"
+              title="Supprimer"
+            >
+              <svg lucideIcon="trash-2"></svg>
+            </button>
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+}
