@@ -167,17 +167,21 @@
           }
         </ul>
       </div>
-      <!-- Testimonials section -->
-      <div class="testimonials">
-        <p class="eyebrow">Témoignages</p>
-        <h2>
-          <svg lucideIcon="message-circle"></svg>
-          Avis des participants
-        </h2>
-        <app-training-testimonials
-          [programId]="program._id"
-        ></app-training-testimonials>
-      </div>
+      <!-- Testimonials aren't edited from this form (moderated separately
+           under /admin/testimonials) and the section's own submission form
+           has no place inside an admin preview. -->
+      @if (!previewMode()) {
+        <div class="testimonials">
+          <p class="eyebrow">Témoignages</p>
+          <h2>
+            <svg lucideIcon="message-circle"></svg>
+            Avis des participants
+          </h2>
+          <app-training-testimonials
+            [programId]="program._id"
+          ></app-training-testimonials>
+        </div>
+      }
     </div>
   </section>
 } @else {

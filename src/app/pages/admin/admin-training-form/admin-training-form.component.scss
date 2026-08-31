@@ -73,10 +73,172 @@
   }
 }
 
+.admin-form-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.preview-toggle {
+  &.active {
+    background: var(--primary-tint);
+    color: var(--primary-color);
+  }
+}
+
+.admin-form-layout {
+  display: block;
+}
+
 .admin-form {
   display: flex;
   flex-direction: column;
   gap: var(--space-6);
+}
+
+// Live preview: an iframe loading a bare route (PreviewFrameComponent)
+// that renders the real public program-detail page, kept in sync with
+// this form's unsaved `program` over postMessage (see the component's
+// preview* methods). A real iframe - rather than embedding the page
+// directly - gives it its own independent viewport, so its actual
+// mobile/tablet/desktop CSS breakpoints kick in for real instead of just
+// showing the desktop layout scaled down.
+.preview-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--light-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.preview-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border-color);
+  flex-shrink: 0;
+}
+
+.preview-device-switch {
+  display: flex;
+  gap: 2px;
+}
+
+.preview-device-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: var(--radius-control);
+  background: none;
+  color: var(--secondary-color);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  &:hover {
+    background: var(--background-color);
+    color: var(--dark-color);
+  }
+
+  &.active {
+    background: var(--primary-tint);
+    color: var(--primary-color);
+  }
+}
+
+.preview-panel-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.preview-panel-body {
+  flex: 1;
+  // Without this, a flex item won't shrink below its own content height -
+  // tall content just grew past the panel's max-height and got clipped by
+  // its overflow: hidden instead of scrolling, silently cutting content off.
+  min-height: 0;
+  overflow: auto;
+  background: var(--background-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--space-4);
+}
+
+// The iframe is always laid out at its real device width/height (so its
+// own media queries evaluate correctly) and then visually shrunk with a
+// transform to fit the panel - the wrapper is sized to the already-scaled
+// footprint so it doesn't leave dead space around it.
+.preview-frame-scale {
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-control);
+}
+
+.preview-frame {
+  display: block;
+  border: none;
+  transform-origin: top left;
+}
+
+.preview-panel-note {
+  flex-shrink: 0;
+  margin: var(--space-3) 0 0;
+  font-size: 0.78rem;
+  color: var(--secondary-color);
+  text-align: center;
+}
+
+@media (min-width: 1180px) {
+  .admin-form-layout.preview-open {
+    display: grid;
+    // Proportional 60/40 split instead of a fixed px column - a fixed cap
+    // was either too narrow (small preview) or, uncapped, too wide (huge
+    // dead margins around the scaled-down mockup on a big monitor).
+    grid-template-columns: minmax(380px, 3fr) minmax(420px, 2fr);
+    align-items: start;
+    gap: var(--space-6);
+  }
+
+  .preview-panel {
+    position: sticky;
+    top: 0;
+    max-height: 100vh;
+  }
+}
+
+// Below that, there isn't room for a real side-by-side split - the toggle
+// swaps the form out for a full-width preview instead of stacking both.
+@media (max-width: 1179.98px) {
+  .admin-form-layout.preview-open .admin-form {
+    display: none;
+  }
+
+  .preview-panel-body {
+    max-height: none;
+  }
 }
 
 // Hidden on desktop - the header's own Enregistrer button is reachable
