@@ -65,8 +65,7 @@ export class LoginComponent {
     this.authService.login({ email, password }).subscribe({
       next: () => {
         const returnUrl =
-          this.route.snapshot.queryParamMap.get('returnUrl') ||
-          '/admin/trainings';
+          this.route.snapshot.queryParamMap.get('returnUrl') || '/admin';
         this.router.navigateByUrl(returnUrl);
         this.toast.success('Connexion réussie !');
       },

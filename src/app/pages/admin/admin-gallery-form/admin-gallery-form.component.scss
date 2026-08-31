@@ -51,6 +51,17 @@
   max-width: 480px;
 }
 
+@media (max-width: 640px) {
+  .admin-form-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-form {
+    max-width: none;
+  }
+}
+
 .form-card {
   background: var(--light-color);
   border-radius: var(--radius-card);
