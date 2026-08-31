@@ -1,0 +1,372 @@
+<div class="admin-form-header">
+  <h1>Organisation</h1>
+  <button
+    type="button"
+    class="btn-primary"
+    [disabled]="saving"
+    (click)="save()"
+  >
+    {{ saving ? 'Enregistrement…' : 'Enregistrer les modifications' }}
+  </button>
+</div>
+
+<form class="admin-form" (ngSubmit)="save()">
+  <section class="form-card">
+    <h2>En-tête</h2>
+    <label>
+      Titre
+      <input type="text" name="header-title" [(ngModel)]="data.header.title" />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="header-description"
+        [(ngModel)]="data.header.description"
+        rows="3"
+      ></textarea>
+    </label>
+    <label class="field-label">Image</label>
+    <app-editable-image
+      pageId="organisation-header"
+      [imageSrc]="data.header.image.src"
+      [altText]="data.header.image.alt"
+      imageClass="admin-image-preview"
+      [isEditable]="true"
+      (imageUploaded)="onHeaderImageUploaded($event)"
+    ></app-editable-image>
+  </section>
+
+  <section class="form-card">
+    <h2>Documents PDF</h2>
+    <div class="pdf-upload-row">
+      <input type="file" accept="application/pdf" (change)="onPdfFileSelected($event)" />
+      <button
+        type="button"
+        class="btn-secondary"
+        [disabled]="!selectedPdfFile"
+        (click)="uploadSelectedPdf()"
+      >
+        <svg lucideIcon="upload"></svg>
+        Ajouter
+      </button>
+    </div>
+
+    @if (pdfs.length > 0) {
+      <ul class="pdf-list">
+        @for (pdf of pdfs; track pdf.publicId) {
+          <li>
+            <span>{{ pdf.title }}</span>
+            <button
+              type="button"
+              class="icon-btn danger"
+              (click)="deletePdf(pdf)"
+              aria-label="Supprimer"
+            >
+              <svg lucideIcon="trash-2"></svg>
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </section>
+
+  <section class="form-card">
+    <h2>Introduction</h2>
+    <label>
+      Titre
+      <input type="text" name="intro-title" [(ngModel)]="data.intro.title" />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="intro-description"
+        [(ngModel)]="data.intro.description"
+        rows="3"
+      ></textarea>
+    </label>
+  </section>
+
+  <section class="form-card">
+    <h2>Conditions générales</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="gc-title"
+        [(ngModel)]="data.general_conditions.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="gc-description"
+        [(ngModel)]="data.general_conditions.description"
+        rows="3"
+      ></textarea>
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Points</span>
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="addGeneralConditionPoint()"
+      >
+        <svg lucideIcon="plus"></svg>
+        Ajouter un point
+      </button>
+    </div>
+    @for (point of data.general_conditions.points; track $index; let i = $index) {
+      <div class="sub-item">
+        <div class="sub-item-header">
+          <input
+            type="text"
+            placeholder="Icône (ex: shield-check)"
+            [(ngModel)]="data.general_conditions.points[i].icon"
+            [name]="'gc-icon-' + i"
+            class="icon-input"
+          />
+          <input
+            type="text"
+            placeholder="Titre"
+            [(ngModel)]="data.general_conditions.points[i].title"
+            [name]="'gc-point-title-' + i"
+          />
+          <button
+            type="button"
+            class="icon-btn danger"
+            (click)="removeGeneralConditionPoint(i)"
+            aria-label="Supprimer"
+          >
+            <svg lucideIcon="trash-2"></svg>
+          </button>
+        </div>
+        <textarea
+          autoResize
+          placeholder="Description"
+          [(ngModel)]="data.general_conditions.points[i].description"
+          [name]="'gc-point-description-' + i"
+          rows="2"
+        ></textarea>
+      </div>
+    }
+  </section>
+
+  <section class="form-card">
+    <h2>Certification</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="cert-title"
+        [(ngModel)]="data.certification.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="cert-description"
+        [(ngModel)]="data.certification.description"
+        rows="3"
+      ></textarea>
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Détails</span>
+      <button
+        type="button"
+        class="btn-secondary"
+        (click)="addCertificationDetail()"
+      >
+        <svg lucideIcon="plus"></svg>
+        Ajouter
+      </button>
+    </div>
+    @for (detail of data.certification.details; track $index; let i = $index) {
+      <div class="list-row">
+        <input
+          type="text"
+          [(ngModel)]="data.certification.details[i]"
+          [name]="'cert-detail-' + i"
+        />
+        <button
+          type="button"
+          class="icon-btn danger"
+          (click)="removeCertificationDetail(i)"
+          aria-label="Supprimer"
+        >
+          <svg lucideIcon="trash-2"></svg>
+        </button>
+      </div>
+    }
+
+    <label>
+      Note
+      <textarea
+        autoResize
+        name="cert-note"
+        [(ngModel)]="data.certification.note"
+        rows="2"
+      ></textarea>
+    </label>
+  </section>
+
+  <section class="form-card">
+    <h2>Obligations</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="obl-title"
+        [(ngModel)]="data.obligations.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="obl-description"
+        [(ngModel)]="data.obligations.description"
+        rows="3"
+      ></textarea>
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Points</span>
+      <button type="button" class="btn-secondary" (click)="addObligationPoint()">
+        <svg lucideIcon="plus"></svg>
+        Ajouter un point
+      </button>
+    </div>
+    @for (point of data.obligations.points; track $index; let i = $index) {
+      <div class="sub-item">
+        <div class="sub-item-header">
+          <input
+            type="text"
+            placeholder="Icône (ex: shield-check)"
+            [(ngModel)]="data.obligations.points[i].icon"
+            [name]="'obl-icon-' + i"
+            class="icon-input"
+          />
+          <input
+            type="text"
+            placeholder="Titre"
+            [(ngModel)]="data.obligations.points[i].title"
+            [name]="'obl-point-title-' + i"
+          />
+          <button
+            type="button"
+            class="icon-btn danger"
+            (click)="removeObligationPoint(i)"
+            aria-label="Supprimer"
+          >
+            <svg lucideIcon="trash-2"></svg>
+          </button>
+        </div>
+        <textarea
+          autoResize
+          placeholder="Description"
+          [(ngModel)]="data.obligations.points[i].description"
+          [name]="'obl-point-description-' + i"
+          rows="2"
+        ></textarea>
+      </div>
+    }
+
+    <label>
+      Note
+      <textarea
+        autoResize
+        name="obl-note"
+        [(ngModel)]="data.obligations.note"
+        rows="2"
+      ></textarea>
+    </label>
+  </section>
+
+  <section class="form-card">
+    <h2>Financement</h2>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="fin-title"
+        [(ngModel)]="data.financing.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="fin-description"
+        [(ngModel)]="data.financing.description"
+        rows="3"
+      ></textarea>
+    </label>
+
+    <h3 class="sub-heading">OPCO</h3>
+    <label>
+      Titre
+      <input
+        type="text"
+        name="opco-title"
+        [(ngModel)]="data.financing.opco.title"
+      />
+    </label>
+    <label>
+      Description
+      <textarea
+        autoResize
+        name="opco-description"
+        [(ngModel)]="data.financing.opco.description"
+        rows="2"
+      ></textarea>
+    </label>
+
+    <label>
+      Sous-titre des étapes
+      <input
+        type="text"
+        name="fin-subtitle"
+        [(ngModel)]="data.financing.subtitle"
+      />
+    </label>
+
+    <div class="form-card-header">
+      <span class="field-label">Étapes</span>
+      <button type="button" class="btn-secondary" (click)="addFinancingStep()">
+        <svg lucideIcon="plus"></svg>
+        Ajouter une étape
+      </button>
+    </div>
+    @for (step of data.financing.steps; track $index; let i = $index) {
+      <div class="sub-item-header">
+        <input
+          type="text"
+          placeholder="Icône (ex: check)"
+          [(ngModel)]="data.financing.steps[i].icon"
+          [name]="'fin-step-icon-' + i"
+          class="icon-input"
+        />
+        <input
+          type="text"
+          placeholder="Texte de l'étape"
+          [(ngModel)]="data.financing.steps[i].text"
+          [name]="'fin-step-text-' + i"
+        />
+        <button
+          type="button"
+          class="icon-btn danger"
+          (click)="removeFinancingStep(i)"
+          aria-label="Supprimer"
+        >
+          <svg lucideIcon="trash-2"></svg>
+        </button>
+      </div>
+    }
+  </section>
+</form>

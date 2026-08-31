@@ -71,6 +71,14 @@ export const routes: Routes = [
           ).then((m) => m.AdminAboutFormComponent),
         resolve: { aboutData: AboutResolver },
       },
+      {
+        path: 'organisation',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-organisation-form/admin-organisation-form.component'
+          ).then((m) => m.AdminOrganisationFormComponent),
+        resolve: { organisationData: OrganisationResolver },
+      },
     ],
   },
   {

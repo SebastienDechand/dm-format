@@ -21,57 +21,19 @@
             </svg>
             Modalités
           </p>
-          <h1>
-            @if (!editMode()['header.title']) {
-              <span>{{ organisationData.header.title }}</span>
-            }
-            @if (editMode()['header.title']) {
-              <textarea
-                autoResize
-                [(ngModel)]="organisationData.header.title"
-                class="edit-textarea"
-                (blur)="toggleEditMode('header.title')"
-              ></textarea>
-            }
-            @if (isAdmin()) {
-              <app-edit-button
-                (editClicked)="toggleEditMode('header.title')"
-              ></app-edit-button>
-            }
-          </h1>
-          <p>
-            @if (!editMode()['header.description']) {
-              <span>{{ organisationData.header.description }}</span>
-            }
-            @if (editMode()['header.description']) {
-              <textarea
-                autoResize
-                [(ngModel)]="organisationData.header.description"
-                class="edit-textarea"
-                (blur)="toggleEditMode('header.description')"
-              ></textarea>
-            }
-            @if (isAdmin()) {
-              <app-edit-button
-                (editClicked)="toggleEditMode('header.description')"
-              ></app-edit-button>
-            }
-          </p>
+          <h1>{{ organisationData.header.title }}</h1>
+          <p>{{ organisationData.header.description }}</p>
         </div>
         <div class="banner-image">
-          @if (imageRefreshTrigger.header) {
-            <app-editable-image
-              pageId="organisation-header"
-              [imageSrc]="organisationData.header.image.src || ''"
-              [altText]="
-                organisationData.header.image.alt ||
-                'Image d\'en-tête Modalités d\'organisation'
-              "
-              imageClass="organisation-banner-image"
-              [isEditable]="isAdmin()"
-              (imageUploaded)="onHeaderImageUploaded($event)"
-            ></app-editable-image>
-          }
+          <img
+            [src]="organisationData.header.image.src"
+            [alt]="
+              organisationData.header.image.alt ||
+              'Image d\'en-tête Modalités d\'organisation'
+            "
+            class="organisation-banner-image"
+            loading="lazy"
+          />
         </div>
       </div>
       <!-- 📌 Introduction + documents -->
@@ -94,42 +56,8 @@
             </svg>
             Présentation
           </p>
-          <h3>
-            @if (!editMode()['intro.title']) {
-              <span>{{ organisationData.intro.title }}</span>
-            }
-            @if (editMode()['intro.title']) {
-              <textarea
-                autoResize
-                [(ngModel)]="organisationData.intro.title"
-                class="edit-textarea"
-                (blur)="toggleEditMode('intro.title')"
-              ></textarea>
-            }
-            @if (isAdmin()) {
-              <app-edit-button
-                (editClicked)="toggleEditMode('intro.title')"
-              ></app-edit-button>
-            }
-          </h3>
-          <p>
-            @if (!editMode()['intro.description']) {
-              <span>{{ organisationData.intro.description }}</span>
-            }
-            @if (editMode()['intro.description']) {
-              <textarea
-                autoResize
-                [(ngModel)]="organisationData.intro.description"
-                class="edit-textarea"
-                (blur)="toggleEditMode('intro.description')"
-              ></textarea>
-            }
-            @if (isAdmin()) {
-              <app-edit-button
-                (editClicked)="toggleEditMode('intro.description')"
-              ></app-edit-button>
-            }
-          </p>
+          <h3>{{ organisationData.intro.title }}</h3>
+          <p>{{ organisationData.intro.description }}</p>
         </div>
 
         <!-- 📎 Panneau des documents -->
@@ -157,39 +85,15 @@
                       pdf.title | slice: 0 : -4
                     }}</span>
                   </a>
-                  @if (isAdmin()) {
-                    <button class="delete-btn" (click)="deletePdf(pdf)">
-                      <svg lucideIcon="trash-2"></svg> Supprimer
-                    </button>
-                  }
                 </li>
               }
             </ul>
           }
 
-          @if (!hasPdfs && !isAdmin()) {
+          @if (!hasPdfs) {
             <p class="documents-empty">
               Les documents seront bientôt disponibles ici.
             </p>
-          }
-
-          <!-- 📤 Upload PDF -->
-          @if (isAdmin()) {
-            <div class="pdf-upload">
-              <p>Ajouter un PDF à la page</p>
-              <input
-                type="file"
-                accept="application/pdf"
-                (change)="onPdfFileSelected($event)"
-              />
-              <button
-                class="upload-btn"
-                (click)="uploadSelectedPdf()"
-                [disabled]="!selectedPdfFile"
-              >
-                Uploader le PDF
-              </button>
-            </div>
           }
         </div>
       </div>
@@ -213,44 +117,8 @@
           </svg>
           Conditions générales
         </p>
-        <h3>
-          @if (!editMode()['general_conditions.title']) {
-            <span>{{ organisationData.general_conditions.title }}</span>
-          }
-          @if (editMode()['general_conditions.title']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.general_conditions.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('general_conditions.title')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('general_conditions.title')"
-            ></app-edit-button>
-          }
-        </h3>
-        <p>
-          @if (!editMode()['general_conditions.description']) {
-            <span
-              [innerHTML]="organisationData.general_conditions.description"
-            ></span>
-          }
-          @if (editMode()['general_conditions.description']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.general_conditions.description"
-              class="edit-textarea"
-              (blur)="toggleEditMode('general_conditions.description')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('general_conditions.description')"
-            ></app-edit-button>
-          }
-        </p>
+        <h3>{{ organisationData.general_conditions.title }}</h3>
+        <p [innerHTML]="organisationData.general_conditions.description"></p>
         <div class="conditions-grid">
           @for (
             point of organisationData.general_conditions.points;
@@ -262,63 +130,9 @@
                 <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
               </span>
               <p>
-                <strong>
-                  @if (!editMode()['general_conditions.points.' + i + '.title']) {
-                    <span>{{ point.title }}</span>
-                  }
-                  @if (editMode()['general_conditions.points.' + i + '.title']) {
-                    <textarea
-                      autoResize
-                      [(ngModel)]="point.title"
-                      class="edit-textarea"
-                      (blur)="
-                        toggleEditMode(
-                          'general_conditions.points.' + i + '.title'
-                        )
-                      "
-                    ></textarea>
-                  }
-                  @if (isAdmin()) {
-                    <app-edit-button
-                      (editClicked)="
-                        toggleEditMode(
-                          'general_conditions.points.' + i + '.title'
-                        )
-                      "
-                    ></app-edit-button>
-                  }
-                </strong>
+                <strong>{{ point.title }}</strong>
               </p>
-              <p>
-                @if (
-                  !editMode()['general_conditions.points.' + i + '.description']
-                ) {
-                  <span>{{ point.description }}</span>
-                }
-                @if (
-                  editMode()['general_conditions.points.' + i + '.description']
-                ) {
-                  <textarea
-                    autoResize
-                    [(ngModel)]="point.description"
-                    class="edit-textarea"
-                    (blur)="
-                      toggleEditMode(
-                        'general_conditions.points.' + i + '.description'
-                      )
-                    "
-                  ></textarea>
-                }
-                @if (isAdmin()) {
-                  <app-edit-button
-                    (editClicked)="
-                      toggleEditMode(
-                        'general_conditions.points.' + i + '.description'
-                      )
-                    "
-                  ></app-edit-button>
-                }
-              </p>
+              <p>{{ point.description }}</p>
             </div>
           }
         </div>
@@ -344,44 +158,8 @@
               </svg>
               Certification
             </p>
-            <h3>
-              @if (!editMode()['certification.title']) {
-                <span>{{ organisationData.certification.title }}</span>
-              }
-              @if (editMode()['certification.title']) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.certification.title"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('certification.title')"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('certification.title')"
-                ></app-edit-button>
-              }
-            </h3>
-            <p>
-              @if (!editMode()['certification.description']) {
-                <span
-                  [innerHTML]="organisationData.certification.description"
-                ></span>
-              }
-              @if (editMode()['certification.description']) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.certification.description"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('certification.description')"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('certification.description')"
-                ></app-edit-button>
-              }
-            </p>
+            <h3>{{ organisationData.certification.title }}</h3>
+            <p [innerHTML]="organisationData.certification.description"></p>
           </div>
           @for (
             detail of organisationData.certification.details;
@@ -392,22 +170,7 @@
               <span class="badge"
                 ><svg lucideIcon="graduation-cap"></svg
               ></span>
-              @if (!editMode()['certification.details.' + i]) {
-                <span [innerHTML]="detail | safeHtml"></span>
-              }
-              @if (editMode()['certification.details.' + i]) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.certification.details[i]"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('certification.details.' + i)"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('certification.details.' + i)"
-                ></app-edit-button>
-              }
+              <span [innerHTML]="detail | safeHtml"></span>
             </div>
           }
         </div>
@@ -426,24 +189,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <p class="note">
-            @if (!editMode()['certification.note']) {
-              <span>{{ organisationData.certification.note }}</span>
-            }
-            @if (editMode()['certification.note']) {
-              <textarea
-                autoResize
-                [(ngModel)]="organisationData.certification.note"
-                class="edit-textarea"
-                (blur)="toggleEditMode('certification.note')"
-              ></textarea>
-            }
-            @if (isAdmin()) {
-              <app-edit-button
-                (editClicked)="toggleEditMode('certification.note')"
-              ></app-edit-button>
-            }
-          </p>
+          <p class="note">{{ organisationData.certification.note }}</p>
         </div>
       </div>
       <!-- 🏆 Engagement des participants -->
@@ -465,42 +211,8 @@
           </svg>
           Engagement des participants
         </p>
-        <h3>
-          @if (!editMode()['obligations.title']) {
-            <span>{{ organisationData.obligations.title }}</span>
-          }
-          @if (editMode()['obligations.title']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.obligations.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('obligations.title')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('obligations.title')"
-            ></app-edit-button>
-          }
-        </h3>
-        <p>
-          @if (!editMode()['obligations.description']) {
-            <span [innerHTML]="organisationData.obligations.description"></span>
-          }
-          @if (editMode()['obligations.description']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.obligations.description"
-              class="edit-textarea"
-              (blur)="toggleEditMode('obligations.description')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('obligations.description')"
-            ></app-edit-button>
-          }
-        </p>
+        <h3>{{ organisationData.obligations.title }}</h3>
+        <p [innerHTML]="organisationData.obligations.description"></p>
         <div class="obligations-grid">
           @for (
             point of organisationData.obligations.points;
@@ -512,72 +224,13 @@
                 <app-dynamic-icon [faClass]="point.icon"></app-dynamic-icon>
               </span>
               <p>
-                <strong>
-                  @if (!editMode()['obligations.points.' + i + '.title']) {
-                    <span>{{ point.title }}</span>
-                  }
-                  @if (editMode()['obligations.points.' + i + '.title']) {
-                    <textarea
-                      autoResize
-                      [(ngModel)]="point.title"
-                      class="edit-textarea"
-                      (blur)="
-                        toggleEditMode('obligations.points.' + i + '.title')
-                      "
-                    ></textarea>
-                  }
-                  @if (isAdmin()) {
-                    <app-edit-button
-                      (editClicked)="
-                        toggleEditMode('obligations.points.' + i + '.title')
-                      "
-                    ></app-edit-button>
-                  }
-                </strong>
+                <strong>{{ point.title }}</strong>
               </p>
-              <p>
-                @if (!editMode()['obligations.points.' + i + '.description']) {
-                  <span>{{ point.description }}</span>
-                }
-                @if (editMode()['obligations.points.' + i + '.description']) {
-                  <textarea
-                    autoResize
-                    [(ngModel)]="point.description"
-                    class="edit-textarea"
-                    (blur)="
-                      toggleEditMode('obligations.points.' + i + '.description')
-                    "
-                  ></textarea>
-                }
-                @if (isAdmin()) {
-                  <app-edit-button
-                    (editClicked)="
-                      toggleEditMode('obligations.points.' + i + '.description')
-                    "
-                  ></app-edit-button>
-                }
-              </p>
+              <p>{{ point.description }}</p>
             </div>
           }
         </div>
-        <p class="note">
-          @if (!editMode()['obligations.note']) {
-            <span>{{ organisationData.obligations.note }}</span>
-          }
-          @if (editMode()['obligations.note']) {
-            <textarea
-              autoResize
-              [(ngModel)]="organisationData.obligations.note"
-              class="edit-textarea"
-              (blur)="toggleEditMode('obligations.note')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('obligations.note')"
-            ></app-edit-button>
-          }
-        </p>
+        <p class="note">{{ organisationData.obligations.note }}</p>
       </div>
       <!-- 💰 Financement par les OPCO -->
       <div class="finances">
@@ -600,145 +253,20 @@
               </svg>
               Financement
             </p>
-            <h3>
-              @if (!editMode()['financing.title']) {
-                <span>{{ organisationData.financing.title }}</span>
-              }
-              @if (editMode()['financing.title']) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.financing.title"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('financing.title')"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('financing.title')"
-                ></app-edit-button>
-              }
-            </h3>
-            <p>
-              @if (!editMode()['financing.description']) {
-                <span
-                  [innerHTML]="
-                    organisationData.financing.description | safeHtml
-                  "
-                ></span>
-              }
-              @if (editMode()['financing.description']) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.financing.description"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('financing.description')"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('financing.description')"
-                ></app-edit-button>
-              }
-            </p>
+            <h3>{{ organisationData.financing.title }}</h3>
+            <p
+              [innerHTML]="organisationData.financing.description | safeHtml"
+            ></p>
           </div>
           <div class="finance-opco">
-            <h4>
-              @if (!editMode()['financing.opco.title']) {
-                <span>{{ organisationData.financing.opco.title }}</span>
-              }
-              @if (editMode()['financing.opco.title']) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.financing.opco.title"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('financing.opco.title')"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('financing.opco.title')"
-                ></app-edit-button>
-              }
-            </h4>
-            <p class="opco-description">
-              @if (!editMode()['financing.opco.description']) {
-                <span
-                  [innerHTML]="organisationData.financing.opco.description"
-                ></span>
-              }
-              @if (editMode()['financing.opco.description']) {
-                <textarea
-                  autoResize
-                  [(ngModel)]="organisationData.financing.opco.description"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('financing.opco.description')"
-                ></textarea>
-              }
-              @if (isAdmin()) {
-                <app-edit-button
-                  (editClicked)="toggleEditMode('financing.opco.description')"
-                ></app-edit-button>
-              }
-            </p>
+            <h4>{{ organisationData.financing.opco.title }}</h4>
+            <p
+              class="opco-description"
+              [innerHTML]="organisationData.financing.opco.description"
+            ></p>
           </div>
         </div>
-        <!-- <h4 class="subtitle">
-                <span *ngIf="!editMode()['financing.subtitle']">{{
-                  organisationData.financing.subtitle
-                }}</span>
-                <textarea
-                  autoResize
-                  *ngIf="editMode()['financing.subtitle']"
-                  [(ngModel)]="organisationData.financing.subtitle"
-                  class="edit-textarea"
-                  (blur)="toggleEditMode('financing.subtitle')"
-                  />
-                  <app-edit-button
-                    *ngIf="isAdmin()"
-                    (editClicked)="toggleEditMode('financing.subtitle')"
-                  ></app-edit-button>
-                </h4>
-                <ul class="finance-steps">
-                  <li
-          *ngFor="
-            let step of organisationData.financing.steps;
-            let i = index;
-            trackBy: trackByIndex
-          "
-                    class="finance-step"
-                    >
-                    <div>
-                      <app-dynamic-icon
-                        *ngIf="!editMode()['financing.steps.' + i + '.icon']"
-                        [faClass]="step.icon"
-                      ></app-dynamic-icon>
-                    </div>
-                    <p>
-                      <span *ngIf="!editMode()['financing.steps.' + i + '.text']">{{
-                        step.text
-                      }}</span>
-                      <textarea
-                        autoResize
-                        *ngIf="editMode()['financing.steps.' + i + '.text']"
-                        [(ngModel)]="step.text"
-                        class="edit-textarea"
-                        (blur)="toggleEditMode('financing.steps.' + i + '.text')"
-                      ></textarea>
-                      <app-edit-button
-                        *ngIf="isAdmin()"
-                        (editClicked)="toggleEditMode('financing.steps.' + i + '.text')"
-                      ></app-edit-button>
-                    </p>
-                  </li>
-                </ul> -->
       </div>
-      <!-- Bouton de sauvegarde global -->
-      @if (isAdmin()) {
-        <button class="save-btn" (click)="saveChanges()">
-          <span class="save-text">Sauvegarder les modifications</span>
-          <svg lucideIcon="save" class="save-icon"></svg>
-        </button>
-      }
     </div>
   </section>
 }

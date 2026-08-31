@@ -7,6 +7,7 @@ import {
   LucideImages,
   LucideInfo,
   LucideLogOut,
+  LucideScrollText,
   provideLucideIcons,
 } from '@lucide/angular';
 
@@ -19,7 +20,8 @@ import {
       LucideGraduationCap,
       LucideImages,
       LucideInfo,
-      LucideLogOut
+      LucideLogOut,
+      LucideScrollText
     ),
   ],
   templateUrl: './admin-layout.component.html',

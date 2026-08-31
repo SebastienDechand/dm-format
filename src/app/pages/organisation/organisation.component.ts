@@ -1,72 +1,36 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {
   LucideDynamicIcon,
   LucideGraduationCap,
-  LucideSave,
-  LucideTrash2,
   provideLucideIcons,
 } from '@lucide/angular';
-import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
 import { ConditionsData } from '../../models/organisation.models';
-import { AdminService } from '../../services/admin.service';
 import { ApiService } from '../../services/api.service';
-import { EditModeService } from '../../services/edit-mode.service';
 import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { SeoService } from '../../services/seo.service';
-import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
 import { PdfFile } from '../../models/pdf.models';
-import { MatDialog } from '@angular/material/dialog';
-import { ToastService } from '../../services/toast.service';
-import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-import { AutoResizeDirective } from '../../directives/auto-resize.directive';
 import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon.component';
 
 @Component({
   selector: 'app-organisation',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    EditButtonComponent,
-    SafeHtmlPipe,
-    EditableImageComponent,
-    AutoResizeDirective,
-    LucideDynamicIcon,
-    DynamicIconComponent,
-  ],
-  providers: [
-    provideLucideIcons(LucideGraduationCap, LucideSave, LucideTrash2),
-  ],
+  imports: [CommonModule, SafeHtmlPipe, LucideDynamicIcon, DynamicIconComponent],
+  providers: [provideLucideIcons(LucideGraduationCap)],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',
 })
 export class OrganisationComponent implements OnInit {
   private apiService = inject(ApiService);
-  private adminService = inject(AdminService);
-  private editModeService = inject(EditModeService);
   private seoService = inject(SeoService);
-  private toast = inject(ToastService);
-  private dialog = inject(MatDialog);
 
   private pageId = 'organisation-documents';
 
   organisationData!: ConditionsData;
-  readonly isAdmin = this.adminService.isAdmin;
-  readonly editMode = this.editModeService.editMode;
 
   hasPdfs: boolean = false;
   pdfsData: PdfFile[] = [];
   filteredPdfs: PdfFile[] = [];
-  selectedPdfFile?: File;
-
-  imageRefreshTrigger = {
-    header: true,
-    intro: true,
-    certification: true,
-    financing: true,
-  };
 
   ngOnInit(): void {
     this.loadPdfsData();
@@ -82,48 +46,7 @@ export class OrganisationComponent implements OnInit {
     );
   }
 
-  onHeaderImageUploaded(imageData: { url: string; altText: string }): void {
-    if (!this.organisationData.header.image) {
-      this.organisationData.header.image = { src: '', alt: '' };
-    }
-    this.organisationData.header.image.src = imageData.url;
-    if (imageData.altText) {
-      this.organisationData.header.image.alt = imageData.altText;
-    }
-
-    this.saveChanges(() => {
-      this.imageRefreshTrigger.header = false;
-      setTimeout(() => (this.imageRefreshTrigger.header = true), 50);
-    });
-  }
-
-  onPdfFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedPdfFile = input.files[0];
-    }
-  }
-
-  uploadSelectedPdf() {
-    if (!this.selectedPdfFile) return;
-
-    const formData = new FormData();
-    formData.append('pdf', this.selectedPdfFile);
-    formData.append('title', this.selectedPdfFile.name);
-
-    this.apiService.uploadPagePdf(this.pageId, formData).subscribe({
-      next: () => {
-        this.toast.success('PDF uploadé avec succès !');
-        this.loadPdfsData();
-      },
-      error: (err) => {
-        console.error('Erreur upload PDF :', err);
-        this.toast.error(`Erreur : ${err.message}`);
-      },
-    });
-  }
-
-  loadPdfsData() {
+  private loadPdfsData() {
     this.apiService.getPagePdfs(this.pageId).subscribe({
       next: (res) => {
         this.pdfsData = res.data || [];
@@ -137,57 +60,6 @@ export class OrganisationComponent implements OnInit {
         this.hasPdfs = false;
       },
     });
-  }
-
-  deletePdf(pdf: PdfFile) {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        message: `Êtes-vous sûr de vouloir supprimer le PDF "${pdf.title}" ?`,
-      },
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (!confirmed) return;
-
-      this.apiService.deletePagePdf(pdf.pageId, pdf.publicId).subscribe({
-        next: () => {
-          this.toast.success('PDF supprimé avec succès !');
-          this.loadPdfsData();
-        },
-        error: (err) => {
-          console.error('Erreur suppression PDF :', err);
-          this.toast.error('Erreur lors de la suppression du PDF.');
-        },
-      });
-    });
-  }
-
-  saveChanges(callback?: () => void) {
-    this.apiService.patchOrganisation(this.organisationData).subscribe(
-      (data) => {
-        this.organisationData = data;
-        this.editModeService.resetEditModes();
-        this.updateSeo(data);
-
-        if (!callback) {
-          this.toast.success('Modifications enregistrées avec succès !');
-        }
-
-        if (callback) {
-          callback();
-        }
-      },
-      (error) => {
-        console.error('Error saving organisation page data', error);
-        this.toast.error("Erreur lors de l'enregistrement.");
-      }
-    );
-  }
-
-  toggleEditMode(field: string) {
-    if (this.isAdmin()) {
-      this.editModeService.toggleEditMode(field);
-    }
   }
 
   trackByIndex(index: number, item: any): number {
