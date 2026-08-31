@@ -8,6 +8,7 @@ import {
 import { AuthService } from '../../../services/auth.service';
 import {
   LucideDynamicIcon,
+  LucideExternalLink,
   LucideGraduationCap,
   LucideHouse,
   LucideImages,
@@ -26,6 +27,7 @@ import {
   imports: [RouterLink, RouterOutlet, LucideDynamicIcon],
   providers: [
     provideLucideIcons(
+      LucideExternalLink,
       LucideGraduationCap,
       LucideHouse,
       LucideImages,

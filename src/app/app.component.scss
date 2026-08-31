@@ -1,3 +1,12 @@
+// The fixed public header (70px) needs page content pushed below it - only
+// on public routes, since the admin area draws its own nav with nothing
+// fixed above it. Used to live as an unconditional `body { padding-top }`
+// in styles.scss, which left a matching blank gap above the admin shell
+// once the public header stopped rendering there.
+.public-content {
+  padding-top: 70px;
+}
+
 .route-progress {
   position: fixed;
   top: 0;

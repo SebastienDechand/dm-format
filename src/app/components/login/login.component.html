@@ -1,65 +1,94 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <h1>Accès Administrateur</h1>
+<section class="login">
+  <div class="login-card">
+    <p class="eyebrow-inline">
+      <svg
+        class="eyebrow-mark"
+        viewBox="0 0 32 16"
+        fill="none"
+        aria-hidden="true"
+      >
+        <path
+          d="M0 8H8L11 2L14 14L17 8H32"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      Espace administrateur
+    </p>
+    <h1>Connexion</h1>
+
     <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form-group">
-        <mat-form-field appearance="outline">
-          <mat-label>Identifiant</mat-label>
-          <input
-            matInput
-            type="email"
-            formControlName="email"
-            required
-            autocomplete="on"
-          />
-          @if (loginForm.controls['email'].hasError('required')) {
-            <mat-error> L'identifiant est requis </mat-error>
-          }
-          @if (loginForm.controls['email'].hasError('email')) {
-            <mat-error> Format invalide </mat-error>
-          }
-        </mat-form-field>
+        <label for="email"
+          ><span class="label-icon"><svg lucideIcon="mail"></svg></span
+          >Identifiant *</label
+        >
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          autocomplete="email"
+          placeholder="ex: contact@dm-format.fr"
+          [class.invalid]="
+            loginForm.controls['email'].invalid &&
+            loginForm.controls['email'].touched
+          "
+        />
+        @if (
+          loginForm.controls['email'].touched &&
+          loginForm.controls['email'].hasError('required')
+        ) {
+          <div class="error-message">L'identifiant est requis.</div>
+        }
+        @if (
+          loginForm.controls['email'].touched &&
+          loginForm.controls['email'].hasError('email')
+        ) {
+          <div class="error-message">Format d'identifiant invalide.</div>
+        }
+      </div>
 
-        <mat-form-field appearance="outline">
-          <mat-label>Mot de passe</mat-label>
+      <div class="form-group">
+        <label for="password"
+          ><span class="label-icon"><svg lucideIcon="lock"></svg></span
+          >Mot de passe *</label
+        >
+        <div class="password-field">
           <input
-            matInput
             [type]="hidePassword ? 'password' : 'text'"
+            id="password"
             formControlName="password"
-            autocomplete="on"
-            required
+            autocomplete="current-password"
+            [class.invalid]="
+              loginForm.controls['password'].invalid &&
+              loginForm.controls['password'].touched
+            "
           />
           <button
-            mat-icon-button
-            matSuffix
-            (click)="hidePassword = !hidePassword"
             type="button"
+            class="toggle-password"
+            (click)="hidePassword = !hidePassword"
             [attr.aria-label]="
               hidePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe'
             "
           >
-            @if (!hidePassword) {
-              <svg lucideIcon="eye"></svg>
-            }
-            @if (hidePassword) {
-              <svg lucideIcon="eye-off"></svg>
-            }
+            <svg [lucideIcon]="hidePassword ? 'eye-off' : 'eye'"></svg>
           </button>
-          @if (loginForm.controls['password'].hasError('required')) {
-            <mat-error> Le mot de passe est requis </mat-error>
-          }
-        </mat-form-field>
+        </div>
+        @if (
+          loginForm.controls['password'].touched &&
+          loginForm.controls['password'].hasError('required')
+        ) {
+          <div class="error-message">Le mot de passe est requis.</div>
+        }
       </div>
 
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        class="full-width"
-        [disabled]="loginForm.invalid"
-      >
+      <button type="submit" [disabled]="loginForm.invalid">
+        <svg lucideIcon="log-in"></svg>
         Accéder
       </button>
     </form>
-  </mat-card>
-</div>
+  </div>
+</section>

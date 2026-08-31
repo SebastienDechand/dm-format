@@ -378,19 +378,6 @@ nav {
   }
 }
 
-// Ajustement pour le contenu de la page : le header a toujours 70px de haut,
-// quelle que soit la largeur - plus besoin d'une variante mobile depuis que
-// l'auth est passée dans le sidenav plutôt qu'une deuxième rangée du header.
-body {
-  --header-height: 70px;
-}
-
-main,
-.content-wrapper,
-.page-content {
-  padding-top: var(--header-height);
-}
-
 // Media queries
 @media (max-width: 1400px) {
   nav {

@@ -6,15 +6,22 @@
         <span class="brand-label">Administration</span>
       </div>
 
-      <button
-        type="button"
-        class="admin-nav-toggle"
-        (click)="toggleMobileNav()"
-        [attr.aria-expanded]="mobileNavOpen()"
-        aria-label="Menu d'administration"
-      >
-        <svg [lucideIcon]="mobileNavOpen() ? 'x' : 'menu'"></svg>
-      </button>
+      <div class="admin-nav-bar-actions">
+        <a routerLink="/" class="admin-view-site" title="Voir le site public">
+          <svg lucideIcon="external-link"></svg>
+          <span class="admin-view-site-label">Voir le site</span>
+        </a>
+
+        <button
+          type="button"
+          class="admin-nav-toggle"
+          (click)="toggleMobileNav()"
+          [attr.aria-expanded]="mobileNavOpen()"
+          aria-label="Menu d'administration"
+        >
+          <svg [lucideIcon]="mobileNavOpen() ? 'x' : 'menu'"></svg>
+        </button>
+      </div>
     </div>
 
     <div class="admin-nav-collapsible" [class.open]="mobileNavOpen()">

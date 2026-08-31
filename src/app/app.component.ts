@@ -27,6 +27,12 @@ export class AppComponent {
   // gives an immediate visual cue so that wait doesn't feel like a stall.
   readonly isNavigating = signal(false);
 
+  // The admin area is its own shell (AdminLayoutComponent draws its own
+  // nav/header) - the public site header/footer must not render underneath
+  // it. Initialized from the current URL directly so SSR output already
+  // omits them on the first request, not just after a client-side nav.
+  readonly isAdminRoute = signal(this.router.url.startsWith('/admin'));
+
   constructor() {
     if (!isPlatformBrowser(this.platformId)) return;
 
@@ -43,6 +49,7 @@ export class AppComponent {
       ) {
         this.isNavigating.set(false);
         if (event instanceof NavigationEnd) {
+          this.isAdminRoute.set(event.urlAfterRedirects.startsWith('/admin'));
           this.document.defaultView?.scrollTo(0, 0);
         }
       }

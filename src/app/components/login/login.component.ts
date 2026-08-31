@@ -2,21 +2,19 @@ import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  FormsModule,
   ReactiveFormsModule,
   FormBuilder,
   FormGroup,
   Validators,
 } from '@angular/forms';
 
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
   LucideDynamicIcon,
   LucideEye,
   LucideEyeOff,
+  LucideLock,
+  LucideLogIn,
+  LucideMail,
   provideLucideIcons,
 } from '@lucide/angular';
 import { ToastService } from '../../services/toast.service';
@@ -26,16 +24,16 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule,
-    MatSnackBarModule,
-    LucideDynamicIcon,
+  imports: [ReactiveFormsModule, LucideDynamicIcon],
+  providers: [
+    provideLucideIcons(
+      LucideEye,
+      LucideEyeOff,
+      LucideLock,
+      LucideLogIn,
+      LucideMail
+    ),
   ],
-  providers: [provideLucideIcons(LucideEye, LucideEyeOff)],
 })
 export class LoginComponent {
   private router = inject(Router);

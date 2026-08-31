@@ -1,5 +1,10 @@
 <div class="route-progress" [class.active]="isNavigating()"></div>
-<app-header></app-header>
-<!-- <app-calendar></app-calendar> -->
-<router-outlet></router-outlet>
-<app-footer></app-footer>
+@if (!isAdminRoute()) {
+  <app-header></app-header>
+}
+<div [class.public-content]="!isAdminRoute()">
+  <router-outlet></router-outlet>
+</div>
+@if (!isAdminRoute()) {
+  <app-footer></app-footer>
+}

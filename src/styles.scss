@@ -122,7 +122,6 @@
 body {
   font-family: var(--font-body);
   margin: 0;
-  padding: 70px 0 0 0;
   background: var(--background-color);
   line-height: 1.6;
   color: var(--secondary-color);
@@ -181,13 +180,6 @@ body {
 body {
   margin: 0;
   font-family: 'Inter', 'Helvetica Neue', sans-serif;
-}
-
-.edit-textarea {
-  font: inherit;
-  white-space: pre-wrap;
-  word-wrap: break-word; // 🔧 à ajouter absolument
-  box-sizing: border-box; // 🔧 pour éviter que le padding fausse la hauteur
 }
 
 simple-snack-bar {

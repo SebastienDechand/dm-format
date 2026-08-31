@@ -1,60 +1,184 @@
-.login-container {
+.login {
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
   align-items: center;
-  height: 60vh;
-  width: 100vw;
-  background-color: var(--background-color);
+  justify-content: center;
+  padding: var(--padding-big) var(--padding-medium);
+  background: var(--primary-tint);
 }
 
 .login-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  max-width: 500px;
-  padding: 24px;
+  max-width: 420px;
+  padding: var(--padding-big);
   background: var(--light-color);
   box-shadow: var(--shadow-overlay);
   border-radius: var(--radius-card);
 }
 
+.eyebrow-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: var(--small-text-size-desktop);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin: 0 0 var(--space-3);
+
+  .eyebrow-mark {
+    width: 22px;
+    height: 11px;
+    flex-shrink: 0;
+  }
+}
+
 h1 {
-  text-align: center;
-  margin-bottom: 24px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--h3-size-desktop);
+  font-weight: 600;
   color: var(--dark-color);
+  margin: 0 0 var(--margin-medium);
 }
 
 .form-group {
+  margin-bottom: var(--margin-small);
+  text-align: left;
+}
+
+label {
   display: flex;
-  flex-direction: column;
-  width: 400px;
-  gap: 16px;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-size: var(--small-text-size-desktop);
+  font-weight: 600;
+  color: var(--dark-color);
 }
 
-mat-form-field {
-  width: 100% !important;
+.label-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--primary-tint);
+
+  svg {
+    color: var(--primary-color);
+    width: 14px;
+    height: 14px;
+  }
 }
 
-.full-width {
+input {
   width: 100%;
-  margin-top: 16px;
+  padding: 12px 14px;
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-control);
+  font: inherit;
+  font-size: 1rem;
+  color: var(--dark-color);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232, 84, 58, 0.12);
+  }
+
+  &.invalid {
+    border-color: var(--danger);
+  }
 }
 
-mat-error {
-  font-size: 12px;
+.password-field {
+  position: relative;
+
+  input {
+    padding-right: 44px;
+  }
+
+  .toggle-password {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: color 0.15s ease;
+
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    &:hover {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.error-message {
   color: var(--danger);
+  font-size: var(--small-text-size-desktop);
+  margin-top: 5px;
 }
 
-// Styles pour les messages d'erreur et de succès
-:host ::ng-deep .error-snackbar {
-  background-color: var(--error-color, #f44336);
-  color: var(--light-color, white);
+button[type='submit'] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: var(--margin-medium);
+  padding: var(--padding-medium);
+  background: var(--button-color);
+  color: var(--light-color);
+  border: none;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  font-size: var(--small-text-size-desktop);
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover:not(:disabled) {
+    background: var(--button-color-hover);
+  }
+
+  &:disabled {
+    background: var(--secondary-color);
+    cursor: not-allowed;
+  }
 }
 
-:host ::ng-deep .success-snackbar {
-  background-color: var(--success-color, #4caf50);
-  color: var(--light-color, white);
+@media (max-width: 480px) {
+  .login {
+    padding: var(--padding-medium);
+  }
+
+  .login-card {
+    padding: var(--padding-medium);
+  }
+
+  h1 {
+    font-size: 22px;
+  }
 }
