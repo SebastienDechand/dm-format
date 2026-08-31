@@ -2,7 +2,6 @@ import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { AdminService } from '../services/admin.service';
 import { AuthService } from '../services/auth.service';
 
 // ApiService (and most other services) never attached the JWT token to
@@ -12,7 +11,6 @@ import { AuthService } from '../services/auth.service';
 // this here fixes every call site at once instead of patching each one.
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const adminService = inject(AdminService);
 
   const isApiRequest = req.url.startsWith(environment.apiUrl);
   const token = authService.getToken();
@@ -25,16 +23,15 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(authReq).pipe(
     catchError((error: unknown) => {
       // A 401 from our own API means the token is missing/expired/invalid -
-      // the local isLoggedIn/isAdmin booleans should reflect that reality
-      // immediately rather than staying stuck showing an admin UI that can
-      // no longer actually save anything.
+      // the local isLoggedIn state should reflect that reality immediately
+      // rather than staying stuck showing an admin UI that can no longer
+      // actually save anything.
       if (
         isApiRequest &&
         error instanceof HttpErrorResponse &&
         error.status === 401
       ) {
         authService.logout();
-        adminService.setAdminMode(false);
       }
       return throwError(() => error);
     })

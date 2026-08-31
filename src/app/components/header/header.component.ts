@@ -26,7 +26,6 @@ import {
 import type { LucideIcon } from '@lucide/angular';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
-import { AdminService } from '../../services/admin.service';
 import { AuthService } from '../../services/auth.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
@@ -62,12 +61,10 @@ export class HeaderComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
 
   private apiService: ApiService = inject(ApiService);
-  private adminService: AdminService = inject(AdminService);
   private authService: AuthService = inject(AuthService);
   private router: Router = inject(Router);
 
   trainings: Program[] = [];
-  readonly isAdmin = this.adminService.isAdmin;
   readonly isLoggedIn = this.authService.isLoggedIn;
   showLoginButton: boolean = false;
   isMobileView: boolean = false;
@@ -155,13 +152,8 @@ export class HeaderComponent implements OnInit {
     }, 10000);
   }
 
-  toggleAdminMode() {
-    this.adminService.toggleAdminMode();
-  }
-
   logout() {
     this.authService.logout();
-    this.adminService.setAdminMode(false);
     this.closeSidenav();
   }
 

@@ -13,7 +13,7 @@ export class AuthService {
 
   // Starts false to match SSR (no localStorage server-side); upgraded to
   // the real value after the first render so hydration doesn't mismatch
-  // and tear down @if(isLoggedIn()) UI. See AdminService for the same fix.
+  // and tear down @if(isLoggedIn()) UI.
   readonly isLoggedIn = signal<boolean>(false);
 
   constructor() {

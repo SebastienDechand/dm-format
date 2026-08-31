@@ -29,7 +29,7 @@ import {
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { CalendarService } from '../../services/calendar.service';
 import { Training } from '../../models/calendar.model';
-import { AdminService } from '../../services/admin.service';
+import { AuthService } from '../../services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -59,7 +59,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 export class CalendarComponent implements OnInit {
   private toast = inject(ToastService);
   private dialog = inject(MatDialog);
-  private adminService: AdminService = inject(AdminService);
+  private authService: AuthService = inject(AuthService);
 
   trainings: Training[] = [];
   selectedDate: Date = new Date();
@@ -78,7 +78,7 @@ export class CalendarComponent implements OnInit {
   tooltipText: string = '';
   hoveredDate: Date | null = null;
 
-  readonly isAdmin = this.adminService.isAdmin;
+  readonly isAdmin = this.authService.isLoggedIn;
 
   constructor(
     private trainingService: CalendarService,
