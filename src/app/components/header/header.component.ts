@@ -21,13 +21,16 @@ import {
   LucideHeartHandshake,
   LucideZap,
   LucideBookOpen,
+  LucideLogIn,
+  LucideLogOut,
+  LucideLayoutDashboard,
   provideLucideIcons,
 } from '@lucide/angular';
 import type { LucideIcon } from '@lucide/angular';
 import { Program } from '../../models/programs.models';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-header',
@@ -49,7 +52,10 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
       LucideCircleQuestionMark,
       LucideHeartHandshake,
       LucideZap,
-      LucideBookOpen
+      LucideBookOpen,
+      LucideLogIn,
+      LucideLogOut,
+      LucideLayoutDashboard
     ),
   ],
   templateUrl: './header.component.html',
@@ -68,9 +74,7 @@ export class HeaderComponent implements OnInit {
   readonly isLoggedIn = this.authService.isLoggedIn;
   showLoginButton: boolean = false;
   isMobileView: boolean = false;
-  isSmallScreen: boolean = false;
   isSidenavOpen: boolean = false;
-  isAuthPopupOpen: boolean = false;
   isBrowser: boolean = false;
 
   private clickCount = 0;
@@ -81,33 +85,17 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // Observateur pour les breakpoints
     if (this.isBrowser) {
       this.breakpointObserver
-        .observe(['(max-width: 1400px)', '(max-width: 768px)'])
+        .observe(['(max-width: 1400px)'])
         .subscribe((result) => {
-          this.isMobileView = result.breakpoints['(max-width: 1400px)'];
-          this.isSmallScreen = result.breakpoints['(max-width: 768px)'];
+          this.isMobileView = result.matches;
         });
     }
 
     this.apiService.getPrograms().subscribe((data) => {
       this.trainings = data;
     });
-  }
-
-  toggleAuthPopup() {
-    // Cette méthode n'est plus utilisée car nous utilisons un header étendu
-    // au lieu d'une popup
-  }
-
-  closeAuthPopup() {
-    // Cette méthode n'est plus utilisée
-  }
-
-  logoutAndClosePopup() {
-    // Nous utilisons simplement logout() maintenant
-    this.logout();
   }
 
   toggleSidenav() {

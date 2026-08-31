@@ -1,5 +1,5 @@
 <!-- header.component.html -->
-<nav [class.expanded]="isSmallScreen && isBrowser && showLoginButton">
+<nav>
   <div class="nav-top-row">
     <button
       type="button"
@@ -68,11 +68,21 @@
             Contactez-nous !
           </button>
         </div>
+
+        <div class="auth-buttons-desktop">
+          @if (showLoginButton && !(isLoggedIn())) {
+            <button mat-button [routerLink]="['/login']">Connexion</button>
+          }
+          @if (isLoggedIn()) {
+            <button mat-button [routerLink]="['/admin']">Administration</button>
+            <button mat-button (click)="logout()">Déconnexion</button>
+          }
+        </div>
       </div>
     }
 
     <!-- Burger menu pour écrans <= 1400px -->
-    @if (isMobileView && isBrowser) {
+    @if (isMobileView && isBrowser && !isSidenavOpen) {
       <div class="mobile-nav">
         <button
           mat-icon-button
@@ -84,36 +94,6 @@
       </div>
     }
   </div>
-
-  <!-- Deuxième ligne pour les boutons d'authentification sur petits écrans -->
-  @if (isSmallScreen && isBrowser && showLoginButton) {
-    <div class="nav-bottom-row">
-      <div class="auth-buttons-mobile">
-        @if (showLoginButton && !(isLoggedIn())) {
-          <button mat-button [routerLink]="['/login']">Connexion</button>
-        }
-        @if (isLoggedIn()) {
-          <button mat-button [routerLink]="['/admin']">Administration</button>
-          <button mat-button (click)="logout()">Déconnexion</button>
-        }
-      </div>
-    </div>
-  }
-
-  <!-- Boutons d'authentification pour grands écrans -->
-  @if (!isSmallScreen && isBrowser) {
-    <div class="auth-buttons">
-      <div class="auth-buttons-desktop">
-        @if (showLoginButton && !(isLoggedIn())) {
-          <button mat-button [routerLink]="['/login']">Connexion</button>
-        }
-        @if (isLoggedIn()) {
-          <button mat-button [routerLink]="['/admin']">Administration</button>
-          <button mat-button (click)="logout()">Déconnexion</button>
-        }
-      </div>
-    </div>
-  }
 </nav>
 
 <!-- Sidenav pour mobile -->
@@ -122,20 +102,23 @@
     <div class="sidenav-backdrop" (click)="closeSidenav()"></div>
     <div class="sidenav">
       <div class="sidenav-header">
-        <svg
-          class="sidenav-logo-mark"
-          viewBox="0 0 32 16"
-          fill="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M0 8H8L11 2L14 14L17 8H32"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+        <span class="sidenav-brand">
+          <svg
+            class="sidenav-logo-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="sidenav-brand-text">DM <strong>FORMAT</strong></span>
+        </span>
         <button
           mat-icon-button
           (click)="closeSidenav()"
@@ -145,11 +128,26 @@
         </button>
       </div>
       <div class="sidenav-content">
-        <h3 class="eyebrow">Nos formations</h3>
+        <p class="sidenav-eyebrow">
+          <svg
+            class="eyebrow-mark"
+            viewBox="0 0 32 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M0 8H8L11 2L14 14L17 8H32"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          Nos formations
+        </p>
         <div class="mobile-menu-items">
           @for (training of trainings; track training) {
-            <button
-              mat-button
+            <a
               [routerLink]="['/trainings', training._id]"
               class="menu-item"
               (click)="closeSidenav()"
@@ -160,27 +158,68 @@
               <span class="menu-item-text">{{
                 stripHtmlTags(training.title)
               }}</span>
-            </button>
+            </a>
           }
         </div>
-        <button mat-button [routerLink]="['/about']" (click)="closeSidenav()">
-          Qui sommes-nous
-        </button>
-        <button
-          mat-button
-          [routerLink]="['/organisation']"
-          (click)="closeSidenav()"
-        >
-          Conditions d'organisation
-        </button>
-        <button
-          mat-button
+
+        <div class="sidenav-divider"></div>
+
+        <div class="sidenav-pages">
+          <a
+            [routerLink]="['/about']"
+            routerLinkActive="nav-active"
+            class="page-link"
+            (click)="closeSidenav()"
+          >
+            Qui sommes-nous
+          </a>
+          <a
+            [routerLink]="['/organisation']"
+            routerLinkActive="nav-active"
+            class="page-link"
+            (click)="closeSidenav()"
+          >
+            Conditions d'organisation
+          </a>
+        </div>
+
+        @if (isLoggedIn() || showLoginButton) {
+          <div class="sidenav-divider"></div>
+
+          <div class="sidenav-auth">
+            @if (isLoggedIn()) {
+              <a
+                [routerLink]="['/admin']"
+                class="auth-link"
+                (click)="closeSidenav()"
+              >
+                <svg lucideIcon="layout-dashboard"></svg>
+                Administration
+              </a>
+              <button type="button" class="auth-link" (click)="logout()">
+                <svg lucideIcon="log-out"></svg>
+                Déconnexion
+              </button>
+            } @else if (showLoginButton) {
+              <a
+                [routerLink]="['/login']"
+                class="auth-link"
+                (click)="closeSidenav()"
+              >
+                <svg lucideIcon="log-in"></svg>
+                Connexion
+              </a>
+            }
+          </div>
+        }
+
+        <a
           [routerLink]="['/contact']"
           class="contact"
           (click)="closeSidenav()"
         >
           Contactez-nous !
-        </button>
+        </a>
       </div>
     </div>
   </div>
