@@ -149,14 +149,15 @@
   }
 
   .map-container {
-    margin-top: auto;
     border-radius: var(--radius-control);
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.12);
+    height: 300px;
 
     iframe {
       display: block;
       filter: grayscale(0.2);
+      height: 100%;
     }
   }
 
