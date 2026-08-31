@@ -1,5 +1,11 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, PLATFORM_ID, DOCUMENT, inject, signal } from '@angular/core';
+import {
+  Component,
+  PLATFORM_ID,
+  DOCUMENT,
+  inject,
+  signal,
+} from '@angular/core';
 import {
   NavigationCancel,
   NavigationEnd,
@@ -23,7 +29,7 @@ export class AppComponent {
   private platformId = inject<Object>(PLATFORM_ID);
 
   // Route resolvers block navigation until their HTTP call completes, with
-  // no feedback otherwise — the page just freezes then snaps. This bar
+  // no feedback otherwise - the page just freezes then snaps. This bar
   // gives an immediate visual cue so that wait doesn't feel like a stall.
   readonly isNavigating = signal(false);
 
