@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
 import { TrainingTestimonialsComponent } from '../../components/training-testimonials/training-testimonials.component';
 import { Program } from '../../models/programs.models';
-import { AuthService } from '../../services/auth.service';
 import { ApiService } from '../../services/api.service';
 import { SeoService } from '../../services/seo.service';
 import { RichTextEditorComponent } from '../../components/rich-text-editor/rich-text-editor.component';
@@ -44,16 +43,10 @@ import {
 })
 export class ProgramDetailComponent implements OnInit {
   private apiService: ApiService = inject(ApiService);
-  private authService: AuthService = inject(AuthService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private seoService: SeoService = inject(SeoService);
 
   program?: Program;
-
-  // Only used to gate the testimonials moderation UI, a separate
-  // concern (approval workflow on its own collection) not covered by
-  // the admin training form.
-  readonly isAdmin = this.authService.isLoggedIn;
 
   hasPdfs: boolean = false;
   pdfsData?: PdfFile[] = [];

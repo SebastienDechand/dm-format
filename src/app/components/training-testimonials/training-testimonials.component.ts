@@ -23,11 +23,9 @@ import { Testimonial } from '../../models/testimonials.model';
 import { TestimonialService } from '../../services/testimonial.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { TestimonialDialogComponent } from '../testimonial-dialog/testimonial-dialog.component';
 import {
   LucideDynamicIcon,
-  LucideTrash2,
   LucideShieldCheck,
   LucideShield,
   LucideChevronLeft,
@@ -48,7 +46,6 @@ import {
   ],
   providers: [
     provideLucideIcons(
-      LucideTrash2,
       LucideShieldCheck,
       LucideShield,
       LucideChevronLeft,
@@ -65,7 +62,6 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   private dialog = inject(MatDialog);
 
   readonly programId = input.required<string>();
-  readonly isAdmin = input<boolean>(false);
 
   // Carousel "vitrine" : deux témoignages affichés en grand à la fois
   // (un seul sur mobile), avec un aperçu défilant des autres en
@@ -285,17 +281,18 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
     };
 
     this.testimonialService.addTestimonial(testimonial).subscribe({
-      next: (response) => {
-        if (response?.data) {
-          this.testimonials.unshift(response.data);
-        }
-
+      next: () => {
+        // Not added to the visible carousel - it needs admin approval
+        // before it's public, so showing it here would only be true for
+        // this one visitor's session until the next reload.
         this.testimonialForm.reset();
         this.formSubmitted = false;
         this.isSubmitting = false;
         this.captchaVerified = false;
 
-        this.toast.success('Votre témoignage a été ajouté avec succès !');
+        this.toast.success(
+          'Merci ! Votre témoignage sera visible après validation.'
+        );
       },
       error: (error) => {
         console.error("Erreur lors de l'ajout du témoignage:", error);
@@ -305,38 +302,6 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
             "Une erreur est survenue lors de l'ajout du témoignage"
         );
       },
-    });
-  }
-
-  deleteTestimonial(testimonialId: any, index: number): void {
-    if (!this.isAdmin()) return;
-
-    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      data: { message: 'Êtes-vous sûr de vouloir supprimer ce témoignage ?' },
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (!confirmed) return;
-
-      const id =
-        typeof testimonialId === 'object' && testimonialId.$oid
-          ? testimonialId.$oid
-          : testimonialId;
-
-      this.testimonialService.deleteTestimonial(id).subscribe({
-        next: () => {
-          this.testimonials.splice(index, 1);
-          this.currentIndex = Math.min(this.currentIndex, this.maxIndex);
-          this.toast.success('Témoignage supprimé avec succès');
-        },
-        error: (error) => {
-          console.error('Erreur lors de la suppression:', error);
-          this.toast.error(
-            error.error?.message ||
-              'Erreur lors de la suppression du témoignage'
-          );
-        },
-      });
     });
   }
 

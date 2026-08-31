@@ -3,8 +3,11 @@ export interface Testimonial {
   name: string;
   role: string;
   feedback: string;
-  trainingId: string | { $oid: string };
+  // Populated as { _id, title } by the admin listing endpoint, otherwise a
+  // plain id string/$oid.
+  trainingId: string | { $oid: string } | { _id: string; title: string };
   createdAt?: string;
+  approved?: boolean;
 }
 
 export interface TestimonialResponse {

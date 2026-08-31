@@ -1,0 +1,169 @@
+.admin-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--h4-size-desktop);
+    color: var(--dark-color);
+    margin: 0;
+  }
+}
+
+.admin-hint {
+  color: var(--secondary-color);
+}
+
+.testimonial-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.testimonial-card {
+  background: var(--light-color);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: var(--space-6);
+  border-left: 3px solid transparent;
+
+  &.pending {
+    border-left-color: var(--accent);
+  }
+}
+
+.testimonial-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-3);
+
+  .name {
+    display: block;
+    font-weight: 600;
+    color: var(--dark-color);
+  }
+
+  .role {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+  }
+}
+
+.status-badge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--accent-tint);
+  color: var(--accent-text);
+
+  &.approved {
+    background: rgba(31, 157, 107, 0.14);
+    color: var(--success-color);
+  }
+}
+
+.feedback {
+  color: var(--dark-color);
+  line-height: 1.6;
+  margin: 0 0 var(--space-4);
+}
+
+.testimonial-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.training-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-color);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  &.disabled {
+    color: var(--secondary-color);
+    cursor: default;
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-approve,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: none;
+  border-radius: var(--radius-control);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.btn-approve {
+  background: var(--success-color);
+  color: var(--light-color);
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.btn-secondary {
+  background: var(--primary-tint);
+  color: var(--primary-color);
+
+  &:hover {
+    background: var(--background-color-dark);
+  }
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-control);
+  background: var(--danger-tint);
+  color: var(--danger);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+
+  svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  &:hover {
+    background: var(--danger);
+    color: var(--light-color);
+  }
+}

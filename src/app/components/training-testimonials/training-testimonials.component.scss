@@ -106,33 +106,6 @@
     }
   }
 
-  // Bouton de suppression pour admins
-  .delete-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    background: var(--danger-tint);
-    border: none;
-    border-radius: 50%;
-    color: var(--danger);
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s ease;
-
-    svg {
-      width: 14px;
-      height: 14px;
-    }
-
-    &:hover {
-      opacity: 1;
-    }
-  }
 }
 
 /* Navigation sous la vitrine : compteur "X / N" plutôt qu'un point par

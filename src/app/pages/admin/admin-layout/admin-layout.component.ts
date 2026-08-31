@@ -8,6 +8,7 @@ import {
   LucideImages,
   LucideInfo,
   LucideLogOut,
+  LucideMessageCircle,
   LucideScrollText,
   provideLucideIcons,
 } from '@lucide/angular';
@@ -23,6 +24,7 @@ import {
       LucideImages,
       LucideInfo,
       LucideLogOut,
+      LucideMessageCircle,
       LucideScrollText
     ),
   ],

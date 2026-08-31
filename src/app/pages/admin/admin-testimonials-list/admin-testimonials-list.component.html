@@ -1,0 +1,70 @@
+<div class="admin-list-header">
+  <h1>Témoignages</h1>
+</div>
+
+@if (loading()) {
+  <p class="admin-hint">Chargement…</p>
+} @else if (testimonials().length === 0) {
+  <p class="admin-hint">Aucun témoignage pour le moment.</p>
+} @else {
+  <div class="testimonial-list">
+    @for (testimonial of testimonials(); track idOf(testimonial)) {
+      <div class="testimonial-card" [class.pending]="!testimonial.approved">
+        <div class="testimonial-card-header">
+          <div>
+            <span class="name">{{ testimonial.name }}</span>
+            <span class="role">{{ testimonial.role }}</span>
+          </div>
+          <span class="status-badge" [class.approved]="testimonial.approved">
+            {{ testimonial.approved ? 'Publié' : 'En attente' }}
+          </span>
+        </div>
+
+        <p class="feedback">{{ testimonial.feedback }}</p>
+
+        <div class="testimonial-card-footer">
+          @if (trainingLink(testimonial); as link) {
+            <a [routerLink]="link" class="training-link">{{
+              trainingTitle(testimonial)
+            }}</a>
+          } @else {
+            <span class="training-link disabled">{{
+              trainingTitle(testimonial)
+            }}</span>
+          }
+
+          <div class="actions">
+            @if (!testimonial.approved) {
+              <button
+                type="button"
+                class="btn-approve"
+                (click)="approve(testimonial)"
+              >
+                <svg lucideIcon="check"></svg>
+                Publier
+              </button>
+            } @else {
+              <button
+                type="button"
+                class="btn-secondary"
+                (click)="unapprove(testimonial)"
+              >
+                <svg lucideIcon="undo-2"></svg>
+                Dépublier
+              </button>
+            }
+            <button
+              type="button"
+              class="icon-btn danger"
+              (click)="deleteTestimonial(testimonial)"
+              aria-label="Supprimer"
+              title="Supprimer"
+            >
+              <svg lucideIcon="trash-2"></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+}

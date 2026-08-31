@@ -44,4 +44,12 @@ export class TestimonialService {
   deleteTestimonial(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  getAllForAdmin(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin`);
+  }
+
+  setApproved(id: string, approved: boolean): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}`, { approved });
+  }
 }

@@ -13,21 +13,6 @@
                   let localIndex = $index
                 ) {
                   <div class="showcase-card">
-                    <!-- Bouton de suppression pour les admins -->
-                    @if (isAdmin()) {
-                      <button
-                        class="delete-btn"
-                        (click)="
-                          deleteTestimonial(
-                            testimonial._id,
-                            pageIndex * visibleSlides + localIndex
-                          )
-                        "
-                        title="Supprimer ce témoignage"
-                      >
-                        <svg lucideIcon="trash-2"></svg>
-                      </button>
-                    }
                     <svg
                       class="quote-mark"
                       viewBox="0 0 32 24"

@@ -87,6 +87,13 @@ export const routes: Routes = [
           ).then((m) => m.AdminHomeFormComponent),
         resolve: { homeData: HomeResolver },
       },
+      {
+        path: 'testimonials',
+        loadComponent: () =>
+          import(
+            './pages/admin/admin-testimonials-list/admin-testimonials-list.component'
+          ).then((m) => m.AdminTestimonialsListComponent),
+      },
     ],
   },
   {
