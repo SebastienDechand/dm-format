@@ -8,6 +8,7 @@ import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confi
 import { ApiService } from '../../../services/api.service';
 import { ToastService } from '../../../services/toast.service';
 import { PdfFile } from '../../../models/pdf.models';
+import { RichTextEditorComponent } from '../../../components/rich-text-editor/rich-text-editor.component';
 import {
   LucideDynamicIcon,
   LucidePlus,
@@ -25,6 +26,7 @@ const CERTIFICATION_PDF_PAGE_ID = 'certification-documents';
     FormsModule,
     AutoResizeDirective,
     EditableImageComponent,
+    RichTextEditorComponent,
     LucideDynamicIcon,
   ],
   providers: [

@@ -1,20 +1,25 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
-import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { ApiService } from '../../services/api.service';
+import { HtmlSanitizerService } from '../../services/html-sanitizer.service';
 import { PdfFile } from '../../models/pdf.models';
 
 @Component({
   selector: 'app-certification',
-  imports: [CommonModule, SafeHtmlPipe],
+  imports: [CommonModule],
   templateUrl: './certification.component.html',
   styleUrl: './certification.component.scss',
   standalone: true,
 })
 export class CertificationComponent implements OnInit {
   private apiService: ApiService = inject(ApiService);
+  private sanitizerService = inject(HtmlSanitizerService);
 
   @Input() certificationData: any;
+
+  get safeTitle(): string {
+    return this.sanitizerService.sanitize(this.certificationData?.title || '');
+  }
 
   pdfsData: PdfFile[] = [];
   filteredPdfs: PdfFile[] = [];

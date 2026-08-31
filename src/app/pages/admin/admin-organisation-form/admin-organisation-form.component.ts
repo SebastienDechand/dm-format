@@ -11,6 +11,7 @@ import { ConditionsData } from '../../../models/organisation.models';
 import { PdfFile } from '../../../models/pdf.models';
 import { ICON_OPTIONS } from '../../../constants/icon-options';
 import { DynamicIconComponent } from '../../../components/dynamic-icon/dynamic-icon.component';
+import { RichTextEditorComponent } from '../../../components/rich-text-editor/rich-text-editor.component';
 import {
   LucideDynamicIcon,
   LucidePlus,
@@ -29,6 +30,7 @@ const ORGANISATION_PDF_PAGE_ID = 'organisation-documents';
     AutoResizeDirective,
     EditableImageComponent,
     DynamicIconComponent,
+    RichTextEditorComponent,
     LucideDynamicIcon,
   ],
   providers: [
