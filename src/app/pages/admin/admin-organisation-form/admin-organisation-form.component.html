@@ -98,15 +98,13 @@
         [(ngModel)]="data.general_conditions.title"
       />
     </label>
-    <label>
-      Description
-      <textarea
-        autoResize
-        name="gc-description"
-        [(ngModel)]="data.general_conditions.description"
-        rows="3"
-      ></textarea>
-    </label>
+    <label class="field-label">Description</label>
+    <app-rich-text-editor
+      [(ngModel)]="data.general_conditions.description"
+      name="gc-description"
+      [editable]="true"
+      toolbar="full"
+    ></app-rich-text-editor>
 
     <div class="form-card-header">
       <span class="field-label">Points</span>
@@ -172,15 +170,13 @@
         [(ngModel)]="data.certification.title"
       />
     </label>
-    <label>
-      Description
-      <textarea
-        autoResize
-        name="cert-description"
-        [(ngModel)]="data.certification.description"
-        rows="3"
-      ></textarea>
-    </label>
+    <label class="field-label">Description</label>
+    <app-rich-text-editor
+      [(ngModel)]="data.certification.description"
+      name="cert-description"
+      [editable]="true"
+      toolbar="full"
+    ></app-rich-text-editor>
 
     <div class="form-card-header">
       <span class="field-label">Détails</span>
@@ -195,11 +191,12 @@
     </div>
     @for (detail of data.certification.details; track $index; let i = $index) {
       <div class="list-row">
-        <input
-          type="text"
+        <app-rich-text-editor
           [(ngModel)]="data.certification.details[i]"
           [name]="'cert-detail-' + i"
-        />
+          [editable]="true"
+          toolbar="inline"
+        ></app-rich-text-editor>
         <button
           type="button"
           class="icon-btn danger"
@@ -232,15 +229,13 @@
         [(ngModel)]="data.obligations.title"
       />
     </label>
-    <label>
-      Description
-      <textarea
-        autoResize
-        name="obl-description"
-        [(ngModel)]="data.obligations.description"
-        rows="3"
-      ></textarea>
-    </label>
+    <label class="field-label">Description</label>
+    <app-rich-text-editor
+      [(ngModel)]="data.obligations.description"
+      name="obl-description"
+      [editable]="true"
+      toolbar="full"
+    ></app-rich-text-editor>
 
     <div class="form-card-header">
       <span class="field-label">Points</span>
@@ -312,15 +307,13 @@
         [(ngModel)]="data.financing.title"
       />
     </label>
-    <label>
-      Description
-      <textarea
-        autoResize
-        name="fin-description"
-        [(ngModel)]="data.financing.description"
-        rows="3"
-      ></textarea>
-    </label>
+    <label class="field-label">Description</label>
+    <app-rich-text-editor
+      [(ngModel)]="data.financing.description"
+      name="fin-description"
+      [editable]="true"
+      toolbar="full"
+    ></app-rich-text-editor>
 
     <h3 class="sub-heading">OPCO</h3>
     <label>
@@ -331,15 +324,13 @@
         [(ngModel)]="data.financing.opco.title"
       />
     </label>
-    <label>
-      Description
-      <textarea
-        autoResize
-        name="opco-description"
-        [(ngModel)]="data.financing.opco.description"
-        rows="2"
-      ></textarea>
-    </label>
+    <label class="field-label">Description</label>
+    <app-rich-text-editor
+      [(ngModel)]="data.financing.opco.description"
+      name="opco-description"
+      [editable]="true"
+      toolbar="full"
+    ></app-rich-text-editor>
 
     <label>
       Sous-titre des étapes

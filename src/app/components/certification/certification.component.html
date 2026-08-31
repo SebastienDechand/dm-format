@@ -2,7 +2,7 @@
   <div class="certification-container">
     <div class="certification-content">
       <h2>
-        <span [innerHTML]="certificationData?.title | safeHtml"></span>
+        <span [innerHTML]="safeTitle"></span>
       </h2>
 
       <p>{{ certificationData?.description }}</p>

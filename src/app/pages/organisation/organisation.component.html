@@ -118,7 +118,9 @@
           Conditions générales
         </p>
         <h3>{{ organisationData.general_conditions.title }}</h3>
-        <p [innerHTML]="organisationData.general_conditions.description"></p>
+        <p
+          [innerHTML]="sanitize(organisationData.general_conditions.description)"
+        ></p>
         <div class="conditions-grid">
           @for (
             point of organisationData.general_conditions.points;
@@ -159,7 +161,9 @@
               Certification
             </p>
             <h3>{{ organisationData.certification.title }}</h3>
-            <p [innerHTML]="organisationData.certification.description"></p>
+            <p
+              [innerHTML]="sanitize(organisationData.certification.description)"
+            ></p>
           </div>
           @for (
             detail of organisationData.certification.details;
@@ -170,7 +174,7 @@
               <span class="badge"
                 ><svg lucideIcon="graduation-cap"></svg
               ></span>
-              <span [innerHTML]="detail | safeHtml"></span>
+              <span [innerHTML]="sanitize(detail)"></span>
             </div>
           }
         </div>
@@ -212,7 +216,7 @@
           Engagement des participants
         </p>
         <h3>{{ organisationData.obligations.title }}</h3>
-        <p [innerHTML]="organisationData.obligations.description"></p>
+        <p [innerHTML]="sanitize(organisationData.obligations.description)"></p>
         <div class="obligations-grid">
           @for (
             point of organisationData.obligations.points;
@@ -255,14 +259,14 @@
             </p>
             <h3>{{ organisationData.financing.title }}</h3>
             <p
-              [innerHTML]="organisationData.financing.description | safeHtml"
+              [innerHTML]="sanitize(organisationData.financing.description)"
             ></p>
           </div>
           <div class="finance-opco">
             <h4>{{ organisationData.financing.opco.title }}</h4>
             <p
               class="opco-description"
-              [innerHTML]="organisationData.financing.opco.description"
+              [innerHTML]="sanitize(organisationData.financing.opco.description)"
             ></p>
           </div>
         </div>

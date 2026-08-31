@@ -7,7 +7,7 @@ import {
 } from '@lucide/angular';
 import { ConditionsData } from '../../models/organisation.models';
 import { ApiService } from '../../services/api.service';
-import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
+import { HtmlSanitizerService } from '../../services/html-sanitizer.service';
 import { SeoService } from '../../services/seo.service';
 import { PdfFile } from '../../models/pdf.models';
 import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon.component';
@@ -15,7 +15,7 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
 @Component({
   selector: 'app-organisation',
   standalone: true,
-  imports: [CommonModule, SafeHtmlPipe, LucideDynamicIcon, DynamicIconComponent],
+  imports: [CommonModule, LucideDynamicIcon, DynamicIconComponent],
   providers: [provideLucideIcons(LucideGraduationCap)],
   templateUrl: './organisation.component.html',
   styleUrl: './organisation.component.scss',
@@ -23,10 +23,15 @@ import { DynamicIconComponent } from '../../components/dynamic-icon/dynamic-icon
 export class OrganisationComponent implements OnInit {
   private apiService = inject(ApiService);
   private seoService = inject(SeoService);
+  private sanitizerService = inject(HtmlSanitizerService);
 
   private pageId = 'organisation-documents';
 
   organisationData!: ConditionsData;
+
+  sanitize(value: string | undefined): string {
+    return this.sanitizerService.sanitize(value || '');
+  }
 
   hasPdfs: boolean = false;
   pdfsData: PdfFile[] = [];

@@ -14,10 +14,13 @@
   <form class="admin-form" (ngSubmit)="save()">
     <section class="form-card">
       <h2>Bandeau d'accueil</h2>
-      <label>
-        Titre
-        <input type="text" name="banner-title" [(ngModel)]="homeData.banner.title" />
-      </label>
+      <label class="field-label">Titre</label>
+      <app-rich-text-editor
+        [(ngModel)]="homeData.banner.title"
+        name="banner-title"
+        [editable]="true"
+        toolbar="inline"
+      ></app-rich-text-editor>
       <label>
         Sous-titre
         <input
@@ -74,14 +77,13 @@
 
     <section class="form-card">
       <h2>Certification Qualiopi</h2>
-      <label>
-        Titre
-        <input
-          type="text"
-          name="cert-title"
-          [(ngModel)]="homeData.certification.title"
-        />
-      </label>
+      <label class="field-label">Titre</label>
+      <app-rich-text-editor
+        [(ngModel)]="homeData.certification.title"
+        name="cert-title"
+        [editable]="true"
+        toolbar="inline"
+      ></app-rich-text-editor>
       <label>
         Description
         <textarea
