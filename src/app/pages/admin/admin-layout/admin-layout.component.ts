@@ -1,5 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import {
+  NavigationStart,
+  Router,
+  RouterLink,
+  RouterOutlet,
+} from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import {
   LucideDynamicIcon,
@@ -8,8 +13,10 @@ import {
   LucideImages,
   LucideInfo,
   LucideLogOut,
+  LucideMenu,
   LucideMessageCircle,
   LucideScrollText,
+  LucideX,
   provideLucideIcons,
 } from '@lucide/angular';
 
@@ -24,8 +31,10 @@ import {
       LucideImages,
       LucideInfo,
       LucideLogOut,
+      LucideMenu,
       LucideMessageCircle,
-      LucideScrollText
+      LucideScrollText,
+      LucideX
     ),
   ],
   templateUrl: './admin-layout.component.html',
@@ -34,6 +43,20 @@ import {
 export class AdminLayoutComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
+
+  readonly mobileNavOpen = signal(false);
+
+  constructor() {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.mobileNavOpen.set(false);
+      }
+    });
+  }
+
+  toggleMobileNav(): void {
+    this.mobileNavOpen.update((open) => !open);
+  }
 
   logout(): void {
     this.authService.logout();

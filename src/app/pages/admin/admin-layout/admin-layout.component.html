@@ -1,41 +1,57 @@
 <div class="admin-shell">
   <aside class="admin-nav">
-    <div class="admin-nav-brand">
-      <span class="brand-mark">DM</span>
-      <span class="brand-label">Administration</span>
+    <div class="admin-nav-bar">
+      <div class="admin-nav-brand">
+        <span class="brand-mark">DM</span>
+        <span class="brand-label">Administration</span>
+      </div>
+
+      <button
+        type="button"
+        class="admin-nav-toggle"
+        (click)="toggleMobileNav()"
+        [attr.aria-expanded]="mobileNavOpen()"
+        aria-label="Menu d'administration"
+      >
+        <svg [lucideIcon]="mobileNavOpen() ? 'x' : 'menu'"></svg>
+      </button>
     </div>
 
-    <nav class="admin-nav-links">
-      <a routerLink="/admin/home" routerLinkActive="active">
-        <svg lucideIcon="house"></svg>
-        Accueil
-      </a>
-      <a routerLink="/admin/trainings" routerLinkActive="active">
-        <svg lucideIcon="graduation-cap"></svg>
-        Formations
-      </a>
-      <a routerLink="/admin/gallery" routerLinkActive="active">
-        <svg lucideIcon="images"></svg>
-        Galerie
-      </a>
-      <a routerLink="/admin/about" routerLinkActive="active">
-        <svg lucideIcon="info"></svg>
-        À propos
-      </a>
-      <a routerLink="/admin/organisation" routerLinkActive="active">
-        <svg lucideIcon="scroll-text"></svg>
-        Organisation
-      </a>
-      <a routerLink="/admin/testimonials" routerLinkActive="active">
-        <svg lucideIcon="message-circle"></svg>
-        Témoignages
-      </a>
-    </nav>
+    <div class="admin-nav-collapsible" [class.open]="mobileNavOpen()">
+      <div class="admin-nav-collapsible-inner">
+        <nav class="admin-nav-links">
+          <a routerLink="/admin/home" routerLinkActive="active">
+            <svg lucideIcon="house"></svg>
+            Accueil
+          </a>
+          <a routerLink="/admin/trainings" routerLinkActive="active">
+            <svg lucideIcon="graduation-cap"></svg>
+            Formations
+          </a>
+          <a routerLink="/admin/gallery" routerLinkActive="active">
+            <svg lucideIcon="images"></svg>
+            Galerie
+          </a>
+          <a routerLink="/admin/about" routerLinkActive="active">
+            <svg lucideIcon="info"></svg>
+            À propos
+          </a>
+          <a routerLink="/admin/organisation" routerLinkActive="active">
+            <svg lucideIcon="scroll-text"></svg>
+            Organisation
+          </a>
+          <a routerLink="/admin/testimonials" routerLinkActive="active">
+            <svg lucideIcon="message-circle"></svg>
+            Témoignages
+          </a>
+        </nav>
 
-    <button type="button" class="admin-logout" (click)="logout()">
-      <svg lucideIcon="log-out"></svg>
-      Déconnexion
-    </button>
+        <button type="button" class="admin-logout" (click)="logout()">
+          <svg lucideIcon="log-out"></svg>
+          Déconnexion
+        </button>
+      </div>
+    </div>
   </aside>
 
   <main class="admin-content">
