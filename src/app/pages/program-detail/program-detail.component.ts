@@ -11,8 +11,8 @@ import { ApiService } from '../../services/api.service';
 import { EditModeService } from '../../services/edit-mode.service';
 import { SeoService } from '../../services/seo.service';
 import { EditableImageComponent } from '../../components/editable-image/editable-image.component';
+import { RichTextEditorComponent } from '../../components/rich-text-editor/rich-text-editor.component';
 import { PdfFile } from '../../models/pdf.models';
-import { SafeHtmlPipe } from '../../pipes/safe-html.pipe';
 import { MatDialog } from '@angular/material/dialog';
 import { ToastService } from '../../services/toast.service';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
@@ -38,7 +38,7 @@ import {
     EditButtonComponent,
     TrainingTestimonialsComponent,
     EditableImageComponent,
-    SafeHtmlPipe,
+    RichTextEditorComponent,
     AutoResizeDirective,
     LucideDynamicIcon,
   ],

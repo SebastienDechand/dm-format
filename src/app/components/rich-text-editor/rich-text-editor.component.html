@@ -1,0 +1,173 @@
+@if (!editable()) {
+  <div class="rte-content" [innerHTML]="displaySafeHtml()"></div>
+}
+
+@if (editable()) {
+  <div class="rte-editor" tabindex="-1" (focusout)="onWrapperFocusOut($event)">
+    <div class="rte-toolbar" role="toolbar" aria-label="Mise en forme du texte">
+      <button
+        type="button"
+        class="rte-btn"
+        [class.active]="isActive('bold')"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleBold()"
+        aria-label="Gras"
+        title="Gras"
+      >
+        <svg lucideIcon="bold"></svg>
+      </button>
+      <button
+        type="button"
+        class="rte-btn"
+        [class.active]="isActive('italic')"
+        (mousedown)="$event.preventDefault()"
+        (click)="toggleItalic()"
+        aria-label="Italique"
+        title="Italique"
+      >
+        <svg lucideIcon="italic"></svg>
+      </button>
+      @if (toolbar() === 'full') {
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isActive('underline')"
+          (mousedown)="$event.preventDefault()"
+          (click)="toggleUnderline()"
+          aria-label="Souligné"
+          title="Souligné"
+        >
+          <svg lucideIcon="underline"></svg>
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isActive('strike')"
+          (mousedown)="$event.preventDefault()"
+          (click)="toggleStrike()"
+          aria-label="Barré"
+          title="Barré"
+        >
+          <svg lucideIcon="strikethrough"></svg>
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isActive('bulletList')"
+          (mousedown)="$event.preventDefault()"
+          (click)="toggleBulletList()"
+          aria-label="Liste à puces"
+          title="Liste à puces"
+        >
+          <svg lucideIcon="list"></svg>
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isActive('blockquote')"
+          (mousedown)="$event.preventDefault()"
+          (click)="toggleBlockquote()"
+          aria-label="Citation"
+          title="Citation"
+        >
+          <svg lucideIcon="quote"></svg>
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isHeadingActive(3)"
+          (mousedown)="$event.preventDefault()"
+          (click)="toggleHeading(3)"
+          aria-label="Sous-titre niveau 3"
+          title="Sous-titre niveau 3"
+        >
+          <svg lucideIcon="heading-3"></svg>
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isHeadingActive(4)"
+          (mousedown)="$event.preventDefault()"
+          (click)="toggleHeading(4)"
+          aria-label="Sous-titre niveau 4"
+          title="Sous-titre niveau 4"
+        >
+          <svg lucideIcon="heading-4"></svg>
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          [class.active]="isActive('link')"
+          (mousedown)="$event.preventDefault()"
+          (click)="openLinkInput()"
+          aria-label="Lien"
+          title="Lien"
+        >
+          <svg lucideIcon="link"></svg>
+        </button>
+      }
+      <span class="rte-divider" aria-hidden="true"></span>
+      <button
+        type="button"
+        class="rte-swatch rte-swatch--none"
+        (mousedown)="$event.preventDefault()"
+        (click)="unsetColor()"
+        aria-label="Retirer la couleur"
+        title="Aucune couleur"
+      ></button>
+      @for (color of colors; track color.hex) {
+        <button
+          type="button"
+          class="rte-swatch"
+          [class.active]="isColorActive(color.hex)"
+          [style.background-color]="color.hex"
+          (mousedown)="$event.preventDefault()"
+          (click)="setColor(color.hex)"
+          [attr.aria-label]="color.label"
+          [title]="color.label"
+        ></button>
+      }
+    </div>
+    @if (linkInputOpen()) {
+      <div class="rte-link-row">
+        <input
+          #linkInput
+          type="text"
+          class="rte-link-input"
+          placeholder="https://exemple.fr"
+          [value]="linkUrlDraft()"
+          (input)="linkUrlDraft.set($any($event.target).value)"
+          (keydown.enter)="confirmLink()"
+          (keydown.escape)="cancelLink()"
+          aria-label="Adresse du lien"
+        />
+        <button
+          type="button"
+          class="rte-btn"
+          (click)="confirmLink()"
+          aria-label="Valider le lien"
+          title="Valider"
+        >
+          OK
+        </button>
+        <button
+          type="button"
+          class="rte-btn"
+          (click)="cancelLink()"
+          aria-label="Annuler"
+          title="Annuler"
+        >
+          ✕
+        </button>
+      </div>
+    }
+    <div #editorHost class="rte-surface"></div>
+  </div>
+}
+
+@if (adminVisible()) {
+  <app-edit-button
+    tabindex="-1"
+    (editClicked)="editToggled.emit()"
+  ></app-edit-button>
+}

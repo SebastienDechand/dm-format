@@ -20,22 +20,13 @@
           Formation
         </p>
         <h1>
-          @if (!editMode()['title']) {
-            <span [innerHTML]="program.title | safeHtml"></span>
-          }
-          @if (editMode()['title']) {
-            <textarea
-              autoResize
-              [(ngModel)]="program.title"
-              class="edit-textarea"
-              (blur)="toggleEditMode('title')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('title')"
-            ></app-edit-button>
-          }
+          <app-rich-text-editor
+            [(ngModel)]="program.title"
+            [editable]="editMode()['title']"
+            [adminVisible]="isAdmin()"
+            toolbar="inline"
+            (editToggled)="toggleEditMode('title')"
+          ></app-rich-text-editor>
         </h1>
         <ul class="highlights">
           @for (
@@ -157,24 +148,15 @@
           <p class="eyebrow">Informations pratiques</p>
           <h2>Informations concernant la session</h2>
 
-          <p>
-            @if (!editMode()['information']) {
-              <span>{{ program.information }}</span>
-            }
-            @if (editMode()['information']) {
-              <textarea
-                autoResize
-                [(ngModel)]="program.information"
-                class="edit-textarea"
-                (blur)="toggleEditMode('information')"
-              ></textarea>
-            }
-            @if (isAdmin()) {
-              <app-edit-button
-                (editClicked)="toggleEditMode('information')"
-              ></app-edit-button>
-            }
-          </p>
+          <div class="rte-field">
+            <app-rich-text-editor
+              [(ngModel)]="program.information"
+              [editable]="editMode()['information']"
+              [adminVisible]="isAdmin()"
+              toolbar="full"
+              (editToggled)="toggleEditMode('information')"
+            ></app-rich-text-editor>
+          </div>
         </div>
 
         @if (hasPdfs || isAdmin()) {
@@ -241,43 +223,24 @@
       <div class="program-content">
         <p class="eyebrow">Contenu</p>
         <h2>Le contenu de la session</h2>
-        <p>
-          @if (!editMode()['summary']) {
-            <span>{{ program.summary }}</span>
-          }
-          @if (editMode()['summary']) {
-            <textarea
-              autoResize
-              [(ngModel)]="program.summary"
-              class="edit-textarea"
-              (blur)="toggleEditMode('summary')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('summary')"
-              class="edit-btn"
-            ></app-edit-button>
-          }
-        </p>
-        <p>
-          @if (!editMode()['content']) {
-            <span>{{ program.content }}</span>
-          }
-          @if (editMode()['content']) {
-            <textarea
-              autoResize
-              [(ngModel)]="program.content"
-              class="edit-textarea"
-              (blur)="toggleEditMode('content')"
-            ></textarea>
-          }
-          @if (isAdmin()) {
-            <app-edit-button
-              (editClicked)="toggleEditMode('content')"
-            ></app-edit-button>
-          }
-        </p>
+        <div class="rte-field">
+          <app-rich-text-editor
+            [(ngModel)]="program.summary"
+            [editable]="editMode()['summary']"
+            [adminVisible]="isAdmin()"
+            toolbar="full"
+            (editToggled)="toggleEditMode('summary')"
+          ></app-rich-text-editor>
+        </div>
+        <div class="rte-field">
+          <app-rich-text-editor
+            [(ngModel)]="program.content"
+            [editable]="editMode()['content']"
+            [adminVisible]="isAdmin()"
+            toolbar="full"
+            (editToggled)="toggleEditMode('content')"
+          ></app-rich-text-editor>
+        </div>
         <div class="content-list">
           <ul class="content-details">
             @for (
@@ -346,26 +309,17 @@
                   ></app-edit-button>
                 }
               </h4>
-              <p>
-                @if (!editMode()['modules.' + i + '.description']) {
-                  <span>{{ module.description }}</span>
-                }
-                @if (editMode()['modules.' + i + '.description']) {
-                  <textarea
-                    autoResize
-                    [(ngModel)]="module.description"
-                    class="edit-textarea"
-                    (blur)="toggleEditMode('modules.' + i + '.description')"
-                  ></textarea>
-                }
-                @if (isAdmin()) {
-                  <app-edit-button
-                    (editClicked)="
-                      toggleEditMode('modules.' + i + '.description')
-                    "
-                  ></app-edit-button>
-                }
-              </p>
+              <div class="rte-field">
+                <app-rich-text-editor
+                  [(ngModel)]="module.description"
+                  [editable]="editMode()['modules.' + i + '.description']"
+                  [adminVisible]="isAdmin()"
+                  toolbar="full"
+                  (editToggled)="
+                    toggleEditMode('modules.' + i + '.description')
+                  "
+                ></app-rich-text-editor>
+              </div>
               @if (isAdmin()) {
                 <button class="delete-module-btn" (click)="deleteModule(i)">
                   <svg lucideIcon="trash-2"></svg> Supprimer
