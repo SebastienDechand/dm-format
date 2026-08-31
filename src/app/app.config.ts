@@ -1,4 +1,8 @@
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withFetch,
+  withInterceptors,
+} from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -13,6 +17,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter, withViewTransitions } from '@angular/router';
 import { routes } from './app.routes';
 import { ApiService } from './services/api.service';
+import { authInterceptor } from './interceptors/auth.interceptor';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
@@ -22,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     provideAnimations(),
-    provideHttpClient(withFetch()),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     ApiService,
     importProvidersFrom(MatNativeDateModule),
     { provide: MAT_DATE_LOCALE, useValue: 'fr-FR' },

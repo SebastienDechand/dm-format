@@ -1,8 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, map, tap } from 'rxjs/operators';
-import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -10,7 +9,6 @@ import { environment } from '../../environments/environment';
 })
 export class ImageUploadService {
   private http = inject(HttpClient);
-  private authService = inject(AuthService);
 
   private apiUrl = environment.apiUrl;
 
@@ -22,15 +20,9 @@ export class ImageUploadService {
     const formData = new FormData();
     formData.append('image', imageFile);
 
-    const token = this.authService.getToken();
-
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
-    });
-
     const url = `${this.apiUrl}/images/${pageId}`;
 
-    return this.http.put<any>(url, formData, { headers }).pipe(
+    return this.http.put<any>(url, formData).pipe(
       catchError((error) => {
         console.error("Erreur d'upload détaillée:", error);
         return throwError(() => new Error("Échec de l'upload"));
