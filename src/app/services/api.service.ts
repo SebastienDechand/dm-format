@@ -55,16 +55,8 @@ export class ApiService {
     return this.http.get<GalleryImage[]>(`${this.apiUrl}/gallery`);
   }
 
-  patchGallery(data: GalleryImage[]): Observable<GalleryImage[]> {
-    return this.http.patch<GalleryImage[]>(`${this.apiUrl}/gallery`, data);
-  }
-
   getPrograms(): Observable<Program[]> {
     return this.http.get<Program[]>(`${this.apiUrl}/trainings`);
-  }
-
-  patchPrograms(data: Program[]): Observable<Program[]> {
-    return this.http.patch<Program[]>(`${this.apiUrl}/trainings`, data);
   }
 
   getProgramById(id: string): Observable<Program> {
