@@ -1,5 +1,20 @@
 <div class="admin-list-header">
   <h1>Témoignages</h1>
+  @if (pendingCount() > 0) {
+    <button
+      type="button"
+      class="btn-approve-all"
+      [disabled]="approvingAll()"
+      (click)="approveAll()"
+    >
+      <svg lucideIcon="check"></svg>
+      {{
+        approvingAll()
+          ? 'Publication…'
+          : 'Tout publier (' + pendingCount() + ')'
+      }}
+    </button>
+  }
 </div>
 
 @if (loading()) {

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { TestimonialService } from '../../../services/testimonial.service';
@@ -28,6 +28,11 @@ export class AdminTestimonialsListComponent implements OnInit {
 
   readonly testimonials = signal<Testimonial[]>([]);
   readonly loading = signal(true);
+  readonly approvingAll = signal(false);
+
+  readonly pendingCount = computed(
+    () => this.testimonials().filter((t) => !t.approved).length
+  );
 
   ngOnInit(): void {
     this.load();
@@ -98,6 +103,33 @@ export class AdminTestimonialsListComponent implements OnInit {
       error: () => {
         this.toast.error('Erreur lors de la dépublication.');
       },
+    });
+  }
+
+  approveAll(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      data: {
+        message: `Publier les ${this.pendingCount()} témoignage(s) en attente ?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (!confirmed) return;
+
+      this.approvingAll.set(true);
+      this.testimonialService.approveAll().subscribe({
+        next: () => {
+          this.approvingAll.set(false);
+          this.testimonials.set(
+            this.testimonials().map((t) => ({ ...t, approved: true }))
+          );
+          this.toast.success('Tous les témoignages ont été publiés.');
+        },
+        error: () => {
+          this.approvingAll.set(false);
+          this.toast.error('Erreur lors de la publication groupée.');
+        },
+      });
     });
   }
 

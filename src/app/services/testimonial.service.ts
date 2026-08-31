@@ -52,4 +52,8 @@ export class TestimonialService {
   setApproved(id: string, approved: boolean): Observable<any> {
     return this.http.patch(`${this.apiUrl}/${id}`, { approved });
   }
+
+  approveAll(): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/approve-all`, {});
+  }
 }
