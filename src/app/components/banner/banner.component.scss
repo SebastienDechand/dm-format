@@ -195,15 +195,19 @@
     .highlights {
       justify-content: center;
     }
-  }
 
-  .hero-visual {
-    padding: 0 var(--padding-big) var(--padding-big);
-  }
+    // Nested inside .hero to match the base rules' specificity
+    // (.hero .hero-visual / .hero .hero-floating-card) - written as
+    // top-level siblings of .hero, these lost the specificity battle
+    // and never actually applied at any width.
+    .hero-visual {
+      padding: 0 var(--padding-big) var(--padding-big);
+    }
 
-  .hero-floating-card {
-    left: 24px;
-    bottom: 24px;
+    .hero-floating-card {
+      left: 24px;
+      bottom: 24px;
+    }
   }
 }
 
@@ -223,46 +227,50 @@
 }
 
 @media (max-width: 768px) {
-  .hero-content {
-    padding: var(--padding-medium) !important;
+  .hero {
+    .hero-content {
+      padding: var(--padding-medium) !important;
 
-    h1 {
-      margin-top: 25px;
-      font-size: 24px;
+      h1 {
+        margin-top: 25px;
+        font-size: 24px;
+      }
+
+      .subtitle span,
+      .details span {
+        font-size: 18px;
+      }
     }
 
-    .subtitle span,
-    .details span {
-      font-size: 18px;
+    .hero-visual {
+      padding: 0 16px 16px;
     }
-  }
 
-  .hero-visual {
-    padding: 0 var(--padding-medium) var(--padding-medium);
-  }
-
-  .hero-floating-card {
-    max-width: calc(100% - 48px);
-    padding: 14px 18px;
+    .hero-floating-card {
+      max-width: calc(100% - 48px);
+      padding: 14px 18px;
+    }
   }
 }
 
 @media (max-width: 480px) {
-  .hero-content {
-    padding: var(--padding-small) !important;
+  .hero {
+    .hero-content {
+      padding: var(--padding-small) !important;
 
-    h1 {
-      font-size: 20px;
+      h1 {
+        font-size: 20px;
+      }
+
+      .subtitle span,
+      .details span {
+        font-size: 16px;
+      }
     }
 
-    .subtitle span,
-    .details span {
-      font-size: 16px;
+    .hero-floating-card {
+      left: 16px;
+      bottom: 16px;
     }
-  }
-
-  .hero-floating-card {
-    left: 16px;
-    bottom: 16px;
   }
 }
