@@ -60,7 +60,9 @@
 
       li {
         display: flex;
-        align-items: center;
+        // flex-start (not center) so the checkmark stays next to the
+        // first line if a highlight wraps, instead of floating mid-text.
+        align-items: flex-start;
         gap: 10px;
         font-size: var(--text-size-desktop);
         font-weight: 500;

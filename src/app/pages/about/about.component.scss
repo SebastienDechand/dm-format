@@ -249,7 +249,10 @@
 
     li {
       display: flex;
-      align-items: center;
+      // center vertically misplaces the checkmark once the text wraps to
+      // multiple lines - it ends up floating mid-paragraph instead of
+      // sitting next to the first line, like a bullet should.
+      align-items: flex-start;
       gap: 12px;
       font-size: var(--text-size-desktop);
       line-height: 1.4;
@@ -310,7 +313,6 @@
       }
     }
   }
-
 }
 
 /* Styles pour les images modifiables */
