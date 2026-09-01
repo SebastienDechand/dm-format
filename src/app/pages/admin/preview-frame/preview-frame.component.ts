@@ -40,6 +40,8 @@ export class PreviewFrameComponent implements OnInit, OnDestroy {
 
   readonly program = signal<Program | undefined>(undefined);
 
+  private resizeObserver?: ResizeObserver;
+
   private readonly onMessage = (event: MessageEvent): void => {
     if (event.origin !== window.location.origin) return;
     const data = event.data as PreviewUpdateMessage | undefined;
@@ -57,10 +59,29 @@ export class PreviewFrameComponent implements OnInit, OnDestroy {
       { type: 'dm-format-preview-ready' },
       window.location.origin
     );
+
+    // Reports the page's real content height to the parent so it can size
+    // the iframe/scale to match (see admin-training-form's
+    // previewFrameHeight) - without this the iframe stayed clipped at its
+    // default height regardless of how much content actually rendered.
+    this.resizeObserver = new ResizeObserver(() => this.reportHeight());
+    this.resizeObserver.observe(document.documentElement);
+    this.reportHeight();
   }
 
   ngOnDestroy(): void {
     if (!this.isBrowser) return;
     window.removeEventListener('message', this.onMessage);
+    this.resizeObserver?.disconnect();
+  }
+
+  private reportHeight(): void {
+    window.parent.postMessage(
+      {
+        type: 'dm-format-preview-height',
+        height: document.documentElement.scrollHeight,
+      },
+      window.location.origin
+    );
   }
 }
