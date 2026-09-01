@@ -1,4 +1,4 @@
-import { Component, Input, output } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { LucideDynamicIcon, LucidePen, provideLucideIcons } from '@lucide/angular';
 
 @Component({

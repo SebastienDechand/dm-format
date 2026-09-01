@@ -67,7 +67,7 @@ export class OrganisationComponent implements OnInit {
     });
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 

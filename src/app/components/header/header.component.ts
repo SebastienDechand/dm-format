@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  inject,
-  OnInit,
-  HostListener,
-  PLATFORM_ID,
-} from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -63,7 +57,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
   standalone: true,
 })
 export class HeaderComponent implements OnInit {
-  private platformId = inject<Object>(PLATFORM_ID);
+  private platformId = inject<object>(PLATFORM_ID);
   private breakpointObserver = inject(BreakpointObserver);
 
   private apiService: ApiService = inject(ApiService);

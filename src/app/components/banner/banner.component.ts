@@ -30,7 +30,7 @@ export class BannerComponent {
     return this.sanitizerService.sanitize(this.bannerData?.title || '');
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 }

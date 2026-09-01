@@ -56,7 +56,7 @@ import {
 export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   private fb = inject(FormBuilder);
   private testimonialService = inject(TestimonialService);
-  private platformId = inject<Object>(PLATFORM_ID);
+  private platformId = inject<object>(PLATFORM_ID);
 
   private toast = inject(ToastService);
   private dialog = inject(MatDialog);

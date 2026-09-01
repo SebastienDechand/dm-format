@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpEventType } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -19,6 +19,7 @@ export class ImageUploadService {
   ): Observable<any> {
     const formData = new FormData();
     formData.append('image', imageFile);
+    formData.append('altText', altText);
 
     const url = `${this.apiUrl}/images/${pageId}`;
 

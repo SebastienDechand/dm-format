@@ -62,7 +62,7 @@ export class RecaptchaComponent implements OnInit, OnDestroy {
   private readonly container =
     viewChild.required<ElementRef<HTMLElement>>('container');
   private zone = inject(NgZone);
-  private platformId = inject<Object>(PLATFORM_ID);
+  private platformId = inject<object>(PLATFORM_ID);
 
   readonly siteKey = input.required<string>();
   readonly size = input<'invisible' | 'normal' | 'compact'>('invisible');

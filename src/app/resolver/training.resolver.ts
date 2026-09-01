@@ -24,7 +24,7 @@ export class TrainingResolver implements Resolve<Program> {
             ? `Formation ${program.title} | DM-Format`
             : `Formation ${program.title} | SST | DM-Format`;
 
-          let seoDescription = '';
+          let seoDescription: string;
           if (program.description) {
             seoDescription = program.description.substring(0, 150) + '...';
           } else {

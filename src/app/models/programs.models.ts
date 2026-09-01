@@ -1,5 +1,3 @@
-import { Testimonial } from './testimonials.model';
-
 export interface Program {
   _id: string;
   title: string;

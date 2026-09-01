@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, input, OnInit } from '@angular/core';
+import { Component, inject, input, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, switchMap, takeUntil } from 'rxjs';
@@ -41,7 +41,7 @@ import {
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
 })
-export class ProgramDetailComponent implements OnInit {
+export class ProgramDetailComponent implements OnInit, OnDestroy {
   private apiService: ApiService = inject(ApiService);
   private route: ActivatedRoute = inject(ActivatedRoute);
   private seoService: SeoService = inject(SeoService);
@@ -122,7 +122,7 @@ export class ProgramDetailComponent implements OnInit {
       ? `Formation ${plainTitle} | DM-Format`
       : `Formation ${plainTitle} | SST | DM-Format`;
 
-    let seoDescription = '';
+    let seoDescription: string;
     if (program.description) {
       seoDescription = program.description.substring(0, 157) + '...';
     } else {
@@ -175,7 +175,7 @@ export class ProgramDetailComponent implements OnInit {
     ]);
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 

@@ -37,7 +37,7 @@ export class ProgramsComponent implements OnInit {
     return html.replace(/<[^>]*>/g, '');
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 

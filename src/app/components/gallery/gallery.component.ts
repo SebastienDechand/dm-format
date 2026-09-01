@@ -12,7 +12,7 @@ import {
 import { GalleryImage } from '../../models/gallery.models';
 import { GalleryService } from '../../services/gallery.service';
 import { isPlatformBrowser } from '@angular/common';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import {
   LucideDynamicIcon,
   LucideX,
@@ -33,7 +33,7 @@ import {
 })
 export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
   private galleryService = inject(GalleryService);
-  private platformId = inject<Object>(PLATFORM_ID);
+  private platformId = inject<object>(PLATFORM_ID);
 
   readonly images = this.galleryService.images;
   readonly isLoading = this.galleryService.loading;
@@ -74,7 +74,7 @@ export class GalleryComponent implements OnInit, OnChanges, AfterViewInit {
     }, 500);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     // Recharger les images si certaines propriétés changent
     this.loadImages();
   }

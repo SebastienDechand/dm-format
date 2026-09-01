@@ -1,10 +1,10 @@
-import { Directive, ElementRef, HostListener, inject } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, AfterViewInit } from '@angular/core';
 
 @Directive({
   selector: 'textarea[autoResize]',
   standalone: true,
 })
-export class AutoResizeDirective {
+export class AutoResizeDirective implements AfterViewInit {
   private elementRef = inject<ElementRef<HTMLTextAreaElement>>(ElementRef);
 
   @HostListener('input')

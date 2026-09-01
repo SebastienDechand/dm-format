@@ -26,7 +26,7 @@ import { HeaderComponent } from './components/header/header.component';
 export class AppComponent {
   private router = inject(Router);
   private document = inject<Document>(DOCUMENT);
-  private platformId = inject<Object>(PLATFORM_ID);
+  private platformId = inject<object>(PLATFORM_ID);
 
   // Route resolvers block navigation until their HTTP call completes, with
   // no feedback otherwise - the page just freezes then snaps. This bar

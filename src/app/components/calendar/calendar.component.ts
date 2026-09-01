@@ -7,7 +7,7 @@ import {
   inject,
   OnInit,
   PLATFORM_ID,
-  ViewChild,
+  ViewChild, AfterViewInit,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
@@ -56,7 +56,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, AfterViewInit {
   private toast = inject(ToastService);
   private dialog = inject(MatDialog);
   private authService: AuthService = inject(AuthService);
@@ -83,7 +83,7 @@ export class CalendarComponent implements OnInit {
   constructor(
     private trainingService: CalendarService,
     private changeDetectorRef: ChangeDetectorRef,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   @ViewChild(MatCalendar) calendar!: MatCalendar<Date>;
@@ -265,7 +265,7 @@ export class CalendarComponent implements OnInit {
   }
 
   @HostListener('mouseleave', ['$event'])
-  onMouseLeaveCalendar(event: any): void {
+  onMouseLeaveCalendar(_event: unknown): void {
     this.showTooltip = false;
   }
 

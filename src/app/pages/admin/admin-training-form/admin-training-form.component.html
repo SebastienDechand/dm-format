@@ -80,7 +80,7 @@
       } @else {
         <app-editable-image
           [pageId]="pageId"
-          [imageSrc]="program.banner?.src ?? ''"
+          [imageSrc]="program.banner.src"
           [altText]="'Bannière ' + program.title"
           imageClass="admin-banner-preview"
           [isEditable]="true"

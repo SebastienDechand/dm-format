@@ -101,7 +101,7 @@ export class AboutComponent implements OnInit {
     ]);
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 }
