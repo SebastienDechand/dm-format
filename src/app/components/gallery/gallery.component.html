@@ -14,10 +14,16 @@
       @for (image of images(); track image) {
         <div class="gallery-item" (click)="openLightbox(image)">
           <img [src]="image.src" [alt]="image.title" loading="lazy" />
-          <div class="gallery-caption">
-            <h3>{{ image.title }}</h3>
-            <p>{{ image.description }}</p>
-          </div>
+          @if (image.title || image.description) {
+            <div class="gallery-caption">
+              @if (image.title) {
+                <h3>{{ image.title }}</h3>
+              }
+              @if (image.description) {
+                <p>{{ image.description }}</p>
+              }
+            </div>
+          }
         </div>
       }
     </div>
@@ -37,17 +43,63 @@
   }
 
   <!-- Lightbox -->
-  @if (selectedImage) {
-    <div class="lightbox">
-      <div class="lightbox-content">
+  @if (selectedImage; as image) {
+    <div
+      class="lightbox"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-label]="image.title"
+      (click)="closeLightbox()"
+    >
+      <button
+        class="lightbox-btn close-btn"
+        (click)="closeLightbox(); $event.stopPropagation()"
+        aria-label="Fermer l'image"
+      >
+        <svg lucideIcon="x"></svg>
+      </button>
+
+      @if (images().length > 1) {
         <button
-          class="close-lightbox-btn"
-          (click)="closeLightbox()"
-          aria-label="Fermer l'image"
+          class="lightbox-btn nav-btn prev-btn"
+          (click)="showPrev(); $event.stopPropagation()"
+          aria-label="Image précédente"
         >
-          <svg lucideIcon="x"></svg>
+          <svg lucideIcon="chevron-left"></svg>
         </button>
-        <img [src]="selectedImage.src" [alt]="selectedImage.title" />
+        <button
+          class="lightbox-btn nav-btn next-btn"
+          (click)="showNext(); $event.stopPropagation()"
+          aria-label="Image suivante"
+        >
+          <svg lucideIcon="chevron-right"></svg>
+        </button>
+        <span class="lightbox-counter"
+          >{{ selectedIndex! + 1 }} / {{ images().length }}</span
+        >
+      }
+
+      <div class="lightbox-content" (click)="$event.stopPropagation()">
+        <div class="lightbox-image-wrapper" [class.zoomed]="isZoomed">
+          <img
+            [src]="image.src"
+            [alt]="image.title"
+            [style.transform-origin]="zoomOriginX + '% ' + zoomOriginY + '%'"
+            (click)="toggleZoom($event)"
+            (mousemove)="onZoomedMouseMove($event)"
+          />
+        </div>
+
+        @if (image.title || image.description) {
+          <div class="lightbox-caption">
+            @if (image.title) {
+              <h3>{{ image.title }}</h3>
+            }
+            @if (image.description) {
+              <p>{{ image.description }}</p>
+            }
+          </div>
+        }
       </div>
     </div>
   }
