@@ -43,34 +43,37 @@
   </div>
 
   <div class="hero-visual">
-    <div class="hero-image-frame">
-      <img
-        [src]="bannerData?.image"
-        alt="Exercice de massage cardiaque"
-        class="hero-banner-image"
-        loading="lazy"
-      />
+    @if (!imageFailed) {
+      <div class="hero-image-frame">
+        <img
+          [src]="bannerData?.image"
+          alt="Exercice de massage cardiaque"
+          class="hero-banner-image"
+          loading="lazy"
+          (error)="onImageError()"
+        />
 
-      @if (bannerData?.highlights?.[0]) {
-        <div class="hero-floating-card">
-          <svg
-            class="hero-pulse"
-            viewBox="0 0 160 32"
-            fill="none"
-            aria-hidden="true"
-          >
-            <path
-              class="hero-pulse-path"
-              d="M0 16H58L64 16L70 4L78 28L84 16H160"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-          <p>{{ bannerData.highlights[0] }}</p>
-        </div>
-      }
-    </div>
+        @if (bannerData?.highlights?.[0]) {
+          <div class="hero-floating-card">
+            <svg
+              class="hero-pulse"
+              viewBox="0 0 160 32"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                class="hero-pulse-path"
+                d="M0 16H58L64 16L70 4L78 28L84 16H160"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <p>{{ bannerData.highlights[0] }}</p>
+          </div>
+        }
+      </div>
+    }
   </div>
 </section>

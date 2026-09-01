@@ -1,7 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, inject } from '@angular/core';
 import { HtmlSanitizerService } from '../../services/html-sanitizer.service';
-import { LucideDynamicIcon, LucideCheck, provideLucideIcons } from '@lucide/angular';
+import {
+  LucideDynamicIcon,
+  LucideCheck,
+  provideLucideIcons,
+} from '@lucide/angular';
 
 @Component({
   selector: 'app-banner',
@@ -15,6 +19,12 @@ export class BannerComponent {
   private sanitizerService = inject(HtmlSanitizerService);
 
   @Input() bannerData: any;
+
+  imageFailed = false;
+
+  onImageError(): void {
+    this.imageFailed = true;
+  }
 
   get safeTitle(): string {
     return this.sanitizerService.sanitize(this.bannerData?.title || '');
