@@ -3,7 +3,6 @@ import {
   Component,
   inject,
   OnInit,
-  HostListener,
   PLATFORM_ID,
   Inject,
 } from '@angular/core';
@@ -18,7 +17,7 @@ import { ApiService } from '../../services/api.service';
 import { AdminService } from '../../services/admin.service';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-header',
@@ -55,7 +54,7 @@ export class HeaderComponent implements OnInit {
   private clickTimer: any = null;
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(PLATFORM_ID) private platformId: object,
     private breakpointObserver: BreakpointObserver
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);

@@ -17,7 +17,7 @@ import { GalleryService } from '../../services/gallery.service';
 import { ConfirmDialogGalleryComponent } from '../confirm-dialog-gallery/confirm-dialog-gallery.component';
 import { environment } from '../../../environments/environment.prod';
 import { isPlatformBrowser } from '@angular/common';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 @Component({
   selector: 'app-gallery',
   standalone: true,
@@ -45,7 +45,7 @@ export class GalleryComponent
 
   constructor(
     private galleryService: GalleryService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
@@ -69,7 +69,7 @@ export class GalleryComponent
     }, 500);
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(_changes: SimpleChanges): void {
     // Recharger les images si certaines propriétés changent
     this.loadImages();
   }

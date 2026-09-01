@@ -61,7 +61,7 @@
       <button
         mat-button
         [routerLink]="['/login']"
-        *ngIf="showLoginButton && !(isLoggedIn$ | async)"
+        *ngIf="showLoginButton && (isLoggedIn$ | async) === false"
       >
         Connexion
       </button>
@@ -77,7 +77,7 @@
       <button
         mat-button
         [routerLink]="['/login']"
-        *ngIf="showLoginButton && !(isLoggedIn$ | async)"
+        *ngIf="showLoginButton && (isLoggedIn$ | async) === false"
       >
         Connexion
       </button>

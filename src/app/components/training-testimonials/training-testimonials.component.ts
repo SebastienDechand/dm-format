@@ -93,7 +93,7 @@ export class TrainingTestimonialsComponent implements OnInit, OnChanges {
   constructor(
     private fb: FormBuilder,
     private testimonialService: TestimonialService,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   ngOnInit(): void {

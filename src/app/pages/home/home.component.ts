@@ -78,7 +78,7 @@ export class HomeComponent implements OnInit {
   private updateSeo(data: any): void {
     const title = 'DM-Format | Formation SST';
 
-    let description =
+    const description =
       'Centre de formation spécialisé en Sauveteur Secouriste du Travail (SST) et formation de formateurs SST. Formations certifiantes pour professionnels et entreprises.';
 
     let image = 'https://dm-format.fr/assets/images/massage1.webp';
@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
       image = data.banner.image;
     }
 
-    let keywords =
+    const keywords =
       'formation SST, sauveteur secouriste du travail, formation formateur SST, secourisme entreprise, certification SST, prévention risques professionnels';
 
     this.seoService.updateMetadata({

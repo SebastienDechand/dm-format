@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { EditButtonComponent } from '../../components/edit-button/edit-button.component';
@@ -25,7 +25,7 @@ import { AutoResizeDirective } from '../../directives/auto-resize.directive';
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, OnDestroy {
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
@@ -131,7 +131,7 @@ export class AboutComponent implements OnInit {
     ]);
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 

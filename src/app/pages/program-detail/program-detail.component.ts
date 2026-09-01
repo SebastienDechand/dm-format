@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit, OnDestroy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subject, switchMap, takeUntil } from 'rxjs';
@@ -33,7 +33,7 @@ import { AutoResizeDirective } from '../../directives/auto-resize.directive';
   templateUrl: './program-detail.component.html',
   styleUrls: ['./program-detail.component.scss'],
 })
-export class ProgramDetailComponent implements OnInit {
+export class ProgramDetailComponent implements OnInit, OnDestroy {
   private apiService: ApiService = inject(ApiService);
   private adminService: AdminService = inject(AdminService);
   private editModeService: EditModeService = inject(EditModeService);
@@ -189,7 +189,7 @@ export class ProgramDetailComponent implements OnInit {
       ? `Formation ${program.title} | DM-Format`
       : `Formation ${program.title} | SST | DM-Format`;
 
-    let seoDescription = '';
+    let seoDescription: string;
     if (program.description) {
       seoDescription = program.description.substring(0, 157) + '...';
     } else {
@@ -247,7 +247,7 @@ export class ProgramDetailComponent implements OnInit {
     });
   }
 
-  trackByIndex(index: number, item: any): number {
+  trackByIndex(index: number, _item: unknown): number {
     return index;
   }
 

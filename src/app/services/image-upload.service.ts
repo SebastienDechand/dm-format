@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, filter, map, tap } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.prod';
 
@@ -23,6 +23,7 @@ export class ImageUploadService {
   ): Observable<any> {
     const formData = new FormData();
     formData.append('image', imageFile);
+    formData.append('altText', altText);
 
     const token = this.authService.getToken();
 

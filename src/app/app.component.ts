@@ -21,7 +21,7 @@ export class AppComponent {
   constructor(
     private router: Router,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {
     this.router.events
       .pipe(

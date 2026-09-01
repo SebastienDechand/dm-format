@@ -13,7 +13,7 @@ export class SeoService {
     private title: Title,
     private router: Router,
     @Inject(DOCUMENT) private document: Document,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: object
   ) {}
 
   updateMetadata({
