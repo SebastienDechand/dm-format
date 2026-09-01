@@ -343,7 +343,7 @@
     }
 
     .about-header {
-      flex-direction: column;
+      flex-direction: column-reverse;
       text-align: center;
 
       .about-text {
@@ -384,8 +384,11 @@
       }
     }
 
+    // The heading/eyebrow above read fine centered, but this is a
+    // multi-paragraph body text - centering it over many wrapped lines
+    // gets ragged and hard to read, unlike the short bits above it.
     .who-we-are-text {
-      text-align: center;
+      text-align: left;
     }
 
     .training-list {
@@ -445,7 +448,7 @@
     }
 
     .who-we-are-text {
-      text-align: center;
+      text-align: left;
     }
 
     h1 span,

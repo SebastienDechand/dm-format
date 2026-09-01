@@ -437,6 +437,13 @@
       }
     }
 
+    // Headings/eyebrows read fine centered, but a long paragraph centered
+    // over many wrapped lines gets ragged and hard to read - only the
+    // short bits above should inherit .intro-container's center align.
+    .intro p {
+      text-align: left;
+    }
+
     .intro-documents {
       text-align: left;
     }
@@ -531,7 +538,7 @@
       }
       p {
         font-size: 16px;
-        text-align: center;
+        text-align: left;
       }
     }
 
