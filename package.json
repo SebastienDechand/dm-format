@@ -17,6 +17,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^20.3.30",
+    "@angular/cdk": "^20.2.14",
     "@angular/common": "^20.3.30",
     "@angular/compiler": "^20.3.30",
     "@angular/core": "^20.3.30",
@@ -51,7 +52,7 @@
     "@types/express": "^4.17.17",
     "@types/node": "^22.0.0",
     "@types/swiper": "^5.4.3",
-    "@vitest/ui": "^4.1.11",
+    "@vitest/ui": "^3.2.7",
     "angular-eslint": "^22.2.0",
     "dotenv": "^16.4.7",
     "dotenv-webpack": "^8.1.0",
