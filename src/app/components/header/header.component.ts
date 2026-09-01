@@ -82,6 +82,14 @@ export class HeaderComponent implements OnInit {
 
   constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
+    // Set synchronously from matchMedia rather than waiting for
+    // ngOnInit's BreakpointObserver subscription to emit - without this,
+    // the very first client render after SSR briefly reused the
+    // server's desktop-nav markup (isMobileView still at its default
+    // `false`) even on a phone-width viewport, before flipping over.
+    if (this.isBrowser) {
+      this.isMobileView = window.matchMedia('(max-width: 1400px)').matches;
+    }
   }
 
   ngOnInit() {
