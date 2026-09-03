@@ -14,9 +14,15 @@ const commonEngine = new CommonEngine();
 
 /**
  * Serve static files from /browser
+ *
+ * Express 5's path-to-regexp no longer supports bare wildcards in string
+ * paths - '*.*' would need to be '/{*splat}' (matching everything, which
+ * would swallow the SSR catch-all below it too). A RegExp path is still
+ * fully supported and keeps the original "only paths with a file
+ * extension" behavior intact.
  */
 app.get(
-  '*.*',
+  /\.[^/]+$/,
   express.static(browserDistFolder, {
     maxAge: '1y',
     index: 'index.html',
@@ -89,8 +95,11 @@ app.get('/robots.txt', (req, res) => {
 
 /**
  * Handle all other requests by rendering the Angular application.
+ *
+ * '/{*splat}' (Express 5's wildcard syntax) - the braces are required to
+ * also match the root path '/', which a bare '/*splat' would exclude.
  */
-app.get('*', (req, res, next) => {
+app.get('/{*splat}', (req, res, next) => {
   const { protocol, originalUrl, baseUrl, headers } = req;
 
   commonEngine
